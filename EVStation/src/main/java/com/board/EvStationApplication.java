@@ -8,6 +8,7 @@ public class EvStationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EvStationApplication.class, args);
+		//dkfj;adskfj아영나sdsd
 	}
 
 }
