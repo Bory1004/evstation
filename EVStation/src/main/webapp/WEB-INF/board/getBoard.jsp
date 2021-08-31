@@ -18,8 +18,8 @@
 	<tr><td colspan="2">
 	<a href="/updateform/${board.num}">글 수정</a>	
 	<a href="/delete/${board.num}">글 삭제</a>
-	<a href="/getBoardList">글 목록</a>
-	</td></tr><!--testsd  -->
+	<a href="/getBoardList">글 목록</a>dd
+	</td></tr><!--testsdsdfdf-->
 </table>
 </body>
 </html>
