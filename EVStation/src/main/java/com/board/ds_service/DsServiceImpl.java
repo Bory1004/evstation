@@ -19,4 +19,14 @@ public class DsServiceImpl implements DsService {
 		return dsRepo.findAll();
 	}
 
+	@Override
+	public void saveQnA(DsEntity dsEntity) {
+			dsRepo.save(dsEntity);
+	}
+
+	@Override
+	public DsEntity qnaDetail(Long board_num) {
+		return dsRepo.getById(board_num);
+	}
+
 }

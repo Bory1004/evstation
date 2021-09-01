@@ -30,9 +30,9 @@ public class DsEntity implements Serializable {
 	private Long board_mem_num;
 	private String board_title;
 	private String board_writer;
-	//@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
-	private String board_date;  
-	//@Column(insertable = false, updatable = false, columnDefinition ="number default 0")
+	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
+	private Date board_date;  
+	@Column(insertable = false, updatable = false, columnDefinition ="number default 0")
 	private Long board_see;
 	private Long board_recom;
 	private String board_content;

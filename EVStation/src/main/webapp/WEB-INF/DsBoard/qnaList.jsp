@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,13 +38,14 @@ th {
 <c:forEach items="${list}" var="list">
 <tr>
 <td>${list.board_num}</td>
-<td>${list.board_title}</td>
+<td><a href="qnaDetail/${list.board_num}">${list.board_title}</a></td>
 <td>${list.board_writer}</td>
-<td>${list.board_date}</td>
+<td><fmt:formatDate value="${list.board_date}" pattern="MM.dd" /></td>
 <td>${list.board_yn}</td>
 </tr>
 </c:forEach>  
 </table>
+<button type="button" onclick="location.href='/insertQnA';" >글쓰기</button>
 </div>			
 </body>
 </html>
