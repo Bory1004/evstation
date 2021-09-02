@@ -25,15 +25,15 @@ public class DsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,  generator="QNA_SEQ_GEN")
-     
-	private Long board_num;   
+    @Column(name= "board_num")
+	private Long boardnum;   
 	private Long board_mem_num;
 	private String board_title;
 	private String board_writer;
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
 	private Date board_date;  
-	@Column(insertable = false, updatable = false, columnDefinition ="number default 0")
-	private Long board_see;
+	@Column(name ="board_see", insertable = false, updatable = false, columnDefinition ="number default 0")
+	private Long boardsee;
 	private Long board_recom;
 	private String board_content;
 	private Long board_type;

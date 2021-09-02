@@ -3,6 +3,9 @@ package com.board.ds_service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.board.ds_entity.DsEntity;
@@ -16,7 +19,7 @@ public class DsServiceImpl implements DsService {
 
 	@Override
 	public List<DsEntity> QnA_AllList() {
-		return dsRepo.findAll();
+		return dsRepo.findAll(); 
 	}
 
 	@Override
@@ -25,8 +28,25 @@ public class DsServiceImpl implements DsService {
 	}
 
 	@Override
-	public DsEntity qnaDetail(Long board_num) {
-		return dsRepo.getById(board_num);
+	public DsEntity qnaDetail(Long boardnum) {
+		dsRepo.updateSee(boardnum); 
+		return dsRepo.getById(boardnum);
 	}
+	@Override
+	public void deleteQnA(Long boardnum) {
+		dsRepo.deleteById(boardnum);  
+	}
+
+	@Override
+	public void updateQnA(DsEntity dsEntity) {
+		 dsRepo.save(dsEntity);
+	}
+
+	@Override
+	public Page<DsEntity> AllListQnA(int pNum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return dsRepo.findByOrderByBoardnumDesc(page);
+	}
+
 
 }
