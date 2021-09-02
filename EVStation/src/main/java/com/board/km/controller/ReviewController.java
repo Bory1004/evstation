@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,15 +21,14 @@ public class ReviewController {
 	
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
-			String search, @RequestParam(defaultValue = "-1") int searchn) {
+			String search, @RequestParam(defaultValue = "-1") int searchn, @RequestParam(name="stnum",defaultValue ="2") Long stnum ) {
 		
 		Page<ReviewBoard> pageList =null;
 		if(search != null) { //검색값이 있을때
-			pageList = reviewService.getReviewBoardList(pNum,searchn,search);
+			pageList = reviewService.getReviewBoardList(pNum,stnum,searchn,search);
 		}else { 
-			pageList = reviewService.getReviewBoardList(pNum);
+			pageList = reviewService.getReviewBoardList(pNum,stnum); //페이지번호와 충전소번호
 		}
-		
 		
 	
 		List<ReviewBoard> rList = pageList.getContent();
@@ -38,10 +38,11 @@ public class ReviewController {
 		m.addAttribute("rList", rList);
 		m.addAttribute("totalPage",totalPageCount);
 		m.addAttribute("total",total);
-	
+		m.addAttribute("pNum",pNum);
+		
 		int pageNum = 5;
-		int begin = (pNum -1) / pageNum * pageNum + 1;
-		int end = begin + pageNum-1;
+		int begin = (pNum -1) / pageNum * pageNum + 1; //  1 1 1 1 1 6 6 6 6 6  11 11....
+		int end = begin + pageNum-1; // 5 5 5 5 5 10 10 10 10 ..
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
@@ -51,8 +52,19 @@ public class ReviewController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 		//System.out.println("test");
-		return "kmboard/reviewlist";
+		return "kmboard/review/reviewlist";
 	}
+	
+	@RequestMapping("content/{num}")
+	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, int searchn,Model m) {
+		ReviewBoard review = reviewService.getReview(num);
+		m.addAttribute("review",review);
+		m.addAttribute("pNum",pNum);
+		m.addAttribute("search",search);
+		m.addAttribute("searchn",searchn);
+		return "kmboard/review/getreview";
+	}
+	
 	
 	
 }

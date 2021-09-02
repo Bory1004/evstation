@@ -41,6 +41,7 @@ private static final long serialVersionUID = 1L;
 	private String boardcontent;
 	@Column(name="board_type")
 	private Long boardtype;
-	
+	@Column(name="board_st_num")
+	private Long boardstnum;
 	
 }

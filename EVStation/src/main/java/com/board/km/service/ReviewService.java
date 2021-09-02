@@ -7,7 +7,9 @@ import com.board.km.domain.ReviewBoard;
 
 public interface ReviewService {
 
-	Page<ReviewBoard> getReviewBoardList(int pNum, int searchn, String search);
+	Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum, int searchn, String search);
 
-	Page<ReviewBoard> getReviewBoardList(int pNum);
+	Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum);
+
+	ReviewBoard getReview(Long num);
 }

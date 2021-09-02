@@ -10,12 +10,14 @@ import com.board.km.domain.ReviewBoard;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 	
-	Page<ReviewBoard> findByOrderByBoardnumDesc(Pageable page);
+	Page<ReviewBoard> findByBoardstnumOrderByBoardnumDesc(Long i,Pageable page);
 
-	Page<ReviewBoard> findByBoardtitleContainingIgnoreCase(String search, Pageable page);
+	Page<ReviewBoard> findByBoardstnumAndBoardtitleContainingIgnoreCaseOrderByBoardnumDesc(Long i,String search, Pageable page);
 
-	Page<ReviewBoard> findByBoardwriterContainingIgnoreCase(String search, Pageable page);
+	Page<ReviewBoard> findByBoardstnumAndBoardwriterContainingIgnoreCaseOrderByBoardnumDesc(Long i,String search, Pageable page);
 
-	Page<ReviewBoard> findByBoardcontentContainingIgnoreCase(String search, Pageable page);
+	Page<ReviewBoard> findByBoardstnumAndBoardcontentContainingIgnoreCaseOrderByBoardnumDesc(Long i,String search, Pageable page);
+
+	ReviewBoard findByBoardnum(Long num);
 
 }

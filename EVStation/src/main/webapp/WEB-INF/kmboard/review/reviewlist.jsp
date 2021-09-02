@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>리뷰리스트</title>
+<title>충전소현황</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -35,7 +35,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="#" class="link-secondary"> <img src="./img/logo.png"
+					<a href="/" class="link-secondary"> <img src="/img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -67,13 +67,13 @@ a {
 
 
 	<main>
-		<div class="container input-group d-flex justify-content-center">
+		<div class="container  justify-content-center">
 
 			<div class="w-100 input-group justify-content-center">
-				<h1 class="mb-3 text-success">리뷰 게시판</h1>
+				<h1 class="mb-3 text-success text-center">리뷰 목록</h1>
 				<c:if test="${ total != 0}">
-					<table class="table table-hover table-striped text-center" >
-						<tr>
+					<table class="table table-hover table-striped text-center">
+						<tr class="table-dark">
 							<th>No.</th>
 							<th>작성글</th>
 							<th>작성자</th>
@@ -84,7 +84,8 @@ a {
 						<c:forEach items="${rList}" var="board">
 							<tr>
 								<td>${board.boardnum}</td>
-								<td><a href="/content/${board.boardnum}" class="text-success">${board.boardtitle}</a></td>
+								<td><a href="/content/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
+									class="text-success">${board.boardtitle}</a></td>
 								<td>${board.boardwriter}</td>
 								<td><fmt:formatDate value="${board.boarddate}"
 										pattern="MM.dd" /></td>
@@ -93,50 +94,82 @@ a {
 							</tr>
 						</c:forEach>
 					</table>
+					<br>
 				</c:if>
 				<c:if test="${total == 0}">
 				검색 결과가 없습니다.
 				</c:if>
+	
 			
+			<div class="page">
+				<c:if test="${search == null }">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<c:if test="${begin > 5 }">
+								<li class="page-item"><a class="page-link"
+									aria-label="Previous" class="page-link" aria-label="Previous"
+									href="/reviewList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
+							</c:if>
+							<c:forEach begin="${begin }" end="${end}" var="i">
+								<li class="page-item"><a class="page-link"
+									href="/reviewList?p=${i}">${i}</a></li>
+							</c:forEach>
+							<c:if test="${end < totalPage }">
+								<li class="page-item"><a class="page-link"
+									aria-label="Next" class="page-link" aria-label="Next"
+									href="/reviewList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
+							</c:if>
+						</ul>
+					</nav>
+				</c:if>
+
+				<c:if test="${search != null }">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<c:if test="${begin > 5 }">
+								<li class="page-item"><a class="page-link"
+									aria-label="Previous"
+									href="/reviewList?p=${begin-1}&search=${search}&searchn=${searchn}"><span
+										aria-hidden="true">&laquo;</span></a></li>
+							</c:if>
+							<c:forEach begin="${begin }" end="${end}" var="i">
+								<li class="page-item"><a class="page-link"
+									href="/reviewList?p=${i}&search=${search}&searchn=${searchn}">${i}</a></li>
+							</c:forEach>
+							<c:if test="${end < totalPage }">
+								<li class="page-item"><a class="page-link"
+									aria-label="Next"
+									href="/reviewList?p=${end+1}&search=${search}&searchn=${searchn}"><span
+										aria-hidden="true">&raquo;</span></a></li>
+							</c:if>
+						</ul>
+					</nav>
+				</c:if>
+				</div>
 			</div>
 		
-
-				<div id="page">
-						<c:if test="${search == null }">
-						<nav aria-label="Page navigation">
-						<ul class="pagination">
-							<c:if test="${begin > 5 }">
-								<li class="page-item"><a class="page-link"  aria-label="Previous" class="page-link"  aria-label="Previous" href="/reviewList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
-							</c:if>
-							<c:forEach begin="${begin }" end="${end}" var="i">
-								<li class="page-item"><a class="page-link" href="/reviewList?p=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${end < totalPage }">
-								<li class="page-item"><a class="page-link"  aria-label="Next" class="page-link"  aria-label="Next" href="/reviewList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
-							</c:if>
-						</ul>
-						</nav>
-						</c:if>
-
-						<c:if test="${search != null }">
-						<nav aria-label="Page navigation">
-						<ul class="pagination">
-							<c:if test="${begin > 5 }">
-								<li class="page-item"><a class="page-link"  aria-label="Previous" href="/reviewList?p=${begin-1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&laquo;</span></a></li>
-							</c:if>
-							<c:forEach begin="${begin }" end="${end}" var="i">
-								<li class="page-item"><a class="page-link" href="/reviewList?p=${i}&search=${search}&searchn=${searchn}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${end < totalPage }">
-								<li class="page-item"><a class="page-link"  aria-label="Next" href="/reviewList?p=${end+1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&raquo;</span></a></li>
-							</c:if>
-						</ul>
-						</nav>
-						</c:if>
+			<!-- 여기서 검색창코딩 -->
+				<div class="container row justify-content-center">
+				
+				<div class="col-6">
+				<form>
 					
+				<select name="searchn" class="form-control" style="text-align-last:center;">
+					<option value="0">제목</option>
+					<option value="1">내용</option>
+					<option value="2">작성자</option>
+				</select>
+				
+				<input type="text" class="form-control" id="search" name="search"  />
+				<input type="submit" class="form-control" value="검색" />
+					
+				</form>
 				</div>
-	
+				</div>
+		
 		</div>
+		
+		
 	</main>
 
 
@@ -154,27 +187,25 @@ a {
 				<p>Copyright @ 2021 EvStation</p>
 			</div>
 		</div>
-	<c:forEach items="${rlist}" var="board">
-							<tr>
-								<td>${board.board_num}</td>
-								<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
-								<td>${board.boardwriter}</td>
-								<td><fmt:formatDate value="${board.boarddate}"
-										pattern="MM.dd" /></td>
-								<td>${board.boardsee}</td>
-							</tr>
-						</c:forEach>
+		<c:forEach items="${rlist}" var="board">
+			<tr>
+				<td>${board.board_num}</td>
+				<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
+				<td>${board.boardwriter}</td>
+				<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd" /></td>
+				<td>${board.boardsee}</td>
+			</tr>
+		</c:forEach>
 	</footer>
-				<c:forEach items="${rlist}" var="board">
-							<tr>
-								<td>${board.boardnum}</td>
-								<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
-								<td>${board.boardwriter}</td>
-								<td><fmt:formatDate value="${board.boarddate}"
-										pattern="MM.dd" /></td>
-								<td>${board.boardsee}</td>
-							</tr>
-						</c:forEach>
+	<c:forEach items="${rlist}" var="board">
+		<tr>
+			<td>${board.boardnum}</td>
+			<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
+			<td>${board.boardwriter}</td>
+			<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd" /></td>
+			<td>${board.boardsee}</td>
+		</tr>
+	</c:forEach>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 

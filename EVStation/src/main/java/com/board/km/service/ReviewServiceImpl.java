@@ -16,24 +16,31 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewRepository reviewRepo;
 	
 	@Override
-	public Page<ReviewBoard> getReviewBoardList(int pNum) {
+	public Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return reviewRepo.findByOrderByBoardnumDesc(page);
+		return reviewRepo.findByBoardstnumOrderByBoardnumDesc(stnum , page);
 	}
 
 	@Override
-	public Page<ReviewBoard> getReviewBoardList(int pNum, int searchn, String search) {
+	public Page<ReviewBoard> getReviewBoardList(int pNum, Long stnum ,int searchn, String search) {
 		Pageable page = PageRequest.of(pNum-1,10);
 		Page<ReviewBoard> list = null;
 		if(searchn == 0) {
-			list = reviewRepo.findByBoardtitleContainingIgnoreCase(search, page);
+			list = reviewRepo.findByBoardstnumAndBoardtitleContainingIgnoreCaseOrderByBoardnumDesc(stnum,search, page);
 		}else if(searchn == 1) {
-			list = reviewRepo.findByBoardcontentContainingIgnoreCase(search, page);
+			list = reviewRepo.findByBoardstnumAndBoardcontentContainingIgnoreCaseOrderByBoardnumDesc(stnum,search, page);
 		}else if (searchn == 2) {
-			list =  reviewRepo.findByBoardwriterContainingIgnoreCase(search, page);
+			list = reviewRepo.findByBoardstnumAndBoardwriterContainingIgnoreCaseOrderByBoardnumDesc(stnum,search, page);
+		}else if (searchn == -1) {
+			list = reviewRepo.findByBoardstnumOrderByBoardnumDesc(stnum , page);
 		}
 		
 		return list;
+	}
+
+	@Override
+	public ReviewBoard getReview(Long num) {
+		return reviewRepo.findByBoardnum(num);
 	}
 
 }
