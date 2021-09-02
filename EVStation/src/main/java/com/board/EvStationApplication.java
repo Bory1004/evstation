@@ -10,4 +10,4 @@ public class EvStationApplication {
 		SpringApplication.run(EvStationApplication.class, args);
 	}
 
-}
+}              
