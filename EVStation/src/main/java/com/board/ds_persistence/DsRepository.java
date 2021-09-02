@@ -6,4 +6,5 @@ import com.board.ds_entity.DsEntity;
 
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 
+
 }

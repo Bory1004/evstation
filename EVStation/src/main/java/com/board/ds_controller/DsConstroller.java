@@ -40,4 +40,11 @@ public class DsConstroller {
 		m.addAttribute("detail",detail);
 		return "qnaDetail";
 	}
+	@GetMapping("deleteQnA/{board_num}")
+	public String qnaDelete(@PathVariable Long board_num) {
+		dsService.deleteQnA(board_num);
+		return  "redirect:/qnaList"; 
+		
+	}
+	
 }

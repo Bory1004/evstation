@@ -9,6 +9,7 @@ public interface DsService {
 	List<DsEntity> QnA_AllList();
 	void saveQnA(DsEntity dsEntity);
 	DsEntity qnaDetail(Long board_num);
+	void deleteQnA(Long board_num);
 	
 	
 	

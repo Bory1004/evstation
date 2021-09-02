@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<button>수정</button> <button>삭제</button>
+<button>수정</button> <button type="button" onclick="location.href='/deleteQnA/${detail.board_num}';">삭제</button>
 <table border="1">
 	<tr><td>제목</td><td>${detail.board_title }</td></tr>
 	<tr><td>작성자</td><td>${detail.board_writer }</td></tr>

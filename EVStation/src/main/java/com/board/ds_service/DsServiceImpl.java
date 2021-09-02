@@ -29,4 +29,9 @@ public class DsServiceImpl implements DsService {
 		return dsRepo.getById(board_num);
 	}
 
+	@Override
+	public void deleteQnA(Long board_num) {
+		dsRepo.deleteById(board_num);  
+	}
+
 }
