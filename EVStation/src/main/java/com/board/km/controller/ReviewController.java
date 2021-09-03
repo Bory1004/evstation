@@ -65,6 +65,9 @@ public class ReviewController {
 		return "kmboard/review/getreview";
 	}
 	
-	
+	@RequestMapping("/reviewwrite")
+	public String gowriteform() {
+		return "kmboard/review/reviewwrite";
+	}
 	
 }
