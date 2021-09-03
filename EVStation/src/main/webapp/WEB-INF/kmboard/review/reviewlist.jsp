@@ -100,7 +100,7 @@ a {
 				검색 결과가 없습니다.
 				</c:if>
 			
-			<div class="w-100" style="text-align:right;"><a class="btn btn-sm btn-outline-success" href="reviewwrite">글쓰기</a></div>
+			<div class="w-100" style="text-align:right;"><a class="btn btn-sm btn-outline-success" href="reviewwrite?stnum=${stnum}">글쓰기</a></div>
 			
 			<div class="page">
 				<c:if test="${search == null }">

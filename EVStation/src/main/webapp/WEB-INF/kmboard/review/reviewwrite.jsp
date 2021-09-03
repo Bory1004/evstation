@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +32,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> <img src="/img/logo.png"
+					<a href="/" class="link-secondary"> <img src="./img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -55,7 +53,7 @@ a {
 			<nav
 				class="nav d-flex justify-content-center border-top border-bottom">
 				<a class="p-2  link-success" href="#">페이지 소개</a> <a
-					class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
+					class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="#">기대효과</a> <a
 					class="p-2 link-success" href="#">자유게시판</a> <a
 					class="p-2 link-success" href="#">공지사항</a> <a
@@ -67,51 +65,44 @@ a {
 	
 
 	<main>
-		<div class="container input-group d-flex justify-content-center">
-			
-			
-		<h1>${review.boardtitle }</h1>
-		<div class="w-100 row">
-			<div class="col-xs-12 col-md-12 mb-2" style="text-align:right;">추천수 ${review.boardrecom }</div>		
-			<div class="col-xs-12 col-md-12">
-			<div class="table table-responsive">
-				<table class="table" style="text-align:center">
-				<tr>
-					<th class="table-success">글번호</th>
-					<td>${review.boardnum}</td>
-					<th class="table-success">(프로필사진)작성자</th>
-					<td>${review.boardsee}</td>
-				</tr>
-				<tr>
-					<th class="table-success">ID</th>
-					<td>${review.boardwriter}</td>
-					<th class="table-success">작성일</th>
-					<td>${review.boarddate}</td>
-				</tr>
-				<tr>
-					<th class="table-success" colspan="1" >내용</th>
-					<td colspan="3">${review.boardcontent}</td>
-				</tr>
-				</table>
+		<div class="container" >
+		<div class="mb-5" style="text-align:center;"><h1>글 작성하기</h1></div>
+		<form>
+		
+		<input type="hidden" name="boardmemnum" value="${boardmemnum}"> <!-- 세션에있는 회원번호 -->
+		<input type="hidden" name="boardtype" value="2"> <!-- 리뷰글이므로 타입2 -->
+		<input type="hidden" name="boardstnum" value="${stnum}"> <!-- 리뷰하고있는 충전소번호 -->
+		<div class="row">
+			<div class="col-md-3">
+				<label for="user_id" class="form-label">아이디</label>
 			</div>
-			
-			(프로필사진) <a href="">${review.boardwriter}님의 게시글 더보기 ></a>
-			<hr>
-			댓글기능 구현
-			
-				
+			<div class="col-md-3">
+				<input type="text" id="user_id" name="boardwriter"class="form-control" value="idexample1" readonly>
+			</div>	
+			<div class="col-md-3">
+				<label for="user_name" class="form-label">이름</label>
 			</div>
-				<div class="col-md-12 d-flex justify-content-end" >
-					<span><a class="btn btn-md btn-outline-success" href="../reviewList?p=${pNum}&search=${search}&searchn=${searchn}" style="margin:5px">목록</a></span>
-					<span><a class="btn btn-md btn-outline-success" href="#" style="margin:5px">TOP</a></span>
-				</div>	
+			<div class="col-md-3">
+				<input type="text" id="user_name" class="form-control" value="여기에 세션에 저장된 멤버 이름" readonly>
 			</div>
+		
+			<div class="col-md-12 my-3">
+				<input type="text" class="form-control" name="boardtitle" placeholder="제목을 입력해주세요">
+			</div>
+		
+			<div class="col-md-12">
+				<textarea class="form-control" rows="10" name="boardcontent" placeholder="내용을 입력해주세요"></textarea>
+			</div>
+		
+			<div class="w-100" style="text-align:right;margin-top:10px">
+			<input type="submit" class="form-control mb-2" value="작성">
+			<a class="btn btn-sm btn-outline-success" href="reviewList">목록</a>
+		</div>
+		
+		</div>
+		</form>
 		</div>
 	</main>
-
-
-
-
 
 	<footer
 		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"

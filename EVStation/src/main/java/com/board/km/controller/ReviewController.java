@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,6 +52,7 @@ public class ReviewController {
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
+		m.addAttribute("stnum",stnum);
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
@@ -66,8 +68,18 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/reviewwrite")
-	public String gowriteform() {
+	public String gowriteform(@RequestParam(name="stnum",defaultValue ="-1") Long stnum,Model m) {
+		m.addAttribute("stnum",stnum);
+		if (stnum == -1) {
+			return "redirect:/reviewList";
+		}
 		return "kmboard/review/reviewwrite";
+	}
+	@PostMapping("/reviewwrite")
+	public String reviewwrite() {
+		//reviewService
+		
+		return null;
 	}
 	
 }
