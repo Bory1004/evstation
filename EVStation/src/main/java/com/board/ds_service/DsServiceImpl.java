@@ -41,17 +41,24 @@ public class DsServiceImpl implements DsService {
 	public void updateQnA(DsEntity dsEntity) {
 		 dsRepo.save(dsEntity);
 	}
+	@Override
+	public Page<DsEntity> AllListQnA(int pNum, int searchn, String search) {
+		
+		Pageable page = PageRequest.of(pNum-1, 10);
+		Page<DsEntity> list = null;
+		if(searchn == 0) {
+			list = dsRepo.findByBoardtitleContainingIgnoreCase(search, page);
+		}else if(searchn == 1) {
+			list = dsRepo.findByBoardcontentContainingIgnoreCase(search, page);
+		}else if(searchn == 2) {
+			list = dsRepo. findByBoardwriterContainingIgnoreCase(search ,page);
+		}
+		return list;
+	}
 
 	@Override
 	public Page<DsEntity> AllListQnA(int pNum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
 		return dsRepo.findByOrderByBoardnumDesc(page);
 	}
-
-
-	@Override
-	public void deleteQnA(Long board_num) {
-		dsRepo.deleteById(board_num);  
-	}
-
 }

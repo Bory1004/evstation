@@ -13,20 +13,20 @@
 	<table border="1">
 		<tr>
 			<td class="orange">제목</td>
-			<td><input name="board_title"/></td>
+			<td><input name="boardtitle"/></td>
 			</tr>
-			<tr>
+			<tr> 
 			<td class="orange">이메일</td>
-			<td><input name="board_email"/></td>
+			<td><input name="boardemail"/></td>
 		</tr>
 		<tr>
 			<td class="orange">작성자</td>
-			<td><input name="board_writer"/></td>
+			<td><input name="boardwriter"/></td>
 		</tr>
 		
 		<tr>
 			<td class="orange">내용</td>
-			<td><textarea name="board_content" cols="40" rows="10"></textarea></td>
+			<td><textarea name="boardcontent" cols="40" rows="10"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">

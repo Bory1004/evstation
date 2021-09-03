@@ -10,17 +10,13 @@
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-<button>수정</button> <button type="button" onclick="location.href='/deleteQnA/${detail.board_num}';">삭제</button>
-=======
 <button type="button" onclick="location.href='/updateQnAform/${detail.boardnum}';">수정</button> <button type="button" onclick="location.href='/deleteQnA/${detail.boardnum}';">삭제</button>
 <button type="button" onclick="location.href='/qnaList';">글목록</button>
->>>>>>> branch 'DS' of https://github.com/k-mini/EV-Station.git
 <table border="1">
-	<tr><td>제목</td><td>${detail.board_title }</td></tr>
-	<tr><td>작성자</td><td>${detail.board_writer }</td></tr>
-	<tr><td>내용</td><td>${detail.board_content }</td></tr>
+	<tr><td>제목</td><td>${detail.boardtitle }</td></tr>
+	<tr><td>작성자</td><td>${detail.boardwriter }</td></tr>
+	<tr><td>내용</td><td>${detail.boardcontent }</td></tr>
 	<tr><td>등록일</td><td><fmt:formatDate value="${detail.board_date }" pattern="MM.dd"/> </td></tr>
-</table>
+</table> 
 </body>
 </html>  

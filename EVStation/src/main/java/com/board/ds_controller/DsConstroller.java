@@ -23,27 +23,37 @@ public class DsConstroller {
 	
 		
 	@RequestMapping("qnaList")
-		public String qnaList(Model m, @RequestParam(name = "p", defaultValue ="1")int pNum) {	
+		public String qnaList(Model m, @RequestParam(name = "p", defaultValue ="1")int pNum, String search, @RequestParam(defaultValue = "-1") int searchn ) {	
 		
 		int pageNum = 5;
-		Page<DsEntity> pageList = dsService.AllListQnA(pNum);
+		Page<DsEntity> pageList = null;
+		if(search != null) {
+		pageList = dsService.AllListQnA(pNum, searchn, search);
+		}else {
+		pageList = dsService.AllListQnA(pNum);	
+		}
 		List<DsEntity> list = pageList.getContent();
 		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
 		m.addAttribute("list",list); 
 		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
 		
 		int begin = (pNum - 1) / pageNum * pageNum + 1;
 		int end = begin + pageNum - 1;
 		if (end > totalPageCount) {
-			end = totalPageCount;
+			end = totalPageCount; 
 		}
 
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
-
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);	
 
 			return "qnaList";
 		}
+	
 	@GetMapping("insertQnA")
 	public String insertQnaView() {
 		return "insertQnA";
@@ -59,23 +69,16 @@ public class DsConstroller {
 		m.addAttribute("detail",detail);
 		return "qnaDetail";
 	}
-<<<<<<< HEAD
-	@GetMapping("deleteQnA/{board_num}")
-	public String qnaDelete(@PathVariable Long board_num) {
-		dsService.deleteQnA(board_num);
-		return  "redirect:/qnaList"; 
-		
-	}
-	
-=======
-	@RequestMapping("deleteQnA/{boardnum}")
+
+	@GetMapping("deleteQnA/{boardnum}")
 	public String qnaDelete(@PathVariable Long boardnum) {
 		dsService.deleteQnA(boardnum);
 		return  "redirect:/qnaList"; 
+		
 	}
 	@RequestMapping("updateQnAform/{boardnum}")
 	public String qnaUpdateForm(@PathVariable Long boardnum, Model m) {
-		m.addAttribute("board_num",boardnum);
+		m.addAttribute("boardnum",boardnum);
 		return "qnaUpdate";
 	}
 	@PostMapping("updateQnA")
@@ -83,5 +86,5 @@ public class DsConstroller {
 		dsService.saveQnA(dsEntity);
 		return "redirect:/qnaList";
 	}
->>>>>>> branch 'DS' of https://github.com/k-mini/EV-Station.git
+	
 }

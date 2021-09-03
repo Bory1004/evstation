@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,51 +63,5 @@ a {
 			</nav>
 		</div>
 	</div>
-
-
-	<main>
-		<div class="container input-group d-flex justify-content-center">
-			
-			<div class="w-100 input-group">
-					<span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
-							height="16" fill="currentColor" class="bi bi-search"
-							viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-		</svg></span> <input type="text" class="form-control" id="search1"
-						placeholder="충전소명을 입력하세요">
-			</div>
-		
-		<div id="map" class="m-3" style="width:500px;height:400px;"></div>
-		</div>
-	</main>
-
-
-
-	<footer
-		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"
-		style="height: 100px;">
-
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>
-					Project built for <a href="#">Portfolio</a> by <a href="#">Team
-						2</a>.
-				</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-
-	</footer>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
-		<script>
-			var container = document.getElementById('map');
-			var options = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667),
-					level: 3
-			};
-		var map = new kakao.maps.Map(container, options);
-	</script>
 </body>
-
 </html>

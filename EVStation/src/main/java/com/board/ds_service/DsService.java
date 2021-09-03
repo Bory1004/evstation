@@ -10,16 +10,14 @@ public interface DsService {
 	
 	List<DsEntity> QnA_AllList();
 	void saveQnA(DsEntity dsEntity);
-<<<<<<< HEAD
-	DsEntity qnaDetail(Long board_num);
-	void deleteQnA(Long board_num);
-=======
 	DsEntity qnaDetail(Long boardnum);
 	void deleteQnA(Long boardnum);
 	void updateQnA(DsEntity dsEntity);
+	Page<DsEntity>AllListQnA(int pNum, int searchn, String search);
 	Page<DsEntity>AllListQnA(int pNum);
->>>>>>> branch 'DS' of https://github.com/k-mini/EV-Station.git
+
 	
+
 	
 	
 

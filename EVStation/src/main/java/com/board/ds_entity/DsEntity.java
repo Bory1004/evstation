@@ -27,18 +27,24 @@ public class DsEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,  generator="QNA_SEQ_GEN")
     @Column(name= "board_num")
 	private Long boardnum;   
-	private Long board_mem_num;
-	private String board_title;
-	private String board_writer;
+	@Column(name= "board_mem_num")	
+	private Long boardmemnum;
+	@Column(name= "board_title")
+	private String boardtitle;
+	@Column(name= "board_writer")
+	private String boardwriter;
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
 	private Date board_date;  
 	@Column(name ="board_see", insertable = false, updatable = false, columnDefinition ="number default 0")
 	private Long boardsee;
-	private Long board_recom;
-	private String board_content;
-	private Long board_type;
-	private String board_yn;
-	
+	@Column(name= "board_recom")
+	private Long boardrecom;
+	@Column(name= "board_content")
+	private String boardcontent;
+	@Column(name= "board_type")
+	private Long boardtype;
+	@Column(name= "board_yn")
+	private String boardyn;
 
 	
 }
