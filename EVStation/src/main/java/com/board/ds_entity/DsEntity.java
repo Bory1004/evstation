@@ -46,5 +46,8 @@ public class DsEntity implements Serializable {
 	@Column(name= "board_yn")
 	private String boardyn;
 
+	private Long reNum;
+	private Long reStep;
+	private Long reLevel;
 	
 }

@@ -24,5 +24,12 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	Page<DsEntity> findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsEntity d SET d.reStep = d,reStep+1 and SET d.reLevel = d.reLevel+1  where d.ref=?1 ")
+	int updateRe(Long ref);
+	//레퍼런스는 같고 스텝만 큰
+	
 
 }
