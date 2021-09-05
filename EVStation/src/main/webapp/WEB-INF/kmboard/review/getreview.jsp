@@ -97,8 +97,11 @@ a {
 			
 			(프로필사진) <a href="">${review.boardwriter}님의 게시글 더보기 ></a>
 			<hr>
-			댓글기능 구현
-			
+			<span><strong>Comments</strong></span><span id="cCnt">${cCnt}</span>
+				<hr style="margin-botton:10px;">
+				<textarea style="width:100%;" rows="3" cols="30" name="comment" placeholder="댓글을 입력하세요"></textarea>
+				<div class="mb-2" style="text-align:right;"><a href="#" onClick="" class="btn btn-sm btn-success">등록</a></div>
+					
 				
 			</div>
 				<div class="col-md-12 d-flex justify-content-end" >

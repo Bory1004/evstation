@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -17,12 +19,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@SequenceGenerator(name="BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1,allocationSize=1)  
 public class ReviewBoard {
 	
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="BOARD_SEQ_GEN")
 	@Column(name = "board_num")
 	private Long boardnum;
 	@Column(name = "board_mem_num")

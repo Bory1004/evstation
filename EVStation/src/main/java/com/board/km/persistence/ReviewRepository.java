@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.board.km.domain.ReviewBoard;
@@ -26,7 +27,7 @@ public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=?1")
-	int updateCnt(Long num);
-
+	@Query("UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=:boardnum" )
+	int updateCnt(@Param("boardnum") Long num); //"UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=?1" JPQL
+							                    // "UPDATE Board01 b SET b.board_see = b.board_see+1 WHERE b.board_num=?1" 네이티브쿼리
 }
