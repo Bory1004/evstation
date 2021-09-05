@@ -67,7 +67,7 @@ a {
 	<main>
 		<div class="container" >
 		<div class="mb-5" style="text-align:center;"><h1>글 작성하기</h1></div>
-		<form>
+		<form method="post">
 		
 		<input type="hidden" name="boardmemnum" value="${boardmemnum}"> <!-- 세션에있는 회원번호 -->
 		<input type="hidden" name="boardtype" value="2"> <!-- 리뷰글이므로 타입2 -->
@@ -95,7 +95,7 @@ a {
 			</div>
 		
 			<div class="w-100" style="text-align:right;margin-top:10px">
-			<input type="submit" class="form-control mb-2" value="작성">
+			<input type="submit" class="btn btn-sm btn-outline-success" value="작성">
 			<a class="btn btn-sm btn-outline-success" href="reviewList">목록</a>
 		</div>
 		

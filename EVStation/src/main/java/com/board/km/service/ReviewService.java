@@ -12,4 +12,6 @@ public interface ReviewService {
 	Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum);
 
 	ReviewBoard getReview(Long num);
+
+	void saveReview(ReviewBoard board);
 }

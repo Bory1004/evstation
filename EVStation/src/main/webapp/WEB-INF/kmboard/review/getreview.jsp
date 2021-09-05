@@ -72,7 +72,7 @@ a {
 			
 		<h1>${review.boardtitle }</h1>
 		<div class="w-100 row">
-			<div class="col-xs-12 col-md-12 mb-2" style="text-align:right;">추천수 ${review.boardrecom }</div>		
+			<div class="col-xs-12 col-md-12 mb-2" style="text-align:right;">추천수 ${review.boardrecom } 조회수 ${review.boardsee}</div>		
 			<div class="col-xs-12 col-md-12">
 			<div class="table table-responsive">
 				<table class="table" style="text-align:center">
@@ -80,7 +80,7 @@ a {
 					<th class="table-success">글번호</th>
 					<td>${review.boardnum}</td>
 					<th class="table-success">(프로필사진)작성자</th>
-					<td>${review.boardsee}</td>
+					<td> 작성자 닉네임 예시1 </td>
 				</tr>
 				<tr>
 					<th class="table-success">ID</th>
@@ -90,7 +90,7 @@ a {
 				</tr>
 				<tr>
 					<th class="table-success" colspan="1" >내용</th>
-					<td colspan="3">${review.boardcontent}</td>
+					<td colspan="3"><textarea rows="10" style="width:100%;border:none;">${review.boardcontent}</textarea></td>
 				</tr>
 				</table>
 			</div>

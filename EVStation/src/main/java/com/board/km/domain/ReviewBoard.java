@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
 	private Date boarddate;
 	@Column(name= "board_see", insertable = false, updatable = false, columnDefinition ="number default 0")
 	private Long boardsee;
-	@Column(name="board_recom", columnDefinition ="number default 0")
+	@Column(name="board_recom",insertable =false, columnDefinition ="number default 0")
 	private Long boardrecom;
 	@Column(name="board_writer", updatable = false)
 	private String boardwriter;

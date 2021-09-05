@@ -40,7 +40,13 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ReviewBoard getReview(Long num) {
+		reviewRepo.updateCnt(num);
 		return reviewRepo.findByBoardnum(num);
+	}
+
+	@Override
+	public void saveReview(ReviewBoard board) {
+		 	reviewRepo.save(board);
 	}
 
 }

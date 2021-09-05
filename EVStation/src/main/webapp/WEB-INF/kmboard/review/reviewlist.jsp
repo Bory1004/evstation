@@ -78,8 +78,8 @@ a {
 							<th>작성글</th>
 							<th>작성자</th>
 							<th>날짜</th>
-							<th>추천수</th>
 							<th>조회수</th>
+							<th>추천수</th>
 						</tr>
 						<c:forEach items="${rList}" var="board">
 							<tr>

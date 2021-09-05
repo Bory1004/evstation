@@ -64,6 +64,7 @@ public class ReviewController {
 		m.addAttribute("pNum",pNum);
 		m.addAttribute("search",search);
 		m.addAttribute("searchn",searchn);
+		
 		return "kmboard/review/getreview";
 	}
 	
@@ -76,10 +77,10 @@ public class ReviewController {
 		return "kmboard/review/reviewwrite";
 	}
 	@PostMapping("/reviewwrite")
-	public String reviewwrite() {
-		//reviewService
+	public String reviewwrite(ReviewBoard board) {
+		reviewService.saveReview(board);
 		
-		return null;
+		return "redirect:/reviewList";
 	}
 	
 }
