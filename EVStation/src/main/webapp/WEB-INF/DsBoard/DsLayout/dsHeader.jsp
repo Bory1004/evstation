@@ -34,7 +34,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="#" class="link-secondary"> <img src="./img/logo.png"
+					<a href="#" class="link-secondary"> <img src="../img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -59,7 +59,7 @@ a {
 					class="p-2 link-success" href="#">기대효과</a> <a
 					class="p-2 link-success" href="#">자유게시판</a> <a
 					class="p-2 link-success" href="#">공지사항</a> <a
-					class="p-2 link-success" href="qnaList">Q&A</a>
+					class="p-2 link-success" href="/qnaList">Q&A</a>
 			</nav>
 		</div>
 	</div>

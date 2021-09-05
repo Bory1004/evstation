@@ -16,7 +16,8 @@ public interface DsService {
 	Page<DsEntity>AllListQnA(int pNum, int searchn, String search);
 	Page<DsEntity>AllListQnA(int pNum);
 
-	
+	 
+	int saveReply(Long ref, Long restep);
 
 	
 	

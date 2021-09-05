@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort.Order;
 
 import com.board.ds_entity.DsEntity;
 import com.board.ds_persistence.DsRepository;
@@ -61,4 +64,58 @@ public class DsServiceImpl implements DsService {
 		Pageable page = PageRequest.of(pNum-1, 10);
 		return dsRepo.findByOrderByBoardnumDesc(page);
 	}
-}
+
+	
+	
+	
+	@Override
+	public int saveReply(Long ref, Long restep) {
+		 dsRepo.saveReply(ref, restep);
+		 return dsRepo.saveReply(ref, restep);
+	}
+
+	
+	
+	
+	
+	
+
+	
+//	@Override
+//	public Page<DsEntity> getfindAll(Integer pNum, Integer pageSize) {
+//		Pageable pr =  PageRequest.of(pNum-1, 10, Sort.by("groupNo").descending()
+//																		.and(Sort.by("groupSeq").ascending()
+//																		.and(Sort.by("depth").ascending())));
+//		
+//				return dsRepo.findAll(pr);
+//		}
+//
+//
+//	@Override
+//	public DsEntity getfindOne(Long boardnum) {
+//		DsEntity ds = dsRepo.getById(boardnum);
+//		return ds;
+//	}
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
