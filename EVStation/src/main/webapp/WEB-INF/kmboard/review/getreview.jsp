@@ -111,7 +111,8 @@ a {
 						<hr>
 						<c:forEach items="${comments}" var="comment">
 						<div id="${comment.comnum}"><div class="mb-2"><strong>${comment.commemnum} <fmt:formatDate
-									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <a href="/deleteComment?comnum=${comment.comnum}" style="float:right;">삭제</a></div>
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_update${comment.comnum}" href="/updateComment?comnum=${comment.comnum}" onClick="deleteComment(${comment.comnum})">수정</a> 
+																															<a id="comment_delete${comment.comnum}" href="#a" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
 							${comment.comcontent} <hr></div>
 						</c:forEach>
 
@@ -156,6 +157,7 @@ a {
 		$(function() {
 			$('#comment_button').click(function() {
 				let comcontent = $('#comment').val()
+				//let comcontent2 = $('#comment').html()
 				let boardnum = $('#boardnum').html()
 				//alert(${review.boardnum});
 				//alert(comcontent)
@@ -177,17 +179,66 @@ a {
 					dataType : "json"
 				}).done(function(data) {
 					//alert(data.comdate)
+					//$('#comment').val() = "";   //<- 이거 질문 왜안되는지
+					$('#comment').val('');
+					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
+					//alert($('#comment').val())
 					$("#commentlist").append(
-						"<div><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><a href='/deleteComment?comnum="+data.comnum+"' style='float:right;'>삭제</a></div>"+data.comcontent+"<hr></div>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'><a id='comment_update"+data.comnum+"' href='/updateComment?comnum="+data.comnum+"'>수정</a> <a id='comment_delete"+data.comnum+"' href='#a' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div>"+data.comcontent+"<hr></div>"
 					);
+					
 				}).fail(function(e) {
 					alert(e.responseText);
 				})
 			});
-		
-		
+		//----------------------------------------------
+			/* $('#comment_delete').click(function(){
+				alert("test");
+				if(confirm("댓글을 삭제하시겠습니까?")){
+					alert('test')
+					
+						$.ajax({
+							type : "get",
+							url : "delete",
+							data : {},
+							dataType : "json"
+						}).done(function(data){
+					
+							alert("삭제되었습니다.")
+						}).fail(function(e){
+							alert("삭제에 실패했습니다.");
+							alert(e.responseText);
+						})
+					}else{
+						return false;
+					}
+			}) */
+			
 		
 		})
+	//---------------	
+		function deleteComment(x){ //왜 여기는 안들어가지??
+				let comnum = x;
+				//alert(comnum);
+				//$('#'+comnum).remove();
+				if(confirm("댓글을 삭제하시겠습니까?")){
+					$.ajax({
+						type : "get",
+						url :  "deleteComment" ,
+						data : {"comnum" : comnum},
+						dataType : "text"
+					}).done(function(data){
+						//alert(data)
+						alert("삭제되었습니다.")
+						$('#'+comnum).remove();
+					}).fail(function(e){
+						alert("삭제중에 오류가 발생했습니다.")
+						alert(e.responseText);
+					})
+				}else{
+					return false;
+				}
+			}
 	</script>
 </body>
 </html>

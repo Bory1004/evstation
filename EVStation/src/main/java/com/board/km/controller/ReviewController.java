@@ -70,14 +70,15 @@ public class ReviewController {
 	@RequestMapping("content/{num}")
 	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, int searchn,Model m) {
 		ReviewBoard review = reviewService.getReview(num);
-		List<BoardComment> comments =commentService.getComments(num);
 		
-		m.addAttribute("comments",comments);
 		
 		m.addAttribute("review",review);
 		m.addAttribute("pNum",pNum);
 		m.addAttribute("search",search);
 		m.addAttribute("searchn",searchn);
+	//-------------------------------------------------- 댓글 부분
+		List<BoardComment> comments =commentService.getComments(num);
+		m.addAttribute("comments",comments);
 		
 		return "kmboard/review/getreview";
 	}
@@ -114,6 +115,13 @@ public class ReviewController {
 		BoardComment list = commentService.getComment(comnum).get();
 		Gson json = new Gson();
 		return json.toJson(list);
+	}
+	
+	@RequestMapping(value="/content/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String deleteComment(Long comnum) {
+		commentService.deleteComment(comnum);
+		return "Success!!";
 	}
 	
 }

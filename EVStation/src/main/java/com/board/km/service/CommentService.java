@@ -18,4 +18,7 @@ public interface CommentService {
 
 	List<BoardComment> getComments(Long num);
 
+
+	void deleteComment(Long comnum);
+
 }

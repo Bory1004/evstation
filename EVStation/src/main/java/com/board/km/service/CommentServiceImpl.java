@@ -35,4 +35,10 @@ public class CommentServiceImpl implements CommentService {
 	public List<BoardComment> getComments(Long num) {
 		return commentRepo.findByBoardnumOrderByComdateAsc(num);
 	}
+
+
+	@Override
+	public void deleteComment(Long comnum) {
+		commentRepo.deleteById(comnum);
+	}
 }
