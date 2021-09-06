@@ -1,5 +1,6 @@
 package com.board.km.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.km.domain.BoardComment;
 import com.board.km.domain.ReviewBoard;
+import com.board.km.service.CommentService;
 import com.board.km.service.ReviewService;
+import com.google.gson.Gson;
+
 
 @Controller
 public class ReviewController {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
@@ -60,6 +70,10 @@ public class ReviewController {
 	@RequestMapping("content/{num}")
 	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, int searchn,Model m) {
 		ReviewBoard review = reviewService.getReview(num);
+		List<BoardComment> comments =commentService.getComments(num);
+		
+		m.addAttribute("comments",comments);
+		
 		m.addAttribute("review",review);
 		m.addAttribute("pNum",pNum);
 		m.addAttribute("search",search);
@@ -81,6 +95,25 @@ public class ReviewController {
 		reviewService.saveReview(board);
 		
 		return "redirect:/reviewList";
+	}
+	
+	@RequestMapping(value = "content/insertComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	public String insertComment(BoardComment board) {
+		commentService.saveComment(board);
+		commentService.saveReply(board.getComnum());
+		Long comnum = board.getComnum();
+		
+		
+		return "redirect:/content2?comnum="+comnum;
+	}
+	
+	
+	@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String goComment(Long comnum) {
+		BoardComment list = commentService.getComment(comnum).get();
+		Gson json = new Gson();
+		return json.toJson(list);
 	}
 	
 }
