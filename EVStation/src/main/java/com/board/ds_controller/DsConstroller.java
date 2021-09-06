@@ -108,7 +108,7 @@ public class DsConstroller {
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity) {
+	public String saveReply(DsEntity dsEntity) { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep());	
 		

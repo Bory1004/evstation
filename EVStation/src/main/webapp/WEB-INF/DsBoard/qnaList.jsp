@@ -89,13 +89,15 @@ th {
 		<c:if test="${total == 0}">
 			검색 결과가 없습니다.
 		</c:if>
-	<button type="button" onclick="location.href='/insertQnA';">글쓰기</button>
+	<button type="button"  class="btn btn-outline-success"  onclick="location.href='/insertQnA';">글쓰기</button>
 	<form>
-		<select name="searchn">
+		<select  class="selectpicker"   name="searchn">
 			<option value="0">제목</option>
 			<option value="1">내용</option>
 			<option value="2">작성자</option>
-		</select> <input type="text" name="search" size="15" maxlength="50" /> <input type="submit" value="검색" />
+		</select>
+		<input class="form-control input-sm form-control-borderless"  name="search" type="search" placeholder="Search topics or keywords">
+		<input class="btn btn-lg btn-success"  type="submit" value="검색" />
 	</form>
 	</div>
 	<%@ include file="DsLayout/dsFooter.jsp"%>
