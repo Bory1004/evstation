@@ -41,6 +41,7 @@ public class DsEntity implements Serializable {
 	@Column(columnDefinition ="number default 0")
     private Long ref;
     private Long restep;
+	@Column(columnDefinition ="number default 0")
     private Long relevel;
 
 	

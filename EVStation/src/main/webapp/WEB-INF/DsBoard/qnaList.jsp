@@ -43,8 +43,9 @@ th {
 					<tr>
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
-						<c:if test="${list.restep > 0 }">
-						<c:forEach begin="1" end="${list.restep}">
+						<c:if test="${list.restep > 0 }" >[답변]</c:if>
+						<c:if test="${list.relevel > 0 }">
+						<c:forEach begin="1" end="${list.relevel}">
 								Re:
 						</c:forEach>
 							[답변]
