@@ -9,7 +9,10 @@
 </style>
 </head>
 <body>
-<form action="qnaReply"  method="post" >
+<form action="/qnaReply"  method="post" >
+	<input type="hidden" name ="ref" value="${ref }">
+	<input type="hidden" name ="restep" value="${restep }">
+	<input type="hidden" name ="relevel" value=""${relevel }>
 
 	<table border="1">
 		<tr>

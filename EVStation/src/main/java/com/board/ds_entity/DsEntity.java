@@ -38,13 +38,9 @@ public class DsEntity implements Serializable {
 	private String boardcontent;
 	private Long boardtype;
 	private String boardyn;
-
-
-	
-	@Column(insertable = false, columnDefinition ="number default 0")
+	@Column(columnDefinition ="number default 0")
     private Long ref;
     private Long restep;
-    @Column( insertable = true)
     private Long relevel;
 
 	

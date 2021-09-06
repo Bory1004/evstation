@@ -13,7 +13,7 @@ import com.board.ds_entity.DsEntity;
 
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
-	Page<DsEntity>findByOrderByBoardnumDesc(Pageable page);  
+	Page<DsEntity>findByOrderByRefDescRestepAsc(Pageable page);  
 	
 	DsEntity save(Long boardnum);
 	
@@ -26,14 +26,19 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
 
-
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsEntity d SET d.ref = ?1 WHERE d.boardnum = ?1")   //boardnum 을 ref에 정의
+	int updateRef(Long boardnum);   
 	
 	
-	    @Modifying
-	    @Transactional
-	    @Query("UPDATE DsEntity d SET d.restep = d.restep + 1 "
-	           +" WHERE d.ref = d.ref AND d.relevel >= d.relevel ")
-	    int saveReply(Long ref, Long restep);
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE DsEntity d SET d.restep = d.restep + 1  WHERE d.ref = ?1 AND d.restep > ?2 ")
+	 int saveReply(Long ref, Long restep);
 
 
+	    
+	    
+	    
 }

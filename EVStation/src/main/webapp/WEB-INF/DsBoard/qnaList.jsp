@@ -42,7 +42,15 @@ th {
 				<c:forEach items="${list}" var="list">
 					<tr>
 						<td>${list.boardnum}</td>
-						<td><a href="qnaDetail/${list.boardnum}">${list.boardtitle}</a></td>
+						<td><a href="qnaDetail/${list.boardnum}">
+						<c:if test="${list.restep > 0 }">
+						<c:forEach begin="1" end="${list.restep}">
+								Re:
+						</c:forEach>
+							[답변]
+						</c:if>
+						${list.boardtitle}
+						</a></td>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>

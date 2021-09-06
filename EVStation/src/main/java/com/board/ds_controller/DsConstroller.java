@@ -66,7 +66,11 @@ public class DsConstroller {
 	}
 	@PostMapping("insertQnA")
 	public String insertQnA(DsEntity dsEntity) {
+		dsEntity.setRestep((long) 0);
+		dsEntity.setRelevel((long) 0);
+		
 		dsService.saveQnA(dsEntity);
+		
 		return "redirect:/qnaList";
 	}
 	@RequestMapping("qnaDetail/{boardnum}")
@@ -94,14 +98,21 @@ public class DsConstroller {
 	}
 
 
-	@RequestMapping("qnaReplyForm")
-	    public String writeReply(Long ref, Long restep,Model m) {
-		dsService.saveReply(ref, restep);	
+	@RequestMapping("qnaReplyForm/{boardnum}/{ref}/{restep}")
+	    public String writeReply(@PathVariable Long boardnum,@PathVariable Long ref,@PathVariable Long restep, Model m) {
+		m.addAttribute("boardnum", boardnum);
+		m.addAttribute("ref",ref);
+		m.addAttribute("restep", restep);
+		//
 	        return "qnaReplyForm";
 }
 
 	@PostMapping("qnaReply")
 	public String saveReply(DsEntity dsEntity) {
+		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
+		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep());	
+		
+		dsEntity.setRestep(dsEntity.getRestep()+1);
 		dsService.saveQnA(dsEntity);
 		return "redirect:/qnaList";
 }

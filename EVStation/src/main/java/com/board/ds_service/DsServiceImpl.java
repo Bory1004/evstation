@@ -27,7 +27,12 @@ public class DsServiceImpl implements DsService {
 
 	@Override
 	public void saveQnA(DsEntity dsEntity) {
-			dsRepo.save(dsEntity);
+		System.out.println("dsEntity.ref"+dsEntity.getRef());
+		Long num =  dsRepo.save(dsEntity).getBoardnum();
+		System.out.println("num::"+num);
+		if(dsEntity.getRef() == null) {
+			dsRepo.updateRef(num);
+		}
 	}
 
 	@Override
@@ -62,15 +67,11 @@ public class DsServiceImpl implements DsService {
 	@Override
 	public Page<DsEntity> AllListQnA(int pNum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return dsRepo.findByOrderByBoardnumDesc(page);
+		return dsRepo.findByOrderByRefDescRestepAsc(page);
 	}
 
-	
-	
-	
 	@Override
 	public int saveReply(Long ref, Long restep) {
-		 dsRepo.saveReply(ref, restep);
 		 return dsRepo.saveReply(ref, restep);
 	}
 

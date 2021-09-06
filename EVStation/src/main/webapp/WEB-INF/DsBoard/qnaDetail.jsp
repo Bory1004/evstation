@@ -66,8 +66,7 @@ table {
 			</ul>
 		</div>
 	</div>
-	<button type="button"
-		onclick="location.href='/qnaReplyForm';">답글달기</button>
+	<button type="button" onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.ref}/${detail.restep}';">답글달기</button>
 	<%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 </html>
