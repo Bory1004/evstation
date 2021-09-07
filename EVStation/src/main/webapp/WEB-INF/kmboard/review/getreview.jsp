@@ -120,7 +120,6 @@ textarea {
 																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
 						<div id="comcontent${comment.comnum}" style="margin-bottom:5px;">${comment.comcontent}<br></div><hr>
 							<!-- 대댓글부분 -->
-							
 							<c:forEach items="${replycomments}" var="replycomment">
 							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
 							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
@@ -133,16 +132,6 @@ textarea {
 							<!-- 대댓글 끝  -->
 							
 						</div>
-							
-							<%-- <c:if test="${comment.comrestep != 0}"> 
-							<div id="${comment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디 <fmt:formatDate
-									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong><span style="float:right;"><a id="replycomment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
-																													<a id="replycomment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
-																													<a id="replycomment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a>
-																						</span></p>
-							<span id="comcontent${comment.comnum}">${comment.comcontent}</span><hr></div>
-							</c:if> --%>
-						
 						</c:forEach>
 					</div>
 
@@ -358,12 +347,17 @@ textarea {
 				type : "get",
 				url : "/replyComment",
 				data : {"comgroupnum" : comgroupnum,"comcontent" : comcontent, "boardnum" : boardnum},
-				dataType : "text"
+				dataType : "json"
 			}).done(function(data){
-				alert(data)
+				//alert(data)
 				$('#replyComment'+comnum).remove();
-				
-				
+				$('#'+data.comgroupnum).append(
+						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm('"+data.comnum+","+data.comgroupnum+")'>답글</a>"
+					   +"<a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
+					   +"<a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a>"
+					   +"</span></p>"
+					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span></div></div>"
+				);
 			}).fail(function(e){
 				alert("답글 작성중에 오류가 발생했습니다.")
 				alert(e.responseText);

@@ -135,13 +135,12 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-	@ResponseBody
 	public String replyComment(BoardComment board) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
 		commentService.saveComment(board);
 		//System.out.println(board);
 		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 restep의 값을 저장한다.
 		
-		return "Success!";
+		return "redirect:/content2?comnum="+board.getComnum();
 	}
 	
 	

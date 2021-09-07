@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void saveReply(Long comnum) {
+	public void saveReply(Long comnum) { //제목 댓글 저장
 		commentRepo.updategroupnumandcomrestep(comnum);
 	}
 
@@ -56,7 +56,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void saveReStep(Long groupnum,Long comnum) {
+	public void saveReStep(Long groupnum,Long comnum) { //대댓글 저장
 		commentRepo.updaterestep(groupnum,comnum);
 	}
 
