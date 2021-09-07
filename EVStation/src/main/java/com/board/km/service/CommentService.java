@@ -21,4 +21,7 @@ public interface CommentService {
 
 	void deleteComment(Long comnum);
 
+
+	void updateComment(Long comnum, String comcontent);
+
 }

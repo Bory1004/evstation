@@ -107,8 +107,6 @@ public class ReviewController {
 		
 		return "redirect:/content2?comnum="+comnum;
 	}
-	
-	
 	@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String goComment(Long comnum) {
@@ -121,6 +119,13 @@ public class ReviewController {
 	@ResponseBody
 	public String deleteComment(Long comnum) {
 		commentService.deleteComment(comnum);
+		return "Success!!";
+	}
+	
+	@RequestMapping(value="updateComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateComment(Long comnum,String comcontent) {
+		commentService.updateComment(comnum,comcontent);
 		return "Success!!";
 	}
 	

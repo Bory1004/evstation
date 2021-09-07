@@ -25,5 +25,10 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	@Query("SELECT d FROM BoardComment d WHERE d.comnum = ?1")   //댓글의 그룹번호에 댓글번호를 저장
 	BoardComment findComment(Long comnum);
 
-	List<BoardComment> findByBoardnumOrderByComdateAsc(Long num);   
+	List<BoardComment> findByBoardnumOrderByComdateAsc(Long num);
+
+	@Transactional
+	@Modifying
+	@Query("UPDATE BoardComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
+	void updateComment(Long comnum, String comcontent);   
 }

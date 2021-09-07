@@ -41,4 +41,10 @@ public class CommentServiceImpl implements CommentService {
 	public void deleteComment(Long comnum) {
 		commentRepo.deleteById(comnum);
 	}
+
+
+	@Override
+	public void updateComment(Long comnum, String comcontent) {
+		commentRepo.updateComment(comnum,comcontent);
+	}
 }

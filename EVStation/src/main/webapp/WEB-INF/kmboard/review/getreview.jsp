@@ -26,6 +26,10 @@
 a {
 	text-decoration-line: none;
 }
+
+textarea {
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -93,7 +97,7 @@ a {
 							<tr>
 								<th class="table-success" colspan="1">내용</th>
 								<td colspan="3"><textarea rows="10"
-										style="width: 100%; border: none;">${review.boardcontent}</textarea></td>
+										style="border: none;">${review.boardcontent}</textarea></td>
 							</tr>
 						</table>
 					</div>
@@ -111,11 +115,18 @@ a {
 						<hr>
 						<c:forEach items="${comments}" var="comment">
 						<div id="${comment.comnum}"><div class="mb-2"><strong>${comment.commemnum} <fmt:formatDate
-									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_update${comment.comnum}" href="/updateComment?comnum=${comment.comnum}" onClick="deleteComment(${comment.comnum})">수정</a> 
-																															<a id="comment_delete${comment.comnum}" href="#a" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
-							${comment.comcontent} <hr></div>
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
+																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
+						<span id="comcontent${comment.comnum}">${comment.comcontent}</span> <hr>
+							
+						<!-- 댓글 수정창  -->
+							<%-- <div id="updateComment${comment.comnum}" class="mb-5" style="position:relative;left:10px;">
+								<p class="mb-1"><span>프로필사진 세션아이디</span></p>
+								<textarea class="my-3" rows="3" cols="30">hi</textarea>
+								<div style="text-align:right;">완료 <a href="#CancelUpdate" onclick="updateCommentFormCancel(${comment.comnum})">취소</a></div> 
+							</div> --%>
+						</div>
 						</c:forEach>
-
 					</div>
 
 				</div>
@@ -184,7 +195,7 @@ a {
 					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
 					//alert($('#comment').val())
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'><a id='comment_update"+data.comnum+"' href='/updateComment?comnum="+data.comnum+"'>수정</a> <a id='comment_delete"+data.comnum+"' href='#a' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div>"+data.comcontent+"<hr></div>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'><a id='comment_update"+data.comnum+"' href='/updateComment?comnum="+data.comnum+"'>수정</a> <a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div>"+data.comcontent+"<hr></div>"
 					);
 					
 				}).fail(function(e) {
@@ -192,8 +203,9 @@ a {
 				})
 			});
 		//----------------------------------------------
-			/* $('#comment_delete').click(function(){
-				alert("test");
+			/* $('.comment_delete').click(function(){
+				let value = $(this)
+				alert(value);
 				if(confirm("댓글을 삭제하시겠습니까?")){
 					alert('test')
 					
@@ -216,8 +228,9 @@ a {
 			
 		
 		})
+		//왜 여기는 안들어가지??
 	//---------------	
-		function deleteComment(x){ //왜 여기는 안들어가지??
+		function deleteComment(x){ // 화면에서 댓글삭제 및 DB삭제
 				let comnum = x;
 				//alert(comnum);
 				//$('#'+comnum).remove();
@@ -239,6 +252,55 @@ a {
 					return false;
 				}
 			}
+	//----------------------------	
+		function updateCommentForm(x){ // 댓글 수정창 생성
+			let comnum = x;
+			$('#updateComment'+comnum).remove(); //중복생성 방지
+			
+			$('#'+comnum).append(
+					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
+					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
+					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='댓글을 입력하세요'></textarea>"
+					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
+					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
+			);
+		}
+	//---------------------------------	
+		function updateCommentFormCancel(x){ //댓글 수정창에서 취소버튼 클릭시 수정창을 삭제하는 함수
+			let comnum = x;
+			$('#updateComment'+comnum).remove();
+		}
+	//---------------------------------
+		function updateComment(x,y){ // 댓글 수정 DB ajax
+			let comnum = x;
+			let comcontent = $('#newComment'+comnum).val();
+			//alert(comnum);
+			//alert(comcontent);
+			//$('#'+comnum).remove();
+			if(comcontent == ""){
+				alert("댓글을 입력하세요!!")
+				return false;
+			}
+			
+			if(confirm("댓글을 수정하시겠습니까?")){
+				$.ajax({
+					type : "get",
+					url :  "/updateComment" ,
+					data : {"comnum" : comnum, "comcontent" : comcontent},
+					dataType : "text"
+				}).done(function(data){
+					//alert(data)
+					alert("수정되었습니다.")
+					$('#updateComment'+comnum).remove();
+					$('#comcontent'+comnum).html(comcontent)
+				}).fail(function(e){
+					alert("수정중에 오류가 발생했습니다.")
+					alert(e.responseText);
+				})
+			}else{
+				return false;
+			}
+		}
 	</script>
 </body>
 </html>
