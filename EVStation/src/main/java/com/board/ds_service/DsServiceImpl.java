@@ -71,8 +71,8 @@ public class DsServiceImpl implements DsService {
 	}
 
 	@Override
-	public int saveReply(Long ref, Long restep) {
-		 return dsRepo.saveReply(ref, restep);
+	public int saveReply(Long ref, Long restep, Long relevel) {
+		 return dsRepo.saveReply(ref, restep, relevel);
 	}
 
 	

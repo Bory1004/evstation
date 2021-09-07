@@ -17,7 +17,7 @@ public interface DsService {
 	Page<DsEntity>AllListQnA(int pNum);
 	void saveQnA(DsEntity dsEntity);
 	 
-	int saveReply(Long ref, Long restep);
+	int saveReply(Long ref, Long restep, Long relevel);
 
 	
 	

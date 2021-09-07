@@ -1,6 +1,5 @@
 package com.board.ds_controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +97,12 @@ public class DsConstroller {
 	}
 
 
-	@RequestMapping("qnaReplyForm/{boardnum}/{ref}/{restep}")
-	    public String writeReply(@PathVariable Long boardnum,@PathVariable Long ref,@PathVariable Long restep, Model m) {
+	@RequestMapping("qnaReplyForm/{boardnum}/{ref}/{restep}/{relevel}")
+	    public String writeReply(@PathVariable Long boardnum,@PathVariable Long ref,@PathVariable Long restep,@PathVariable Long relevel, Model m) {
 		m.addAttribute("boardnum", boardnum);
 		m.addAttribute("ref",ref);
 		m.addAttribute("restep", restep);
+		m.addAttribute("relevel", relevel);
 		//
 	        return "qnaReplyForm";
 }
@@ -110,9 +110,11 @@ public class DsConstroller {
 	@PostMapping("qnaReply")
 	public String saveReply(DsEntity dsEntity) { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
-		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep());	
+		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
 		dsEntity.setRestep(dsEntity.getRestep()+1);
+		dsEntity.setRelevel(dsEntity.getRelevel()+1);
+
 		dsService.saveQnA(dsEntity);
 		return "redirect:/qnaList";
 }
