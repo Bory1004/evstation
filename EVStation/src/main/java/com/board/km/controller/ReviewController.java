@@ -81,9 +81,10 @@ public class ReviewController {
 		m.addAttribute("searchn",searchn); //목록으로 돌아갈때 필요
 	
 		//-------------------------------------------------- 댓글 로딩 부분
-		List<BoardComment> comments =commentService.getComments(1,num);
-		m.addAttribute("comments",comments);
-		
+		List<BoardComment> comments =commentService.getComments(1,num, (long) 0);
+		m.addAttribute("comments",comments); //제목댓글만받아오기
+		List<BoardComment> replycomments = commentService.getReplyComments(num,(long) 0);
+		m.addAttribute("replycomments",replycomments); // 대댓글만 받아오기
 		return "kmboard/review/getreview";
 	}
 	
@@ -135,9 +136,9 @@ public class ReviewController {
 	
 	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String replyComment(BoardComment board) { //boardnum,comcontent,comgroupnum
+	public String replyComment(BoardComment board) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
 		commentService.saveComment(board);
-		System.out.println(board);
+		//System.out.println(board);
 		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 restep의 값을 저장한다.
 		
 		return "Success!";

@@ -16,7 +16,7 @@ public interface CommentService {
 	void saveReply(Long comnum);
 
 
-	List<BoardComment> getComments(int cNum, Long num);
+	List<BoardComment> getComments(int cNum, Long num, Long comrestep);
 
 
 	void deleteComment(Long comnum);
@@ -25,5 +25,8 @@ public interface CommentService {
 	void updateComment(Long comnum, String comcontent);
 
 	void saveReStep(Long groupnum,Long comnum);
+
+
+	List<BoardComment> getReplyComments(Long num,Long comrestep);
 
 }

@@ -34,14 +34,18 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<BoardComment> getComments(int cNum,Long num) {
+	public List<BoardComment> getComments(int cNum, Long num, Long comrestep) {
 		Pageable page =  PageRequest.of(cNum-1, 10); // 불러올페이지, 페이지크기
-		return commentRepo.findByBoardnumOrderByComdateAsc(num);
+		return commentRepo.findByBoardnumAndComrestepOrderByComdateAsc(num,comrestep);
+	}
+	@Override
+	public List<BoardComment> getReplyComments(Long num,Long comrestep) {
+		
+		return commentRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(num,comrestep);
 	}
 
-
 	@Override
-	public void deleteComment(Long comnum) {
+	public void deleteComment(Long comnum) { //commentRepo.deleteByComroupnum
 		commentRepo.deleteById(comnum);
 	}
 
@@ -55,4 +59,5 @@ public class CommentServiceImpl implements CommentService {
 	public void saveReStep(Long groupnum,Long comnum) {
 		commentRepo.updaterestep(groupnum,comnum);
 	}
+
 }

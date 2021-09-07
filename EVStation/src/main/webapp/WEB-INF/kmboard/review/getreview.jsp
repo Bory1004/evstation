@@ -114,13 +114,34 @@ textarea {
 					<div id="commentlist">
 						<hr>
 						<c:forEach items="${comments}" var="comment">
-						<c:if test="${comment.comrestep == 0}">
-						<div id="${comment.comnum}"><div class="mb-2"><strong>${comment.commemnum} <fmt:formatDate
-									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진 아이디 ${comment.commemnum} <fmt:formatDate
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
 																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
 																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
-						<span id="comcontent${comment.comnum}">${comment.comcontent}</span> <hr>
-						</div></c:if>
+						<div id="comcontent${comment.comnum}" style="margin-bottom:5px;">${comment.comcontent}<br></div><hr>
+							<!-- 대댓글부분 -->
+							
+							<c:forEach items="${replycomments}" var="replycomment">
+							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
+							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+																													<a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
+																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum})">삭제</a>
+																						</span></p>
+							<div><span id="comcontent${replycomment.comnum}">${replycomment.comcontent}</span></div></div>
+							</c:if>
+							</c:forEach>
+							<!-- 대댓글 끝  -->
+							
+						</div>
+							
+							<%-- <c:if test="${comment.comrestep != 0}"> 
+							<div id="${comment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디 <fmt:formatDate
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong><span style="float:right;"><a id="replycomment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+																													<a id="replycomment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
+																													<a id="replycomment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a>
+																						</span></p>
+							<span id="comcontent${comment.comnum}">${comment.comcontent}</span><hr></div>
+							</c:if> --%>
 						
 						</c:forEach>
 					</div>
@@ -258,7 +279,7 @@ textarea {
 			$('#'+comnum).append(
 					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
 					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
-					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할내용을 입력하세요'></textarea>"
+					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할 내용을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
 			);
@@ -304,7 +325,7 @@ textarea {
 			}
 		}
 	//------------------------------------------
-		function replyCommentForm(x,y){ // 댓글 답글창 생성
+		function replyCommentForm(x,y){ // 댓글답장하는 답글창 생성
 			let comnum = x;
 			let comgroupnum = y;
 			//alert(comnum)
@@ -325,10 +346,14 @@ textarea {
 			let comgroupnum = y;
 			let comcontent = $('#newreplyComment'+comnum).val();
 			let boardnum = $('#boardnum').html();
-			alert(boardnum)
-			alert(comnum)
-			alert(comgroupnum)
-			alert(comcontent)
+			//alert(boardnum)
+			//alert(comnum)
+			//alert(comgroupnum)
+			//alert(comcontent)
+			if(comcontent == ""){
+				alert("답글을 입력하세요!!")
+				return false;
+			}
 			$.ajax({
 				type : "get",
 				url : "/replyComment",
@@ -337,6 +362,8 @@ textarea {
 			}).done(function(data){
 				alert(data)
 				$('#replyComment'+comnum).remove();
+				
+				
 			}).fail(function(e){
 				alert("답글 작성중에 오류가 발생했습니다.")
 				alert(e.responseText);
