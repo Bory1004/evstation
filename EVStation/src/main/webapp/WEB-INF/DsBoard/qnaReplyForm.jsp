@@ -1,43 +1,56 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="DsLayout/dsHeader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>글 작성</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-	.orange{background-color: orange;}
-	table{border-collapse : collapse;}
 </style>
 </head>
 <body>
-<form action="/qnaReply"  method="post" >
-	<input type="hidden" name ="ref" value="${ref }">
-	<input type="hidden" name ="restep" value="${restep }">
-	<input type="hidden" name ="relevel" value="${relevel }">
+	<form action="/qnaReply" method="post">
+		<input type="hidden" name="ref" value="${ref }"> 
+		<input type="hidden" name="restep" value="${restep }"> 
+		<input type="hidden" name="relevel" value="${relevel }">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="table table-responsive">
+					<table class="table table-striped">
+						<tr>
+							<td class="orange">제목</td>
+							<td><input class="form-control"  name="boardtitle" /></td>
+						</tr>
+						<tr>
+							<td class="orange">이메일</td>
+							<td><input  class="form-control"  name="boardemail" /></td>
+						</tr>
+						<tr>
+							<td class="orange">작성자</td>
+							<td><input  class="form-control"  name="boardwriter" /></td>
+						</tr>
 
-	<table border="1">
-		<tr>
-			<td class="orange">제목</td>
-			<td><input name="boardtitle"/></td>
-			</tr>
-			<tr> 
-			<td class="orange">이메일</td>
-			<td><input name="boardemail"/></td>
-		</tr>
-		<tr>
-			<td class="orange">작성자</td>
-			<td><input name="boardwriter"/></td>
-		</tr>
-		
-		<tr>
-			<td class="orange">내용</td>
-			<td><textarea name="boardcontent" cols="40" rows="10"></textarea></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" id="mail_ck"  value="확인"> 
-			</td>
-		</tr>
-	</table>
-</form>
+						<tr>
+							<td class="orange">내용</td>
+							<td><textarea  class="form-control"  name="boardcontent" cols="40" rows="10"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center"><input type="submit"
+								class="btn btn-primary" id="mail_ck" value="확인"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+<%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 </html>

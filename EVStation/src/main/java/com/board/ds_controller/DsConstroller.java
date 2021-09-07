@@ -71,7 +71,7 @@ public class DsConstroller {
 	}
 	@PostMapping("insertQnA")
 	public String insertQnA(DsEntity dsEntity) {
-		dsEntity.setRestep((long) 0);
+		dsEntity.setRestep((long) 0); //글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setRelevel((long) 0);
 		
 		dsService.saveQnA(dsEntity);
@@ -114,28 +114,28 @@ public class DsConstroller {
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity) throws Exception { 
+	public String saveReply(DsEntity dsEntity, DsEmail dsEmail ) throws Exception { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
 		dsEntity.setRestep(dsEntity.getRestep()+1);
 		dsEntity.setRelevel(dsEntity.getRelevel()+1);
+		dsEntity.setBoardyn(dsEntity.getBoardyn()+1);
 
 		dsService.saveQnA(dsEntity);
-		
-		DsEmail email = new DsEmail();
+
 
 		String receiver = "gpdlqnd@gmail.com"; // Receiver.
 
-		String subject = "답변메일입니다.";
+		String subject = "답변메일입니다."; // 메일 제목
 		
-		String content =  "답변을 확인해주세요";
+		String content =  "답변을 확인해주세요";  //메일 내용
 		
-		email.setReceiver(receiver);
-		email.setSubject(subject);
-		email.setContent(content);
+		dsEmail.setReceiver(receiver);
+		dsEmail.setSubject(subject);
+		dsEmail.setContent(content);
 		
-		emailService.sendMail(email);
+		emailService.sendMail(dsEmail);
 
 		return "redirect:/qnaList";
 }

@@ -31,4 +31,6 @@ public class DsEmail implements Serializable {
 	private String content;
 	private String Emaildate;
 	private String receiver;
+	@Column(columnDefinition = "number default 0")
+	private long Emailcnt;
 }

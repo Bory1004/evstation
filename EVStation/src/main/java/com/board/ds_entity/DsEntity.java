@@ -37,7 +37,8 @@ public class DsEntity implements Serializable {
 	private Long boardrecom;
 	private String boardcontent;
 	private Long boardtype;
-	private String boardyn;
+	@Column(columnDefinition ="number default 0")
+	private long boardyn;
 	@Column(columnDefinition ="number default 0")
     private Long ref;
     private Long restep;

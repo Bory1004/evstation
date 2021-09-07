@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort.Order;
 
+import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
 import com.board.ds_persistence.DsRepository;
 
@@ -73,6 +74,18 @@ public class DsServiceImpl implements DsService {
 	@Override
 	public int saveReply(Long ref, Long restep, Long relevel) {
 		 return dsRepo.saveReply(ref, restep, relevel);
+	}
+
+	@Override
+	public void saveQnA(DsEntity dsEntity, DsEmail dsEmail) {
+		Long num =  dsRepo.save(dsEntity).getBoardnum();
+		System.out.println("num::"+num);
+		if(dsEntity.getRef() == null) {
+			dsRepo.updateRef(num);
+		}
+	
+
+		
 	}
 
 	

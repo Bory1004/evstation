@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
 
 public interface DsService {
@@ -16,6 +17,8 @@ public interface DsService {
 	Page<DsEntity>AllListQnA(int pNum, int searchn, String search);
 	Page<DsEntity>AllListQnA(int pNum);
 	void saveQnA(DsEntity dsEntity);
+	void saveQnA(DsEntity dsEntity, DsEmail dsEmail);
+
 	 
 	int saveReply(Long ref, Long restep, Long relevel);
 

@@ -34,7 +34,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="#" class="link-secondary"> <img src="../img/logo.png"
+					<a href="/qnaList" class="link-secondary"> <img src="../img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->

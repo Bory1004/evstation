@@ -37,13 +37,5 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Query("UPDATE DsEntity d SET d.restep = d.restep + 1  WHERE d.ref = ?1 AND d.restep > ?2 ") //ref가 같고  
 	 int saveReply(Long ref, Long restep, Long relevel);
 	 
-//	 @Modifying
-//	 @Transactional
-//	 @Query("UPDATE DsEntity d SET d.relevel = d.relevel + 1  WHERE d.ref = ?1 AND d.restep > 0 ") //ref가 같고  
-//	 int saveRereply(Long ref, Long restep, Long relevel);
-
-
-	    
-	    
 	    
 }
