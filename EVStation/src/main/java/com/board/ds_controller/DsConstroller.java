@@ -14,15 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
 import com.board.ds_persistence.DsRepository;
 import com.board.ds_service.DsService;
+import com.board.ds_service.EmailService;
 
 @Controller
 public class DsConstroller {
 	
 	@Autowired  
 	private DsService dsService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 //	@Autowired                                            
 //	private DsRepository dsRepo;
@@ -55,6 +60,7 @@ public class DsConstroller {
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);	
+		
 
 			return "qnaList";
 		}
@@ -108,7 +114,7 @@ public class DsConstroller {
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity) { 
+	public String saveReply(DsEntity dsEntity) throws Exception { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
@@ -116,6 +122,21 @@ public class DsConstroller {
 		dsEntity.setRelevel(dsEntity.getRelevel()+1);
 
 		dsService.saveQnA(dsEntity);
+		
+		DsEmail email = new DsEmail();
+
+		String receiver = "gpdlqnd@gmail.com"; // Receiver.
+
+		String subject = "답변메일입니다.";
+		
+		String content =  "답변을 확인해주세요";
+		
+		email.setReceiver(receiver);
+		email.setSubject(subject);
+		email.setContent(content);
+		
+		emailService.sendMail(email);
+
 		return "redirect:/qnaList";
 }
 }
