@@ -16,12 +16,14 @@ public interface CommentService {
 	void saveReply(Long comnum);
 
 
-	List<BoardComment> getComments(Long num);
+	List<BoardComment> getComments(int cNum, Long num);
 
 
 	void deleteComment(Long comnum);
 
 
 	void updateComment(Long comnum, String comcontent);
+
+	void saveReStep(Long groupnum,Long comnum);
 
 }

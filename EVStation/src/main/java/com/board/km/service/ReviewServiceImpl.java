@@ -17,7 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum) {
-		Pageable page = PageRequest.of(pNum-1, 10);
+		Pageable page = PageRequest.of(pNum-1, 10); // 불러올페이지, 페이지크기
 		return reviewRepo.findByBoardstnumOrderByBoardnumDesc(stnum , page);
 	}
 

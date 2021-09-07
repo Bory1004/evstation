@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.board.km.domain.BoardComment;
@@ -28,11 +30,12 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void saveReply(Long comnum) {
-		commentRepo.updategroupnum(comnum);
+		commentRepo.updategroupnumandcomrestep(comnum);
 	}
 
 	@Override
-	public List<BoardComment> getComments(Long num) {
+	public List<BoardComment> getComments(int cNum,Long num) {
+		Pageable page =  PageRequest.of(cNum-1, 10); // 불러올페이지, 페이지크기
 		return commentRepo.findByBoardnumOrderByComdateAsc(num);
 	}
 
@@ -46,5 +49,10 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void updateComment(Long comnum, String comcontent) {
 		commentRepo.updateComment(comnum,comcontent);
+	}
+
+	@Override
+	public void saveReStep(Long groupnum,Long comnum) {
+		commentRepo.updaterestep(groupnum,comnum);
 	}
 }

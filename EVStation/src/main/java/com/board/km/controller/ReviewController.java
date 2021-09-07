@@ -43,15 +43,17 @@ public class ReviewController {
 		
 	
 		List<ReviewBoard> rList = pageList.getContent();
-		int totalPageCount = pageList.getTotalPages();
-		long total = pageList.getTotalElements();
-		//System.out.println(rList.get(0).getBoardnum());
 		m.addAttribute("rList", rList);
+		
+		//여기서부터 페이징 부분
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements(); //글의 총개수
+		//System.out.println(rList.get(0).getBoardnum());
 		m.addAttribute("totalPage",totalPageCount);
-		m.addAttribute("total",total);
+		m.addAttribute("total",total); //글이없으면 글이 없다고 출력
 		m.addAttribute("pNum",pNum);
 		
-		int pageNum = 5;
+		int pageNum = 5; //페이지크기
 		int begin = (pNum -1) / pageNum * pageNum + 1; //  1 1 1 1 1 6 6 6 6 6  11 11....
 		int end = begin + pageNum-1; // 5 5 5 5 5 10 10 10 10 ..
 		if (end > totalPageCount) {
@@ -68,16 +70,18 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("content/{num}")
-	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, int searchn,Model m) {
+	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, 
+			int searchn,Model m) {
 		ReviewBoard review = reviewService.getReview(num);
 		
 		
-		m.addAttribute("review",review);
-		m.addAttribute("pNum",pNum);
-		m.addAttribute("search",search);
-		m.addAttribute("searchn",searchn);
-	//-------------------------------------------------- 댓글 부분
-		List<BoardComment> comments =commentService.getComments(num);
+		m.addAttribute("review",review); //가져온 리뷰객체
+		m.addAttribute("pNum",pNum); //목록으로 돌아갈때 필요
+		m.addAttribute("search",search); // 목록으로 돌아갈때 필요
+		m.addAttribute("searchn",searchn); //목록으로 돌아갈때 필요
+	
+		//-------------------------------------------------- 댓글 로딩 부분
+		List<BoardComment> comments =commentService.getComments(1,num);
 		m.addAttribute("comments",comments);
 		
 		return "kmboard/review/getreview";
@@ -99,7 +103,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "content/insertComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-	public String insertComment(BoardComment board) {
+	public String insertComment(BoardComment board) { //댓글달기
 		commentService.saveComment(board);
 		commentService.saveReply(board.getComnum());
 		Long comnum = board.getComnum();
@@ -109,7 +113,7 @@ public class ReviewController {
 	}
 	@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String goComment(Long comnum) {
+	public String goComment(Long comnum) { //댓글달기1이어서
 		BoardComment list = commentService.getComment(comnum).get();
 		Gson json = new Gson();
 		return json.toJson(list);
@@ -117,16 +121,28 @@ public class ReviewController {
 	
 	@RequestMapping(value="/content/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String deleteComment(Long comnum) {
+	public String deleteComment(Long comnum) {//댓글삭제
 		commentService.deleteComment(comnum);
 		return "Success!!";
 	}
 	
 	@RequestMapping(value="updateComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String updateComment(Long comnum,String comcontent) {
+	public String updateComment(Long comnum,String comcontent) { //댓글수정
 		commentService.updateComment(comnum,comcontent);
 		return "Success!!";
 	}
+	
+	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String replyComment(BoardComment board) { //boardnum,comcontent,comgroupnum
+		commentService.saveComment(board);
+		System.out.println(board);
+		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 restep의 값을 저장한다.
+		
+		return "Success!";
+	}
+	
+	
 	
 }

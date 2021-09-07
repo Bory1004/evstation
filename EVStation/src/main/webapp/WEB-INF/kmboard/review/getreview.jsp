@@ -114,18 +114,14 @@ textarea {
 					<div id="commentlist">
 						<hr>
 						<c:forEach items="${comments}" var="comment">
+						<c:if test="${comment.comrestep == 0}">
 						<div id="${comment.comnum}"><div class="mb-2"><strong>${comment.commemnum} <fmt:formatDate
-									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
 																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
 						<span id="comcontent${comment.comnum}">${comment.comcontent}</span> <hr>
-							
-						<!-- 댓글 수정창  -->
-							<%-- <div id="updateComment${comment.comnum}" class="mb-5" style="position:relative;left:10px;">
-								<p class="mb-1"><span>프로필사진 세션아이디</span></p>
-								<textarea class="my-3" rows="3" cols="30">hi</textarea>
-								<div style="text-align:right;">완료 <a href="#CancelUpdate" onclick="updateCommentFormCancel(${comment.comnum})">취소</a></div> 
-							</div> --%>
-						</div>
+						</div></c:if>
+						
 						</c:forEach>
 					</div>
 
@@ -166,7 +162,7 @@ textarea {
 			alert("Test")
 		}); */
 		$(function() {
-			$('#comment_button').click(function() {
+			$('#comment_button').click(function() { //댓글 생성 및 ajax
 				let comcontent = $('#comment').val()
 				//let comcontent2 = $('#comment').html()
 				let boardnum = $('#boardnum').html()
@@ -190,12 +186,14 @@ textarea {
 					dataType : "json"
 				}).done(function(data) {
 					//alert(data.comdate)
-					//$('#comment').val() = "";   //<- 이거 질문 왜안되는지
 					$('#comment').val('');
 					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
 					//alert($('#comment').val())
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'><a id='comment_update"+data.comnum+"' href='/updateComment?comnum="+data.comnum+"'>수정</a> <a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div>"+data.comcontent+"<hr></div>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'>"
+							+"<a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
+							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
+							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
 					);
 					
 				}).fail(function(e) {
@@ -228,8 +226,8 @@ textarea {
 			
 		
 		})
-		//왜 여기는 안들어가지??
-	//---------------	
+		
+	//---------------	왜 여기는 안들어가지??
 		function deleteComment(x){ // 화면에서 댓글삭제 및 DB삭제
 				let comnum = x;
 				//alert(comnum);
@@ -256,11 +254,11 @@ textarea {
 		function updateCommentForm(x){ // 댓글 수정창 생성
 			let comnum = x;
 			$('#updateComment'+comnum).remove(); //중복생성 방지
-			
+			$('#replyComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
 					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
-					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='댓글을 입력하세요'></textarea>"
+					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할내용을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
 			);
@@ -269,6 +267,10 @@ textarea {
 		function updateCommentFormCancel(x){ //댓글 수정창에서 취소버튼 클릭시 수정창을 삭제하는 함수
 			let comnum = x;
 			$('#updateComment'+comnum).remove();
+		}
+		function replyCommentFormCancel(x){ //댓글 답글창에서 취소버튼 클릭시 답글창을 삭제하는 함수
+			let comnum = x;
+			$('#replyComment'+comnum).remove();
 		}
 	//---------------------------------
 		function updateComment(x,y){ // 댓글 수정 DB ajax
@@ -292,7 +294,7 @@ textarea {
 					//alert(data)
 					alert("수정되었습니다.")
 					$('#updateComment'+comnum).remove();
-					$('#comcontent'+comnum).html(comcontent)
+					$('#comcontent'+comnum).html(comcontent+" (수정됨)")
 				}).fail(function(e){
 					alert("수정중에 오류가 발생했습니다.")
 					alert(e.responseText);
@@ -300,6 +302,45 @@ textarea {
 			}else{
 				return false;
 			}
+		}
+	//------------------------------------------
+		function replyCommentForm(x,y){ // 댓글 답글창 생성
+			let comnum = x;
+			let comgroupnum = y;
+			//alert(comnum)
+			//alert(comgroupnum)
+			$('#replyComment'+comnum).remove(); //중복생성 방지
+			$('#updateComment'+comnum).remove();
+			$('#'+comnum).append(
+					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
+					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
+					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
+					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
+					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
+			);
+		}
+	//-----------------------------------
+		function replyComment(x,y){ //대댓글 DB에 등록하고 프론트에서 추가하는 ajax
+			let comnum = x;
+			let comgroupnum = y;
+			let comcontent = $('#newreplyComment'+comnum).val();
+			let boardnum = $('#boardnum').html();
+			alert(boardnum)
+			alert(comnum)
+			alert(comgroupnum)
+			alert(comcontent)
+			$.ajax({
+				type : "get",
+				url : "/replyComment",
+				data : {"comgroupnum" : comgroupnum,"comcontent" : comcontent, "boardnum" : boardnum},
+				dataType : "text"
+			}).done(function(data){
+				alert(data)
+				$('#replyComment'+comnum).remove();
+			}).fail(function(e){
+				alert("답글 작성중에 오류가 발생했습니다.")
+				alert(e.responseText);
+			})
 		}
 	</script>
 </body>

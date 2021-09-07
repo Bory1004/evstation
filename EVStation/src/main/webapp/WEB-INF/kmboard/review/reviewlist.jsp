@@ -106,7 +106,7 @@ a {
 				<c:if test="${search == null }">
 					<nav aria-label="Page navigation">
 						<ul class="pagination">
-							<c:if test="${begin > 5 }">
+							<c:if test="${begin > 5 }"> <!-- 다음장으로 넘어가는경우 -->
 								<li class="page-item"><a class="page-link"
 									aria-label="Previous" class="page-link" aria-label="Previous"
 									href="/reviewList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
@@ -115,7 +115,7 @@ a {
 								<li class="page-item"><a class="page-link"
 									href="/reviewList?p=${i}">${i}</a></li>
 							</c:forEach>
-							<c:if test="${end < totalPage }">
+							<c:if test="${end < totalPage }"> <!-- 페이지가 남아잇는경우 -->
 								<li class="page-item"><a class="page-link"
 									aria-label="Next" class="page-link" aria-label="Next"
 									href="/reviewList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
@@ -146,8 +146,8 @@ a {
 						</ul>
 					</nav>
 				</c:if>
-				</div>
 			</div>
+		</div>
 		
 			<!-- 여기서 검색창코딩 -->
 				<div class="container row justify-content-center">

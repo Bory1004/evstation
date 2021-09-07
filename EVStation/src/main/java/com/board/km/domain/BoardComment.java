@@ -34,6 +34,8 @@ public class BoardComment {
 	private Long commemnum;
 	@Column(name="com_groupnum")
 	private Long comgroupnum;
+	@Column(name="com_re_step")
+	private Long comrestep;
 	@Column(name="com_content")
 	private String comcontent;
 	@Column(name="com_date",insertable = false, updatable = false, columnDefinition = "date default sysdate")
