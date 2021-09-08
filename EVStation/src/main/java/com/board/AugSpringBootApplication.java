@@ -4,11 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EvStationApplication {
+public class AugSpringBootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EvStationApplication.class, args);
+		SpringApplication.run(AugSpringBootApplication.class, args);
 	}
-
 }
-//test
