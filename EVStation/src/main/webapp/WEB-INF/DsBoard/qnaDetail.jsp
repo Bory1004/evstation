@@ -41,20 +41,20 @@
 					<table class="table table-striped" >
 						<tr>
 							<td>제목</td>
-							<td>${detail.boardtitle }</td>
+							<td>${detail.boardtitle}</td>
 						</tr>
 						<tr>
 							<td>작성자</td>
-							<td>${detail.boardwriter }</td>
+							<td>${detail.boardwriter}</td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td>${detail.boardcontent }</td>
+							<td>${detail.boardcontent}</td>
 						</tr>
 						<tr>
 							<td>등록일</td>
 							<td><fmt:formatDate
-									value="${detail.boarddate }" pattern="MM.dd" /></td>
+									value="${detail.boarddate}" pattern="MM.dd" /></td>
 						</tr>
 					</table>
 				</div>
