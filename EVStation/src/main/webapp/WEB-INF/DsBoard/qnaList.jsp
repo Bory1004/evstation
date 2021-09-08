@@ -11,17 +11,36 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<style>
-table {
-	width: 500px;
-	border-collapse: collapse;
-}
+<script src= "http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			 var chkObj = document.getElementsByName("reportChkBxRow")
+			 var rowCnt = chkObj.length;
+			 
+			 $("input[name='reportChkBx']").click(function(){
+					var chk_listArr = $("input[name='reportChkBxRow']");
+					for(var i = 0; i < chk_listArr.length; i++){
+						chk_listArr[i].checked = this.checked;
+					}
+			 });
+			 $("input[name='reportChkBxRow']").click(function(){
+		 			if($("input[name='reportChkBxRow]:checked").length == rowCnt){
+		 				$("input[name='reportChkBx']")[0].checked = true;
+		 			}else{
+		 				$("input[name='reportChkBx']")[0].checked = false;
+		 			}
+			 
+			 })}
+			 
+		})
+	
+	
+	
+	</script>
 
-th {
-	background-color: grey;
-	width: 150px;
-}
-</style>
+
+
+
 </head>
 
 <body>
@@ -31,6 +50,7 @@ th {
 		<c:if test="${ total != 0}">
 			<table class="table table-hover table zebra-stripes">
 				<tr>
+				    <th><input type="checkbox" name="reportChkBx"onclick="checkAll();"></th>
 					<th><b>No.</b></th>
 					<th><b>제목</b></th>
 					<th><b>작성자</b></th>
@@ -41,6 +61,7 @@ th {
 
 				<c:forEach items="${list}" var="list">
 					<tr>
+					    <td><input type="checkbox" name="reportChkBxRow" id="${list.boardnum}">
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
 						<c:if test="${list.relevel == 1 }" >[답변]</c:if>
@@ -88,6 +109,7 @@ th {
 		<c:if test="${total == 0}">
 			검색 결과가 없습니다.
 		</c:if>
+	<button type="button"  class="btn btn-outline-success"  onclick="deleteValue();" >선택삭제</button>
 	<button type="button"  class="btn btn-outline-success"  onclick="location.href='/insertQnA';">글쓰기</button>
 	<form>
 		<select  class="selectpicker"   name="searchn">

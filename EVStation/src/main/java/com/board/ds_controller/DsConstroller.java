@@ -7,12 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
@@ -20,8 +22,14 @@ import com.board.ds_persistence.DsRepository;
 import com.board.ds_service.DsService;
 import com.board.ds_service.EmailService;
 
+@SessionAttributes("tempId")
 @Controller
 public class DsConstroller {
+	
+	@ModelAttribute("tempId")
+	public String tempId() {
+		return "tempId";
+	}
 	
 	@Autowired  
 	private DsService dsService;
@@ -70,13 +78,14 @@ public class DsConstroller {
 		return "/DsBoard/insertQnA";
 	}
 	@PostMapping("insertQnA")
-	public String insertQnA(DsEntity dsEntity) {
+	public String insertQnA(DsEntity dsEntity, @ModelAttribute("tempId")String tempId) {
+		dsEntity.setBoardwriter(tempId);
 		dsEntity.setRestep((long) 0); //글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setRelevel((long) 0);
 		
 		dsService.saveQnA(dsEntity);
 		
-		return "redirect:/qnaList";
+		return "redirect:/DsBoard/qnaList";
 	}
 	@RequestMapping("qnaDetail/{boardnum}")
 	public String qnaDetail(@PathVariable Long boardnum, Model m) {
