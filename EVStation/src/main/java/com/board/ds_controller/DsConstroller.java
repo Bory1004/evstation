@@ -85,7 +85,7 @@ public class DsConstroller {
 		
 		dsService.saveQnA(dsEntity);
 		
-		return "redirect:/DsBoard/qnaList";
+		return "redirect:/qnaList";
 	}
 	@RequestMapping("qnaDetail/{boardnum}")
 	public String qnaDetail(@PathVariable Long boardnum, Model m) {
@@ -97,7 +97,7 @@ public class DsConstroller {
 	@GetMapping("deleteQnA/{boardnum}")
 	public String qnaDelete(@PathVariable Long boardnum) {
 		dsService.deleteQnA(boardnum);
-		return  "redirect:/DsBoard/qnaList"; 
+		return  "redirect:/qnaList"; 
 		
 	}
 	@RequestMapping("updateQnAform/{boardnum}")
@@ -108,7 +108,7 @@ public class DsConstroller {
 	@PostMapping("updateQnA")
 	public String qnaUpdate(DsEntity dsEntity) { 
 		dsService.saveQnA(dsEntity);
-		return "redirect:/DsBoard/qnaList";
+		return "redirect:/qnaList";
 	}
 
 
@@ -146,7 +146,7 @@ public class DsConstroller {
 		
 		emailService.sendMail(dsEmail);
 
-		return "redirect:/DsBoard/qnaList";
+		return "redirect:/qnaList";
 }
 }
 
@@ -160,7 +160,7 @@ public class DsConstroller {
 //		   Long groupNo = dsService.getfindOne(boardnum).getGroupNo();
 //	        m.addAttribute("groupNo", groupNo);
 //	        m.addAttribute("parentNo", boardnum);
-//	        m.addAttribute("reply", reply);
+//	        m.addAttribute("reply", reply);	
 //			return "redirect:/qnaList";
 //		   
 //	   }
