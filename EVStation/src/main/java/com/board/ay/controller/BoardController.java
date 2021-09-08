@@ -50,12 +50,12 @@ public class BoardController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 		
-		return "getBoardList";
+		return "/board/getBoardList";
 	}
 	
 	@GetMapping("/insertBoard")
 	public String insertBoardView() {
-		return "insertBoard";
+		return "/board/insertBoard";
 	}
 	
 	@PostMapping("/insertBoard") 
@@ -69,7 +69,7 @@ public class BoardController {
 	public String getBoard(@PathVariable Long num, Model m) {
 		Board board = boardService.getBoard(num);
 		m.addAttribute("board", board);
-		return "getBoard";
+		return "/board/getBoard";
 	}
 	@RequestMapping("/upRecom/{num}")
 	//@ResponseBody
@@ -77,14 +77,14 @@ public class BoardController {
 		Board board = boardService.upRecom(num);
 		m.addAttribute("board", board);
 //		Gson g = new Gson();
-		return "getBoard";
+		return "/board/getBoard";
 	}
 	
 	@GetMapping("/updateForm/{num}")
 	public String updateForm(@PathVariable Long num, Model m) {
 	Board board = boardService.update(num);
 	m.addAttribute("board", board);
-	return "updateForm";
+	return "/board/updateForm";
 	}
 	
 	@PostMapping("/update")
