@@ -2,6 +2,8 @@ package com.board.ds_controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -93,9 +95,13 @@ public class DsConstroller {
 		m.addAttribute("detail",detail);
 		return "/DsBoard/qnaDetail";
 	}
-	@GetMapping("deleteQnA")
-	public String qnqDeletechk(Long boardnum) {
-		dsService.deleteQnA(boardnum);
+	@PostMapping("deleteQnA")
+	public String qnqDeletechk(HttpServletRequest request) {
+		String[] ajaxDelete = request.getParameterValues("valueArr");
+		int size = ajaxDelete.length;
+		for (int i=0; i<size; i++) {
+		dsService.delete(ajaxDelete[i]); 
+		}
 		return  "redirect:/qnaList"; 
 		
 	}

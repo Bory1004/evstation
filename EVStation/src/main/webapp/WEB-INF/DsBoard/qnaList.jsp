@@ -32,7 +32,7 @@
 			 });
 		});
 		function deleteValue(){
-				var url = "deleteQnA";
+				var url = "/deleteQnA";
 				var valueArr = new Array();
 				var list = $("input[name='reportChkBxRow']");
 				for(var i = 0; i < list.length; i++){
@@ -50,7 +50,7 @@
 						type : 'POST',
 						traditional : true,
 						data : {
-							valuerArr : valueArr
+							valueArr : valueArr
 						},
 						success: function(data){
 							if(data = 1){
@@ -73,7 +73,7 @@
 		<c:if test="${ total != 0}">
 			<table class="table table-hover table zebra-stripes">
 				<tr>
-				    <th><input type="checkbox" name="reportChkBx"onclick="checkAll();"></th>
+				    <th><input type="checkbox" name="reportChkBx"  id="reportChkBx;"></th>
 					<th><b>No.</b></th>
 					<th><b>제목</b></th>
 					<th><b>작성자</b></th>

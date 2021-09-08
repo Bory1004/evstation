@@ -22,6 +22,8 @@ public interface DsService {
 	 
 	int saveReply(Long ref, Long restep, Long relevel);
 
+	void delete(String no);
+
 	
 	
 

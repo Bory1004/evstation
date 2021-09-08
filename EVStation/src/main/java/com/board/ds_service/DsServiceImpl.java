@@ -88,6 +88,11 @@ public class DsServiceImpl implements DsService {
 		
 	}
 
+	@Override
+	public void delete(String no) {
+		dsRepo.delete(no);
+	} 
+
 	
 	
 	
