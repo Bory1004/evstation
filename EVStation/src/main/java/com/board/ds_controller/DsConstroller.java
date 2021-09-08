@@ -32,7 +32,7 @@ public class DsConstroller {
 //	@Autowired                                            
 //	private DsRepository dsRepo;
 		
-	@RequestMapping("qnaList")
+	@RequestMapping("/qnaList")
 		public String qnaList(Model m, @RequestParam(name = "p", defaultValue ="1")int pNum, String search, @RequestParam(defaultValue = "-1") int searchn ) {	
 		
 		int pageNum = 5;
@@ -62,12 +62,12 @@ public class DsConstroller {
 		m.addAttribute("searchn", searchn);	
 		
 
-			return "qnaList";
+			return "/DsBoard/qnaList";
 		}
 	
 	@GetMapping("insertQnA")
 	public String insertQnaView() {
-		return "insertQnA";
+		return "/DsBoard/insertQnA";
 	}
 	@PostMapping("insertQnA")
 	public String insertQnA(DsEntity dsEntity) {
@@ -82,24 +82,24 @@ public class DsConstroller {
 	public String qnaDetail(@PathVariable Long boardnum, Model m) {
 		DsEntity detail=dsService.qnaDetail(boardnum);
 		m.addAttribute("detail",detail);
-		return "qnaDetail";
+		return "/DsBoard/qnaDetail";
 	}
 
 	@GetMapping("deleteQnA/{boardnum}")
 	public String qnaDelete(@PathVariable Long boardnum) {
 		dsService.deleteQnA(boardnum);
-		return  "redirect:/qnaList"; 
+		return  "redirect:/DsBoard/qnaList"; 
 		
 	}
 	@RequestMapping("updateQnAform/{boardnum}")
 	public String qnaUpdateForm(@PathVariable Long boardnum, Model m) {
 		m.addAttribute("boardnum",boardnum);
-		return "qnaUpdate";
+		return "/DsBoard/qnaUpdate";
 	}
 	@PostMapping("updateQnA")
 	public String qnaUpdate(DsEntity dsEntity) { 
 		dsService.saveQnA(dsEntity);
-		return "redirect:/qnaList";
+		return "redirect:/DsBoard/qnaList";
 	}
 
 
@@ -110,7 +110,7 @@ public class DsConstroller {
 		m.addAttribute("restep", restep);
 		m.addAttribute("relevel", relevel);
 		//
-	        return "qnaReplyForm";
+	        return "/DsBoard/qnaReplyForm";
 }
 
 	@PostMapping("qnaReply")
@@ -137,7 +137,7 @@ public class DsConstroller {
 		
 		emailService.sendMail(dsEmail);
 
-		return "redirect:/qnaList";
+		return "redirect:/DsBoard/qnaList";
 }
 }
 
