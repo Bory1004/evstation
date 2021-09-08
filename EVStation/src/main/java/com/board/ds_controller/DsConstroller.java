@@ -75,7 +75,7 @@ public class DsConstroller {
 	
 	@GetMapping("insertQnA")
 	public String insertQnaView() {
-		return "insertQnA";
+		return "/DsBoard/insertQnA";
 	}
 	@PostMapping("insertQnA")
 	public String insertQnA(DsEntity dsEntity, @ModelAttribute("tempId")String tempId) {
