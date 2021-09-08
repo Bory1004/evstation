@@ -58,6 +58,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void saveReStep(Long groupnum,Long comnum) { //대댓글 저장
 		commentRepo.updaterestep(groupnum,comnum);
-	}//test
+	}//test22
 
 }
