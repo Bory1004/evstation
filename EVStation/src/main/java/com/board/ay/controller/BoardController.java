@@ -76,7 +76,6 @@ public class BoardController {
 	public String upRecom(@PathVariable Long num, Model m) {
 		Board board = boardService.upRecom(num);
 		m.addAttribute("board", board);
-//		Gson g = new Gson();
 		return "/board/getBoard";
 	}
 	
