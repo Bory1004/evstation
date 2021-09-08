@@ -93,7 +93,13 @@ public class DsConstroller {
 		m.addAttribute("detail",detail);
 		return "/DsBoard/qnaDetail";
 	}
-
+	@GetMapping("deleteQnA")
+	public String qnqDeletechk(Long boardnum) {
+		dsService.deleteQnA(boardnum);
+		return  "redirect:/qnaList"; 
+		
+	}
+	
 	@GetMapping("deleteQnA/{boardnum}")
 	public String qnaDelete(@PathVariable Long boardnum) {
 		dsService.deleteQnA(boardnum);

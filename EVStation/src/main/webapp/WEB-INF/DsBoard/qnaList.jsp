@@ -29,18 +29,41 @@
 		 			}else{
 		 				$("input[name='reportChkBx']")[0].checked = false;
 		 			}
-			 
-			 })}
-			 
-		})
-	
-	
-	
+			 });
+		});
+		function deleteValue(){
+				var url = "deleteQnA";
+				var valueArr = new Array();
+				var list = $("input[name='reportChkBxRow']");
+				for(var i = 0; i < list.length; i++){
+					if(list[i].checked){
+						valueArr.push(list[i].value);
+					}
+				}
+				if (valueArr.length == 0){
+					alert("선택된 글이 없습니다");
+				}
+				else{
+					var chk = confirm("정말 삭제하시겠습니다?");
+					$.ajax({
+						url : url,
+						type : 'POST',
+						traditional : true,
+						data : {
+							valuerArr : valueArr
+						},
+						success: function(data){
+							if(data = 1){
+								alert("삭제 성공");
+								location.replace("list") //list로 페이지 새로고침
+							}else{
+								alert("삭제 실패");
+							}
+						}
+					});
+				}
+		}	
 	</script>
-
-
-
-
 </head>
 
 <body>
