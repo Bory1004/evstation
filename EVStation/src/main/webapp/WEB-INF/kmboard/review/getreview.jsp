@@ -122,7 +122,8 @@ textarea {
 							<!-- 대댓글부분 -->
 							<c:forEach items="${replycomments}" var="replycomment">
 							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
-							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span> <fmt:formatDate
+									value="${comment.comdate}" pattern="MM.dd HH:mm" /></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
 																													<a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
 																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum})">삭제</a>
 																						</span></p>
@@ -199,8 +200,9 @@ textarea {
 					$('#comment').val('');
 					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
 					//alert($('#comment').val())
+					let date = new Date(data.comdate);
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
 							+"<a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
 							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
 							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
@@ -350,11 +352,12 @@ textarea {
 				dataType : "json"
 			}).done(function(data){
 				//alert(data)
+				let date = new Date(data.comdate);
 				$('#replyComment'+comnum).remove();
 				$('#'+data.comgroupnum).append(
-						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm('"+data.comnum+","+data.comgroupnum+")'>답글</a>"
-					   +"<a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
-					   +"<a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a>"
+						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
+					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
+					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a>"
 					   +"</span></p>"
 					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span></div></div>"
 				);

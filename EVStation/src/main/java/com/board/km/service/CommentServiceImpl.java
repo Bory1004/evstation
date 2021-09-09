@@ -36,12 +36,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<BoardComment> getComments(int cNum, Long num, Long comrestep) {
 		Pageable page =  PageRequest.of(cNum-1, 10); // 불러올페이지, 페이지크기
-		return commentRepo.findByBoardnumAndComrestepOrderByComdateAsc(num,comrestep);
+		return commentRepo.findByBoardnumAndComrestepOrderByComdateAsc(num,comrestep); //일반댓글만 불러오기
 	}
 	@Override
 	public List<BoardComment> getReplyComments(Long num,Long comrestep) {
 		
-		return commentRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(num,comrestep);
+		return commentRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(num,comrestep); //대댓글만 불러오기
 	}
 
 	@Override
