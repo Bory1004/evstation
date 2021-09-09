@@ -44,6 +44,8 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	void updaterestep(Long groupnum,Long comnum);
 	
 	@Transactional
+	@Modifying
+	@Query("delete from BoardComment d where d.comgroupnum = ?1")
 	void deleteByComgroupnum(Long comgroupnum); //일반댓글인 경우 대댓글까지 데이터베이스에서 지움
 
 }
