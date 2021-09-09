@@ -1,4 +1,4 @@
-package com.board.controller.hj;
+package com.board.hj.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.board.domain.hj.Member;
-import com.board.service.hj.MemberService;
+import com.board.hj.domain.Member;
+import com.board.hj.service.MemberService;
 
 @Controller
 public class JoinController {
@@ -50,7 +50,14 @@ public class JoinController {
 		Member mem = member.orElse(new Member());
 		return mem.getId();// 값이 없으면(null) ""로 전송된다.
 	}
-
+	
+	@PostMapping("/join")
+	public String join(Member member, Model m) {
+		Member mem = memberService.saveMember(member);
+		
+		return "member/join_success";
+	}
+	
 	// 유효성 검사
 	@PostMapping(value = "/join_check")
 	public String join_check(@Valid Member member, BindingResult bindingResult, Model m) {

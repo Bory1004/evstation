@@ -1,8 +1,8 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import org.springframework.data.domain.Page;
 
-import com.board.domain.hj.Comment;
+import com.board.hj.domain.Comment;
 
 public interface CommentService {
 	

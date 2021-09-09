@@ -1,8 +1,8 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import org.springframework.data.domain.Page;
 
-import com.board.domain.hj.Board;
+import com.board.hj.domain.Board;
 
 public interface BoardService {
 	

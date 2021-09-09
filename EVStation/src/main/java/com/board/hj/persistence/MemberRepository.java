@@ -1,10 +1,10 @@
-package com.board.persistence.hj;
+package com.board.hj.persistence;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.board.domain.hj.Member;
+import com.board.hj.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 

@@ -1,4 +1,4 @@
-package com.board.controller.hj;
+package com.board.hj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;

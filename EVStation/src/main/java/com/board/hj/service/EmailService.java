@@ -1,4 +1,4 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.board.domain.hj.EmailVO;
+import com.board.hj.domain.EmailVO;
 
 
 @Service("emailService")

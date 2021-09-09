@@ -1,4 +1,4 @@
-package com.board.controller.hj;
+package com.board.hj.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.board.domain.hj.Member;
-import com.board.service.hj.MemberService;
+import com.board.hj.domain.Member;
+import com.board.hj.service.MemberService;
 
 @SessionAttributes("member")
 @Controller

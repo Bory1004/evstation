@@ -1,8 +1,8 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import java.util.Optional;
 
-import com.board.domain.hj.Member;
+import com.board.hj.domain.Member;
 
 public interface MemberService {
 	Member login(Member member);

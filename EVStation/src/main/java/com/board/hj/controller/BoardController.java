@@ -1,4 +1,4 @@
-package com.board.controller.hj;
+package com.board.hj.controller;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.domain.hj.Board;
-import com.board.domain.hj.Comment;
-import com.board.domain.hj.Member;
-import com.board.service.hj.BoardService;
-import com.board.service.hj.CommentService;
+import com.board.hj.domain.Board;
+import com.board.hj.domain.Comment;
+import com.board.hj.domain.Member;
+import com.board.hj.service.BoardService;
+import com.board.hj.service.CommentService;
 
 @SessionAttributes("member")
 @Controller

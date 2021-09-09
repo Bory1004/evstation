@@ -1,4 +1,4 @@
-package com.board.domain.hj;
+package com.board.hj.domain;
 
 public class EmailVO {
 

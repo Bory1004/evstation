@@ -1,4 +1,4 @@
-package com.board.controller.hj;
+package com.board.hj.controller;
 
 import java.util.Random;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.board.domain.hj.EmailVO;
-import com.board.service.hj.EmailService;
+import com.board.hj.domain.EmailVO;
+import com.board.hj.service.EmailService;
 
 @RestController
 public class EmailController {

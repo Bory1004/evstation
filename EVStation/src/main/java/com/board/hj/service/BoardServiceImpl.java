@@ -1,4 +1,4 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -6,8 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.board.domain.hj.Board;
-import com.board.persistence.hj.BoardRepository;
+import com.board.hj.domain.Board;
+import com.board.hj.persistence.BoardRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService{

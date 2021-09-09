@@ -1,12 +1,12 @@
-package com.board.service.hj;
+package com.board.hj.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.board.domain.hj.Member;
-import com.board.persistence.hj.MemberRepository;
+import com.board.hj.domain.Member;
+import com.board.hj.persistence.MemberRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
