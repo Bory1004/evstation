@@ -34,9 +34,13 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
 	 @Modifying
 	 @Transactional
-	 @Query("UPDATE DsEntity d SET d.restep = d.restep + 1  WHERE d.ref = ?1 AND d.restep > ?2 ") //ref가 같고  
+	 @Query("UPDATE DsEntity d SET d.restep = d.restep + 1  WHERE d.ref = ?1 AND d.restep > ?2 ")  //기존의 DB에 있는 데이터만 업데이트문이 적용됨.
 	 int saveReply(Long ref, Long restep, Long relevel);
-
+	 // 기본글  num 1 ref: 1  , step : 0  level 0
+	 // 기본글의 댓글 3: num:3 ref :1 step 1 , level : 1
+	 // 기본글의 댓글 2 : num 3 , ref :1, step: 1 +1, level : 1
+	 		// 기본글의 댓글2의 댓글 : num 5: ref :2+1  step:  level: 1+1
+	 //기본글의 댓글 1: num : 2  ref:1 step :1+1 +1+1, level : 1
 	 
 	 
 	 

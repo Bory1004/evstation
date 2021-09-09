@@ -28,7 +28,7 @@ import com.board.ds_service.EmailService;
 @Controller
 public class DsConstroller {
 	
-	@ModelAttribute("tempId")
+	@ModelAttribute("tempId") //임의로 아이디값 세션으로 정의
 	public String tempId() {
 		return "tempId";
 	}
@@ -42,7 +42,7 @@ public class DsConstroller {
 //	@Autowired                                            
 //	private DsRepository dsRepo;
 		
-	@RequestMapping("qnaList")
+	@RequestMapping("qnaList")  // 리스트에 페이징 처리, 검색 처리
 		public String qnaList(Model m, @RequestParam(name = "p", defaultValue ="1")int pNum, String search, @RequestParam(defaultValue = "-1") int searchn ) {	
 		
 		int pageNum = 5;
@@ -75,7 +75,7 @@ public class DsConstroller {
 			return "/DsBoard/qnaList";
 		}
 	
-	@GetMapping("insertQnA")
+	@GetMapping("insertQnA") //  글쓰기 폼으로 이동
 	public String insertQnaView() {
 		return "/DsBoard/insertQnA";
 	}
@@ -89,7 +89,7 @@ public class DsConstroller {
 		
 		return "redirect:/qnaList";
 	}
-	@RequestMapping("qnaDetail/{boardnum}")
+	@RequestMapping("qnaDetail/{boardnum}")   
 	public String qnaDetail(@PathVariable Long boardnum, Model m) {
 		DsEntity detail=dsService.qnaDetail(boardnum);
 		m.addAttribute("detail",detail);
@@ -98,7 +98,7 @@ public class DsConstroller {
 	@RequestMapping("deleteChk")
 	public String qnaDeletechk(int[] valueArr) {
 			
-		int size = valueArr.length;
+		int size = valueArr.length;  //선택된 체크박스의 길이를 변수에 정의
 		for (int i= 0; i<size; i++) {
 		dsService.deleteChk(valueArr[i]); 		
 		}
@@ -140,7 +140,7 @@ public class DsConstroller {
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
-		dsEntity.setRestep(dsEntity.getRestep()+1);
+		dsEntity.setRestep(dsEntity.getRestep()+1); //답변 달릴 때 + 1 
 		dsEntity.setRelevel(dsEntity.getRelevel()+1);
 		dsEntity.setBoardyn(dsEntity.getBoardyn()+1);
 		
@@ -164,75 +164,13 @@ public class DsConstroller {
 
 		return "redirect:/qnaList";
 }
-}
-
-
-
-
-
-//	   @GetMapping("qnaReply")
-//	   public String qnaRelpy(Long boardnum, Model m, Integer pNum, Integer pageSize) {
-//		   Page<DsEntity> reply = dsService.getfindAll(pNum, pageSize);
-//		   Long groupNo = dsService.getfindOne(boardnum).getGroupNo();
-//	        m.addAttribute("groupNo", groupNo);
-//	        m.addAttribute("parentNo", boardnum);
-//	        m.addAttribute("reply", reply);	
-//			return "redirect:/qnaList";
-//		   
-//	   }
-//}
+	@RequestMapping("extemp")
+	public String exTemp() {
+		return "extemp";
+		
+	}
 	
-	   
-	   //   @ResponseBody
-//	    public String writeReply(@RequestBody DsEntity dsEntity, Model m) {
-//
-//	      //  String writer = principal.getName();
-//	        // 작성자인지 확인
-//	 //       if(!writer.equals("") &&  writer.trim().length() > 0) {
-//
-//		    Long groupNo = dsEntity.getGroupNo();
-//            Long parentNo = dsEntity.getParentNo();
-//	            // 원글의 답글인 경우
-//	            if(parentNo == 0) {
-//	                parentNo = groupNo;
-//	            }
-//
-//	            // parentNo로 부모글 컬럼 가져오기
-//	            DsEntity parentBoard = dsRepo.findDsEntityByBoardnum(parentNo);
-//
-//	            // 부모글 groupSeq
-//	            Long parentGroupSeq = parentBoard.getGroupSeq();
-//
-//	            // 현재 넣으려는 글의 seq
-//	            Long nextGroupSeq = parentGroupSeq + 1;
-//
-//	            // 부모글 depth
-//	            Long parentDepth = parentBoard.getDepth();
-//
-//	            // 작성한 글의 depth
-//	            Long depth = parentDepth + 1;
-//
-//	            // max Seq
-//	            Long maxGroupSeq = dsRepo.findMaxGroupSeqByGroupNo(groupNo); 
-//
-//	            if(nextGroupSeq <= maxGroupSeq){
-//	                // 답글이 존재함(이미 존재하는 group_seq인지 확인)
-//	                DsEntity findBoard = dsRepo.findDsEntityByGroupNoAndGroupSeq(groupNo,nextGroupSeq);
-//	                if(findBoard.getParentNo() != parentNo) {
-//	                	dsEntity.setGroupSeq(nextGroupSeq);
-//	                    dsRepo.updateAllGroupSeq(findBoard.getGroupNo(), findBoard.getGroupSeq());
-//	                }
-//	            }
-//	            if(dsEntity.getGroupSeq() == 0) {
-//	            	dsEntity.setGroupSeq(maxGroupSeq + 1);
-//	            }
-//	            dsEntity.setParentNo(parentNo);
-//	            dsEntity.setDepth(depth);
-//	            dsEntity.setBoardwriter(writer);
-//
-//	            return "qnaList";
-//	        }else{
-//	            return "qnaList";
-//	            		 }
-//}
-//}
+	
+	
+	
+}

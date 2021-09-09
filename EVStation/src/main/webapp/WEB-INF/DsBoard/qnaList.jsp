@@ -13,11 +13,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src= "http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			 var chkObj = document.getElementsByName("reportChkBxRow")
-			 var rowCnt = chkObj.length;
+		//체크박스 전체 선택 /해제 
+	$(function(){
+			 var chkObj = document.getElementsByName("reportChkBxRow") //name 값을 변수에 정의
+			 var rowCnt = chkObj.length;  //꺼낸 name값의 길이를 넣을 변수를 정의
 			 
-			 $("input[name='reportChkBx']").click(function(){
+			 $("input[name='reportChkBx']").click(function(){  
 					var chk_listArr = $("input[name='reportChkBxRow']");
 					for(var i = 0; i < chk_listArr.length; i++){
 						chk_listArr[i].checked = this.checked;
