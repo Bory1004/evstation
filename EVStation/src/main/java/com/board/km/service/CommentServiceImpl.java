@@ -45,8 +45,12 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void deleteComment(Long comnum) { //commentRepo.deleteByComroupnum
-		commentRepo.deleteById(comnum);
+	public void deleteComment(Long comnum,Long comgroupnum) { //commentRepo.deleteByComroupnum
+		if ( (long)comnum == (long)comgroupnum) { //일반댓글인 경우 대댓글까지 다지움
+			commentRepo.deleteByComgroupnum(comgroupnum);
+		}else { //대댓글인경우
+			commentRepo.deleteById(comnum);
+		}
 	}
 
 

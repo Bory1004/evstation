@@ -19,7 +19,7 @@ public interface CommentService {
 	List<BoardComment> getComments(int cNum, Long num, Long comrestep);
 
 
-	void deleteComment(Long comnum);
+	void deleteComment(Long comnum, Long comgroupnum);
 
 
 	void updateComment(Long comnum, String comcontent);

@@ -42,5 +42,8 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	@Modifying
 	@Query("UPDATE BoardComment d SET d.comrestep = (SELECT NVL(MAX(comrestep),0)+1 FROM d WHERE d.comgroupnum=?1)  WHERE d.comnum=?2")
 	void updaterestep(Long groupnum,Long comnum);
+	
+	@Transactional
+	void deleteByComgroupnum(Long comgroupnum); //일반댓글인 경우 대댓글까지 데이터베이스에서 지움
 
 }

@@ -122,8 +122,10 @@ public class ReviewController {
 	
 	@RequestMapping(value="/content/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String deleteComment(Long comnum) {//댓글삭제
-		commentService.deleteComment(comnum);
+	public String deleteComment(Long comnum , Long comgroupnum) {//댓글삭제
+		System.out.println(comnum);
+		System.out.println(comgroupnum);
+		commentService.deleteComment(comnum,comgroupnum);
 		return "Success!!";
 	}
 	
