@@ -95,12 +95,12 @@ public class DsConstroller {
 		m.addAttribute("detail",detail);
 		return "/DsBoard/qnaDetail";
 	}
-	@PostMapping("deleteQnA")
-	public String qnqDeletechk(HttpServletRequest request) {
-		String[] ajaxDelete = request.getParameterValues("valueArr");
-		int size = ajaxDelete.length;
-		for (int i=0; i<size; i++) {
-		dsService.delete(ajaxDelete[i]); 
+	@RequestMapping("deleteChk")
+	public String qnaDeletechk(int[] valueArr) {
+			
+		int size = valueArr.length;
+		for (int i= 0; i<size; i++) {
+		dsService.deleteChk(valueArr[i]); 		
 		}
 		return  "redirect:/qnaList"; 
 		
@@ -130,18 +130,22 @@ public class DsConstroller {
 		m.addAttribute("ref",ref);
 		m.addAttribute("restep", restep);
 		m.addAttribute("relevel", relevel);
+
 		//
 	        return "/DsBoard/qnaReplyForm";
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity, DsEmail dsEmail ) throws Exception { 
+	public String saveReply(DsEntity dsEntity, DsEmail dsEmail,@ModelAttribute("tempId")String tempId ) throws Exception { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
 		dsEntity.setRestep(dsEntity.getRestep()+1);
 		dsEntity.setRelevel(dsEntity.getRelevel()+1);
 		dsEntity.setBoardyn(dsEntity.getBoardyn()+1);
+		
+		dsEntity.setBoardwriter(tempId); // 임의 아이디 추가 
+
 
 		dsService.saveQnA(dsEntity);
 

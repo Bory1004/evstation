@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<td class="orange">작성자</td>
-							<td><input  class="form-control"  name="boardwriter" /></td>
+							<td>${tempId}</td>
 						</tr>
 
 						<tr>

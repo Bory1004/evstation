@@ -32,7 +32,7 @@
 			 });
 		});
 		function deleteValue(){
-				var url = "/deleteQnA";
+				var url = "/deleteChk";
 				var valueArr = new Array();
 				var list = $("input[name='reportChkBxRow']");
 				for(var i = 0; i < list.length; i++){
@@ -55,7 +55,7 @@
 						success: function(data){
 							if(data = 1){
 								alert("삭제 성공");
-								location.replace("list") //list로 페이지 새로고침
+								location.replace("qnaList")
 							}else{
 								alert("삭제 실패");
 							}
@@ -84,7 +84,7 @@
 
 				<c:forEach items="${list}" var="list">
 					<tr>
-					    <td><input type="checkbox" name="reportChkBxRow" id="${list.boardnum}">
+					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}">
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
 						<c:if test="${list.relevel == 1 }" >[답변]</c:if>

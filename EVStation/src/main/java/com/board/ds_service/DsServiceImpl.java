@@ -89,9 +89,12 @@ public class DsServiceImpl implements DsService {
 	}
 
 	@Override
-	public void delete(String no) {
-		dsRepo.delete(no);
-	} 
+	public void deleteChk(int boardnum) {
+		dsRepo.deleteById((long) boardnum);
+	}
+
+
+
 
 	
 	
