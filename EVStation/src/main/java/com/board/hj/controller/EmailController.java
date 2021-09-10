@@ -17,7 +17,7 @@ public class EmailController {
 	@Autowired
 	private EmailService emailService;
 
-	@RequestMapping("/send")
+	@RequestMapping("/join_mail")
 	public String[] sendMail(String emailAddress) throws Exception {
 
 		EmailVO email = new EmailVO();

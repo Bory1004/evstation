@@ -49,7 +49,7 @@ a {
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" id="check_cookie"> 로그인 상태 유지
 				</div>			
-				<div style="color: red" id="id_pw_msg">${msg}</div><br>
+				<div style="color: red" id="login_msg">${msg}</div><br>
 				<input style="width: 300px;" type="submit" class="btn btn-success justify-content-center" id="login_chk" value="로그인">
 				<br>
 				<div> 아이디 찾기 / 비밀번호 찾기 / <a href="/joinView">회원가입</a></div>
@@ -87,13 +87,11 @@ a {
 				return false;
 			}
 
-			/* if ($("#check_cookie").prop("checked")) {
-				setCookie("id", id, 7);
-				setCookie("mempw", mempw, 7);
+			if ($("#check_cookie").prop("checked")) {
+				$("#login_msg").append("<input type='hidden' name='cookie' value='1'>");
 			} else {
-				setCookie("id", id, -1);
-				setCookie("mempw", mempw, -1);
-			} */
+				$("#num_msg").append("<input type='hidden' name='cookie' value='0'>");
+			}
 		});
 	});
 

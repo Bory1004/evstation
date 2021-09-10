@@ -120,7 +120,8 @@
 			<div class="row mb-3 justify-content-center align-items-center">
 				<div class="col-md-6">
 					<label for="memphone" class="col-form-label">휴대전화</label>
-					<input type="text" id="memphone" name="memphone" class="form-control" maxlength="20" placeholder="010-0000-0000">
+					<input type="text" id="memphone" name="memphone" class="form-control" maxlength="20" placeholder="-없이 입력해주세요. ex) 01011112222">
+					<div id="phone_msg" class="form-text"></div>
 				</div>
 			</div>
 
@@ -286,7 +287,7 @@
 			
 			$("#name").blur(function() {
 				let name = $("#name").val();
-				let name_ck = /^[가-힣]*$/;
+				let name_ck = /^[가-힣]{2,6}$/;
 				
 				$("#name_msg").text("");
 				if(!$("#name").val()){
@@ -295,7 +296,7 @@
 					return false;
 				}
 				if (!name_ck.test(name)) {
-					$("#name_msg").text("한글만 입력가능합니다.");
+					$("#name_msg").text("2~6글자의 한글만 입력가능합니다.");
 					return false;
 				} else {
 					$("#name_msg").text("");
@@ -333,7 +334,7 @@
 					return false;
 				}
 				$.ajax({
-					url : "/send",
+					url : "/join_mail",
 					data : "emailAddress=" + email,
 					dataType : "json"
 				}).done(function(data) {
@@ -426,10 +427,29 @@
 			
 			}else{
 				//1.입력된 생년월일이 8자 초과할때 :  auth:false
-				$('#birth_check').text('생년월일을 확인해주세요.');
+				$('#birth_msg').text('생년월일을 확인해주세요.');
 				return false;
 			}
 		});
+			
+			//휴대폰번호
+			$("#memphone").blur(function(){
+				let phone_ck = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+				
+				let phone = $("#memphone").val();
+				
+				if(!$("#memphone").val()){
+					$('#phone_msg').text("");
+					return true;
+				}
+				
+				if(!phone_ck.test(phone)){
+					$('#phone_msg').text("번호를 확인해주세요.");
+					return false;
+				}else {
+					$('#phone_msg').text("");
+				}			
+			})
 			
 				
 			//$("#member").submit(function(){

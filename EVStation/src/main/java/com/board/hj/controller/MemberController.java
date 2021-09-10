@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -62,21 +63,28 @@ public class MemberController {
 
 	// 로그인
 	@RequestMapping("/login")
-	public String login(HttpServletResponse response, Member member, Model model) {
+	public String login(@ModelAttribute("member") Member member, Model model,
+			@RequestParam(name="cookie") int cookie, HttpServletResponse response) {
 		Member findMember = memberService.getMember(member);
 
 		// 로그인 성공
 		if (findMember != null && findMember.getMempw().equals(member.getMempw())) {
 			model.addAttribute("member", findMember);
 
-			/*
-			 * //쿠키 생성 if (cookie.equals("check")) { Cookie idcookie = new Cookie("id",findMember.getId());
-			 *  Cookie pwcookie = new Cookie("pw", findMember.getMempw());
-			 * 
-			 * response.addCookie(idcookie); response.addCookie(pwcookie); }
-			 */
-
-			return "redirect:getBoardList";
+			//쿠키 생성 
+			if (cookie == 1) {
+				Cookie cookie_id = new Cookie("cookie_id", findMember.getId());
+				cookie_id.setMaxAge(60*60*24*7); //7일 쿠키 유지
+				cookie_id.setPath("/");
+			 	response.addCookie(cookie_id);
+			 	
+			 	Cookie cookie_pw = new Cookie("cookie_pw", findMember.getMempw());
+			 	cookie_pw.setMaxAge(60*60*24*7); //7일 쿠키 유지
+			 	cookie_pw.setPath("/");
+			 	response.addCookie(cookie_pw);
+			 }
+			
+			return "main";
 		}
 
 		// 로그인 실패
