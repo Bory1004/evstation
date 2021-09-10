@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session = "true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,23 +27,46 @@ a {
 </style>
 </head>
 <body>
+<%= session.getAttribute("member") %>
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> <img src="/img/logo.png"
-						width="200" height="100">
-					</a>
+					<a href="main" class="link-secondary"> 
+					<img src="/img/logo.png" width="200" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+					
+					
+					
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						</c:otherwise>
+						
+					</c:choose>
+					<%-- <c:if test="${member == null}">
+						<div>
+						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
+						<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
 					</div>
+					</c:if>
+					<c:if test="${member != null}">
+						<div>
+						${member.id}님 환영합니다!
+						<a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+					</div>
+					</c:if> --%>
 				</div>
 
 			</div>

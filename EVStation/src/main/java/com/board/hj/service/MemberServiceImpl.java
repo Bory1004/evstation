@@ -40,6 +40,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public Member findIdMember(String id) {
+		Optional<Member> findMember = memberRepo.findById(id);
+		if(findMember.isPresent())
+			return findMember.get();
+		else
+			return null;
+	}
+	
+	@Override
 	public void delete(Member member) {
 		memberRepo.delete(member);
 	}
