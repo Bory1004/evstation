@@ -1,16 +1,17 @@
 package com.board.km.persistence;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.board.km.domain.BoardComment;
 
+@Repository
 public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 
 	BoardComment findByBoardnumAndComcontent(Long boardnum, String comcontent);
@@ -47,5 +48,7 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	@Modifying
 	@Query("delete from BoardComment d where d.comgroupnum = ?1")
 	void deleteByComgroupnum(Long comgroupnum); //일반댓글인 경우 대댓글까지 데이터베이스에서 지움
+	
+	List<BoardComment> findByComgroupnum(Long comgroupum); //알람 테이블에 추가할 멤버번호들 가져오기
 
 }

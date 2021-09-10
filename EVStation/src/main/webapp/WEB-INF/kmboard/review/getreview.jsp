@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,7 +115,7 @@ textarea {
 					<div id="commentlist">
 						<hr>
 						<c:forEach items="${comments}" var="comment">
-						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진 아이디 ${comment.commemnum} <fmt:formatDate
+						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진<%-- ${comment.member.memphoto} --%> 아이디<%-- ${commet.member.id} --%> ${comment.commemnum} <fmt:formatDate
 									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
 																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum},${comment.comgroupnum})">수정</a> 
 																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum},${comment.comgroupnum})">삭제</a></span></div>
@@ -165,7 +166,6 @@ textarea {
 				<p>Copyright @ 2021 EvStation</p>
 			</div>
 		</div>
-		
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
@@ -180,6 +180,7 @@ textarea {
 				//alert(${review.boardnum});
 				//alert(comcontent)
 				//alert(boardnum)
+				//let commemnum = '${memnum}'
 				
 				if (comcontent == "") {
 					alert("댓글을 입력하세요!")
@@ -355,7 +356,7 @@ textarea {
 				//alert(data)
 				let date = new Date(data.comdate);
 				$('#replyComment'+comnum).remove();
-				$('#'+data.comgroupnum).append(
+				$('#'+data.comgroupnum).append( //새로 작성한 답글의 객체를 받아온다.
 						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
 					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
 					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a>"

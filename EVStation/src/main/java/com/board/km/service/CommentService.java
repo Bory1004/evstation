@@ -29,4 +29,7 @@ public interface CommentService {
 
 	List<BoardComment> getReplyComments(Long num,Long comrestep);
 
+
+	List<BoardComment> getmembernum(Long comgroupnum);
+
 }

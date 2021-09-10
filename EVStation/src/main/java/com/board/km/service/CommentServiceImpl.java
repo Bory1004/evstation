@@ -63,5 +63,9 @@ public class CommentServiceImpl implements CommentService {
 	public void saveReStep(Long groupnum,Long comnum) { //대댓글 저장
 		commentRepo.updaterestep(groupnum,comnum);
 	}
-
+	
+	@Override
+	public List<BoardComment> getmembernum(Long comgroupnum) { //해당그룹번호에 해당하는 멤버번호가져오기
+		return commentRepo.findByComgroupnum(comgroupnum);
+	}
 }
