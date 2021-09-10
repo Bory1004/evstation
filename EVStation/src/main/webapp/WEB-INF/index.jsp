@@ -169,7 +169,7 @@ a {
 				data : {"alanum" : alanum},
 				dataType : "text"
 			}).done(function(data){
-				alert(data)
+				//alert(data)
 				$('#'+alanum).remove();
 			}).fail(function(e){
 				alert("실패")

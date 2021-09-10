@@ -1,6 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+
+	<c:if test="${list.size() == 0  }"> <!-- ${empty list}도 가능하다 --> 
+		 알람이 없습니다.
+	</c:if>
 <c:forEach items="${list}" var="alarm">
+		
 		<c:if test="${alarm.alatype ==2 }"> <!-- 댓글관련 알람  -->
 		<div id="${alarm.alanum}">
 			<span style="float: left;"><a  href="#getProfile" onclick="getProfile(${alarm.alafromid})">아이디</a></span><br> <span
@@ -8,7 +13,6 @@
 				onclick="delAlarm(${alarm.alanum})" width="10" height="10"></span> <br>
 		</div>
 		</c:if>
-		
 		<c:if test="${alarm.alatype == 1}"> <!-- 메일관련 알람 -->
 		<div id="${alarm.alanum}">
 			<span style="float: left;">${id}</span><br> <span

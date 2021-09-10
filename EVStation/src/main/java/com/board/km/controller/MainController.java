@@ -29,6 +29,7 @@ public class MainController {
 		List<Alarm> list=alarmService.getAlarms(memnum);
 		//Gson json = new Gson();
 		m.addAttribute("list",list);
+		System.out.println(list.size());
 		//return json.toJson(list);
 		return "alarmpage";
 	}
@@ -38,6 +39,7 @@ public class MainController {
 	public String countAlarm(Long memnum) {
 		int counts = alarmService.countAlarm(memnum);
 		//System.out.println(counts);
+		if(counts == 0) {return "";}
 		return ""+counts; 
 	}
 	
