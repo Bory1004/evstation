@@ -46,8 +46,7 @@ public class JoinController {
 	@RequestMapping("/check")
 	@ResponseBody
 	public int check(String id) {
-		Optional<Member> member = memberService.findMember(id);
-		
+		Optional<Member> member = memberService.findMember(id);		
 		Member mem = member.orElse(new Member());
 		
 		if(mem.getId() != null) { // 값이 없으면(null) ""로 전송된다.

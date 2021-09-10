@@ -57,8 +57,8 @@ public class MemberController {
 					cookie_pw = c.getValue();
 				}
 			}
-			Member findMember = memberService.findIdMember(cookie_id);
-			if (findMember != null && findMember.getMempw().equals(cookie_pw)) {
+			Member findMember = memberService.findIdPw(cookie_id, cookie_pw);
+			if (findMember != null) {
 				model.addAttribute("member", findMember);
 				session.setAttribute("member", findMember);
 			}
