@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="DsBoard/DsLayout/dsHeader.jsp"%>
+<%@ include file="DsLayout/dsHeader.jsp"%>
 <!DOCTYPE HTML>
 
 <html>
@@ -38,7 +38,8 @@ h2 { text-align: center; }
 		
 				<div id="page">
 				<div id="textBox">
-						<p>&nbsp;이 웹사이트는 전국에 설치한 전기차 충전기에 대하여 전기차 사용자에게 <span style="color: blue;"><b>충전기의 위치 및 상태</b></span>를 안내합니다.<br><br>
+						<p>&nbsp;이 웹사이트는 전국에 설치한 전기차 충전기에 대하여 전기차 사용자에게 <br/>
+							<span style="color: blue;"><b>충전기의 위치 및 상태</b></span>를 안내합니다.<br><br>
 							&nbsp;전기차 사용자가 충전시에 겪는 어려움에 대하여</br>
 							&nbsp;<span style="color: blue;"><b>전화,홈페이지,앱</b></span>을 통하여 안내합니다.<br><br>
 							&nbsp;사용자의 의견을 수렴하고 적절히 반영하여 더 나은 전기차 사용환경을 만들기 위해 노력합니다.<br><br>
@@ -49,6 +50,6 @@ h2 { text-align: center; }
 				<div class="imgBox"></div>
 				</div>
 			
-<%@ include file="DsBoard/DsLayout/dsFooter.jsp"%>
+<%@ include file="DsLayout/dsFooter.jsp"%>
 	</body>
 </html>

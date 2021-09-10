@@ -20,7 +20,7 @@ public interface DsService {
 	void saveQnA(DsEntity dsEntity, DsEmail dsEmail);
 
 	 
-	int saveReply(Long ref, Long restep, Long relevel);
+	int saveReply(Long boardref, Long boardrestep, Long boardrelevel);
 
 	void deleteChk(int boardnum);
 	

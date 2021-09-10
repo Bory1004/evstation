@@ -88,9 +88,9 @@
 					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}">
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
-						<c:if test="${list.relevel == 1 }" >[답변]</c:if>
-						<c:if test="${list.relevel > 1 }">&nbsp; [답변]
-						<c:forEach begin="2" end="${list.relevel}">
+						<c:if test="${list.boardrelevel == 1 }" >[답변]</c:if>
+						<c:if test="${list.boardrelevel > 1 }">&nbsp; [답변]
+						<c:forEach begin="2" end="${list.boardrelevel}">
 								Re:
 						</c:forEach>
 						</c:if>

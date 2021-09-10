@@ -28,10 +28,10 @@ public class DsServiceImpl implements DsService {
 
 	@Override
 	public void saveQnA(DsEntity dsEntity) {
-		System.out.println("dsEntity.ref"+dsEntity.getRef());
+		System.out.println("dsEntity.ref"+dsEntity.getBoardref());
 		Long num =  dsRepo.save(dsEntity).getBoardnum();
 		System.out.println("num::"+num);
-		if(dsEntity.getRef() == null) {
+		if(dsEntity.getBoardref() == null) {
 			dsRepo.updateRef(num);
 		}
 	}
@@ -64,24 +64,24 @@ public class DsServiceImpl implements DsService {
 		}
 		return list;
 	}
-
+  
 	@Override
 	public Page<DsEntity> AllListQnA(int pNum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return dsRepo.findByOrderByRefDescRestepAsc(page);
+		return dsRepo.findByOrderByBoardrefDescBoardrestepAsc(page);
 	}
 
 	@Override
-	public int saveReply(Long ref, Long restep, Long relevel) {
-		dsRepo.ybReply(ref);
-		 return dsRepo.saveReply(ref, restep, relevel);
+	public int saveReply(Long boardref, Long boardrestep, Long boardrelevel) {
+		dsRepo.ybReply(boardref);
+		 return dsRepo.saveReply(boardref, boardrestep, boardrelevel);
 	}
 
 	@Override
 	public void saveQnA(DsEntity dsEntity, DsEmail dsEmail) {
 		Long num =  dsRepo.save(dsEntity).getBoardnum();
 		System.out.println("num::"+num);
-		if(dsEntity.getRef() == null) {
+		if(dsEntity.getBoardref() == null) {
 			dsRepo.updateRef(num);
 		}
 	

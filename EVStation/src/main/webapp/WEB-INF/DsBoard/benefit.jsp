@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="DsBoard/DsLayout/dsHeader.jsp"%>
+ <%@ include file="DsLayout/dsHeader.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +22,6 @@
 <div id="ph">
 <img  src="images/benefit.png" width="550" >
 </div>
-<%@ include file="DsBoard/DsLayout/dsFooter.jsp"%>
+<%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 </html>

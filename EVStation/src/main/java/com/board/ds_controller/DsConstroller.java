@@ -82,10 +82,10 @@ public class DsConstroller {
 	@PostMapping("insertQnA")
 	public String insertQnA(DsEntity dsEntity, @ModelAttribute("tempId")String tempId) {
 		dsEntity.setBoardwriter(tempId);
-		dsEntity.setRestep((long) 0); //글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
-		dsEntity.setRelevel((long) 0);
+		dsEntity.setBoardrestep((long) 0); //글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
+		dsEntity.setBoardrelevel((long) 0);
 		
-		dsService.saveQnA(dsEntity);
+		dsService.saveQnA(dsEntity); 
 		
 		return "redirect:/qnaList";
 	}
@@ -114,34 +114,34 @@ public class DsConstroller {
 	}
 	@RequestMapping("updateQnAform/{boardnum}")
 	public String qnaUpdateForm(@PathVariable Long boardnum, Model m) {
+
 		m.addAttribute("boardnum",boardnum);
 		return "/DsBoard/qnaUpdate";
 	}
 	@PostMapping("updateQnA")
-	public String qnaUpdate(DsEntity dsEntity) { 
+	public String qnaUpdate(DsEntity dsEntity, @ModelAttribute("tempId")String tempId) { 
+		dsEntity.setBoardwriter(tempId); // 임의 아이디 추가 
 		dsService.saveQnA(dsEntity);
 		return "redirect:/qnaList";
 	}
 
 
-	@RequestMapping("qnaReplyForm/{boardnum}/{ref}/{restep}/{relevel}")
-	    public String writeReply(@PathVariable Long boardnum,@PathVariable Long ref,@PathVariable Long restep,@PathVariable Long relevel, Model m) {
+	@RequestMapping("qnaReplyForm/{boardnum}/{boardref}/{boardrestep}/{boardrelevel}")
+	    public String writeReply(@PathVariable Long boardnum,@PathVariable Long boardref,@PathVariable Long boardrestep,@PathVariable Long boardrelevel, Model m) {
 		m.addAttribute("boardnum", boardnum);
-		m.addAttribute("ref",ref);
-		m.addAttribute("restep", restep);
-		m.addAttribute("relevel", relevel);
+		m.addAttribute("ref",boardref);
+		m.addAttribute("restep", boardrestep);
+		m.addAttribute("relevel", boardrelevel);
 
-		//
 	        return "/DsBoard/qnaReplyForm";
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity, DsEmail dsEmail,@ModelAttribute("tempId")String tempId,Long ref,Long restep, String boardyn ) throws Exception { 
-		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
-		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
+	public String saveReply(DsEntity dsEntity, DsEmail dsEmail,@ModelAttribute("tempId")String tempId) throws Exception { 
+		dsService.saveReply(dsEntity.getBoardref(), dsEntity.getBoardrestep(), dsEntity.getBoardrelevel());	
 		
-		dsEntity.setRestep(dsEntity.getRestep()+1); //답변 달릴 때 + 1 
-		dsEntity.setRelevel(dsEntity.getRelevel()+1);
+		dsEntity.setBoardrestep(dsEntity.getBoardrestep()+1); //답변 달릴 때 + 1 
+		dsEntity.setBoardrelevel(dsEntity.getBoardrelevel()+1);
 		
 		dsEntity.setBoardwriter(tempId); // 임의 아이디 추가 
 		
@@ -162,14 +162,14 @@ public class DsConstroller {
 
 		return "redirect:/qnaList";
 }
-	@RequestMapping("extemp")
+	@RequestMapping("pageIntro") //페이지 소개
 	public String exTemp() {
-		return "extemp";
+		return "/DsBoard/pageIntro";
 		
 	}
-	@RequestMapping("benefit")
+	@RequestMapping("benefit") // 기대효과
 	public String benfit() {
-		return "benefit";
+		return "/DsBoard/benefit";
 		
 	}
 	

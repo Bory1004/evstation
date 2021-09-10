@@ -17,9 +17,9 @@
 </head>
 <body>
 	<form action="/qnaReply" method="post">
-		<input type="hidden" name="ref" value="${ref }"> 
-		<input type="hidden" name="restep" value="${restep }"> 
-		<input type="hidden" name="relevel" value="${relevel }">
+		<input type="hidden" name="boardref" value="${boardref }"> 
+		<input type="hidden" name="boardrestep" value="${boardrestep }"> 
+		<input type="hidden" name="boardrelevel" value="${boardrelevel }">
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
