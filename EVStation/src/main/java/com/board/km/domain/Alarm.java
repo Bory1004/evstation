@@ -32,4 +32,6 @@ public class Alarm {
 	private Long alacheck;
 	@Column(name="ala_fromid", columnDefinition="varchar2(20)", nullable=true)
 	private String alafromid;
+	@Column(name="board_num", columnDefinition="number")
+	private Long boardnum;
 }

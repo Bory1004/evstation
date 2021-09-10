@@ -29,6 +29,15 @@
 a {
 	text-decoration-line: none;
 }
+
+#alarmpage {
+	position :absolute;
+	border: solid black 1px;
+	width : 210px;
+	height : 300px;
+	left : 1230px;
+}
+
 </style>
 </head>
 <body>
@@ -45,8 +54,9 @@ a {
 
 				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
-						width="30" height="30" onclick="ring(${memnum})"><div></div></div>
+					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
+						width="30" height="30" onclick="ring(${memnum})">
+					</div>
 					<div style="float:right;">
 						
 						<a class="btn btn-sm btn-outline-success" href="/DsAlarm">로그인</a> <a
@@ -116,15 +126,51 @@ a {
 		var map = new kakao.maps.Map(container, options);
 		</script>
 		<script>
-		function ring(x){
-			alert(${memnum})
+		$(function(){
+			$.ajax({
+				type : "get",
+				url : "countAlarm",
+				data : { "memnum" : ${memnum}},
+				dataType : "text"
+			}).done(function(data){
+				//alert(data)
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText)				
+			})
+		
+		})
+		
+		function ring(x){ //알람 창 열고 데이터 가져오는 함수
+			//alert(${memnum})
 			$.ajax({
 				type : "get",
 				url : "/getAlarm",
 				data : {"memnum" : ${memnum}},
-				dataType : "json"
+				dataType : "text"
 			}).done(function(data){
-				alert("성공")
+				//alert("성공")
+				if($('#alarmpage').html()){
+					$('#alarmpage').remove();
+				}else{
+					$('#login').append("<div id='alarmpage'></div>"	);
+					$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
+				}
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText);
+			})
+		}
+		function delAlarm(x){
+			let alanum = x;
+			$.ajax({
+				type : "get",
+				url : "/delAlarm",
+				data : {"alanum" : alanum},
+				dataType : "text"
+			}).done(function(data){
+				alert(data)
+				$('#'+alanum).remove();
 			}).fail(function(e){
 				alert("실패")
 				alert(e.responseText);

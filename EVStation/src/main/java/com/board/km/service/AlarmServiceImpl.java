@@ -22,4 +22,15 @@ public class AlarmServiceImpl implements AlarmService {
 		return alarmRepo.findByMemnum(memnum);
 	}
 
+	@Override
+	public int countAlarm(Long memnum) {
+		int counts = alarmRepo.countAlarm(memnum);
+		return counts;
+	}
+	
+	@Override
+	public void delAlarm(Long alanum) {
+		alarmRepo.deleteById(alanum);
+	}
+
 }

@@ -10,5 +10,9 @@ public interface AlarmService {
 
 	List<Alarm> getAlarms(Long memnum);
 
+	int countAlarm(Long memnum);
+
+	void delAlarm(Long alanum);
+
 
 }
