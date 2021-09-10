@@ -42,13 +42,13 @@ public class BoardServiceImpl implements BoardService{
 	}
 	@Override
 	public Board getBoard(Long num) {
-		// TODO Auto-generated method stub
-		return null;
+	return boardRepo.getById(num);
 	}
 	
 	@Override
 	public List<Board> openMap() {
 		return boardRepo.findAll();
 	}
+	
 
 }

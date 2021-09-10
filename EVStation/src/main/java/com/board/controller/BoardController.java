@@ -28,9 +28,9 @@ public class BoardController {
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		m.addAttribute("blist", bList);
 		m.addAttribute("totalPage", totalPageCount);
-
-		int begin = (pNum - 1) / 2 * 2 + 1;
-		int end = begin + 2 - 1;
+		int pageNum = 5;
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
@@ -56,6 +56,7 @@ public class BoardController {
 	public String getBoard(@PathVariable Long num, Model m) {
 		Board board = boardService.getBoard(num);
 		m.addAttribute("board", board);
+		
 		return "getBoard";
 	}
 

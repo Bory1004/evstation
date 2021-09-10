@@ -15,6 +15,7 @@ public interface BoardService {
 	Board onlyBoard(Long num);
 	void deleteBoard(Long num);
 	List<Board> openMap();
+	
 
 	
 }
