@@ -30,4 +30,6 @@ public class Alarm {
 	private Long alatype;
 	@Column(name="ala_check",columnDefinition="number default 0")
 	private Long alacheck;
+	@Column(name="ala_fromid", columnDefinition="varchar2(20)", nullable=true)
+	private String alafromid;
 }

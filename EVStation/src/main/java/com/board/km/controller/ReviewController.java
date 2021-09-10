@@ -127,12 +127,14 @@ public class ReviewController {
 		System.out.println("------------알림부분");
 		List<BoardComment> memnums=commentService.getmembernum(board.getComgroupnum()); //알람테이블에 추가하려면 해당댓글을 단 멤버들의 멤버번호들을 담은 객체들을 가져옴
 		Alarm alarm = null;
+		String alafromid = null;
 		for(int i=0;i<memnums.size();i++) {
 			alarm = new Alarm();
 			//System.out.println(memnums.get(i).getCommemnum());
 			alarm.setMemnum(memnums.get(i).getCommemnum()); //멤버번호를 가져와서 세이브
 			alarm.setAlatype((long) 2);
 			alarm.setAlacheck((long) 0);
+			//alarm.setAlafromid(alafromid); 알람테이블에 보낸이 아이디를 저장
 			alarmService.saveAlarm(alarm);
 		}
 		

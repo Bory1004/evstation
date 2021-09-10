@@ -123,7 +123,7 @@ textarea {
 							<!-- 대댓글부분 -->
 							<c:forEach items="${replycomments}" var="replycomment">
 							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
-							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span> <fmt:formatDate
+							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진<%-- ${replycomment.member.memphoto} --%> 아이디<%-- ${replycomment.member.id} --%></span> <fmt:formatDate
 									value="${replycomment.comdate}" pattern="MM.dd HH:mm" /></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${replycomment.comnum},${replycomment.comgroupnum})">답글</a>
 																													<a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
 																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum},${replycomment.comgroupnum})">삭제</a>
@@ -321,13 +321,14 @@ textarea {
 		function replyCommentForm(x,y){ // 댓글답장하는 답글창 생성
 			let comnum = x;
 			let comgroupnum = y;
+			// let alafromid = comment.member.id <- 보내는 사람의 아이디
 			//alert(comnum)
 			//alert(comgroupnum)
 			$('#replyComment'+comnum).remove(); //중복생성 방지 일반댓글의 답장창을 삭제하기 위해 일반댓글의 comnum을 가져옴
 			$('#updateComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
+					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>" //
 					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
