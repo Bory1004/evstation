@@ -82,8 +82,7 @@
 				<div class="col-md-6">
 				<label for="mememail" class="col-form-label"><span id="star">*</span>이메일</label>
 					<div class="input-group">
-					<input type="text" id="mememail" name="mememail" class="form-control" maxlength="30" aria-describedby="email_msg">
-						<!-- <input type="text" id="mememail1" name="mememail1" class="form-control" maxlength="20" aria-describedby="email_msg">
+						<input type="text" id="mememail1" name="mememail1" class="form-control" maxlength="20" aria-describedby="email_msg">
 						@<input type="text" id="mememail2" name="mememail2" class="form-control" disabled value="naver.com">
 						<select name="selectEmail" id="selectEmail" class="form-select"> 
 							<option value="1">직접입력</option> 
@@ -100,7 +99,7 @@
 							<option value="gmail.com">gmail.com</option> 
 							<option value="hanmir.com">hanmir.com</option> 
 							<option value="paran.com">paran.com</option> 
-						</select> -->
+						</select>
 
 						<button type="button" id="mail_ck" class="btn btn-success">메일 인증</button>
 					</div>
@@ -268,7 +267,7 @@
 				}
 			});
 			
-/* 			$("#mempw").keyup(function() {
+	/* 			$("#mempw").keyup(function() {
 				$("#pw_msg").text("");
 				if ($("#mempw").val() != $("#pw2").val()) {
 					$("#pw_msg").text("비밀번호가 일치하지않습니다.");
@@ -304,7 +303,7 @@
 			});
 					
 			// 이메일 인증
-			/* $("#selectEmail").change(function(){ 
+			$("#selectEmail").change(function(){ 
 				$("#selectEmail option:selected").each(function (){ 
 					if($(this).val()== '1'){//직접입력일 경우 
 						$("#mememail2").val(""); //값 초기화 
@@ -314,11 +313,11 @@
 						$("#mememail2").attr("disabled",true); //비활성화 
 					} 
 				}); 
-			}); */
+			});
 			
 			$("#mail_ck").on("click", function() {
-				let email = $("#mememail").val();
-				//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				//let email = $("#mememail").val();
+				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
 				console.log(email);
 				let email_ck =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 				
@@ -347,23 +346,25 @@
 				});
 			})
 		
+			//인증번호 입력
 			$("#num_ck").on("click", function() {
 						let num_in = $("#num_in").val();
-						let email = $("#mememail").val();
-						//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+						//let email = $("#mememail").val();
+						let email = $("#mememail1").val()+"@"+$("#mememail2").val();
 						
 						if (num_in == num) {
-							$("#mememail").attr("readonly", true);
-							//$("#mememail1").attr("readonly", true);
+							//$("#mememail").attr("readonly", true);
+							$("#mememail1").attr("readonly", true);
 							$("#num_in").attr("readonly", true);
 							$("#num_msg").text("인증완료");
 							$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
-							//$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
+							$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
 						} else {
 							$("#num_msg").text("인증 실패했습니다.");
 						}
 				})
-				
+			
+			//주소
 			$("#bnt_address").on("click",function() {
 					new daum.Postcode({
 						oncomplete : function(data) {
@@ -372,9 +373,67 @@
 						}
 					}).open();	
 			})
+			
 				
-			$("#member").submit(function(){
-			//$("#bnt_submit").on("click",function(){
+			// 생년월일	birthJ 유효성 검사
+			$("#membirth").blur(function(){
+				
+			// 생일 유효성 검사
+			let birthJ = false;
+			
+			let dateStr = $("#membirth").val();		
+	    	let year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
+	   	 	let month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+	    	let day = Number(dateStr.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
+	    	let today = new Date(); // 날짜 변수 선언
+	    	let yearNow = today.getFullYear(); // 올해 연도 가져옴
+		
+	    	if (dateStr.length <=8) {
+			// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
+		    if (1900 > year || year > yearNow){		    	
+		    	$('#birth_msg').text('생년월일을 확인해주세요.');
+		    	return false;
+		    	
+		    }else if (month < 1 || month > 12) {		    		
+		    	$('#birth_msg').text('생년월일을 확인해주세요.');
+		    	return false;
+		    
+		    }else if (day < 1 || day > 31) {		    	
+		    	$('#birth_msg').text('생년월일을 확인해주세요.');
+		    	return false;
+		    	
+		    }else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+		    	$('#birth_msg').text('생년월일을 확인해주세요.');
+		    	return false;
+		    	 
+		    }else if (month == 2) {
+		    	 
+		       	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+		       	
+		     	if (day>29 || (day==29 && !isleap)) {		     		
+		     		$('#birth_msg').text('생년월일을 확인해주세요.');
+		     		return false;
+		    	
+				}else{
+					$('#birth_msg').text('');
+					birthJ = true;
+				}//end of if (day>29 || (day==29 && !isleap))
+		     	
+		    }else{		    	
+		    	$('#birth_msg').text(''); 
+				birthJ = true;
+			}//end of if
+			
+			}else{
+				//1.입력된 생년월일이 8자 초과할때 :  auth:false
+				$('#birth_check').text('생년월일을 확인해주세요.');
+				return false;
+			}
+		});
+			
+				
+			//$("#member").submit(function(){
+			$("#bnt_submit").on("click",function(){
 				console.log("제출");
 				if(!$("#id").val()){
 					console.log('아이디 빈칸');
@@ -391,18 +450,18 @@
 					$("#name_msg").text("이름를 입력주세요.")
 					return false;
 				}
-				if(!$("#mememail").val()){
+				/* if(!$("#mememail").val()){
 					$("#email_msg").text("이메일을 입력주세요.")
 					return false;
-				}
-				/* if(!$("#mememail1").val()){
+				} */
+				if(!$("#mememail1").val()){
 					$("#email_msg").text("이메일을 입력주세요.")
 					return false;
 				}
 				if(!$("#mememail2").val()){
 					$("#email_msg").text("이메일을 입력주세요.")
 					return false;
-				} */
+				}
 				if($("#ck").val() != 1){
 					$("#email_msg").text("이메일 인증해주세요.")
 					return false;
@@ -424,8 +483,7 @@
 					return false;
 				}
 				
-				//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
-				/* let form = $("#member").serialize();
+				let form = $("#member").serialize();
 				$.ajax({
 					type : "post",
 					url : "/join",
@@ -440,7 +498,7 @@
 		                    console.log(status +"error:"+ err);
 		            }
 				
-				}) //ajax */
+				}) //ajax
 			})
 		});
 	</script>
