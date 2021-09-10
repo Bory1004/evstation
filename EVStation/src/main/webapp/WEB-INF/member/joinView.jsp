@@ -8,20 +8,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-	function sample4_execDaumPostcode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				//document.getElementById('zipcode').value = data.zonecode;
-				document.getElementById("memaddress").value = data.address;
-			}
-		}).open();
-	}
-	
-</script>
 <style>
-	#error, #id_msg, #star {color: red;}
-	#input , #result{ display: none;}
+	div.form-text {color: red;}
+	#star {color: red;}
 	a {text-decoration-line: none;}
 </style>
 </head>
@@ -41,120 +30,164 @@
 	<br>
 	
 	<main>
-		<div class="container input-group d-flex justify-content-center">
-		<div id="content">
-		
-		<form id="member" action="/join" method="post">
-		<div id="star">* 필수입력 사항</div>
+		<div class="container d-flex justify-content-center align-items-center">		
+		<div id="content">		
+		<form class="row g-2" id="member" action="/join" method="post"><!-- action="/join" method="post" -->
 			
-			<div class="row g-3 align-items-center">
-  				<div class="col-auto">
-    				<label for="id" class="col-form-label"><span id="star">*</span> 아이디</label>
-  				</div>
-  				<div class="col-auto">
-  					<input type="text" id="id" name="id" class="form-control" maxlength="20"/>
-  				</div>
-  				<div class="col-auto">
-    				<input type="button" id="id_check" class="btn btn-success justify-content-center" value="중복확인">
-  				</div>
-  				<div class="col-auto">
-    				<span id="id_msg" class="form-text"></span>
-  				</div>
-			</div>
-		
-			<div class="row g-3 align-items-center">
-  				<div class="col-auto">
-    				<label for="mempw" class="col-form-label"><span id="star">*</span> 비밀번호</label>
-  				</div>
-  				<div class="col-auto">
-  					<input type="password" id="mempw" name="mempw" class="form-control" maxlength="20">
-  				</div>
-  				<div class="col-auto">
-    				<span id="pw_msg" class="form-text"></span>
-  				</div>
+			<div class="row mb-2 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="id" class="col-form-label"><span id="star">*</span>아이디</label>
+					<input type="text" id="id" name="id" class="form-control" maxlength="20" aria-describedby="id_msg">
+					<div id="id_msg" class="form-text"></div>
+				</div>
 			</div>
 			
-			<div class="row g-3 align-items-center">
-  				<div class="col-auto">
-    				<label for="pw2" class="col-form-label"><span id="star">*</span> 비밀번호 확인</label>
-  				</div>
-  				<div class="col-auto">
-  					<input type="password" id="pw2" name="pw2" class="form-control" maxlength="20">
-  				</div>
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="mempw" class="col-form-label"><span id="star">*</span>비밀번호</label>
+					<input type="password" id="mempw" name="mempw" class="form-control" maxlength="20" aria-describedby="pw_msg">
+					<div id="pw_msg" class="form-text"></div>
+				</div>
 			</div>
-				
-			<div class="row g-3 align-items-center">
-  				<div class="col-auto">
-    				<label for="name" class="col-form-label"><span id="star">*</span> 이름</label>
-  				</div>
-  				<div class="col-auto">
-  					<input type="text" id="name" name="name" class="form-control" maxlength="20">
-  				</div>
-  				<div class="col-auto">
-    				<span id="name_msg" class="form-text"></span>
-  				</div>
-			</div>	
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="pw2" class="col-form-label"><span id="star">*</span>비밀번호 확인</label>
+					<input type="password" id="pw2" name="pw2" class="form-control" maxlength="20" aria-describedby="pw_msg2">
+					<div id="pw_msg2" class="form-text"></div>
+				</div>
+			</div>
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="name" class="col-form-label"><span id="star">*</span>이름</label>
+					<input type="text" id="name" name="name" class="form-control" maxlength="20" aria-describedby="name_msg">
+					<div id="name_msg" class="form-text"></div>
+				</div>
+			</div>
+			
+			<!-- 메일 인증 -->
+			<!-- <div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+				<label for="mememail" class="col-form-label"><span id="star">*</span>이메일</label>
+					<div class="input-group">
+						<input type="text" id="mememail" name="mememail" class="form-control input-group-bnt" maxlength="20" aria-describedby="email_msg">
+						<button type="button" id="mail_ck" class="btn btn-success justify-content-center">메일 인증</button>
+					</div>
+					<div id="email_msg" class="form-text"></div>
+				</div>
+			</div> -->
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+				<label for="mememail" class="col-form-label"><span id="star">*</span>이메일</label>
+					<div class="input-group">
+					<input type="text" id="mememail" name="mememail" class="form-control" maxlength="30" aria-describedby="email_msg">
+						<!-- <input type="text" id="mememail1" name="mememail1" class="form-control" maxlength="20" aria-describedby="email_msg">
+						@<input type="text" id="mememail2" name="mememail2" class="form-control" disabled value="naver.com">
+						<select name="selectEmail" id="selectEmail" class="form-select"> 
+							<option value="1">직접입력</option> 
+							<option value="naver.com" selected>naver.com</option> 
+							<option value="hanmail.net">hanmail.net</option> 
+							<option value="hotmail.com">hotmail.com</option> 
+							<option value="nate.com">nate.com</option> 
+							<option value="yahoo.co.kr">yahoo.co.kr</option> 
+							<option value="empas.com">empas.com</option> 
+							<option value="dreamwiz.com">dreamwiz.com</option> 
+							<option value="freechal.com">freechal.com</option> 
+							<option value="lycos.co.kr">lycos.co.kr</option> 
+							<option value="korea.com">korea.com</option> 
+							<option value="gmail.com">gmail.com</option> 
+							<option value="hanmir.com">hanmir.com</option> 
+							<option value="paran.com">paran.com</option> 
+						</select> -->
 
-			<div class="row g-3 align-items-center">
-  				<div class="col-auto">
-    				<label for="mememail" class="col-form-label"><span id="star">*</span> 이메일</label>
-  				</div>
-  				<div class="col-auto">
-  					<input type="text" id="mememail" name="mememail" class="form-control" maxlength="20">
-  				</div>
-  				<div class="col-auto">
-  					<button id="mail_ck" class="btn btn-success justify-content-center">메일 인증</button>
-  				</div>
-  				<div id="input">
-						<input id="ck_num"><input type="button" id="ck_b" value="인증 확인"></div>
-				<div style="color: red" id="result"></div>
-  				
-  				<div class="col-auto">
-    				<span id="emailresult" class="form-text"></span>
-  				</div>
+						<button type="button" id="mail_ck" class="btn btn-success">메일 인증</button>
+					</div>
+					<div id="email_msg" class="form-text"></div>
+				</div>
 			</div>
 			
-				
-					휴대폰
-					<input id="memphone" size="20" maxlength="20" />
-				
-					<span id="star">*</span> 주소
-					<input id="memaddress" name="memaddress" readonly>
-					<button class="btn btn-success justify-content-center" onclick="sample4_execDaumPostcode()">주소 검색</button>
-					<div style="color: red" id="address_msg"></div>
-				
-					<span id="star">*</span> 상세주소 <input type="text" id="memaddressdetail" name="memaddressdetail" size="50"/>
-					
-					<div style="color: red" id="address_msg"></div>
-				
-					<span id="star">*</span> 생년월일
-					<input id="membirth" name="membirth" size="20" maxlength="20" placeholder="ex) 20210101" />
-												
-				
-					<span>  </span>차종/충전타입
-					<select id="memcar" name="memcar">
-							<option value="없음">없음</option>
-							<option value="현대">현대</option>
-							<option value="기아">기아</option>
-							<option value="테슬라">테슬라</option>
-						</select>
-						<select id="memcharge" name="memcharge">
-							<option value="AC단상">AC단상</option>
-							<option value="DC 콤보">DC 콤보</option>
-						</select>
-					
-				
-					<span id="star">*</span> 개인정보수집동의
-					<input type="checkbox" id="check" name="check">동의
-					<span style="color: red" id="check_msg"></span>
-				
-					<input type="submit" value="가입" />
-				
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<div class="input-group">
+						<input type="text" id="num_in" class="form-control" placeholder="인증번호를 입력해주세요." disabled="disabled" aria-describedby="num_msg">
+						<button type="button" id="num_ck" class="btn btn-success justify-content-center" disabled>인증 확인</button>
+					</div>
+					<div id="num_msg" class="form-text"></div>
+				</div>
+			</div>			
 			
-	</form>
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="memphone" class="col-form-label">휴대전화</label>
+					<input type="text" id="memphone" name="memphone" class="form-control" maxlength="20" placeholder="010-0000-0000">
+				</div>
+			</div>
+
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+				<label for="memaddress" class="col-form-label"><span id="star">*</span>주소</label>
+					<div class="input-group">
+						<input type="text" id="memaddress" name="memaddress" class="form-control" readonly aria-describedby="address_msg">
+						<button type="button" id="bnt_address" class="btn btn-success justify-content-center">주소 검색</button>
+					</div>
+					<div id="address_msg" class="form-text"></div>
+				</div>
+			</div>
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<input type="text" id="memaddressdetail" name="memaddressdetail" class="form-control" maxlength="20" placeholder="상세주소를 입력해주세요." aria-describedby="address_msg2">
+				</div>
+				<div id="address_msg2" class="form-text"></div>
+			</div>
+				
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="membirth" class="col-form-label"><span id="star">*</span>생년월일</label>
+					<input type="text" id="membirth" name="membirth" class="form-control" maxlength="20" placeholder="ex) 20210101" aria-describedby="birth_msg">
+					<div id="birth_msg" class="form-text"></div>
+				</div>
+			</div>
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+				<label for="memphone" class="col-form-label">차종/충전타입</label>
+				<div class="input-group">
+					<select class="form-select" id="memcar" name="memcar">
+						<option value="없음">없음</option>
+						<option value="현대">현대</option>
+						<option value="기아">기아</option>
+						<option value="테슬라">테슬라</option>
+					</select>
+					<select class="form-select" id="memcharge" name="memcharge">
+  						<option value="없음">없음</option>
+						<option value="AC단상">AC단상</option>
+						<option value="DC 콤보">DC 콤보</option>
+					</select>
+				</div>
+				</div>
+			</div>
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<label for="check" class="col-form-label"><span id="star">*</span>개인정보수집동의</label>
+					<input type="checkbox" id="check" name="check">
+				</div>
+				<div id="birth_msg" class="form-text"></div>
+			</div>
+			
+			<div class="row mb-3 justify-content-center align-items-center">
+				<div class="col-md-6">
+					<input style="width: 300px;" type="submit" id="bnt_submit" class="btn btn-success" value="가입" />
+				</div>
+			</div>		
+		</form>
 	</div>
 	</div>
 	</main>
+	
 	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
 		<div class="row">
 			<div class="col-12 pt-3">
@@ -168,59 +201,136 @@
 			
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(function() {
-			$("#id_check").click(function(){
-				let id = $("#id").val();	
-				if(!id){
-					$("#id_msg").html("아이디를 입력하세요");
+		$(function() {			
+			$("#id").blur(function() {
+				let id = $('#id').val();
+				let id_ck = /^[a-zA-Z0-9]*$/;
+				
+				if(!$("#id").val()){									
+					$("#id_msg").text("아이디를 입력해주세요.");
+					//$("#bnt_submit").attr("disabled", true);
 					return false;
 				}
+				
 				$.ajax({
-					url:"/check_id",
-				 	data:"id="+id,
-					dataType:"text"}
-				).done(function(data){
-					if(data == ""){
-						$("#id_msg").html("사용할 수 있는 아이디 입니다.")
-						$("#id_msg").append("<input type='hidden' id='id_ck' value='1'>");
-					}else{
-						$("#id_msg").html("이미 사용중인 아이디 입니다.")
-					}
-				})
-			});
+					url : "/check",
+					data : "id=" + id,
+					dataType : "json",
+					success : function(data) {
+						console.log("1 = 중복o / 0 = 중복x : "+ data);							
 						
-			$("#mempw").keyup(function() {
-				$("#pwmsg").text('');
+						if (data == 1) {
+								// 1 : 아이디가 중복되는 문구
+								$("#id_msg").text("사용중인 아이디입니다.");
+								//$("#bnt_submit").attr("disabled", true);
+								return false;
+							} else {							
+								if(id_ck.test(id)){
+									// 0 : 아이디 길이 / 문자열 검사
+									$("#id_msg").text("사용가능한 아이디입니다.");
+									//$("#id_msg").css("color", "green");
+									//$("#bnt_submit").attr("disabled", false);
+						 
+								} else {									
+									$('#id_msg').text("아이디는 소문자와 숫자만 가능합니다.");
+									//$("#bnt_submit").attr("disabled", true);
+									return false;
+								}
+								
+							}
+						}, error : function() {
+								console.log("실패");
+						}
+					});
+				});
+			
+			$("#mempw").blur(function() {
+				$("#pw_msg").text("");
 				if ($("#mempw").val() != $("#pw2").val()) {
-					$("#pw_msg").text('');
-					$("#pw_msg").html('비밀번호가 일치하지않습니다.');
+					$("#pw_msg2").text("비밀번호가 일치하지않습니다.");
+					return false;
+				}
+				if (!$("#mempw").val()) {
+					$("#pw_msg").text("비밀번호를 입력해주세요.");
+					return false;
+				}
+			});
+			
+			$("#pw2").blur(function() {
+				$("#pw_msg2").text("");
+				if ($("#mempw").val() != $("#pw2").val()) {
+					$("#pw_msg2").text("비밀번호가 일치하지않습니다.");
+					return false;
+				} 
+				if (!$("#pw2").val()) {
+					$("#pw_msg2").text("비밀번호 확인을 입력해주세요.");
+					return false;
+				}
+			});
+			
+/* 			$("#mempw").keyup(function() {
+				$("#pw_msg").text("");
+				if ($("#mempw").val() != $("#pw2").val()) {
+					$("#pw_msg").text("비밀번호가 일치하지않습니다.");
 				} else {
-					$("#pw_msg").text('');
-					$("#pw_msg").html('');
+					$("#pw_msg").text("");
 				}
 			});
 			
 			$("#pw2").keyup(function() {
 				if ($("#mempw").val() != $("#pw2").val()) {
-					$("#pw_msg").text('');
-					$("#pw_msg").html('비밀번호가 일치하지않습니다.');
+					$("#pw_msg").text("비밀번호가 일치하지않습니다.");
 				} else {
-					$("#pw_msg").text('');
-					$("#pw_msg").html('');
+					$("#pw_msg").text("");
+				}
+			}); */
+			
+			$("#name").blur(function() {
+				let name = $("#name").val();
+				let name_ck = /^[가-힣]*$/;
+				
+				$("#name_msg").text("");
+				if(!$("#name").val()){
+					console.log("이름 빈칸");
+					$("#name_msg").text("이름을 입력해주세요.");
+					return false;
+				}
+				if (!name_ck.test(name)) {
+					$("#name_msg").text("한글만 입력가능합니다.");
+					return false;
+				} else {
+					$("#name_msg").text("");
 				}
 			});
-
-			$("#mail_ck").click(function() {
+					
+			// 이메일 인증
+			/* $("#selectEmail").change(function(){ 
+				$("#selectEmail option:selected").each(function (){ 
+					if($(this).val()== '1'){//직접입력일 경우 
+						$("#mememail2").val(""); //값 초기화 
+						$("#mememail2").attr("disabled",false); //활성화 
+					}else{ //직접입력이 아닐경우 
+						$("#mememail2").val($(this).text());//선택값 입력 
+						$("#mememail2").attr("disabled",true); //비활성화 
+					} 
+				}); 
+			}); */
+			
+			$("#mail_ck").on("click", function() {
 				let email = $("#mememail").val();
+				//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				console.log(email);
 				let email_ck =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 				
 				if (!email) {
-					$("#result").css("display", "block").html("메일 주소를 입력하세요");
+					$("#email_msg").text("메일 주소를 입력하세요.");
 					return false;
+				} else{
+					$("#email_msg").text("");
 				}
 				
 				if(email_ck.test(email) == false ){
-					$("#result").css("display", "block").html("메일 형식에 맞게 입력하세요");
+					$("#email_msg").text("메일 형식을 확인해주세요.");
 					return false;
 				}
 				$.ajax({
@@ -230,59 +340,107 @@
 				}).done(function(data) {
 					if (eval(data[1])) {
 						num = data[0];
-						alert("메일이 전송되었습니다. 인증번호를 입력하세요.")
-						$("#input, #result").css("display", "block");
+						alert("메일이 전송되었습니다. 인증번호를 입력하세요.");
+						$("#num_in").attr("disabled", false);
+						$("#num_ck").attr("disabled", false);
 					}
 				});
 			})
-			$("#ck_b").click(
-					function() {
-						let ck_num = $("#ck_num").val();
-						if (ck_num == num) {
-							$("#result").html("인증이 확인되었습니다.")
-							$("#result").append("<input type='hidden' id='ck' value='1'>");
+		
+			$("#num_ck").on("click", function() {
+						let num_in = $("#num_in").val();
+						let email = $("#mememail").val();
+						//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+						
+						if (num_in == num) {
+							$("#mememail").attr("readonly", true);
+							//$("#mememail1").attr("readonly", true);
+							$("#num_in").attr("readonly", true);
+							$("#num_msg").text("인증완료");
+							$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
+							//$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
 						} else {
-							$("#result").html("인증 실패했습니다. 다시 확인하세요.");
+							$("#num_msg").text("인증 실패했습니다.");
 						}
 				})
 				
+			$("#bnt_address").on("click",function() {
+					new daum.Postcode({
+						oncomplete : function(data) {
+							//document.getElementById('zipcode').value = data.zonecode;
+							document.getElementById("memaddress").value = data.address;
+						}
+					}).open();	
+			})
+				
 			$("#member").submit(function(){
+			//$("#bnt_submit").on("click",function(){
+				console.log("제출");
 				if(!$("#id").val()){
-					$("#id_msg").html("아이디를 입력해야 합니다.")
+					console.log('아이디 빈칸');
+					$("#id_msg").text("아이디를 입력주세요.")
 					return false;
 				}
 				if(!$("#mempw").val()){
-					$("#pw_msg").html("비밀번호를 입력해야 합니다.")
+					console.log('비밀번호 빈칸');
+					$("#pw_msg").text("비밀번호를 입력주세요.")
 					return false;
 				}
 				if(!$("#name").val()){
-					$("#name_msg").html("이름를 입력해야 합니다.")
+					console.log("이름 빈칸")
+					$("#name_msg").text("이름를 입력주세요.")
 					return false;
 				}
 				if(!$("#mememail").val()){
-					$("#emailresult").html("이메일을 입력해야 합니다.")
+					$("#email_msg").text("이메일을 입력주세요.")
+					return false;
+				}
+				/* if(!$("#mememail1").val()){
+					$("#email_msg").text("이메일을 입력주세요.")
+					return false;
+				}
+				if(!$("#mememail2").val()){
+					$("#email_msg").text("이메일을 입력주세요.")
+					return false;
+				} */
+				if($("#ck").val() != 1){
+					$("#email_msg").text("이메일 인증해주세요.")
 					return false;
 				}
 				if(!$("#memaddress").val()){
-					$("#address_msg1").html("주소를 입력해야 합니다.")
+					$("#address_msg").text("주소를 입력주세요.")
 					return false;
 				}
 				if(!$("#memaddressdetail").val()){
-					$("#address_msg2").html("상세주소를 입력해야 합니다.")
+					$("#address_msg2").text("상세주소를 입력주세요.")
 					return false;
 				}
-				if($("#id_ck").val() != 1){
-					$("#id_msg").html("아이디 중복 체크 하셔야 합니다.")
-					return false;
-				}
-				if($("#ck").val() != 1){
-					$("#result").html("이메일 인증을 입력해야 합니다.")
+				if(!$("#membirth").val()){
+					$("#birth_msg").text("생년월일을 입력주세요.")
 					return false;
 				}
 				if(!$("#check").prop("checked")){
-					$("#check_msg").html("개인정보수집 동의해야합니다.")
+					$("#check_msg").text("개인정보수집 동의해주세요.")
 					return false;
 				}
+				
+				//let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				/* let form = $("#member").serialize();
+				$.ajax({
+					type : "post",
+					url : "/join",
+					data : form,
+					dataType : "json",
+					 success: function () {
+						 //location.href = "/join_success";
+						 console.log("success");				 
+							 
+		            },
+		                error: function (status, err) {
+		                    console.log(status +"error:"+ err);
+		            }
+				
+				}) //ajax */
 			})
 		});
 	</script>

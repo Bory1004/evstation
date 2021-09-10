@@ -41,37 +41,47 @@ public class JoinController {
 	public String joinView() {
 		return "member/joinView";
 	}
-	
+		
 	// 중복 아이디 체크
-	@RequestMapping("/check_id")
+	@RequestMapping("/check")
 	@ResponseBody
-	public String check_id(String id) {
+	public int check(String id) {
 		Optional<Member> member = memberService.findMember(id);
+		
 		Member mem = member.orElse(new Member());
-		return mem.getId();// 값이 없으면(null) ""로 전송된다.
+		
+		if(mem.getId() != null) { // 값이 없으면(null) ""로 전송된다.
+			// 중복
+			return 1;
+		} else {
+			return 0;
+		}
 	}
+		
 	
 	@PostMapping("/join")
 	public String join(Member member, Model m) {
-		Member mem = memberService.saveMember(member);
+		//member.setMememail(mememail);
+		memberService.saveMember(member);
 		
 		return "member/join_success";
 	}
 	
-	// 유효성 검사
-	@PostMapping(value = "/join_check")
-	public String join_check(@Valid Member member, BindingResult bindingResult, Model m) {
-		// Validation 결과의 에러의 목록 출력
-		if (bindingResult.hasErrors()) {
-			List<ObjectError> errors = bindingResult.getAllErrors();
-			for (ObjectError error : errors) {
-				System.out.println(error.getDefaultMessage());
-			}
-			return "member/joinView";
-		} else {
-			System.out.println(member.toString());
-			memberService.saveMember(member);
-			return "member/join_success";
-		}
-	}
+	/*
+	 * @GetMapping("/join_success") public String join_success() { return
+	 * "member/join_success"; }
+	 */
+	
+	/*
+	 * // 유효성 검사
+	 * 
+	 * @PostMapping(value = "/join_check") public String join_check(@Valid Member
+	 * member, BindingResult bindingResult, Model m) { // Validation 결과의 에러의 목록 출력
+	 * if (bindingResult.hasErrors()) { List<ObjectError> errors =
+	 * bindingResult.getAllErrors(); for (ObjectError error : errors) {
+	 * System.out.println(error.getDefaultMessage()); } return "member/joinView"; }
+	 * else { System.out.println(member.toString());
+	 * memberService.saveMember(member); return "member/join_success"; } }
+	 */
+	
 }

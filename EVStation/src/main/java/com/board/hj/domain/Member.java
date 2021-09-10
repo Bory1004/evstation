@@ -58,7 +58,7 @@ public class Member implements Serializable {
 	//@NotBlank(message = "상세주소를 입력해주세요.")
 	private String memaddressdetail; //상세주소
 	
-	//@DateTimeFormat(pattern = "yyyyMMdd")
+	@DateTimeFormat(pattern = "yyyyMMdd")
 	private Date membirth;
 	
 	private String memcar;
