@@ -23,7 +23,8 @@ public interface DsService {
 	int saveReply(Long ref, Long restep, Long relevel);
 
 	void deleteChk(int boardnum);
-
+	
+	
 
 	
 	

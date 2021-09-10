@@ -42,16 +42,9 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 		// 기본글의 댓글2의 댓글 : num 5: ref :2+1  step:  level: 1+1
 	 //기본글의 댓글 1: num : 2  ref:1 step :1+1 +1+1, level : 1
 	 
-	 
-	 
-	 
-	 
-//	 @Modifying
-//	 @Transactional  
-//	 @Query("SELECT COUNT(*) FROM DsEntity WHERE boardyn = 1 and boardwriter=${tempId}")
-//	 int replycount();
-//	 
-//	 
-	 
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE DsEntity d SET d.boardyn = 'Y'  WHERE d.ref =?1 AND d.restep = 0") 
+	 int ybReply(Long ref);
 	 
 }

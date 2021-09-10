@@ -73,6 +73,7 @@ public class DsServiceImpl implements DsService {
 
 	@Override
 	public int saveReply(Long ref, Long restep, Long relevel) {
+		dsRepo.ybReply(ref);
 		 return dsRepo.saveReply(ref, restep, relevel);
 	}
 
@@ -92,52 +93,5 @@ public class DsServiceImpl implements DsService {
 	public void deleteChk(int boardnum) {
 		dsRepo.deleteById((long) boardnum);
 	}
-
-
-
-
 	
-	
-	
-	
-	
-
-	
-//	@Override
-//	public Page<DsEntity> getfindAll(Integer pNum, Integer pageSize) {
-//		Pageable pr =  PageRequest.of(pNum-1, 10, Sort.by("groupNo").descending()
-//																		.and(Sort.by("groupSeq").ascending()
-//																		.and(Sort.by("depth").ascending())));
-//		
-//				return dsRepo.findAll(pr);
-//		}
-//
-//
-//	@Override
-//	public DsEntity getfindOne(Long boardnum) {
-//		DsEntity ds = dsRepo.getById(boardnum);
-//		return ds;
-//	}
 }  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

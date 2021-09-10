@@ -1,4 +1,4 @@
-package com.board.ds_controller;
+	package com.board.ds_controller;
 
 import java.util.List;
 
@@ -136,17 +136,15 @@ public class DsConstroller {
 }
 
 	@PostMapping("qnaReply")
-	public String saveReply(DsEntity dsEntity, DsEmail dsEmail,@ModelAttribute("tempId")String tempId ) throws Exception { 
+	public String saveReply(DsEntity dsEntity, DsEmail dsEmail,@ModelAttribute("tempId")String tempId,Long ref,Long restep, String boardyn ) throws Exception { 
 		System.out.println(dsEntity.getRef()+" "+dsEntity.getRestep()+"  "+dsEntity.getBoardnum());	
 		dsService.saveReply(dsEntity.getRef(), dsEntity.getRestep(), dsEntity.getRelevel());	
 		
 		dsEntity.setRestep(dsEntity.getRestep()+1); //답변 달릴 때 + 1 
 		dsEntity.setRelevel(dsEntity.getRelevel()+1);
-		dsEntity.setBoardyn(dsEntity.getBoardyn()+1);
 		
 		dsEntity.setBoardwriter(tempId); // 임의 아이디 추가 
-
-
+		
 		dsService.saveQnA(dsEntity);
 
 
@@ -167,6 +165,11 @@ public class DsConstroller {
 	@RequestMapping("extemp")
 	public String exTemp() {
 		return "extemp";
+		
+	}
+	@RequestMapping("benefit")
+	public String benfit() {
+		return "benefit";
 		
 	}
 	
