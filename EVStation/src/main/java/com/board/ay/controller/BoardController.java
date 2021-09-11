@@ -33,7 +33,8 @@ public class BoardController {
 	
 	@RequestMapping("/upRecom/{num}/{id}")
 	@ResponseBody
-	public long upRecom(@PathVariable Long num, @PathVariable String id, Model m) {
+	public long upRecom(@PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
+		
 		int result = boardService.isRecom(num, id);
 		Board board = null;
 		if(result == 0) {
@@ -43,10 +44,20 @@ public class BoardController {
 			boardService.del(id, num);
 			board = boardService.dnRecom(num);
 		}
-		
 		return board.getRecom();
 	}
 	
+	@RequestMapping("/content/{num}")//@PathVariable > url경로에 변수 넣어줌
+	public String getBoard(@PathVariable Long num, Model m,@ModelAttribute("member")Member member) {
+		Board board = boardService.getBoard(num);
+		m.addAttribute("board", board);
+
+		if(member.getId() != null) { 
+		int result = boardService.isRecom(num, member.getId());
+		m.addAttribute("result", result);
+		}
+		return "/ayboard/getBoard";
+	}
 	@RequestMapping("/getBoardList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @ModelAttribute("member")Member member,String search,@RequestParam(defaultValue = "-1")int searchn) {//뷰한테 보낼 때 항상 모델 사용!
 		Page<Board> pageList = null;
@@ -87,21 +98,6 @@ public class BoardController {
 	public String insertBoard(Board board) {//새로 글 써서 보드에 넘겨
 		boardService.saveBoard(board);
 		return "redirect:getBoardList";
-	}
-	
-	@RequestMapping("/content/{num}")//@PathVariable > url경로에 변수 넣어줌
-	public String getBoard(@PathVariable Long num, Model m, @ModelAttribute("member")Member member) {
-		
-		Board board = boardService.getBoard(num);
-		m.addAttribute("board", board);
-		
-		if(member.getId() != null) { 
-		
-		int result = boardService.isRecom(num, member.getId());
-
-		m.addAttribute("result", result);
-		}
-		return "/ayboard/getBoard";
 	}
 	
 	@GetMapping("/updateForm/{num}")

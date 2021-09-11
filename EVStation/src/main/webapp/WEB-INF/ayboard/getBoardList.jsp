@@ -32,7 +32,7 @@ a {
 }
 </style>
 </head>
-<body>
+<body onload="init()">
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center  ">
@@ -167,5 +167,13 @@ a {
 			</div>
 		</div>
 </footer>		
+
+<script>
+	function init() {
+		let id = '${member.id}';
+		sessionStorage.setItem("id",id);
+	}
+</script>
 </body>
+
 </html>

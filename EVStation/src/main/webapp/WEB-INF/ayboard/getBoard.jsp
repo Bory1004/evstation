@@ -74,12 +74,11 @@ textarea {
 			<h1>${board.title}</h1>
 			<div class="w-100 row">
 				<div class="col-xs-12 col-md-12 mb-2" style="text-align: right;">
-					
-					<c:if test= "${member.id == null}">
-						<img id="h" src="/img/empty.png" width="20px" title="123">
-					</c:if>
-						<!-- 로그인 안된 상태 , 빈 하트 보이게-->
-						
+			
+			<c:if test= "${member.id == null}">
+					<img id="h" src="/img/empty.png" width="20px" title="123">
+				</c:if>
+			<!-- 로그인 안된 상태 , 빈 하트 보이게-->
 					<c:if test= "${member.id != null}">
 						<c:if test="${result == 0}">
 							<img id="h" src="/img/empty.png" width="20px">
@@ -87,9 +86,9 @@ textarea {
 						<c:if test="${result != 0}">
 							<img id="h" src="/img/full.png" width="20px">
 						</c:if>
-					</c:if>
+					</c:if>	
 				
-					추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
+					${result }${member.id }추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
 				</div>
 				<div class="col-xs-12 col-md-12">
 					<div class="table table-responsive">
@@ -108,9 +107,10 @@ textarea {
 								<td colspan="3">${board.content}</td>
 							</tr>
 						</table>
-						<a href="/updateForm/${board.num }">수 정</a> 
-						<a href="/delete/${board.num }">삭 제</a>
-							 <a href="/getBoardList">목록으로</a>
+						
+							<a class="btn btn-sm btn-outline-success" href="/updateForm/${board.num }">수정</a>
+							<a class="btn btn-sm btn-outline-success" href="/delete/${board.num }">삭제</a>
+							 <a class="btn btn-sm btn-outline-success" href="/getBoardList">목록으로</a>
 					</div>
 
 				</div>
@@ -139,15 +139,21 @@ textarea {
 	<script>
 		$(function() {
 			$("#h").click(function() {
-								alert("로그인해야 하트 누를 수 있음");
-								window.location.href = "/member/loginform";
+				
+								if ('${result}' == 0){
+									alert("로그인해야 하트 누를 수 있음");
+									document.getElementById("h").src = "/img/empty.png";
+									window.location.href = "/loginform";
+									
+									}else{
+								
 								let num = ${board.num};
 								let id = sessionStorage.getItem('id');
 								let url = "/upRecom/" + num + "/" + id;
-
+								
 								$.ajax({
 											url : url
-										})
+										})	
 										.done(
 												function(data) {
 													//history.go(0);
@@ -161,10 +167,11 @@ textarea {
 												}).fail(
 												function(jqXHR, textStatus,errorThrown) {
 													console.log("error");
-												});
-
-							})
-		});
+												}); 
+							
+									}	})//2
+		});                 
+		
 	</script>
 
 </body>
