@@ -32,7 +32,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> <img src="./img/logo.png"
+					<a href="/" class="link-secondary"> <img src="/img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -76,7 +76,7 @@ a {
 			
 			
 			<input type="submit" class="btn btn-sm btn-outline-success" value="수 정">
-			<a class="btn btn-sm btn-outline-success" href="reviewList">목록으로</a>
+			<a class="btn btn-sm btn-outline-success" href="/getBoardList">목록으로</a>
 		</div>
 		</form>
 	</div>
@@ -89,8 +89,7 @@ a {
 		<div class="row">
 			<div class="col-12 pt-3">
 				<p>
-					Project built for <a href="#">Portfolio</a> by <a href="#">Team
-						2</a>.
+					Project built for <a href="#">Portfolio</a> by <a href="#">Team2</a>.
 				</p>
 				<p>Copyright @ 2021 EvStation</p>
 			</div>

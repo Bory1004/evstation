@@ -61,6 +61,27 @@ public class BoardSeviceImpl implements BoardService{
 		boardRepo.deleteById(num);
 	}
 	
-	
+	@Override
+	public int isRecom(Long num, String id) {
+		return boardRepo.isRecom(num, id);
+	}
+	@Override
+	public int updateRecom(Long num) {
+		return boardRepo.updateCnt(num);
+	}
+	@Override
+	public Board dnRecom(Long num) {
+		boardRepo.dnRecom(num);
+		return boardRepo.getById(num);
+		
+	}
+	@Override
+	public int insertRecom(Long num, String id) {
+		return boardRepo.insertRecom(num,id);
+	}
+
+	@Override public void del(String id, Long num) { 
+		  boardRepo.del(id, num);
+	  }
 	
 }
