@@ -13,7 +13,7 @@ import com.board.ds_entity.DsEntity;
 
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
-	Page<DsEntity>findByOrderByRefDescRestepAsc(Pageable page);  
+	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
 	
 	DsEntity save(Long boardnum);
 	
@@ -28,21 +28,23 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 
 	@Transactional
 	@Modifying
-	@Query("UPDATE DsEntity d SET d.ref = ?1 WHERE d.boardnum = ?1")   //boardnum 을 ref에 정의
+	@Query("UPDATE DsEntity d SET d.boardref = ?1 WHERE d.boardnum = ?1")   //boardnum 을 ref에 정의
 	int updateRef(Long boardnum);   
 	
 	
 	 @Modifying
 	 @Transactional
-	 @Query("UPDATE DsEntity d SET d.restep = d.restep + 1  WHERE d.ref = ?1 AND d.restep > ?2 ") //ref가 같고  
-	 int saveReply(Long ref, Long restep, Long relevel);
+	 @Query("UPDATE DsEntity d SET d.boardrestep = d.boardrestep + 1  WHERE d.boardref = ?1 AND d.boardrestep > ?2 ")  //기존의 DB에 있는 데이터만 업데이트문이 적용됨.
+	 int saveReply(Long boardref, Long boardrestep, Long boardrelevel);
+	 // 기본글  num 1 ref: 1  , step : 0  level 0
+	 // 기본글의 댓글 3: num:3 ref :1 step 1 , level : 1
+	 // 기본글의 댓글 2 : num 3 , ref :1, step: 1 +1, level : 1
+	 		// 기본글의 댓글2의 댓글 : num 5: ref :2+1  step:  level: 1+1
+	 //기본글의 댓글 1: num : 2  ref:1 step :1+1 +1+1, level : 1
 	 
-//	 @Modifying
-//	 @Transactional  
-//	 @Query("SELECT COUNT(*) FROM DsEntity WHERE boardyn = 1 and boardwriter=${tempId}")
-//	 int replycount();
-//	 
-//	 
-	 
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE DsEntity d SET d.boardyn = 'Y'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
+	 int ybReply(Long boardref);
 	 
 }

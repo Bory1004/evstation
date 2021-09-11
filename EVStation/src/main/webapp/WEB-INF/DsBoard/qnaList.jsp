@@ -13,11 +13,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src= "http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			 var chkObj = document.getElementsByName("reportChkBxRow")
-			 var rowCnt = chkObj.length;
+		//체크박스 전체 선택 /해제 
+	$(function(){
+			 var chkObj = document.getElementsByName("reportChkBxRow") //name 값을 변수에 정의
+			 var rowCnt = chkObj.length;  //꺼낸 name값의 길이를 넣을 변수를 정의
 			 
-			 $("input[name='reportChkBx']").click(function(){
+			 $("input[name='reportChkBx']").click(function(){  
 					var chk_listArr = $("input[name='reportChkBxRow']");
 					for(var i = 0; i < chk_listArr.length; i++){
 						chk_listArr[i].checked = this.checked;
@@ -29,18 +30,41 @@
 		 			}else{
 		 				$("input[name='reportChkBx']")[0].checked = false;
 		 			}
-			 
-			 })}
-			 
-		})
-	
-	
-	
+			 });
+		});
+		function deleteValue(){
+				var url = "/deleteChk";
+				var valueArr = new Array();
+				var list = $("input[name='reportChkBxRow']");
+				for(var i = 0; i < list.length; i++){
+					if(list[i].checked){
+						valueArr.push(list[i].value);
+					}
+				}
+				if (valueArr.length == 0){
+					alert("선택된 글이 없습니다");
+				}
+				else{
+					var chk = confirm("정말 삭제하시겠습니다?");
+					$.ajax({
+						url : url,
+						type : 'POST',
+						traditional : true,
+						data : {
+							valueArr : valueArr
+						},
+						success: function(data){
+							if(data = 1){
+								alert("삭제 성공");
+								location.replace("qnaList")
+							}else{
+								alert("삭제 실패");
+							}
+						}
+					});
+				}
+		}	
 	</script>
-
-
-
-
 </head>
 
 <body>
@@ -50,7 +74,7 @@
 		<c:if test="${ total != 0}">
 			<table class="table table-hover table zebra-stripes">
 				<tr>
-				    <th><input type="checkbox" name="reportChkBx"onclick="checkAll();"></th>
+				    <th><input type="checkbox" name="reportChkBx"  id="reportChkBx;"></th>
 					<th><b>No.</b></th>
 					<th><b>제목</b></th>
 					<th><b>작성자</b></th>
@@ -61,12 +85,12 @@
 
 				<c:forEach items="${list}" var="list">
 					<tr>
-					    <td><input type="checkbox" name="reportChkBxRow" id="${list.boardnum}">
+					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}">
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
-						<c:if test="${list.relevel == 1 }" >[답변]</c:if>
-						<c:if test="${list.relevel > 1 }">&nbsp; [답변]
-						<c:forEach begin="2" end="${list.relevel}">
+						<c:if test="${list.boardrelevel == 1 }" >[답변]</c:if>
+						<c:if test="${list.boardrelevel > 1 }">&nbsp; [답변]
+						<c:forEach begin="2" end="${list.boardrelevel}">
 								Re:
 						</c:forEach>
 						</c:if>

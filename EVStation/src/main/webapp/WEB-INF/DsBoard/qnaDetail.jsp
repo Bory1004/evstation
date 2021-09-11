@@ -33,7 +33,7 @@
 		<button type="button" class="btn btn-secondary"
 			onclick="location.href='/qnaList';">글목록</button>
 		<button type="button" class="btn btn-primary"
-			onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.ref}/${detail.restep}/${detail.relevel }';">답글달기</button>
+			onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}/${detail.boardrelevel }';">답글달기</button>
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">

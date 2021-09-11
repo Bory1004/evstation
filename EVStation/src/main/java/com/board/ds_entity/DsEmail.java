@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Entity
 @Table
-@Getter
+@Getter    
 @Setter
 @SequenceGenerator(
         name="EMAIL_SEQ_GEN", //시퀀스 제너레이터 이름
