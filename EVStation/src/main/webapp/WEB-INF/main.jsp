@@ -27,22 +27,18 @@ a {
 </style>
 </head>
 <body>
-<%= session.getAttribute("member") %>
 	<div class="container">
 		<header class="py-3">
-			<div class="row justify-content-center  ">
-
+			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
 					<a href="main" class="link-secondary"> 
-					<img src="/img/logo.png" width="200" height="100"></a>
+					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					
-					
-					
+													
 					<c:choose>
 						<c:when test="${member.id eq null}">
 							<div>
@@ -52,23 +48,9 @@ a {
 						</c:when>
 						<c:otherwise>
 							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
-						</c:otherwise>
-						
+						</c:otherwise>						
 					</c:choose>
-					<%-- <c:if test="${member == null}">
-						<div>
-						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
-						<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
-					</div>
-					</c:if>
-					<c:if test="${member != null}">
-						<div>
-						${member.id}님 환영합니다!
-						<a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
-					</div>
-					</c:if> --%>
 				</div>
-
 			</div>
 
 			<div class="menubar py-1 mb-2">
@@ -87,21 +69,17 @@ a {
 
 	<main>
 		<div class="container input-group d-flex justify-content-center">
-
 			<div class="w-100 input-group">
-				<span class="input-group-text"> <svg
-						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-						fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+				<span class="input-group-text"> 
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-		</svg></span> <input type="text" class="form-control" id="search1"
-					placeholder="충전소명을 입력하세요">
+					</svg>
+				</span>
+				<input type="text" class="form-control" id="search1" placeholder="충전소명을 입력하세요">
 			</div>
-
 			<div id="map" class="m-3" style="width: 500px; height: 400px;"></div>
 		</div>
 	</main>
-
-
 
 	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
 		<div class="row">
@@ -115,11 +93,8 @@ a {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
 	<script>
-			var container = document.getElementById('map');
-			var options = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667),
-					level: 3
-			};
+		var container = document.getElementById('map');
+		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
 	</script>
 </body>

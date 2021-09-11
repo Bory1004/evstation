@@ -16,7 +16,7 @@
 </head>
 <body>
 
-	<header class="py-3">
+	<header class="py-4">
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
@@ -27,7 +27,6 @@
 			</div>
 		</div>
 	</header>
-	<br>
 	
 	<main>
 		<div class="container d-flex justify-content-center align-items-center">		
@@ -180,7 +179,7 @@
 			
 			<div class="row mb-3 justify-content-center align-items-center">
 				<div class="col-md-6">
-					<input style="width: 300px;" type="submit" id="bnt_submit" class="btn btn-success" value="가입" />
+					<input style="width: 200px;" type="submit" id="bnt_submit" class="btn btn-success" value="가입" />
 				</div>
 			</div>		
 		</form>
@@ -450,8 +449,7 @@
 					$('#phone_msg').text("");
 				}			
 			})
-			
-				
+							
 			//$("#member").submit(function(){
 			$("#bnt_submit").on("click",function(){
 				console.log("제출");

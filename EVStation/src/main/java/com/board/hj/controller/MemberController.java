@@ -87,8 +87,7 @@ public class MemberController {
 				//Cookie cookie_login = new Cookie("cookie_login", session.getId());
 				//cookie_login.setMaxAge(60*60*24*7); //7일 쿠키 유지 cookie_id.setPath("/");
 				// response.addCookie(cookie_login);
-				 
-				
+				 				
 				 Cookie cookie_id = new Cookie("cookie_id", findMember.getId());
 				 cookie_id.setMaxAge(60*60*24*7); //7일 쿠키 유지 cookie_id.setPath("/");
 				 response.addCookie(cookie_id);

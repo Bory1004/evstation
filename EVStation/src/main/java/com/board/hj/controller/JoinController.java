@@ -83,4 +83,9 @@ public class JoinController {
 	 * memberService.saveMember(member); return "member/join_success"; } }
 	 */
 	
+	@GetMapping("/findId")
+	public String findId() {		
+		return "findIdPw/findId";
+	}
+	
 }

@@ -15,7 +15,7 @@ a {
 </style>
 </head>
 <body>
-	<header class="py-3">
+	<header class="py-5">
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
@@ -26,11 +26,10 @@ a {
 			</div>
 		</div>
 	</header>
-	<br>
 	<main>
 		<div class="container input-group d-flex justify-content-center">
 			<form id="loginForm" action="login" method="post">
-				<div class="w-100 input-group">
+				<div class="input-group">
 					<span class="input-group-text"> 
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
   							<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -38,7 +37,7 @@ a {
 					</span> 
 					<input class="form-control" name="id" id="id" type="text" placeholder="아이디">
 				</div>
-				<div class="w-100 input-group">
+				<div class="input-group">
 					<span class="input-group-text"> 
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
  	 						<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
@@ -52,12 +51,12 @@ a {
 				<div style="color: red" id="login_msg">${msg}</div><br>
 				<input style="width: 300px;" type="submit" class="btn btn-success justify-content-center" id="login_chk" value="로그인">
 				<br>
-				<div> 아이디 찾기 / 비밀번호 찾기 / <a href="/joinView">회원가입</a></div>
+				<div><a href="/findId">아이디 찾기</a> | 비밀번호 찾기 | <a href="/joinView">회원가입</a></div>
 			</form>
 		</div>
 	</main>
-
-	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
+	<br><br>
+	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center" style="height: 100px;">
 		<div class="row">
 			<div class="col-12 pt-3">
 				<p>
