@@ -1,4 +1,4 @@
-package com.board.service;
+package com.board.KW.service;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.board.domain.Board;
-import com.board.persistence.BoardRepository;
+import com.board.KW.domain.Board;
+import com.board.KW.persistence.BoardRepository;
 
 
 @Service

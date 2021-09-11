@@ -50,8 +50,7 @@ marker.setMap(map);
 	<tr><td>주차료</td><td>${board.st_park }</td></tr>
 	<tr><td>재공기관</td><td>${board.st_agency }</td></tr>
 	<tr><td colspan="2">
-<%-- 	<a href="/updateform/${board.num}">글 수정</a>	
-	<a href="/delete/${board.num}">글 삭제</a> --%>
+
 	<a href="/getBoardList">충전소 목록</a>
 	</td></tr>
 </table>

@@ -1,4 +1,4 @@
-package com.board.persistence;
+package com.board.KW.persistence;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.board.domain.Board;
+import com.board.KW.domain.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
 

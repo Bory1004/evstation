@@ -1,4 +1,4 @@
-package com.board.controller;
+package com.board.KW.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.board.domain.Board;
-import com.board.service.BoardService;
+import com.board.KW.domain.Board;
+import com.board.KW.service.BoardService;
 
 @Controller
 public class BoardController {
@@ -41,17 +41,6 @@ public class BoardController {
 		return "getBoardList";
 	}
 
-	@GetMapping("/insertBoard")
-	public String insertBoardView() {
-		return "insertBoard";
-	}
-
-	@PostMapping("/insertBoard")
-	public String insertBoard(Board board) {
-		boardService.saveBoard(board);
-		return "redirect:getBoardList";
-	}
-
 	@RequestMapping("/content/{num}")
 	public String getBoard(@PathVariable Long num, Model m) {
 		Board board = boardService.getBoard(num);
@@ -60,24 +49,6 @@ public class BoardController {
 		return "getBoard";
 	}
 
-	@GetMapping("/updateform/{num}")
-	public String updateform(@PathVariable Long num, Model m) {
-		Board board = boardService.onlyBoard(num);
-		m.addAttribute("board", board);
-		return "updateform";
-	}
-
-	@PostMapping("/update")
-	public String update(Board board) {
-		boardService.saveBoard(board);
-		return "redirect:getBoardList";
-	}
-
-	@GetMapping("/delete/{num}")
-	public String delete(@PathVariable Long num) {
-		boardService.deleteBoard(num);
-		return "redirect:/getBoardList";
-	}
 	
 	@RequestMapping("/openMap")
 	public String mapView(Model m) {

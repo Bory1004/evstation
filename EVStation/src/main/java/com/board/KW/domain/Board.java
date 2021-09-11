@@ -1,4 +1,4 @@
-package com.board.domain;
+package com.board.KW.domain;
 
 import java.io.Serializable;
 import java.util.Date;
