@@ -22,7 +22,7 @@ import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
 import com.board.ds_persistence.DsRepository;
 import com.board.ds_service.DsService;
-import com.board.ds_service.EmailService;
+import com.board.ds_service.EmailService2;
 
 @SessionAttributes("tempId")
 @Controller
@@ -37,12 +37,14 @@ public class DsConstroller {
 	private DsService dsService;
 	
 	@Autowired
-	private EmailService emailService;
+	private EmailService2 emailService;
 	
 //	@Autowired                                            
 //	private DsRepository dsRepo;
 		
+
 	@RequestMapping("qnaList")  // 리스트에 페이징 처리, 검색 처리
+	
 		public String qnaList(Model m, @RequestParam(name = "p", defaultValue ="1")int pNum, String search, @RequestParam(defaultValue = "-1") int searchn ) {	
 		
 		int pageNum = 5;

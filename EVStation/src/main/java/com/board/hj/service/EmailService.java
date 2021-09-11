@@ -1,4 +1,4 @@
-package com.board.ds_service;
+package com.board.hj.service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.board.ds_entity.DsEmail;
+import com.board.hj.domain.EmailVO;
 
 
 @Service("emailService")
@@ -17,7 +17,7 @@ public class EmailService {
 	@Autowired
 	protected JavaMailSender mailSender;
 
-	public boolean sendMail(DsEmail email) throws Exception {
+	public boolean sendMail(EmailVO email) throws Exception {
 
 		try {
 
