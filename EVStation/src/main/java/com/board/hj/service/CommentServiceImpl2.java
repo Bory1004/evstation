@@ -7,13 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.board.hj.domain.Comment;
-import com.board.hj.persistence.CommentRepository;
+import com.board.hj.persistence.CommentRepository2;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl2 implements CommentService2 {
 
 	@Autowired
-	private CommentRepository commentRepo;
+	private CommentRepository2 commentRepo;
 	
 	//모든 댓글 출력
 	@Override

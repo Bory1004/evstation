@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.board.hj.domain.Board;
 import com.board.hj.domain.Comment;
 import com.board.hj.domain.Member;
-import com.board.hj.service.CommentService;
+import com.board.hj.service.CommentService2;
 
 @SessionAttributes("member")
 @Controller
@@ -27,7 +27,7 @@ public class CommentController {
 	}
 	
 	@Autowired
-	private CommentService commentService;
+	private CommentService2 commentService;
 	
 	//입력한 댓글 저장
 	@RequestMapping("/insertComment/{boardnum}")

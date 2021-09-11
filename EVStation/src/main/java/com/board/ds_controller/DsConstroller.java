@@ -20,7 +20,7 @@ import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
 import com.board.ds_persistence.DsRepository;
 import com.board.ds_service.DsService;
-import com.board.ds_service.EmailService;
+import com.board.ds_service.EmailService2;
 
 @SessionAttributes("tempId")
 @Controller
@@ -35,7 +35,7 @@ public class DsConstroller {
 	private DsService dsService;
 	
 	@Autowired
-	private EmailService emailService;
+	private EmailService2 emailService;
 	
 //	@Autowired                                            
 //	private DsRepository dsRepo;

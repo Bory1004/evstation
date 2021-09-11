@@ -23,11 +23,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@SequenceGenerator(name="COM_SEQ_GEN",sequenceName="COM_SEQ",initialValue=1,allocationSize=1)
+@SequenceGenerator(name="RE_COM_SEQ_GEN",sequenceName="COM_SEQ",initialValue=1,allocationSize=1)
 public class BoardComment {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="COM_SEQ_GEN")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="RE_COM_SEQ_GEN")
 	@Column(name="com_num")
 	private Long comnum;
 	@Column(name="com_mem_num")

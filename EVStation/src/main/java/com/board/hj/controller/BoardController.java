@@ -18,7 +18,7 @@ import com.board.hj.domain.Board;
 import com.board.hj.domain.Comment;
 import com.board.hj.domain.Member;
 import com.board.hj.service.BoardService;
-import com.board.hj.service.CommentService;
+import com.board.hj.service.CommentService2;
 
 @SessionAttributes("member")
 @Controller
@@ -34,7 +34,7 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@Autowired
-	private CommentService commentService;
+	private CommentService2 commentService;
 	
 	//작성된 모든 게시판 리스트 + 검색
 	@RequestMapping("/getBoardList")

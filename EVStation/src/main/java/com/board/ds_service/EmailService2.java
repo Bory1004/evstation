@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.board.ds_entity.DsEmail;
 
 
-@Service("emailService")
-public class EmailService {
+@Service("emailService2")
+public class EmailService2 {
 
 	@Autowired
 	protected JavaMailSender mailSender;

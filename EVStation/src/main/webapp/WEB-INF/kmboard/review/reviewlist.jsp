@@ -84,7 +84,7 @@ a {
 						<c:forEach items="${rList}" var="board">
 							<tr>
 								<td>${board.boardnum}</td>
-								<td><a href="/content/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
+								<td><a href="/content/2/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
 									class="text-success">${board.boardtitle}</a></td>
 								<td>${board.boardwriter}</td>
 								<td><fmt:formatDate value="${board.boarddate}"

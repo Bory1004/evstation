@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 
 import com.board.hj.domain.Comment;
 
-public interface CommentService {
+public interface CommentService2 {
 	
 	//저장
 	void saveComment(Comment comment);

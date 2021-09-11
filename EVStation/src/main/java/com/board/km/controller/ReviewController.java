@@ -69,7 +69,7 @@ public class ReviewController {
 		return "kmboard/review/reviewlist";
 	}
 	
-	@RequestMapping("content/{num}")
+	@RequestMapping("content/{boardtype}/{num}")
 	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, 
 			int searchn,Model m) {
 		ReviewBoard review = reviewService.getReview(num);
@@ -103,7 +103,7 @@ public class ReviewController {
 		return "redirect:/reviewList";
 	}
 	
-	@RequestMapping(value = "content/insertComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "content/2/insertCommentReview",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	public String insertComment(BoardComment board) { //댓글달기
 		commentService.saveComment(board);
 		commentService.saveReply(board.getComnum());
@@ -120,7 +120,7 @@ public class ReviewController {
 		return json.toJson(list);
 	}
 	
-	@RequestMapping(value="/content/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value="/content/2/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String deleteComment(Long comnum) {//댓글삭제
 		commentService.deleteComment(comnum);

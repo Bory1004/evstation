@@ -188,7 +188,7 @@ textarea {
 
 				$.ajax({
 					type : "get",
-					url : "insertComment",
+					url : "insertCommentReview",
 					data : {
 						"boardnum" : boardnum,
 						"comcontent" : comcontent
