@@ -51,7 +51,7 @@ a {
 				<div style="color: red" id="login_msg">${msg}</div><br>
 				<input style="width: 300px;" type="submit" class="btn btn-success justify-content-center" id="login_chk" value="로그인">
 				<br>
-				<div><a href="/findId">아이디 찾기</a> | 비밀번호 찾기 | <a href="/joinView">회원가입</a></div>
+				<div><a href="/findIdView">아이디 찾기</a> | <a href="/findPwView">비밀번호 찾기</a> | <a href="/joinView">회원가입</a></div>
 			</form>
 		</div>
 	</main>
@@ -68,20 +68,20 @@ a {
 	</footer>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+	<script>
 	$(function() {
 		$("#login_chk").click(function() {
 			let id = $("#id").val();
 			let pw = $("#mempw").val();
 
 			if (id == "") {
-				$("#id_pw_msg").html("아이디를 입력해주세요.")
+				$("#login_msg").html("아이디를 입력해주세요.")
 				$("#id").focus();
 				return false;
 			}
 
 			if (pw == "") {
-				$("#id_pw_msg").html("비밀번호를 입력해주세요.")
+				$("#login_msg").html("비밀번호를 입력해주세요.")
 				$("#mempw").focus();
 				return false;
 			}
@@ -94,54 +94,6 @@ a {
 		});
 	});
 
-	/* $(function() {
-		$("#login_chk").click(function() {
-			let id = $("#id").val();
-			let pw = $("#mempw").val();
-
-			if (id == "") {
-				$("#id_pw_msg").html("아이디를 입력해주세요.")
-				$("#id").focus();
-				return false;
-			}
-			
-			if (pw == "") {
-				$("#id_pw_msg").html("비밀번호를 입력해주세요.")
-				$("#mempw").focus();
-				return false;
-			}
-
-			if ($("#check_cookie").prop("checked")) {
-				let cookie = "check";
-			} else {
-				let cookie = "not_check";
-			}
-			
-			$.ajax({
-				url : "/login",
-				data : "cookie="+cookie,
-				dataType : "json"
-					
-			}).done(function(data){
-				if(data == "success"){
-					setCookie("id", id, 7);
-					setCookie("mempw", mempw, 7);
-					location.href("/getBoardList");
-				} else {
-					location.href("/loginView");
-				}
-			});
-		});
-	}); */
-
-	function setCookie(cName, cValue, cDay) {
-		let expire = new Date();
-		expire.setDate(expire.getDate() + cDay);
-		cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
-		if (typeof cDay != 'undefined')
-			cookies += ';expires=' + expire.toGMTString() + ';';
-		document.cookie = cookies;
-	}
-</script>
+	</script>
 </body>
 </html>

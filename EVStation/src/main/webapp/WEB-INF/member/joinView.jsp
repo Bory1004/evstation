@@ -234,8 +234,7 @@
 									$('#id_msg').text("아이디는 소문자와 숫자만 가능합니다.");
 									//$("#bnt_submit").attr("disabled", true);
 									return false;
-								}
-								
+								}							
 							}
 						}, error : function() {
 								console.log("실패");
@@ -245,7 +244,7 @@
 			
 			$("#mempw").blur(function() {
 				$("#pw_msg").text("");
-				if ($("#mempw").val() != $("#pw2").val()) {
+				if ($("#mempw").val() != $("#pw2").val() && $("#pw2").val() != "") {
 					$("#pw_msg2").text("비밀번호가 일치하지않습니다.");
 					return false;
 				}
@@ -253,11 +252,16 @@
 					$("#pw_msg").text("비밀번호를 입력해주세요.");
 					return false;
 				}
+				if (!$("#mempw").val()) {
+					$("#pw_msg").text("비밀번호를 입력해주세요.");
+					return false;
+				}
+				
 			});
 			
 			$("#pw2").blur(function() {
 				$("#pw_msg2").text("");
-				if ($("#mempw").val() != $("#pw2").val()) {
+				if ($("#mempw").val() != $("#pw2").val() && $("#pw2").val() != "") {
 					$("#pw_msg2").text("비밀번호가 일치하지않습니다.");
 					return false;
 				} 
@@ -348,30 +352,30 @@
 		
 			//인증번호 입력
 			$("#num_ck").on("click", function() {
-						let num_in = $("#num_in").val();
-						//let email = $("#mememail").val();
-						let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				let num_in = $("#num_in").val();
+				//let email = $("#mememail").val();
+				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
 						
-						if (num_in == num) {
-							//$("#mememail").attr("readonly", true);
-							$("#mememail1").attr("readonly", true);
-							$("#num_in").attr("readonly", true);
-							$("#num_msg").text("인증완료");
-							$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
-							$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
-						} else {
-							$("#num_msg").text("인증 실패했습니다.");
-						}
-				})
+				if (num_in == num) {
+					//$("#mememail").attr("readonly", true);
+					$("#mememail1").attr("readonly", true);
+					$("#num_in").attr("readonly", true);
+					$("#num_msg").text("인증완료");
+					$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
+					$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
+				} else {
+					$("#num_msg").text("인증 실패했습니다.");
+				}
+			})
 			
 			//주소
 			$("#bnt_address").on("click",function() {
-					new daum.Postcode({
-						oncomplete : function(data) {
-							//document.getElementById('zipcode').value = data.zonecode;
-							document.getElementById("memaddress").value = data.address;
-						}
-					}).open();	
+				new daum.Postcode({
+					oncomplete : function(data) {
+					//document.getElementById('zipcode').value = data.zonecode;
+					document.getElementById("memaddress").value = data.address;
+					}
+				}).open();	
 			})
 			
 				
@@ -379,8 +383,7 @@
 			$("#membirth").blur(function(){
 				
 			// 생일 유효성 검사
-			let birthJ = false;
-			
+			let birthJ = false;			
 			let dateStr = $("#membirth").val();		
 	    	let year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
 	   	 	let month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
@@ -450,8 +453,8 @@
 				}			
 			})
 							
-			//$("#member").submit(function(){
-			$("#bnt_submit").on("click",function(){
+			$("#member").submit(function(){
+			//$("#bnt_submit").on("click",function(){
 				console.log("제출");
 				if(!$("#id").val()){
 					console.log('아이디 빈칸');
@@ -501,22 +504,20 @@
 					return false;
 				}
 				
-				let form = $("#member").serialize();
+/* 				let form = $("#member").serialize();
 				$.ajax({
 					type : "post",
 					url : "/join",
 					data : form,
 					dataType : "json",
-					 success: function () {
-						 //location.href = "/join_success";
-						 console.log("success");				 
-							 
+					success: function () {
+					//location.href = "/join_success";
+					console.log("success");				 							 
 		            },
-		                error: function (status, err) {
-		                    console.log(status +"error:"+ err);
-		            }
-				
-				}) //ajax
+		            error: function (status, err) {
+		            console.log(status +"error:"+ err);
+		            }				
+				}) //ajax */
 			})
 		});
 	</script>

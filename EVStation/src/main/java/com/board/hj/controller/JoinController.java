@@ -1,16 +1,11 @@
 package com.board.hj.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +23,7 @@ public class JoinController {
 	
 	@ModelAttribute("member")
 	public Member getMember() {
-		Member m = new Member();
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		//Date date = format.format(System.currentTimeMillis());
-		//m.setMem_birth(date);
-		return m;
+		return new Member();
 	}
 	
 	//회원가입 페이지로 이동
@@ -57,19 +47,12 @@ public class JoinController {
 		}
 	}
 		
-	
 	@PostMapping("/join")
 	public String join(Member member, Model m) {
-		//member.setMememail(mememail);
 		memberService.saveMember(member);
 		
 		return "member/join_success";
 	}
-	
-	/*
-	 * @GetMapping("/join_success") public String join_success() { return
-	 * "member/join_success"; }
-	 */
 	
 	/*
 	 * // 유효성 검사
@@ -82,10 +65,4 @@ public class JoinController {
 	 * else { System.out.println(member.toString());
 	 * memberService.saveMember(member); return "member/join_success"; } }
 	 */
-	
-	@GetMapping("/findId")
-	public String findId() {		
-		return "findIdPw/findId";
-	}
-	
 }

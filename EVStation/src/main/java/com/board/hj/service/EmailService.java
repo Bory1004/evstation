@@ -15,7 +15,6 @@ import com.board.hj.domain.EmailVO;
 public class EmailService {
 
 	@Autowired
-
 	protected JavaMailSender mailSender;
 
 	public boolean sendMail(EmailVO email) throws Exception {
