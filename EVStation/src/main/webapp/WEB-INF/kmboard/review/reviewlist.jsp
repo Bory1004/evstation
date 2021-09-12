@@ -88,7 +88,7 @@ a {
 									class="text-success">${board.boardtitle}</a></td>
 								<td>${board.boardwriter}</td>
 								<td><fmt:formatDate value="${board.boarddate}"
-										pattern="MM.dd" /></td>
+										pattern="MM.dd HH:mm" /></td>
 								<td>${board.boardsee}</td>
 								<td>${board.boardrecom}</td>
 							</tr>

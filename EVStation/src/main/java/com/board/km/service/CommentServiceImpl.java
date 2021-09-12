@@ -36,17 +36,21 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<BoardComment> getComments(int cNum, Long num, Long comrestep) {
 		Pageable page =  PageRequest.of(cNum-1, 10); // 불러올페이지, 페이지크기
-		return commentRepo.findByBoardnumAndComrestepOrderByComdateAsc(num,comrestep);
+		return commentRepo.findByBoardnumAndComrestepOrderByComdateAsc(num,comrestep); //일반댓글만 불러오기
 	}
 	@Override
 	public List<BoardComment> getReplyComments(Long num,Long comrestep) {
 		
-		return commentRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(num,comrestep);
+		return commentRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(num,comrestep); //대댓글만 불러오기
 	}
 
 	@Override
-	public void deleteComment(Long comnum) { //commentRepo.deleteByComroupnum
-		commentRepo.deleteById(comnum);
+	public void deleteComment(Long comnum,Long comgroupnum) { //commentRepo.deleteByComroupnum
+		if ( (long)comnum == (long)comgroupnum) { //일반댓글인 경우 대댓글까지 다지움
+			commentRepo.deleteByComgroupnum(comgroupnum);
+		}else { //대댓글인경우
+			commentRepo.deleteById(comnum);
+		}
 	}
 
 
@@ -58,6 +62,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void saveReStep(Long groupnum,Long comnum) { //대댓글 저장
 		commentRepo.updaterestep(groupnum,comnum);
-	}//test33
+
+	}
+	
+	@Override
+	public List<BoardComment> getmembernum(Long comgroupnum) { //해당그룹번호에 해당하는 멤버번호가져오기
+		return commentRepo.findByComgroupnum(comgroupnum);
+	}
 
 }

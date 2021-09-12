@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,17 +115,18 @@ textarea {
 					<div id="commentlist">
 						<hr>
 						<c:forEach items="${comments}" var="comment">
-						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진 아이디 ${comment.commemnum} <fmt:formatDate
+						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진<%-- ${comment.member.memphoto} --%> 아이디<%-- ${commet.member.id} --%> ${comment.commemnum} <fmt:formatDate
 									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
-																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum})">수정</a> 
-																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum})">삭제</a></span></div>
+																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum},${comment.comgroupnum})">수정</a> 
+																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum},${comment.comgroupnum})">삭제</a></span></div>
 						<div id="comcontent${comment.comnum}" style="margin-bottom:5px;">${comment.comcontent}<br></div><hr>
 							<!-- 대댓글부분 -->
 							<c:forEach items="${replycomments}" var="replycomment">
 							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
-							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
+							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진<%-- ${replycomment.member.memphoto} --%> 아이디<%-- ${replycomment.member.id} --%></span> <fmt:formatDate
+									value="${replycomment.comdate}" pattern="MM.dd HH:mm" /></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${replycomment.comnum},${replycomment.comgroupnum})">답글</a>
 																													<a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
-																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum})">삭제</a>
+																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum},${replycomment.comgroupnum})">삭제</a>
 																						</span></p>
 							<div><span id="comcontent${replycomment.comnum}">${replycomment.comcontent}</span></div></div>
 							</c:if>
@@ -164,7 +166,6 @@ textarea {
 				<p>Copyright @ 2021 EvStation</p>
 			</div>
 		</div>
-		
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
@@ -179,6 +180,7 @@ textarea {
 				//alert(${review.boardnum});
 				//alert(comcontent)
 				//alert(boardnum)
+				//let commemnum = '${memnum}'
 				
 				if (comcontent == "") {
 					alert("댓글을 입력하세요!")
@@ -199,11 +201,12 @@ textarea {
 					$('#comment').val('');
 					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
 					//alert($('#comment').val())
+					let date = new Date(data.comdate);
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+data.comdate+"</strong><span style='float:right;'>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
 							+"<a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
 							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
-							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
+							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
 					);
 					
 				}).fail(function(e) {
@@ -238,15 +241,16 @@ textarea {
 		})
 		
 	//---------------	왜 여기는 안들어가지??
-		function deleteComment(x){ // 화면에서 댓글삭제 및 DB삭제
+		function deleteComment(x,y){ // 화면에서 댓글삭제 및 DB삭제
 				let comnum = x;
+				let comgroupnum = y;
 				//alert(comnum);
 				//$('#'+comnum).remove();
 				if(confirm("댓글을 삭제하시겠습니까?")){
 					$.ajax({
 						type : "get",
 						url :  "deleteComment" ,
-						data : {"comnum" : comnum},
+						data : {"comnum" : comnum ,"comgroupnum" : comgroupnum},
 						dataType : "text"
 					}).done(function(data){
 						//alert(data)
@@ -303,7 +307,7 @@ textarea {
 				}).done(function(data){
 					//alert(data)
 					alert("수정되었습니다.")
-					$('#updateComment'+comnum).remove();
+					$('#updateComment'+comnum).remove(); //수정창 제거
 					$('#comcontent'+comnum).html(comcontent+" (수정됨)")
 				}).fail(function(e){
 					alert("수정중에 오류가 발생했습니다.")
@@ -317,13 +321,14 @@ textarea {
 		function replyCommentForm(x,y){ // 댓글답장하는 답글창 생성
 			let comnum = x;
 			let comgroupnum = y;
+			// let alafromid = comment.member.id <- 보내는 사람의 아이디
 			//alert(comnum)
 			//alert(comgroupnum)
-			$('#replyComment'+comnum).remove(); //중복생성 방지
+			$('#replyComment'+comnum).remove(); //중복생성 방지 일반댓글의 답장창을 삭제하기 위해 일반댓글의 comnum을 가져옴
 			$('#updateComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
+					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>" //
 					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
@@ -350,11 +355,12 @@ textarea {
 				dataType : "json"
 			}).done(function(data){
 				//alert(data)
+				let date = new Date(data.comdate);
 				$('#replyComment'+comnum).remove();
-				$('#'+data.comgroupnum).append(
-						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm('"+data.comnum+","+data.comgroupnum+")'>답글</a>"
-					   +"<a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
-					   +"<a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+")'>삭제</a>"
+				$('#'+data.comgroupnum).append( //새로 작성한 답글의 객체를 받아온다.
+						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
+					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
+					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a>"
 					   +"</span></p>"
 					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span></div></div>"
 				);

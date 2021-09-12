@@ -1,5 +1,6 @@
 package com.board.km.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
 import com.board.km.domain.ReviewBoard;
+import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
 import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
@@ -29,6 +32,9 @@ public class ReviewController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	AlarmService alarmService;
 	
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
@@ -69,9 +75,11 @@ public class ReviewController {
 		return "kmboard/review/reviewlist";
 	}
 	
+
 	@RequestMapping("content/{boardtype}/{num}")
 	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, 
 			int searchn,Model m) {
+
 		ReviewBoard review = reviewService.getReview(num);
 		
 		
@@ -105,16 +113,42 @@ public class ReviewController {
 	
 	@RequestMapping(value = "content/2/insertCommentReview",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	public String insertComment(BoardComment board) { //댓글달기
-		commentService.saveComment(board);
-		commentService.saveReply(board.getComnum());
+		commentService.saveComment(board);     //comnum,boardnum,comcontent 저장
+		commentService.saveReply(board.getComnum()); // comgroupnum,comrestep 저장
 		Long comnum = board.getComnum();
 		
 		
 		return "redirect:/content2?comnum="+comnum;
 	}
+	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	public String replyComment(BoardComment board) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
+		commentService.saveComment(board); //comnum,boardnum,comcontent,comgroupnum 저장
+		//ystem.out.println(board);
+		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 comgroup,comrestep의 값을 저장한다.
+		//------------------------------------------여기서부터 알람부분
+		System.out.println("------------알림부분");
+		List<BoardComment> memnums=commentService.getmembernum(board.getComgroupnum()); //알람테이블에 추가하려면 해당댓글을 단 멤버들의 멤버번호들을 담은 객체들을 가져옴
+		Alarm alarm = null;
+		String alafromid = null;
+		Long boarnnum = board.getBoardnum();
+		for(int i=0;i<memnums.size();i++) {
+			alarm = new Alarm();
+			//System.out.println(memnums.get(i).getCommemnum());
+			alarm.setMemnum(memnums.get(i).getCommemnum()); //멤버번호를 가져와서 세이브
+			alarm.setAlatype((long) 2);
+			alarm.setAlacheck((long) 0);
+			alarm.setBoardnum(boarnnum);
+			//alarm.setAlafromid(alafromid); 알람테이블에 보낸이 아이디를 저장
+			alarmService.saveAlarm(alarm);
+		}
+		
+		
+		return "redirect:/content2?comnum="+board.getComnum();
+	}
+	
 	@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String goComment(Long comnum) { //댓글달기1이어서
+	public String goComment(Long comnum) { //댓글달기와 대댓글달기 이어서받음. 요청을나눈이유는 바로 ajax로 가면 데이터베이스에는 저장되있는데 엔티티에는 저장이 안되있음.
 		BoardComment list = commentService.getComment(comnum).get();
 		Gson json = new Gson();
 		return json.toJson(list);
@@ -122,8 +156,10 @@ public class ReviewController {
 	
 	@RequestMapping(value="/content/2/deleteComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String deleteComment(Long comnum) {//댓글삭제
-		commentService.deleteComment(comnum);
+	public String deleteComment(Long comnum , Long comgroupnum) {//댓글삭제
+		//System.out.println(comnum);
+		//System.out.println(comgroupnum);
+		commentService.deleteComment(comnum,comgroupnum);
 		return "Success!!";
 	}
 	
@@ -134,14 +170,6 @@ public class ReviewController {
 		return "Success!!";
 	}
 	
-	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-	public String replyComment(BoardComment board) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
-		commentService.saveComment(board);
-		//System.out.println(board);
-		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 restep의 값을 저장한다.
-		
-		return "redirect:/content2?comnum="+board.getComnum();
-	}
 	
 	
 	
