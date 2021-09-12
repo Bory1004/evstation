@@ -2,7 +2,6 @@
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,26 +11,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds_entity.DsEmail;
 import com.board.ds_entity.DsEntity;
-import com.board.ds_persistence.DsRepository;
 import com.board.ds_service.DsService;
 import com.board.ds_service.EmailService2;
+import com.board.hj.domain.Member;
 
-@SessionAttributes("tempId")
+@SessionAttributes("member")
 @Controller
 public class DsConstroller {
 	
-	@ModelAttribute("tempId") //임의로 아이디값 세션으로 정의
-	public String tempId() {
-		return "tempId";
-	}
+	//session에 member가 없으면 실행, 있으면 실행되지 않는다.
+		@ModelAttribute("member")
+		public Member getMember() {
+			return new Member();
+		}
 	
 	@Autowired  
 	private DsService dsService;
@@ -39,8 +37,6 @@ public class DsConstroller {
 	@Autowired
 	private EmailService2 emailService;
 	
-//	@Autowired                                            
-//	private DsRepository dsRepo;
 		
 
 	@RequestMapping("qnaList")  // 리스트에 페이징 처리, 검색 처리
@@ -78,12 +74,16 @@ public class DsConstroller {
 		}
 	
 	@GetMapping("insertQnA") //  글쓰기 폼으로 이동
-	public String insertQnaView() {
+	public String insertQnaView(@ModelAttribute("member") Member member) {
+		if (member.getId() == null) {
+			return "redirect:/loginView";
+		}else {
 		return "/DsBoard/insertQnA";
+		}
 	}
 	@PostMapping("insertQnA")
-	public String insertQnA(DsEntity dsEntity, @ModelAttribute("tempId")String tempId) {
-		dsEntity.setBoardwriter(tempId);
+	public String insertQnA(DsEntity dsEntity, @ModelAttribute("member") Member member) {
+		dsEntity.setBoardwriter(member.getId());
 		dsEntity.setBoardrestep((long) 0); //글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setBoardrelevel((long) 0);
 		
@@ -92,10 +92,14 @@ public class DsConstroller {
 		return "redirect:/qnaList";
 	}
 	@RequestMapping("qnaDetail/{boardnum}")   
-	public String qnaDetail(@PathVariable Long boardnum, Model m) {
+	public String qnaDetail(@PathVariable Long boardnum, Model m, @ModelAttribute("member") Member member) {
+		if (member.getId() == null) {
+			return "redirect:/loginView";
+		}else {	
 		DsEntity detail=dsService.qnaDetail(boardnum);
 		m.addAttribute("detail",detail);
 		return "/DsBoard/qnaDetail";
+		}
 	}
 	@RequestMapping("deleteChk")
 	public String qnaDeletechk(int[] valueArr) {

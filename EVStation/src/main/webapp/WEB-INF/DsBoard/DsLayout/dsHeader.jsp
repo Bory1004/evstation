@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,12 +43,21 @@ a {
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="#">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
-					</div>
+				
+					<c:if test="${member.id == null}"> <!-- 비로그인 상태 -->
+						<div>
+							<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> <a
+								class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
+						</div>
+					</c:if>
+					<c:if test="${member.id != null}"><!-- 로그인인 상태>-->
+						<div>
+							${member.id}님 환영합니다! <a class="btn btn-sm btn-outline-success"
+								href="logout">로그아웃</a>
+						</div>
+					</c:if>
+					
 				</div>
-
 			</div>
 		</header>
 
@@ -55,9 +65,9 @@ a {
 			<nav
 				class="nav d-flex justify-content-center border-top border-bottom">
 				<a class="p-2  link-success" href="pageIntro">페이지 소개</a> <a
-					class="p-2 link-success" href="#">충전소 현황</a> <a
+					class="p-2 link-success" href="reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="benefit">기대효과</a> <a
-					class="p-2 link-success" href="#">자유게시판</a> <a
+					class="p-2 link-success" href="getBoardList">자유게시판</a> <a
 					class="p-2 link-success" href="#">공지사항</a> <a
 					class="p-2 link-success" href="/qnaList">Q&A</a>
 			</nav>
