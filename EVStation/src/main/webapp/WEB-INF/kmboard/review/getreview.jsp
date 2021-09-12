@@ -34,12 +34,13 @@ textarea {
 </style>
 </head>
 <body>
+${member}
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
 
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> <img src="/img/logo.png"
+					<a href="/main" class="link-secondary"> <img src="/img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -48,7 +49,7 @@ textarea {
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 					<div>
-						<a class="btn btn-sm btn-outline-success" href="#">로그인</a> <a
+						<a class="btn btn-sm btn-outline-success" href="/login">로그인</a> <a
 							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
 					</div>
 				</div>
@@ -60,7 +61,7 @@ textarea {
 				<nav
 					class="nav d-flex justify-content-center border-top border-bottom">
 					<a class="p-2  link-success" href="#">페이지 소개</a> <a
-						class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
+						class="p-2 link-success" href="../../reviewList">충전소 현황</a> <a
 						class="p-2 link-success" href="#">기대효과</a> <a
 						class="p-2 link-success" href="#">자유게시판</a> <a
 						class="p-2 link-success" href="#">공지사항</a> <a
@@ -86,11 +87,11 @@ textarea {
 								<th class="table-success">글번호</th>
 								<td id="boardnum">${review.boardnum}</td>
 								<th class="table-success">(프로필사진)작성자</th>
-								<td>작성자 닉네임 예시1</td>
+								<td>${review.member.name }</td>
 							</tr>
 							<tr>
 								<th class="table-success">ID</th>
-								<td>${review.boardwriter}</td>
+								<td>${review.member.id}</td>
 								<th class="table-success">작성일</th>
 								<td><fmt:formatDate value="${review.boarddate}"
 										pattern="MM.dd HH:mm" /></td>
@@ -103,7 +104,7 @@ textarea {
 						</table>
 					</div>
 
-					(프로필사진) <a href="">${review.boardwriter}님의 게시글 더보기 ></a>
+					(프로필사진) <a href="">${review.member.id}님의 게시글 더보기 ></a>
 					<hr>
 					<span><strong>Comments</strong></span><span id="cCnt">${cCnt}</span>
 					<hr style="margin-botton: 10px;">
@@ -115,18 +116,18 @@ textarea {
 					<div id="commentlist">
 						<hr>
 						<c:forEach items="${comments}" var="comment">
-						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진<%-- ${comment.member.memphoto} --%> 아이디<%-- ${commet.member.id} --%> ${comment.commemnum} <fmt:formatDate
+						<div id="${comment.comnum}"><div class="mb-2"><strong><span>사진<%-- ${comment.member.memphoto} --%> ${comment.member.name}(${comment.member.id}) <fmt:formatDate
 									value="${comment.comdate}" pattern="MM.dd HH:mm" /></span></strong> <span style="float:right;"><a id="comment_reply${comment.comnum}" href="#replyComment" onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
-																															<a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum},${comment.comgroupnum})">수정</a> 
-																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum},${comment.comgroupnum})">삭제</a></span></div>
+												                        <c:if test="${comment.commemnum == member.memnum }"><a id="comment_update${comment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${comment.comnum},${comment.comgroupnum})">수정</a> 
+																															<a id="comment_delete${comment.comnum}" href="#delete" onclick="deleteComment(${comment.comnum},${comment.comgroupnum})">삭제</a></c:if></span></div>
 						<div id="comcontent${comment.comnum}" style="margin-bottom:5px;">${comment.comcontent}<br></div><hr>
 							<!-- 대댓글부분 -->
 							<c:forEach items="${replycomments}" var="replycomment">
 							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
-							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진<%-- ${replycomment.member.memphoto} --%> 아이디<%-- ${replycomment.member.id} --%></span> <fmt:formatDate
+							<div id="${replycomment.comnum}" class="my-3" style='position:relative;left:10px;'><p class='my-2'><strong><span>사진<%-- ${replycomment.member.memphoto} --%> ${replycomment.member.name}(${replycomment.member.id})</span> <fmt:formatDate
 									value="${replycomment.comdate}" pattern="MM.dd HH:mm" /></strong><span style="float:right;"><a id="replycomment_reply${replycomment.comnum}" href="#replyComment" onclick="replyCommentForm(${replycomment.comnum},${replycomment.comgroupnum})">답글</a>
-																													<a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
-																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum},${replycomment.comgroupnum})">삭제</a>
+										  			       <c:if test="${replycomment.commemnum == member.memnum }"><a id="replycomment_update${replycomment.comnum}" href="#updateCommentForm" onClick="updateCommentForm(${replycomment.comnum})">수정</a> 
+																													<a id="replycomment_delete${replycomment.comnum}" href="#delete" onclick="deleteComment(${replycomment.comnum},${replycomment.comgroupnum})">삭제</a></c:if>
 																						</span></p>
 							<div><span id="comcontent${replycomment.comnum}">${replycomment.comcontent}</span></div></div>
 							</c:if>
@@ -140,7 +141,7 @@ textarea {
 				</div>
 				<div class="col-md-12 d-flex justify-content-end">
 					<span><a class="btn btn-md btn-outline-success"
-						href="../reviewList?p=${pNum}&search=${search}&searchn=${searchn}"
+						href="../../reviewList?p=${pNum}&search=${search}&searchn=${searchn}"
 						style="margin: 5px">목록</a></span> <span><a
 						class="btn btn-md btn-outline-success" href="#" onClick="javascript:window.scrollTo(0,0)"
 						style="margin: 5px">TOP</a></span>
@@ -180,7 +181,7 @@ textarea {
 				//alert(${review.boardnum});
 				//alert(comcontent)
 				//alert(boardnum)
-				//let commemnum = '${memnum}'
+				let commemnum = '${member.memnum}'
 				
 				if (comcontent == "") {
 					alert("댓글을 입력하세요!")
@@ -193,7 +194,8 @@ textarea {
 					url : "insertCommentReview",
 					data : {
 						"boardnum" : boardnum,
-						"comcontent" : comcontent
+						"comcontent" : comcontent,
+						"commemnum" : commemnum
 					},
 					dataType : "json"
 				}).done(function(data) {
@@ -203,7 +205,7 @@ textarea {
 					//alert($('#comment').val())
 					let date = new Date(data.comdate);
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong>"+data.boardnum+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong> 사진 "+data.member.name+"("+data.member.id+")"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
 							+"<a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
 							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
 							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
@@ -271,7 +273,7 @@ textarea {
 			$('#replyComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
+					+"<p class='mb-1'><span>프로필사진 "+'${member.name}(${member.id})'+"</span></p>"
 					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할 내용을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
@@ -321,14 +323,13 @@ textarea {
 		function replyCommentForm(x,y){ // 댓글답장하는 답글창 생성
 			let comnum = x;
 			let comgroupnum = y;
-			// let alafromid = comment.member.id <- 보내는 사람의 아이디
 			//alert(comnum)
 			//alert(comgroupnum)
 			$('#replyComment'+comnum).remove(); //중복생성 방지 일반댓글의 답장창을 삭제하기 위해 일반댓글의 comnum을 가져옴
 			$('#updateComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>" //
+					+"<p class='mb-1'><span>프로필사진 "+'${member.name}(${member.id})'+"</span></p>" //
 					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
@@ -340,6 +341,8 @@ textarea {
 			let comgroupnum = y;
 			let comcontent = $('#newreplyComment'+comnum).val();
 			let boardnum = $('#boardnum').html();
+			let commemnum = '${member.memnum}';
+			let frommemnum = '${member.memnum}';
 			//alert(boardnum)
 			//alert(comnum)
 			//alert(comgroupnum)
@@ -351,14 +354,14 @@ textarea {
 			$.ajax({
 				type : "get",
 				url : "/replyComment",
-				data : {"comgroupnum" : comgroupnum,"comcontent" : comcontent, "boardnum" : boardnum},
+				data : {"comgroupnum" : comgroupnum,"comcontent" : comcontent, "boardnum" : boardnum, "commemnum" : commemnum, "frommemnum" : frommemnum},
 				dataType : "json"
 			}).done(function(data){
 				//alert(data)
 				let date = new Date(data.comdate);
 				$('#replyComment'+comnum).remove();
 				$('#'+data.comgroupnum).append( //새로 작성한 답글의 객체를 받아온다.
-						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
+						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 ${member.name}(${member.id})"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
 					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
 					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a>"
 					   +"</span></p>"

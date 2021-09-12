@@ -77,8 +77,8 @@ public class ReviewController {
 	
 
 	@RequestMapping("content/{boardtype}/{num}")
-	public String getReview(@PathVariable Long num,@RequestParam(name= "p") int pNum,String search, 
-			int searchn,Model m) {
+	public String getReview(@PathVariable Long num, @RequestParam(name= "p",defaultValue="1")int pNum,String search, 
+			@RequestParam(name= "p",defaultValue="-1")int searchn,Model m) {
 
 		ReviewBoard review = reviewService.getReview(num);
 		
@@ -121,29 +121,29 @@ public class ReviewController {
 		return "redirect:/content2?comnum="+comnum;
 	}
 	@RequestMapping(value="/replyComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-	public String replyComment(BoardComment board) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
-		commentService.saveComment(board); //comnum,boardnum,comcontent,comgroupnum 저장
+	public String replyComment(BoardComment comment, Long frommemnum) { // 대댓글달기 boardnum,comcontent,comgroupnum 변수필요
+		commentService.saveComment(comment); //comnum,boardnum,comcontent,comgroupnum 저장
 		//ystem.out.println(board);
-		commentService.saveReStep(board.getComgroupnum(),board.getComnum()); //여기서 comgroup,comrestep의 값을 저장한다.
+		commentService.saveReStep(comment.getComgroupnum(),comment.getComnum()); //여기서 comgroup,comrestep의 값을 저장한다.
 		//------------------------------------------여기서부터 알람부분
 		System.out.println("------------알림부분");
-		List<BoardComment> memnums=commentService.getmembernum(board.getComgroupnum()); //알람테이블에 추가하려면 해당댓글을 단 멤버들의 멤버번호들을 담은 객체들을 가져옴
+		List<BoardComment> memnums=commentService.getmembernum(comment.getComgroupnum()); //알람테이블에 추가하려면 해당댓글을 단 멤버들의 멤버번호들을 담은 객체들을 가져옴
 		Alarm alarm = null;
-		String alafromid = null;
-		Long boarnnum = board.getBoardnum();
+		
+		Long boarnnum = comment.getBoardnum();
 		for(int i=0;i<memnums.size();i++) {
 			alarm = new Alarm();
 			//System.out.println(memnums.get(i).getCommemnum());
-			alarm.setMemnum(memnums.get(i).getCommemnum()); //멤버번호를 가져와서 세이브
+			alarm.setMemnum(memnums.get(i).getCommemnum()); //각각의 멤버번호를 가져와서 세이브
 			alarm.setAlatype((long) 2);
 			alarm.setAlacheck((long) 0);
 			alarm.setBoardnum(boarnnum);
-			//alarm.setAlafromid(alafromid); 알람테이블에 보낸이 아이디를 저장
+			alarm.setFrommemnum(frommemnum); //알람테이블에 보낸이 아이디를 저장
 			alarmService.saveAlarm(alarm);
 		}
 		
 		
-		return "redirect:/content2?comnum="+board.getComnum();
+		return "redirect:/content2?comnum="+comment.getComnum();
 	}
 	
 	@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")

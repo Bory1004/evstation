@@ -24,9 +24,18 @@
 a {
 	text-decoration-line: none;
 }
+
+#alarmpage {
+	position :absolute;
+	border: solid black 1px;
+	width : 210px;
+	height : 300px;
+	left : 1230px;
+}
 </style>
 </head>
 <body>
+${member }
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
@@ -36,18 +45,20 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-													
+					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
+						width="30" height="30" onclick="ring(${member.memnum})">
+					</div>						
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+							<div style="float:right;">${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -97,5 +108,57 @@ a {
 		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
 	</script>
+	<script>
+		$(function(){
+			$.ajax({
+				type : "get",
+				url : "countAlarm",
+				data : { "memnum" : ${member.memnum}},
+				dataType : "text"
+			}).done(function(data){
+				//alert(data)
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText)				
+			})
+		
+		})
+		
+		function ring(x){ //알람 창 열고 데이터 가져오는 함수
+			//alert(${memnum})
+			$.ajax({
+				type : "get",
+				url : "/getAlarm",
+				data : {"memnum" : ${member.memnum}},
+				dataType : "text"
+			}).done(function(data){
+				//alert("성공")
+				if($('#alarmpage').html()){
+					$('#alarmpage').remove();
+				}else{
+					$('#login').append("<div id='alarmpage'></div>"	);
+					$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
+				}
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText);
+			})
+		}
+		function delAlarm(x){
+			let alanum = x;
+			$.ajax({
+				type : "get",
+				url : "/delAlarm",
+				data : {"alanum" : alanum},
+				dataType : "text"
+			}).done(function(data){
+				//alert(data)
+				$('#'+alanum).remove();
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText);
+			})
+		}
+		</script>
 </body>
 </html>

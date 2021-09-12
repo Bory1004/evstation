@@ -5,8 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.board.hj.domain.Member;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +34,12 @@ public class Alarm {
 	private Long alatype;
 	@Column(name="ala_check",columnDefinition="number default 0")
 	private Long alacheck;
-	@Column(name="ala_fromid", columnDefinition="varchar2(20)", nullable=true)
-	private String alafromid;
+	@Column(name="ala_frommemnum", columnDefinition="number", nullable=true)
+	private Long frommemnum;
 	@Column(name="board_num", columnDefinition="number")
 	private Long boardnum;
+	
+	@ManyToOne
+	@JoinColumn(name="ala_frommemnum",insertable=false,updatable=false)
+	private Member member;
 }
