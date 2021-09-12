@@ -148,6 +148,7 @@ a {
 		</select> 
 		<input type="text" class="form-control" name="search" size="15" maxlength="50" /> 
 		<input type="submit" class="form-control" value="검색" />
+		<a href="insertBoard">새글 등록</a>
 	</form>
 </div>	
 </div>
