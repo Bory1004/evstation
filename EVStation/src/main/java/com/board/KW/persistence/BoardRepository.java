@@ -15,12 +15,14 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	Page<Board> findByOrderByNumDesc(Pageable page);
 	
 	/*
-	 * @Transactional
+	 * Page<Board> findAll(Pageable page);
 	 * 
-	 * @Modifying
-	 * 
-	 * @Query("UPDATE chargelist b SET b.cnt = b.cnt+1 WHERE b.num=?1") int
-	 * updateCnt(Long num);
+	 * @Query( value =
+	 * "select * from chargelist where st_name like %:st_name% or st_address1 like %:st_address1"
+	 * , countQuery =
+	 * "SELECT COUNT(*) FROM chargelist WHERE st_name like %:st_name% or st_address1 like %:st_address1"
+	 * ) Page<Board> findAllSearch(String title, String content, Pageable page);
 	 */
+	
 	
 }
