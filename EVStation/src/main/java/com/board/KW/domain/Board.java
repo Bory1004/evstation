@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,7 +37,7 @@ public class Board implements Serializable {
 	private String st_longitude;
 	private String st_latitude;
 
-	  
+	
 	  @GeneratedValue private Long num; private String title;
 	  
 	  @Column(updatable = false) private String writer; private String content;

@@ -120,6 +120,19 @@ a {
 
 </div>
 
+<div style="text-align:center">
+	<form name="search-form" autocomplete="off">
+		<select name="type">
+			<option selected value="">선택</option>
+			<option value="title">제목</option>
+			<option value="address">주소</option>
+		</select>
+		<input type="text" name="keyword" value=""></input>
+		<input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색"></input>
+	</form>
+	</div>
+
+
 
 <footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
 		<div class="row">

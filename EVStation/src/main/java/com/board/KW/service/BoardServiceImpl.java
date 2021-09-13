@@ -18,11 +18,12 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private BoardRepository boardRepo;
 	
-	@Override
-	public Page<Board> getBoardList(int pNum){
-		Pageable page = PageRequest.of(pNum-1, 10);
-		return boardRepo.findByOrderByNumDesc(page);
-	}
+	
+	/*
+	 * @Override public Page<Board> getBoardList(int pNum){ Pageable page =
+	 * PageRequest.of(pNum-1, 10); return boardRepo.findByOrderByNumDesc(page); }
+	 */
+	 
 	@Override
 	public void saveBoard(Board board) {
 		boardRepo.save(board);
@@ -50,5 +51,24 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepo.findAll();
 	}
 	
-
+	@Override
+	public Page<Board> AllListQnA(int pNum, int searchn, String search) {
+		
+		Pageable page = PageRequest.of(pNum-1, 10);
+		Page<Board> list = null;
+		if(searchn == 0) {
+			list = boardRepo.findByBoardtitleContainingIgnoreCase(search, page);
+		}else if(searchn == 1) {
+			list = boardRepo.findByBoardcontentContainingIgnoreCase(search, page);
+		}
+		return list;
+	}
+  
+	@Override
+	public Page<Board> AllListQnA(int pNum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return boardRepo.findByOrderByBoardrefDescBoardrestepAsc(page);
+	}
+	
+	
 }
