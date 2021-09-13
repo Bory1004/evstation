@@ -45,10 +45,18 @@ textarea {
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="#">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
-					</div>
+													
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
 				</div>
 
 			</div>
@@ -108,9 +116,9 @@ textarea {
 							</tr>
 						</table>
 						
-							<a class="btn btn-sm btn-outline-success" href="/updateForm/${board.num }">수정</a>
-							<a class="btn btn-sm btn-outline-success" href="/delete/${board.num }">삭제</a>
-							 <a class="btn btn-sm btn-outline-success" href="/getBoardList">목록으로</a>
+							<a class="btn btn-sm btn-outline-success" href="/ay/updateForm/${board.num }">수정</a>
+							<a class="btn btn-sm btn-outline-success" href="/ay/delete/${board.num }">삭제</a>
+							 <a class="btn btn-sm btn-outline-success" href="/ay/getBoardList">목록으로</a>
 					</div>
 
 				</div>
@@ -140,13 +148,6 @@ textarea {
 		$(function() {
 			$("#h").click(function() {
 				
-								if ('${result}' == 0){
-									alert("로그인해야 하트 누를 수 있음");
-									document.getElementById("h").src = "/img/empty.png";
-									window.location.href = "/loginform";
-									
-									}else{
-								
 								let num = ${board.num};
 								let id = sessionStorage.getItem('id');
 								let url = "/upRecom/" + num + "/" + id;
@@ -169,7 +170,7 @@ textarea {
 													console.log("error");
 												}); 
 							
-									}	})//2
+										})//2
 		});                 
 		
 	</script>
