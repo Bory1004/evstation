@@ -83,7 +83,7 @@ a {
 	<div id="center">
 		<h1>게시글 목록</h1>
 		<div align="right">
-			<a href="updateForm">회원수정</a><a href="insertBoard">새글 등록</a> 
+			<a href="insertBoard">새글 등록</a> 
 			<a href="getBoardList">전체 글 목록</a>
 		</div>
 		<c:if test="${board.boardnum == comment.boardnum}">

@@ -6,40 +6,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.board.hj.domain.Board;
-import com.board.hj.persistence.BoardRepository;
+import com.board.hj.domain.FreeBoard;
+import com.board.hj.persistence.FreeBoardRepository;
 
 @Service
-public class BoardServiceImpl implements BoardService{
+public class FreeBoardServiceImpl implements FreeBoardService{
 	
 	@Autowired
-	private BoardRepository boardRepo;
+	private FreeBoardRepository boardRepo;
 	
 	@Override
-	public Page<Board> getBoardList(int pNum){
+	public Page<FreeBoard> getBoardList(int pNum){
 		Pageable page = PageRequest.of(pNum-1, 5); //(0,5) 총 5개 페이지 표시 ->1페이지에 10개 표시로 변경 예정
 		return boardRepo.findByOrderByBoardnumDesc(page);
 	}
 	
 	@Override
-	public void saveBoard(Board board) {
+	public void saveBoard(FreeBoard board) {
 		boardRepo.save(board);
 	}
 	
 	@Override
-	public void updateBoard(Board board) {
+	public void updateBoard(FreeBoard board) {
 		
 		
 	}
 	
 	@Override
-	public Board getBoard(Long boardnum) {
+	public FreeBoard getBoard(Long boardnum) {
 		boardRepo.updateBoardsee(boardnum); //조회수변경
 		return boardRepo.getById(boardnum);
 	}
 	
 	@Override
-	public Board onlyBoard(Long boardnum) {
+	public FreeBoard onlyBoard(Long boardnum) {
 		return boardRepo.getById(boardnum);
 	}
 	
@@ -49,9 +49,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public Page<Board> getBoardList(int pNum, int searchn, String search) { //작성자검색,내용검색 등..
+	public Page<FreeBoard> getBoardList(int pNum, int searchn, String search) { //작성자검색,내용검색 등..
 		Pageable page = PageRequest.of(pNum-1, 5);
-		Page<Board> list = null;
+		Page<FreeBoard> list = null;
 		if(searchn == 0) {
 			list = boardRepo.findByBoardtitleContainingIgnoreCase(search, page);
 		}else if(searchn == 1) {

@@ -6,36 +6,36 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.board.hj.domain.Comment;
-import com.board.hj.persistence.CommentRepository2;
+import com.board.hj.domain.FreeComment;
+import com.board.hj.persistence.FreeCommentRepository;
 
 @Service
-public class CommentServiceImpl2 implements CommentService2 {
+public class FreeCommentServiceImpl implements FreeCommentService {
 
 	@Autowired
-	private CommentRepository2 commentRepo;
+	private FreeCommentRepository commentRepo;
 	
 	//모든 댓글 출력
 	@Override
-	public Page<Comment> getCommentList(int pNum) {
+	public Page<FreeComment> getCommentList(int pNum) {
 		Pageable page = PageRequest.of(pNum-1, 5);
 		return commentRepo.findByOrderByComnumAsc(page);
 	}
 	
 	//게시판에 작성된 댓글 출력
 	@Override
-	public Page<Comment> getComment(int pNum, Long boardnum) {
+	public Page<FreeComment> getComment(int pNum, Long boardnum) {
 		Pageable page = PageRequest.of(pNum-1, 5);
 		return commentRepo.findByBoardnumOrderByComnumAsc(page, boardnum);
 	}
 	
 	@Override
-	public void saveComment(Comment comment) {
+	public void saveComment(FreeComment comment) {
 		commentRepo.save(comment);	
 	}
 
 	@Override
-	public Comment onlyComment(Long comnum) {
+	public FreeComment onlyComment(Long comnum) {
 		return commentRepo.getById(comnum);
 	}
 

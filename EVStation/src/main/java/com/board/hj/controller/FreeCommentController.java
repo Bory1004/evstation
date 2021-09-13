@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.hj.domain.Board;
-import com.board.hj.domain.Comment;
+import com.board.hj.domain.FreeBoard;
+import com.board.hj.domain.FreeComment;
 import com.board.hj.domain.Member;
-import com.board.hj.service.CommentService2;
+import com.board.hj.service.FreeCommentService;
 
 @SessionAttributes("member")
 @Controller
-public class CommentController {
+public class FreeCommentController {
 	
 	// session에 member가 없으면 실행, 있으면 실행되지 않는다.
 	@ModelAttribute("member")
@@ -27,12 +27,12 @@ public class CommentController {
 	}
 	
 	@Autowired
-	private CommentService2 commentService;
+	private FreeCommentService commentService;
 	
 	//입력한 댓글 저장
 	@RequestMapping("/insertComment/{boardnum}")
 	@ResponseBody
-	public void inserComment(Comment comment, Board board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {
+	public void inserComment(FreeComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {
 		//comment.setWriter(member.getId());
 		comment.setCommennum(member.getMemnum());
 		comment.setBoardnum(boardnum);
@@ -49,7 +49,7 @@ public class CommentController {
 	
 	@RequestMapping("/updateComment")
 	@ResponseBody
-	public void updateComment(Comment comment) {
+	public void updateComment(FreeComment comment) {
 		//Comment comment = commentService.onlyComment(comnum);
 		//comment.setComnum(comnum);
 		commentService.saveComment(comment);

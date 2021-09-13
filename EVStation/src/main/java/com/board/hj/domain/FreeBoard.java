@@ -10,12 +10,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="BOARD01")
+@Table(name="FREEBOARD")
 @Setter
 @Getter
 @ToString
 @SequenceGenerator(name="BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1, allocationSize=1)
-public class Board implements Serializable {
+public class FreeBoard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @SequenceGenerator(name="COM_SEQ_GEN", sequenceName="COM_SEQ", initialValue=1, allocationSize=1)
-public class Comment implements Serializable {
+public class FreeComment implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

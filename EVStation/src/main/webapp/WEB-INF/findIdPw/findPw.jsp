@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
-<title>회원가입 완료</title>
+<title>비밀번호 찾기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -16,7 +16,7 @@
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="/" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>
@@ -28,7 +28,7 @@
 		<div class="container d-flex justify-content-center align-items-center">		
 		<div id="content">	
 			
-		<form id="form" class="row g-2" action="/findId" method="post">
+		<form id="form" class="row g-2" action="/findPw" method="post">
 			<div class="row mb-3 justify-content-center align-items-center">
 			</div>	
 			
@@ -121,7 +121,8 @@
 					$("#id_msg").text("아이디를 입력해주세요.");
 					//$("#bnt_submit").attr("disabled", true);
 					return false;
-			}	
+				}
+			})
 		
 			//이름
 			$("#name").blur(function() {

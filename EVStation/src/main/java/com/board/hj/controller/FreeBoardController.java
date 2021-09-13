@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.hj.domain.Board;
-import com.board.hj.domain.Comment;
+import com.board.hj.domain.FreeBoard;
+import com.board.hj.domain.FreeComment;
 import com.board.hj.domain.Member;
-import com.board.hj.service.BoardService;
-import com.board.hj.service.CommentService2;
+import com.board.hj.service.FreeBoardService;
+import com.board.hj.service.FreeCommentService;
 
 @SessionAttributes("member")
 @Controller
-public class BoardController {
+public class FreeBoardController {
 	
 	//session에 member가 없으면 실행, 있으면 실행되지 않는다.
 	@ModelAttribute("member")
@@ -31,10 +31,10 @@ public class BoardController {
 	}
 
 	@Autowired
-	private BoardService boardService;
+	private FreeBoardService boardService;
 	
 	@Autowired
-	private CommentService2 commentService;
+	private FreeCommentService commentService;
 	
 	//작성된 모든 게시판 리스트 + 검색
 	@RequestMapping("/getBoardList")
@@ -45,14 +45,14 @@ public class BoardController {
 			return "redirect:loginView";
 		}
 		
-		Page<Board> pageList = null;
+		Page<FreeBoard> pageList = null;
 		if (search != null) {
 			pageList = boardService.getBoardList(pNum, searchn, search); //search = 검색어
 		} else {
 			pageList = boardService.getBoardList(pNum);
 		}
 		
-		List<Board> bList = pageList.getContent();// 보여질 글
+		List<FreeBoard> bList = pageList.getContent();// 보여질 글
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements(); //전제 글 수		
@@ -73,7 +73,7 @@ public class BoardController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
-		return "board/getBoardList";
+		return "hjboard/getBoardList";
 	}
 
 	//게시판 입력 폼으로 이동
@@ -84,7 +84,7 @@ public class BoardController {
 	
 	//게시판 입력 후 게시판 리스트 출력하는 곳으로 이동
 	@PostMapping("/insertBoard")
-	public String insertBoard(Board board, @ModelAttribute("member") Member member) {
+	public String insertBoard(FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setBoardwriter(member.getId());
 		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
@@ -97,13 +97,13 @@ public class BoardController {
 		m.addAttribute("member", member);
 		
 		//게시판
-		Board board = boardService.getBoard(boardnum);
+		FreeBoard board = boardService.getBoard(boardnum);
 		m.addAttribute("board", board);
 		
 		//댓글
-		Page<Comment> pageList = null;
+		Page<FreeComment> pageList = null;
 		pageList = commentService.getComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
-		List<Comment> cList = pageList.getContent();// 보여질 글
+		List<FreeComment> cList = pageList.getContent();// 보여질 글
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements(); //전제 글 수		
@@ -123,20 +123,20 @@ public class BoardController {
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
 		
-		return "board/getBoard";
+		return "hjboard/getBoard";
 	}
 	
 	//게시판 수정 요청 받아서 수정
 	@GetMapping("/updateform/{boardnum}")
 	public String updateform(@PathVariable Long boardnum, Model m) {
-		Board board = boardService.onlyBoard(boardnum);
+		FreeBoard board = boardService.onlyBoard(boardnum);
 		m.addAttribute("board", board);
-		return "board/updateform";
+		return "hjboard/updateform";
 	}
 	
 	//게시판 수정 후, 게시판 리스트 출력하는 곳으로 이동
 	@PostMapping("/update")
-	public String update(Board board, @ModelAttribute("member") Member member) {
+	public String update(FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
 		return "redirect:/getBoardList";

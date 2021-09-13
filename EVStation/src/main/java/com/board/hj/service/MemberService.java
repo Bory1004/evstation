@@ -23,4 +23,8 @@ public interface MemberService {
 	
 	//비밀번호 찾기
 	Member findPw(String id, String name, String mememail);
+	
+	//비밀번호 변경
+	void updatePw(String id, String pw);
+	
 }
