@@ -45,10 +45,18 @@ textarea {
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="#">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
-					</div>
+													
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
 				</div>
 
 			</div>
