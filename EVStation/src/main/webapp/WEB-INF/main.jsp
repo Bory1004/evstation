@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인 페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -58,7 +58,7 @@ a {
 					<a class="p-2  link-success" href="#">페이지 소개</a> 
 					<a class="p-2 link-success" href="reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 link-success" href="getBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="getFreeBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="#">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>

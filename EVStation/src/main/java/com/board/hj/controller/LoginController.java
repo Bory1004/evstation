@@ -28,13 +28,13 @@ public class LoginController {
 		return new Member();
 	}
 
-	// 회원가입 페이지로 이동
+	//회원가입 페이지로 이동
 	@GetMapping("/joinView")
 	public String joinView() {
 		return "member/joinView";
 	}
 
-	// 중복 아이디 체크
+	//중복 아이디 체크
 	@RequestMapping("/check")
 	@ResponseBody
 	public int check(String id) {
@@ -56,14 +56,14 @@ public class LoginController {
 		return "member/join_success";
 	}
 
-	// 아이디 찾기 페이지로 이동
+	//아이디 찾기 페이지로 이동
 	@GetMapping("/findIdView")
 	public String findIdView() {
 		return "findIdPw/findId";
 	}
 
-	// 아이디 찾기 - 입력한 이름과 이메일이 일치한 정보가 있는지 확인
-	// 일치한 정보가 있으면 이메일 인증 시작
+	//아이디 찾기 - 입력한 이름과 이메일이 일치한 정보가 있는지 확인
+	//일치한 정보가 있으면 이메일 인증 시작
 	@RequestMapping("/find_name_email")
 	@ResponseBody
 	public String findId(Model model, @RequestParam Map<String, Object> param) {
@@ -104,14 +104,14 @@ public class LoginController {
 		}
 	}
 
-	// 아이디 찾기 후 비밀번호 찾기 페이지 이동
+	//아이디 찾기 후 비밀번호 찾기 페이지 이동
 	@RequestMapping("/findIdPw")
 	public String findIdPw(@RequestParam(name = "findId", required = false) String findId, Model model) {
 		model.addAttribute("id", findId);
 		return "findIdPw/findId3";
 	}
 
-	// 비밀번호 변경
+	//비밀번호 변경
 	@RequestMapping(value = { "/findIdPw_newPw", "/findPw_newPw" })
 	public String findIdPw_newPw(@RequestParam(name = "id", required = false) String id,
 			@RequestParam(name = "mempw", required = false) String pw) {
@@ -119,13 +119,13 @@ public class LoginController {
 		return "member/loginView";
 	}
 
-	// 바로 비밀번호 찾기 페이지로 이동
+	//바로 비밀번호 찾기 페이지로 이동
 	@GetMapping("/findPwView")
 	public String findPwView() {
 		return "findIdPw/findPw";
 	}
 
-	// 비밀번호 찾기
+	//비밀번호 찾기
 	@RequestMapping("/findPw")
 	public String findPw(Model model, @RequestParam Map<String, Object> param) {
 		System.out.println(param);
@@ -136,14 +136,14 @@ public class LoginController {
 		Member findMember = memberService.findPw(id, name, mememail);
 		System.out.println(findMember);
 
-		// 찾기 성공
+		//찾기 성공
 		if (findMember != null) {
 			System.out.println(findMember);
 			model.addAttribute("id", id);
 			return "findIdPw/findId3";
 		}
 
-		// 찾기 실패
+		//찾기 실패
 		else {
 			model.addAttribute("msg", "회원정보를 다시 확인해주세요.");
 			return "findIdPw/findPw2";

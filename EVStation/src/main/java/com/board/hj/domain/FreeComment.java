@@ -11,7 +11,7 @@ import lombok.ToString;
 
 
 @Entity
-@Table(name="COMMENT01")
+@Table(name="FREEBOARDCOMMENT")
 @Getter
 @Setter
 @ToString
@@ -23,10 +23,6 @@ public class FreeComment implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="COM_SEQ_GEN")
 	private Long comnum; //댓글 번호
-	
-	
-	//@Column(updatable = false)
-	//private String writer; //작성자
 	
 	@JoinColumn(name="MEMNUM")
 	private Long commennum;
@@ -44,11 +40,11 @@ public class FreeComment implements Serializable {
 	private Long boardnum; //게시글 번호
 	
 	//@ManyToOne
-	//@JoinColumn(name = "MEMNUM")
+	//@JoinColumn(name = "MEMNUM", insertable = false, updatable = false)
 	//Member member;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "BOARDNUM", insertable = false, updatable = false)
-	//Board board;
+	@ManyToOne
+	@JoinColumn(name="boardnum", insertable = false, updatable = false)
+	private FreeBoard freeboard;
 	
 }

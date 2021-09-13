@@ -4,10 +4,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>게시판</title>
-</head>
+<title>자유 게시판</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+@media ( min-width : 768px) {
+	.container {
+		width: 750px
+	}
+}
 
+@media ( min-width : 992px) {
+	.container {
+		width: 940px
+	}
+}
+#center {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+a {
+	text-decoration-line: none;
+}
+
+#page {
+	text-align: center;
+}
+</style>
+</head>
 <body>
+
+	<div class="container">
+		<header class="py-3">
+			<div class="row justify-content-center">
+				<div class="col-6 pt-2">
+					<a href="main" class="link-secondary"> 
+					<img src="/img/logo.png" width="220" height="100"></a>
+					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
+				</div>
+
+				<div class="col-6 d-flex justify-content-end align-items-center">
+					<!-- justify-content 자식요소 정렬  -->
+													
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
+				</div>
+			</div>
+
+			<div class="menubar py-1 mb-2">
+				<nav class="nav d-flex justify-content-center border-top border-bottom">
+					<a class="p-2  link-success" href="#">페이지 소개</a> 
+					<a class="p-2 link-success" href="reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2 bg-success text-white" href="getFreeBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="#">공지사항</a> 
+					<a class="p-2 link-success" href="#">Q&A</a>
+				</nav>
+			</div>
+		</header>
+	</div>
+
 
 <table border="1">
 	<tr><td>제목</td><td>${board.boardtitle}</td><td>조회수</td><td>${board.boardsee}</td></tr>
@@ -15,10 +81,10 @@
 	<tr><td>내용</td><td colspan="4">${board.boardcontent}</td></tr>
 	<tr><td colspan="5">
 	<c:if test="${board.boardwriter eq member.id}">
-		<a href="/updateform/${board.boardnum}">글 수정</a>	
-		<a href="/delete/${board.boardnum}">글 삭제</a>
+		<a href="/updateFreeBoard/${board.boardnum}">글 수정</a>	
+		<a href="/deleteFree/${board.boardnum}">글 삭제</a>
 	</c:if>
-	<a href="/getBoardList">글 목록</a>
+	<a href="/getFreeBoardList">글 목록</a>
 	</td></tr>
 </table>
 <hr width="350" align="left">

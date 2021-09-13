@@ -23,7 +23,7 @@ public class FreeBoard implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="BOARD_SEQ_GEN")
 	private Long boardnum; //게시판 글번호
 	
-	@JoinColumn(name="MEMNUM", updatable = false)
+	//@JoinColumn(name="MEMNUM", updatable = false)
 	private Long boardmennum; //작성자 회원번호
 	
 	@Column(updatable = false)

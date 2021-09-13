@@ -37,17 +37,18 @@ public class FreeBoardController {
 	private FreeCommentService commentService;
 	
 	//작성된 모든 게시판 리스트 + 검색
-	@RequestMapping("/getBoardList")
+	@RequestMapping("/getFreeBoardList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,
 			@ModelAttribute("member") Member member, String search, @RequestParam(defaultValue = "-1") int searchn) {
 		
-		if (member.getId() == null) {
-			return "redirect:loginView";
-		}
-		
+		/*
+		 * if (member.getId() == null) { return "redirect:loginView"; }
+		 */
 		Page<FreeBoard> pageList = null;
 		if (search != null) {
 			pageList = boardService.getBoardList(pNum, searchn, search); //search = 검색어
+			String search_msg = "\"" + search + "\" 검색 결과";
+			m.addAttribute("search_msg", search_msg);
 		} else {
 			pageList = boardService.getBoardList(pNum);
 		}
@@ -73,22 +74,22 @@ public class FreeBoardController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
-		return "hjboard/getBoardList";
+		return "hjboard/getFreeBoardList";
 	}
 
 	//게시판 입력 폼으로 이동
-	@GetMapping("/insertBoard")
+	@GetMapping("/insertFreeBoard")
 	public String insertBoardView() {
-		return "board/insertBoard";
+		return "hjboard/insertFreeBoard";
 	}
 	
 	//게시판 입력 후 게시판 리스트 출력하는 곳으로 이동
-	@PostMapping("/insertBoard")
+	@PostMapping("/insertFreeBoard")
 	public String insertBoard(FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setBoardwriter(member.getId());
 		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
-		return "redirect:/getBoardList";
+		return "redirect:/getFreeBoardList";
 	}
 
 	//게시판 클릭 후 보이는 것(게시글 + 댓글)
@@ -123,7 +124,7 @@ public class FreeBoardController {
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
 		
-		return "hjboard/getBoard";
+		return "hjboard/getFreeBoard";
 	}
 	
 	//게시판 수정 요청 받아서 수정
@@ -131,22 +132,22 @@ public class FreeBoardController {
 	public String updateform(@PathVariable Long boardnum, Model m) {
 		FreeBoard board = boardService.onlyBoard(boardnum);
 		m.addAttribute("board", board);
-		return "hjboard/updateform";
+		return "hjboard/updateFreeBoard";
 	}
 	
 	//게시판 수정 후, 게시판 리스트 출력하는 곳으로 이동
-	@PostMapping("/update")
+	@PostMapping("/updateFreeBoard")
 	public String update(FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
-		return "redirect:/getBoardList";
+		return "redirect:/getFreeBoardList";
 	}
 	
 	//게시판 삭제를 누르면 게시판과 함께 댓글도 삭제 후, 게시판 리스트 출력하는 곳으로 이동
-	@GetMapping("/delete/{boardnum}")
+	@GetMapping("/deleteFreeBoard/{boardnum}")
 	public String delete(@PathVariable Long boardnum) {
 		boardService.deleteBoard(boardnum);
 		//commentService.deleteComment(boardnum);
-		return "redirect:/getBoardList";
+		return "redirect:/getFreeBoardList";
 	}
 }

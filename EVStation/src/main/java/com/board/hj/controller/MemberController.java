@@ -1,8 +1,5 @@
 package com.board.hj.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -112,6 +109,6 @@ public class MemberController {
 			cookies[i].setMaxAge(0);
 			response.addCookie(cookies[i]);
 		}		
-		return "redirect:main";
+		return "main";
 	}	
 }
