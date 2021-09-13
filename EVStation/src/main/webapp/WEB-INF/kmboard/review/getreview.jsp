@@ -31,6 +31,15 @@ a {
 textarea {
 	width:100%;
 }
+
+#alarmpage {
+	position :absolute;
+	border: solid black 1px;
+	width : 210px;
+	height : 300px;
+	left : 1230px;
+	overflow-y : auto;
+}
 </style>
 </head>
 <body>
@@ -38,34 +47,39 @@ ${member}
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
-
 				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> <img src="/img/logo.png"
-						width="200" height="100">
-					</a>
+					<a href="/main" class="link-secondary"> 
+					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="/login">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
-					</div>
+					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
+						width="30" height="30" onclick="ring(${member.memnum})">
+					</div>						
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div style="float:right;">
+								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							<div style="float:right;">${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
+						</c:otherwise>						
+					</c:choose>
 				</div>
-
 			</div>
 
-
 			<div class="menubar py-1 mb-2">
-				<nav
-					class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> <a
-						class="p-2 link-success" href="../../reviewList">충전소 현황</a> <a
-						class="p-2 link-success" href="#">기대효과</a> <a
-						class="p-2 link-success" href="#">자유게시판</a> <a
-						class="p-2 link-success" href="#">공지사항</a> <a
-						class="p-2 link-success" href="#">Q&A</a>
+				<nav class="nav d-flex justify-content-center border-top border-bottom">
+					<a class="p-2  link-success" href="#">페이지 소개</a> 
+					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2 link-success" href="/getBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="#">공지사항</a> 
+					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
 		</header>
@@ -98,8 +112,11 @@ ${member}
 							</tr>
 							<tr>
 								<th class="table-success" colspan="1">내용</th>
-								<td colspan="3"><textarea rows="10"
-										style="border: none;">${review.boardcontent}</textarea></td>
+								<td colspan="3"><!-- <textarea rows="10" style="border: none;"> --><%-- ${review.boardcontent} --%>
+									<c:forEach items="${reviewFiles}" var="image"> 
+										<img src="${image.filepath}">
+										</c:forEach>
+									<!-- </textarea> --></td>
 							</tr>
 						</table>
 					</div>
@@ -216,28 +233,18 @@ ${member}
 				})
 			});
 		//----------------------------------------------
-			/* $('.comment_delete').click(function(){
-				let value = $(this)
-				alert(value);
-				if(confirm("댓글을 삭제하시겠습니까?")){
-					alert('test')
-					
-						$.ajax({
-							type : "get",
-							url : "delete",
-							data : {},
-							dataType : "json"
-						}).done(function(data){
-					
-							alert("삭제되었습니다.")
-						}).fail(function(e){
-							alert("삭제에 실패했습니다.");
-							alert(e.responseText);
-						})
-					}else{
-						return false;
-					}
-			}) */
+			$.ajax({
+			type : "get",
+			url : "/countAlarm",
+			data : { "memnum" : ${member.memnum}},
+			dataType : "text"
+		}).done(function(data){
+			//alert(data)
+			//$('#'+알람카운트부분).css("",data);
+		}).fail(function(e){
+			alert("실패")
+			alert(e.responseText)				
+		})
 			
 		
 		})
@@ -372,6 +379,57 @@ ${member}
 				alert(e.responseText);
 			})
 		}
+	//--------------------------------------------------- 알람부분
+		function ring(x){ //알람 창 열고 데이터 가져오는 함수
+		//alert(${memnum})
+		$.ajax({
+			type : "get",
+			url : "/getAlarm",
+			data : {"memnum" : ${member.memnum}},
+			dataType : "text"
+		}).done(function(data){
+			//alert("성공")
+			if($('#alarmpage').html()){
+				$('#alarmpage').remove();
+			}else{
+				$('#login').append("<div id='alarmpage'></div>"	);
+				$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
+			}
+		}).fail(function(e){
+			alert("실패")
+			alert(e.responseText);
+		})
+	}
+	function delAlarm(x){
+		let alanum = x;
+		$.ajax({
+			type : "get",
+			url : "/delAlarm",
+			data : {"alanum" : alanum},
+			dataType : "text"
+		}).done(function(data){
+			//alert(data)
+			$('#'+alanum).remove();
+		}).fail(function(e){
+			alert("실패")
+			alert(e.responseText);
+		})
+	}
+	function checkAlarm(x){
+		let alanum = x;
+		$.ajax({
+			type : "get",
+			url : "/checkAlarm",
+			data : {"alanum" : alanum},
+			dataType : "text"
+		}).done(function(data){
+			alert(data)
+			//$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
+		}).fail(function(e){
+			alert("실패")
+			alert(e.responseText)
+		})
+	}
 	</script>
 </body>
 </html>

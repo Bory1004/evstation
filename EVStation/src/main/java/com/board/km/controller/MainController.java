@@ -45,9 +45,11 @@ public class MainController {
 	
 	@RequestMapping(value="/delAlarm",method=RequestMethod.GET,produces="text/palin;charset=UTF-8")
 	@ResponseBody
-	public String delAlarm(Long alanum) {
+	public String delAlarm(Long alanum,Long memnum) {
 			alarmService.delAlarm(alanum);
-		return "Success!!";
+			int counts = alarmService.countAlarm(memnum);
+			if(counts == 0) {return "";}
+		return ""+counts;
 	}
 	
 	@RequestMapping(value="/checkAlarm",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")

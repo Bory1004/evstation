@@ -1,32 +1,53 @@
 package com.board.km.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.board.hj.domain.Member;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
 import com.board.km.domain.ReviewBoard;
+import com.board.km.domain.ReviewFile;
 import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
+import com.board.km.service.ReviewFileService;
 import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
 
-
+@SessionAttributes("member")
 @Controller
-public class ReviewController {
+public class ReviewController implements ApplicationContextAware  {
 	
+	private WebApplicationContext context = null;
+	
+	//session에 member가 없으면 실행, 있으면 실행되지 않는다.
+		@ModelAttribute("member")
+		public Member getMember() {
+			return new Member();
+		}
+		
 	@Autowired
 	ReviewService reviewService;
 	
@@ -35,6 +56,9 @@ public class ReviewController {
 	
 	@Autowired
 	AlarmService alarmService;
+	
+	@Autowired 
+	ReviewFileService reviewFileService;
 	
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
@@ -78,8 +102,12 @@ public class ReviewController {
 
 	@RequestMapping("content/{boardtype}/{num}")
 	public String getReview(@PathVariable Long num, @RequestParam(name= "p",defaultValue="1")int pNum,String search, 
-			@RequestParam(name= "p",defaultValue="-1")int searchn,Model m) {
-
+			@RequestParam(name= "p",defaultValue="-1")int searchn,@ModelAttribute("member") Member member,Model m) {
+		
+		if (member.getId() == null) {
+			return "redirect:/loginView";
+		}
+		
 		ReviewBoard review = reviewService.getReview(num);
 		
 		
@@ -93,6 +121,10 @@ public class ReviewController {
 		m.addAttribute("comments",comments); //제목댓글만받아오기
 		List<BoardComment> replycomments = commentService.getReplyComments(num,(long) 0);
 		m.addAttribute("replycomments",replycomments); // 대댓글만 받아오기
+		//---------------------------------------------------- 파일 이미지 부분
+		List<ReviewFile> reviewFiles= reviewFileService.getFile(num);
+		m.addAttribute("reviewFiles",reviewFiles);
+		
 		return "kmboard/review/getreview";
 	}
 	
@@ -104,9 +136,22 @@ public class ReviewController {
 		}
 		return "kmboard/review/reviewwrite";
 	}
+	
 	@PostMapping("/reviewwrite")
-	public String reviewwrite(ReviewBoard board) {
+	public String reviewwrite(ReviewBoard board,List<MultipartFile> files) {
 		reviewService.saveReview(board);
+		
+		//파일 데이터베이스에 업로드
+				for (MultipartFile file : files) {
+				String path = getFilePath(file);
+				ReviewFile fi = new ReviewFile();
+				fi.setBoardnum(board.getBoardnum());
+				fi.setFilepath(path);
+			   //fi.setOrigFilename(file.getOriginalFilename());
+				
+				//save
+				reviewFileService.saveFile(fi);
+				}
 		
 		return "redirect:/reviewList";
 	}
@@ -177,6 +222,30 @@ public class ReviewController {
 	}
 	
 	
-	
+	//(이미지)실제 업로드할 경로 만드는 부분
+		private String getFilePath(MultipartFile image) {
+			
+			String oriName = image.getOriginalFilename(); //저장 된 파일의 원본 이름
+			int index = oriName.lastIndexOf(".");
+			String ext = oriName.substring(index+1); //파일 이름 겹치지 않게 지정
+			Random r = new Random();
+			String fileName = System.currentTimeMillis() + "_" + r.nextInt(50) + "." + ext;
+		
+			String path = context.getServletContext().getRealPath("File/"+fileName); 
+			System.out.println(path);
+			try {
+				image.transferTo(new File(path));
+			}catch(IllegalStateException | IOException e){
+				e.printStackTrace();
+			}
+			
+			return "/File/"+fileName;
+		}
+		
+		@Override
+	    public void setApplicationContext(ApplicationContext applicationContext)
+	          throws BeansException {
+	       this.context = (WebApplicationContext) applicationContext;
+	    }
 	
 }

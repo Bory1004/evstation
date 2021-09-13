@@ -67,7 +67,7 @@ a {
 	<main>
 		<div class="container" >
 		<div class="mb-5" style="text-align:center;"><h1>글 작성하기</h1></div>
-		<form method="post">
+		<form method="post" enctype="multipart/form-data">
 		
 		<input type="hidden" name="boardmemnum" value="${member.memnum}"> <!-- 세션에있는 회원번호 -->
 		<input type="hidden" name="boardtype" value="2"> <!-- 리뷰글이므로 타입2 -->
@@ -89,7 +89,7 @@ a {
 			<div class="col-md-12 my-3">
 				<input type="text" class="form-control" name="boardtitle" placeholder="제목을 입력해주세요">
 			</div>
-		
+			<input type="file" multiple="multiple" name="files" >
 			<div class="col-md-12">
 				<textarea class="form-control" rows="10" name="boardcontent" placeholder="내용을 입력해주세요"></textarea>
 			</div>

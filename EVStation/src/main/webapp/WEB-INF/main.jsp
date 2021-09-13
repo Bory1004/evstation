@@ -33,6 +33,20 @@ a {
 	left : 1230px;
 	overflow-y : auto;
 }
+#alarmcount {
+	position : absolute;
+	width : 20px;
+	height : 20px;
+	left : 1200px;
+	top : 45px;
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmcount > span {
+	position :relative;
+	color : white;
+	bottom : 3px;
+}
 </style>
 </head>
 <body>
@@ -48,9 +62,9 @@ ${member }
 
 				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
+					<%-- <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
 						width="30" height="30" onclick="ring(${member.memnum})">
-					</div>						
+					</div>	 --%>					
 					<c:choose>
 						<c:when test="${member.id eq null}">
 							<div style="float:right;">
@@ -59,6 +73,9 @@ ${member }
 							</div>	
 						</c:when>
 						<c:otherwise>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
 							<div style="float:right;">${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
@@ -113,12 +130,15 @@ ${member }
 		$(function(){
 			$.ajax({
 				type : "get",
-				url : "countAlarm",
+				url : "/countAlarm",
 				data : { "memnum" : ${member.memnum}},
 				dataType : "text"
 			}).done(function(data){
 				//alert(data)
-				//$('#'+알람카운트부분).css("",data);
+				if(data != ""){
+					$('#alarmcount').css('background','#41FF3A')
+					$('#alarmcount').html('<span>'+data+'</span>');
+				}
 			}).fail(function(e){
 				alert("실패")
 				alert(e.responseText)				
@@ -148,14 +168,20 @@ ${member }
 		}
 		function delAlarm(x){
 			let alanum = x;
+			let memnum = '${member.memnum}'
 			$.ajax({
 				type : "get",
 				url : "/delAlarm",
-				data : {"alanum" : alanum},
+				data : {"alanum" : alanum , "memnum" : memnum},
 				dataType : "text"
 			}).done(function(data){
 				//alert(data)
 				$('#'+alanum).remove();
+				$('#alarmcount').html('<span>'+data+'</span>');
+				
+				if (data == "" ){
+					$('#alarmcount').css('background','white')
+				}
 			}).fail(function(e){
 				alert("실패")
 				alert(e.responseText);
