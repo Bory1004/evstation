@@ -61,7 +61,7 @@ textarea {
 						class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
 						class="p-2 link-success" href="#">기대효과</a> <a
 						class="p-2 link-success" href="#">자유게시판</a> <a
-						class="p-2 link-success" href="#">공지사항</a> <a
+						class="p-2 link-success" href="/ay/getBoardList">공지사항</a> <a
 						class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
@@ -108,9 +108,9 @@ textarea {
 							</tr>
 						</table>
 						
-							<a class="btn btn-sm btn-outline-success" href="/updateForm/${board.num }">수정</a>
-							<a class="btn btn-sm btn-outline-success" href="/delete/${board.num }">삭제</a>
-							 <a class="btn btn-sm btn-outline-success" href="/getBoardList">목록으로</a>
+							<a class="btn btn-sm btn-outline-success" href="/ay/updateForm/${board.num }">수정</a>
+							<a class="btn btn-sm btn-outline-success" href="/ay/delete/${board.num }">삭제</a>
+							 <a class="btn btn-sm btn-outline-success" href="/ay/getBoardList">목록으로</a>
 					</div>
 
 				</div>
@@ -140,13 +140,6 @@ textarea {
 		$(function() {
 			$("#h").click(function() {
 				
-								if ('${result}' == 0){
-									alert("로그인해야 하트 누를 수 있음");
-									document.getElementById("h").src = "/img/empty.png";
-									window.location.href = "/loginform";
-									
-									}else{
-								
 								let num = ${board.num};
 								let id = sessionStorage.getItem('id');
 								let url = "/upRecom/" + num + "/" + id;
@@ -169,7 +162,7 @@ textarea {
 													console.log("error");
 												}); 
 							
-									}	})//2
+										})//2
 		});                 
 		
 	</script>

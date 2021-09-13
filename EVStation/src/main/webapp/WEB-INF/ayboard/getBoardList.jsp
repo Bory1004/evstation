@@ -62,7 +62,7 @@ a {
 					class="p-2 link-success" href="reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="#">기대효과</a> <a
 					class="p-2 link-success" href="#">자유게시판</a> <a
-					class="p-2 link-success" href="#">공지사항</a> <a
+					class="p-2 link-success" href="/ay/getBoardList">공지사항</a> <a
 					class="p-2 link-success" href="#">Q&A</a>
 			</nav>
 		</div>
@@ -81,7 +81,7 @@ a {
 	<tr class="table-dark"><th>No.</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th><th>추천수</th></tr>
 	<c:forEach items="${blist}" var="board">
 		<tr><td>${board.num}</td>
-			<td><a href="/content/${board.num}">${board.title}</a></td>
+			<td><a href="/ay/content/${board.num}">${board.title}</a></td>
 			<td>${board.writer}</td>
 			<td><fmt:formatDate value="${board.createDate}" pattern="MM.dd"/> </td>
 			<td>${board.cnt}</td>
