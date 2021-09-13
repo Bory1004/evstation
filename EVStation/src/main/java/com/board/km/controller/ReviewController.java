@@ -130,8 +130,13 @@ public class ReviewController {
 		List<BoardComment> memnums=commentService.getmembernum(comment.getComgroupnum()); //알람테이블에 추가하려면 해당댓글을 단 멤버들의 멤버번호들을 담은 객체들을 가져옴
 		Alarm alarm = null;
 		
-		Long boarnnum = comment.getBoardnum();
+		Long boarnnum = comment.getBoardnum(); //댓글이 어느게시물에있는지 식별하기위해 
 		for(int i=0;i<memnums.size();i++) {
+			//System.out.println("----------------------------------"+i+"번째");
+			//System.out.println(memnums.get(i).getCommemnum() == frommemnum);
+			//System.out.println(memnums.get(i).getCommemnum());
+			//System.out.println(frommemnum);
+			if(memnums.get(i).getCommemnum() != frommemnum ) { //보낸사람의 멤버번호와 받는사람의 멤버번호가 다를 때 알림테이블에 추가한다.
 			alarm = new Alarm();
 			//System.out.println(memnums.get(i).getCommemnum());
 			alarm.setMemnum(memnums.get(i).getCommemnum()); //각각의 멤버번호를 가져와서 세이브
@@ -140,6 +145,7 @@ public class ReviewController {
 			alarm.setBoardnum(boarnnum);
 			alarm.setFrommemnum(frommemnum); //알람테이블에 보낸이 아이디를 저장
 			alarmService.saveAlarm(alarm);
+			}
 		}
 		
 		

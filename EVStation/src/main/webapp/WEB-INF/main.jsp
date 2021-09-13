@@ -31,6 +31,7 @@ a {
 	width : 210px;
 	height : 300px;
 	left : 1230px;
+	overflow-y : auto;
 }
 </style>
 </head>
@@ -117,6 +118,7 @@ ${member }
 				dataType : "text"
 			}).done(function(data){
 				//alert(data)
+				//$('#'+알람카운트부분).css("",data);
 			}).fail(function(e){
 				alert("실패")
 				alert(e.responseText)				
@@ -159,6 +161,22 @@ ${member }
 				alert(e.responseText);
 			})
 		}
+		function checkAlarm(x){
+			let alanum = x;
+			$.ajax({
+				type : "get",
+				url : "/checkAlarm",
+				data : {"alanum" : alanum},
+				dataType : "text"
+			}).done(function(data){
+				alert(data)
+				//$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
+			}).fail(function(e){
+				alert("실패")
+				alert(e.responseText)
+			})
+		}
+		
 		</script>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class MainController {
 		List<Alarm> list=alarmService.getAlarms(memnum);
 		//Gson json = new Gson();
 		m.addAttribute("list",list);
-		System.out.println(list.size());
+		//System.out.println(list.size());
 		//return json.toJson(list);
 		return "alarmpage";
 	}
@@ -50,4 +50,9 @@ public class MainController {
 		return "Success!!";
 	}
 	
+	@RequestMapping(value="/checkAlarm",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	public String checkAlarm(Long alanum) {
+			alarmService.checkAlarm(alanum);
+		return "Success!!";
+	}
 }

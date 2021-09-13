@@ -59,8 +59,8 @@ a {
 					</div>
 					<div style="float:right;">
 						
-						<a class="btn btn-sm btn-outline-success" href="/DsAlarm">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
+						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> <a
+							class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
 					</div>
 				</div>
 
