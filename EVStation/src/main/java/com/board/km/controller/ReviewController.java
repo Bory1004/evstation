@@ -129,8 +129,11 @@ public class ReviewController implements ApplicationContextAware  {
 	}
 	
 	@RequestMapping("/reviewwrite")
-	public String gowriteform(@RequestParam(name="stnum",defaultValue ="-1") Long stnum,Model m) {
+	public String gowriteform(@RequestParam(name="stnum",defaultValue ="-1") Long stnum,Member member,Model m) {
 		m.addAttribute("stnum",stnum);
+		if (member.getId() == null) {
+			return "redirect:/loginView";
+		}
 		if (stnum == -1) {
 			return "redirect:/reviewList";
 		}
@@ -139,11 +142,28 @@ public class ReviewController implements ApplicationContextAware  {
 	
 	@PostMapping("/reviewwrite")
 	public String reviewwrite(ReviewBoard board,List<MultipartFile> files) {
+		board.setBoardrecom((long) 0);
 		reviewService.saveReview(board);
 		
+		if (files.get(0).getSize() != 0) {
+			String path = getFilePath(files.get(0));
+			board.setBoardthumbnail(path);
+			ReviewFile fi = new ReviewFile();
+			fi.setBoardnum(board.getBoardnum());
+			fi.setFilepath(path);
+			reviewFileService.saveFile(fi);
+		}
+		System.out.println("비어있는지 확인");
+		System.out.println(files.get(0).getSize());
+		System.out.println(files.get(0).isEmpty());
+		//System.out.println(files.isEmpty());
+		System.out.println(files.size());
+		if (files.get(0).getSize() != 0) {
 		//파일 데이터베이스에 업로드
-				for (MultipartFile file : files) {
-				String path = getFilePath(file);
+			//for (MultipartFile file : files) 
+			int i ;
+			for(i=1 ;i<files.size() ; i++) {
+				String path = getFilePath(files.get(i)); //파일을 폴더에 저장하고 저장된 경로를 리턴
 				ReviewFile fi = new ReviewFile();
 				fi.setBoardnum(board.getBoardnum());
 				fi.setFilepath(path);
@@ -151,8 +171,9 @@ public class ReviewController implements ApplicationContextAware  {
 				
 				//save
 				reviewFileService.saveFile(fi);
-				}
-		
+				} 
+				
+		}
 		return "redirect:/reviewList";
 	}
 	
@@ -223,7 +244,7 @@ public class ReviewController implements ApplicationContextAware  {
 	
 	
 	//(이미지)실제 업로드할 경로 만드는 부분
-		private String getFilePath(MultipartFile image) {
+	private String getFilePath(MultipartFile image) {
 			
 			String oriName = image.getOriginalFilename(); //저장 된 파일의 원본 이름
 			int index = oriName.lastIndexOf(".");
@@ -242,9 +263,8 @@ public class ReviewController implements ApplicationContextAware  {
 			return "/File/"+fileName;
 		}
 		
-		@Override
-	    public void setApplicationContext(ApplicationContext applicationContext)
-	          throws BeansException {
+    @Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 	       this.context = (WebApplicationContext) applicationContext;
 	    }
 	

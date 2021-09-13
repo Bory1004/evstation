@@ -114,8 +114,8 @@ ${member}
 								<th class="table-success" colspan="1">내용</th>
 								<td colspan="3"><!-- <textarea rows="10" style="border: none;"> --><%-- ${review.boardcontent} --%>
 									<c:forEach items="${reviewFiles}" var="image"> 
-										<img src="${image.filepath}">
-										</c:forEach>
+									<p><img src="${image.filepath}"></p> <br>
+										</c:forEach>${review.boardcontent}
 									<!-- </textarea> --></td>
 							</tr>
 						</table>

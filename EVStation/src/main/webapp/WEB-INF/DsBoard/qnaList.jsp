@@ -25,7 +25,8 @@
 					}
 			 });
 			 $("input[name='reportChkBxRow']").click(function(){
-		 			if($("input[name='reportChkBxRow]:checked").length == rowCnt){
+				 //alert($("input:[name='reportChkBxRow']:checked").length )
+		 			if($("input:[name='reportChkBxRow']:checked").length == rowCnt){
 		 				$("input[name='reportChkBx']")[0].checked = true;
 		 			}else{
 		 				$("input[name='reportChkBx']")[0].checked = false;
@@ -85,7 +86,7 @@
 
 				<c:forEach items="${list}" var="list">
 					<tr>
-					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}">
+					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}" >
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
 						<c:if test="${list.boardrelevel == 1 }" >[답변]</c:if>

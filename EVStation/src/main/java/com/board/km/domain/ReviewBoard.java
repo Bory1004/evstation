@@ -50,6 +50,8 @@ private static final long serialVersionUID = 1L;
 	private Long boardtype;
 	@Column(name="board_st_num")
 	private Long boardstnum;
+	@Column(name="board_thumbnail")
+	private String boardthumbnail;
 	
 	@ManyToOne
 	@JoinColumn(name="board_mem_num",insertable=false,updatable=false)

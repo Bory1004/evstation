@@ -87,7 +87,7 @@ a {
 			<div class="w-100 input-group justify-content-center">
 				<h1 class="mb-3 text-success text-center">리뷰 목록</h1>
 				<c:if test="${ total != 0}">
-					<table class="table table-hover table-striped text-center">
+					<table class="table table-hover table-striped text-center" style="vertical-align:middle;">
 						<tr class="table-dark">
 							<th>No.</th>
 							<th>작성글</th>
@@ -100,7 +100,7 @@ a {
 							<tr>
 								<td>${board.boardnum}</td>
 								<td><a href="/content/2/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
-									class="text-success">${board.boardtitle}</a></td>
+									class="text-success"><img src="${board.boardthumbnail}" style="width:60px;height:60px;">&nbsp;&nbsp;${board.boardtitle}</a></td>
 								<td>${board.boardwriter}</td>
 								<td><fmt:formatDate value="${board.boarddate}"
 										pattern="MM.dd HH:mm" /></td>
@@ -203,25 +203,8 @@ a {
 				<p>Copyright @ 2021 EvStation</p>
 			</div>
 		</div>
-		<c:forEach items="${rlist}" var="board">
-			<tr>
-				<td>${board.board_num}</td>
-				<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
-				<td>${board.boardwriter}</td>
-				<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd" /></td>
-				<td>${board.boardsee}</td>
-			</tr>
-		</c:forEach>
 	</footer>
-	<c:forEach items="${rlist}" var="board">
-		<tr>
-			<td>${board.boardnum}</td>
-			<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
-			<td>${board.boardwriter}</td>
-			<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd" /></td>
-			<td>${board.boardsee}</td>
-		</tr>
-	</c:forEach>
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 	$(function(){
@@ -237,7 +220,8 @@ a {
 			alert("실패")
 			alert(e.responseText)				
 		})
-	
+		
+		
 	})
 	
 	function ring(x){ //알람 창 열고 데이터 가져오는 함수
