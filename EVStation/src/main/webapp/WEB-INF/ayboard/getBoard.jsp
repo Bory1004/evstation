@@ -96,7 +96,7 @@ textarea {
 						</c:if>
 					</c:if>	
 				
-					${result }${member.id }추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
+					추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
 				</div>
 				<div class="col-xs-12 col-md-12">
 					<div class="table table-responsive">
