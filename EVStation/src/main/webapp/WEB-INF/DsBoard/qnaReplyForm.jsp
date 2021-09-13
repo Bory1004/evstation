@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<td class="orange">작성자</td>
-							<td>${tempId}</td>
+							<td>${member.id}</td>
 						</tr>
 
 						<tr>

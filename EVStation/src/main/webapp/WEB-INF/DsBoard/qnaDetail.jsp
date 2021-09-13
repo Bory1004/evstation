@@ -25,15 +25,18 @@
 </head>
 <body>
 	<div class="container">
-
+		<c:if test="${detail.boardwriter == member.getId() or member.getId() == 'admin' }" > <!--  같은 아이디만 수정 삭제 가능 -->
 		<button type="button" class="btn btn-success"
 			onclick="location.href='/updateQnAform/${detail.boardnum}';">수정</button>
 		<button type="button" class="btn btn-warning"
-			onclick="location.href='/deleteQnA/${detail.boardnum}';">삭제</button>
+			onclick="location.href='/deleteQnA/${detail.boardnum}/${detail.boardref}';">삭제</button>
+		</c:if>
 		<button type="button" class="btn btn-secondary"
 			onclick="location.href='/qnaList';">글목록</button>
+		<c:if test="${member.getId() == 'admin'}"> <!--  관리자 id : admin  .. 관리자만이 답변 달수 있도록 --> 
 		<button type="button" class="btn btn-primary"
 			onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}/${detail.boardrelevel }';">답글달기</button>
+		</c:if>
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">

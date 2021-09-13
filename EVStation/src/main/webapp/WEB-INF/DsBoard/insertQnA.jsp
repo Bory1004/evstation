@@ -28,7 +28,7 @@
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input class="form-control" name="boardemail" /></td>
+							<td>${member.mememail}</td>
 						</tr>
 						<tr>
 							<td>작성자</td>

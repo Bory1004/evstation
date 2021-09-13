@@ -15,9 +15,9 @@
 	<script type="text/javascript">
 		//체크박스 전체 선택 /해제 
 	$(function(){
+		 var a = 0
 			 var chkObj = document.getElementsByName("reportChkBxRow") //name 값을 변수에 정의
 			 var rowCnt = chkObj.length;  //꺼낸 name값의 길이를 넣을 변수를 정의
-			 
 			 $("input[name='reportChkBx']").click(function(){  
 					var chk_listArr = $("input[name='reportChkBxRow']");
 					for(var i = 0; i < chk_listArr.length; i++){
@@ -25,23 +25,29 @@
 					}
 			 });
 			 $("input[name='reportChkBxRow']").click(function(){
-		 			if($("input[name='reportChkBxRow]:checked").length == rowCnt){
+				 a+=1
+		 			if(a == rowCnt){
 		 				$("input[name='reportChkBx']")[0].checked = true;
 		 			}else{
 		 				$("input[name='reportChkBx']")[0].checked = false;
 		 			}
-			 });
+			 }); 
 		});
 		function deleteValue(){
 				var url = "/deleteChk";
 				var valueArr = new Array();
+				var valueRef = new Array();
+				
 				var list = $("input[name='reportChkBxRow']");
 				for(var i = 0; i < list.length; i++){
 					if(list[i].checked){
 						valueArr.push(list[i].value);
+						valueRef.push(list[i].getAttribute("alt"))
 					}
 				}
-				if (valueArr.length == 0){
+				console.log(valueArr)
+				console.log(valueRef)
+		 	if (valueArr.length == 0){
 					alert("선택된 글이 없습니다");
 				}
 				else{
@@ -51,7 +57,7 @@
 						type : 'POST',
 						traditional : true,
 						data : {
-							valueArr : valueArr
+							"valueArr" : valueArr, "valueRef":valueRef
 						},
 						success: function(data){
 							if(data = 1){
@@ -62,7 +68,7 @@
 							}
 						}
 					});
-				}
+				} 
 		}	
 	</script>
 </head>
@@ -74,18 +80,28 @@
 		<c:if test="${ total != 0}">
 			<table class="table table-hover table zebra-stripes">
 				<tr>
+					<c:if test="${member.getId() == 'admin'}">  <!-- 관리자만 보이게 -->
 				    <th><input type="checkbox" name="reportChkBx"  id="reportChkBx;"></th>
+					</c:if>				
 					<th><b>No.</b></th>
 					<th><b>제목</b></th>
 					<th><b>작성자</b></th>
 					<th><b>작성일</b></th>
 					<th><b>조회수</b></th>
+					<th><b>추천수</b></th>
+					
+					<c:if test="${member.getId() == 'admin'}"> <!-- 관리자만 보이게 -->
 					<th><b>답변여부</b></th>
+					</c:if>			
 				</tr>
 
 				<c:forEach items="${list}" var="list">
 					<tr>
-					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}">
+					<c:if test="${member.getId() == 'admin'}">
+					
+					    <td><input type="checkbox" name="reportChkBxRow"  value="${list.boardnum}" alt="${list.boardref}"></td>
+					    </c:if>
+					    
 						<td>${list.boardnum}</td>
 						<td><a href="qnaDetail/${list.boardnum}">
 						<c:if test="${list.boardrelevel == 1 }" >[답변]</c:if>
@@ -99,7 +115,12 @@
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>
+						<td>${list.boardrecom}</td>
+	
+						<c:if test="${member.getId() == 'admin'}"> <!-- 관리자만 보이게 -->
 						<td>${list.boardyn}</td>
+						</c:if>			
+				
 					</tr>
 				</c:forEach>
 			</table>

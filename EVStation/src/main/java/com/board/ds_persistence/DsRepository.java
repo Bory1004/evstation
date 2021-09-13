@@ -46,4 +46,9 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Query("UPDATE DsEntity d SET d.boardyn = 'Y'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
 	 int ybReply(Long boardref);
 	 
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE DsEntity d SET d.boardyn = 'N'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
+	 int ybReplyDel(Long boardref);
+	 
 }
