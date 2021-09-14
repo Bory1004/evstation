@@ -40,9 +40,7 @@ public class Member implements Serializable {
 	//@Pattern(regexp = "^[A-Za-z0-9]{6,12}$", message = "숫자, 문자 포함의 6~12자리 이내로 입력해주세요.")
 	private String mempw;
 	
-	@Column
 	private String memphoto = "/profile/basic.png";
-	//private byte[] memphoto;
 	
 	//@NotBlank(message = "이름을 입력해주세요.")
 	//@Pattern(regexp = "^[가-힣]*$", message = "한글만 입력해주세요.")

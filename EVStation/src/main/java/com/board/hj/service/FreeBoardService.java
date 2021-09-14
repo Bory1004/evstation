@@ -8,10 +8,7 @@ public interface FreeBoardService {
 	
 	//저장
 	void saveBoard(FreeBoard board);
-	
-	//업데이트
-	void updateBoard(FreeBoard board);
-	
+		
 	//모든 게시판 목록 출력
 	Page<FreeBoard> getBoardList(int pNum);
 	
@@ -26,8 +23,5 @@ public interface FreeBoardService {
 	
 	//검색
 	Page<FreeBoard> getBoardList(int pNum, int searchn, String search);
-	
-	//프로필 사진 꺼내기
-	String getMemberPhoto(Long boardnum);
-	
+		
 }

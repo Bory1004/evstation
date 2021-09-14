@@ -24,8 +24,6 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>{
 	Page<FreeBoard> findByBoardcontentContainingIgnoreCase(String boardcontent,Pageable page);
 	Page<FreeBoard> findByBoardwriterContainingIgnoreCase(String boardwriter,Pageable page);
 	
-	//프로필 사진
-	@Transactional
-	@Query("SELECT m.memphoto FROM Member m WHERE m.memnum=?1")
-	String getMemberPhoto(Long boardmennum);
+	//Page<FreeBoard> findByMemberContainingIgnoreCase(String boardwriter,Pageable page);
+	
 }

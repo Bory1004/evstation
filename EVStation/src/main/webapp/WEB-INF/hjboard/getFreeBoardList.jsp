@@ -100,7 +100,7 @@ a {
 					<tr>
 						<td>${board.boardnum}</td>
 						<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
-						<td>${board.boardwriter}</td>
+						<td>${board.member.id}</td>
 						<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd"/></td>
 						<td>${board.boardsee}</td>
 					</tr>

@@ -8,6 +8,9 @@ import com.board.hj.domain.FreeBoardComment;
 
 public interface FreeCommentRepository extends JpaRepository<FreeBoardComment, Long>{
 	
-	Page<FreeBoardComment> findByOrderByComnumAsc(Pageable page); //모든 댓글
-	Page<FreeBoardComment> findByBoardnumOrderByComnumAsc(Pageable page, Long boardnum); //해당 게시물의 댓글
+	//모든 댓글
+	Page<FreeBoardComment> findByOrderByComnumAsc(Pageable page);
+	
+	//해당 게시물의 댓글
+	Page<FreeBoardComment> findByBoardnumOrderByComnumAsc(Pageable page, Long boardnum);
 }

@@ -74,12 +74,13 @@ a {
 	
 	<main>
 		<div id="center">
-			<form action="/insertFreeBoard" method="post" id="frm">
+			<h4>자유 게시판 글쓰기</h4><br>
+			<form action="/insertFreeBoard" method="post">
 				<table class="table table-borderless border">
-					<tr><td>제목 <input name="boardtitle"/></td></tr>
-					<tr><td>작성자 ${member.id}</td></tr>
-					<tr><td align="center"><textarea id="boardcontent" name="boardcontent" cols="40" rows="10"></textarea></td></tr>
-					<tr><td align="center"><input id="savebutton" type="submit" value="새글 등록"> </td></tr>
+					<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>				
+					<tr><td><input class="form-control" id="boardtitle" name="boardtitle" placeholder="제목을 입력해 주세요."/></td></tr>
+					<tr><td align="center"><textarea id="boardcontent" name="boardcontent"></textarea></td></tr>
+					<tr><td align="center"><input class="btn btn-success" id="savebutton" type="submit" value="등록"> </td></tr>
 				</table>
 			</form>
 		</div>
@@ -120,12 +121,24 @@ a {
 			
 		//전송버튼
 		$("#savebutton").click(function(){
+			if(!$("#boardtitle").val()){
+				alert("제목을 입력해주세요!");
+				return false;
+			}
+			
 			//id가 smarteditor인 textarea에 에디터에서 대입
-			oEditors.getById["boardcontent"].exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["boardcontent"].exec("UPDATE_CONTENTS_FIELD", []);			
+			let content = $("#boardcontent").val();
+			
+			if(content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>' || content == "<p><br></p>")  {
+	             alert("내용을 입력하세요.");
+	             oEditors.getById["boardcontent"].exec("FOCUS"); //포커싱
+	             return false;
+	        }			
 			//폼 submit
-			$("#frm").submit();
-		})
-	});
+			//$("#frm").submit();
+			})
+		});
 </script>
 </body>
 </html>

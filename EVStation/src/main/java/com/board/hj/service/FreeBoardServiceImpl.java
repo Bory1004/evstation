@@ -25,13 +25,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public void saveBoard(FreeBoard board) {
 		boardRepo.save(board);
 	}
-	
-	@Override
-	public void updateBoard(FreeBoard board) {
 		
-		
-	}
-	
 	@Override
 	public FreeBoard getBoard(Long boardnum) {
 		boardRepo.updateBoardsee(boardnum); //조회수변경
@@ -62,8 +56,4 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return list;
 	}
 
-	@Override
-	public String getMemberPhoto(Long boardnum) {	
-		return boardRepo.getMemberPhoto(boardnum);
-	}
 }

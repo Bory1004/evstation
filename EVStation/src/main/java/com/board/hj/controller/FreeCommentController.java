@@ -33,9 +33,12 @@ public class FreeCommentController {
 	@RequestMapping("/insertComment/{boardnum}")
 	@ResponseBody
 	public void inserComment(FreeBoardComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {
-		//comment.setWriter(member.getId());
-		comment.setCommennum(member.getMemnum());
-		comment.setBoardnum(boardnum);
+		
+		comment.setBoard(board);
+		System.out.println(board);
+		comment.setMember(member);
+		//comment.setCommennum(member.getMemnum());
+		//comment.setBoardnum(boardnum);
 		comment.setComcontent(content);
 		commentService.saveComment(comment);
 	}

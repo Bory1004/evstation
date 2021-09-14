@@ -43,9 +43,6 @@ public class FreeBoardController {
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,
 			@ModelAttribute("member") Member member, String search, @RequestParam(defaultValue = "-1") int searchn) {
 		
-		/*
-		 * if (member.getId() == null) { return "redirect:loginView"; }
-		 */
 		Page<FreeBoard> pageList = null;
 		if (search != null) {
 			pageList = boardService.getBoardList(pNum, searchn, search); //search = 검색어
@@ -87,12 +84,10 @@ public class FreeBoardController {
 	
 	//게시판 입력 후 게시판 리스트 출력하는 곳으로 이동
 	@RequestMapping("/insertFreeBoard")
-	//@PostMapping("/insertFreeBoard")
-	public String insertBoard(HttpServletRequest request, FreeBoard board, @ModelAttribute("member") Member member) {
+	public String insertBoard(FreeBoard board, @ModelAttribute("member") Member member) {
+		board.setMember(member);
 		board.setBoardwriter(member.getId());
-		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
-		System.out.println(request.getParameter("boardcontent"));
 		return "redirect:/getFreeBoardList";
 	}
 
@@ -117,7 +112,6 @@ public class FreeBoardController {
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		
-		//System.err.println("total : " + total);
 		int pageNum = 2;
 		int begin = (pNum - 1) / pageNum * pageNum + 1;
 		int end = begin + pageNum - 1;
@@ -128,17 +122,17 @@ public class FreeBoardController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
-		
-		//프로필 사진
-		String photo = boardService.getMemberPhoto(board.getBoardmennum());
-		m.addAttribute("photo", photo);
-		
+			
 		return "hjboard/getFreeBoard";
 	}
 	
 	//게시판 수정 요청 받아서 수정
 	@GetMapping("/updateFreeBoard/{boardnum}")
-	public String updateform(@PathVariable Long boardnum, Model m) {
+	public String updateform(@ModelAttribute("member") Member member, @PathVariable Long boardnum, Model m) {
+		if (member.getId() == null) {
+			return "redirect:loginView";
+		}
+		
 		FreeBoard board = boardService.onlyBoard(boardnum);
 		m.addAttribute("board", board);
 		return "hjboard/updateFreeBoard";
@@ -147,7 +141,6 @@ public class FreeBoardController {
 	//게시판 수정 후, 게시판 리스트 출력하는 곳으로 이동
 	@PostMapping("/updateFreeBoard")
 	public String update(FreeBoard board, @ModelAttribute("member") Member member) {
-		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
 		return "redirect:/getFreeBoardList";
 	}
@@ -156,7 +149,6 @@ public class FreeBoardController {
 	@GetMapping("/deleteFreeBoard/{boardnum}")
 	public String delete(@PathVariable Long boardnum) {
 		boardService.deleteBoard(boardnum);
-		//commentService.deleteComment(boardnum);
 		return "redirect:/getFreeBoardList";
 	}
 }
