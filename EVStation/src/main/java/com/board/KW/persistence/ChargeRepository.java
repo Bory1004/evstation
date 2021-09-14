@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.board.KW.domain.Board;
+import com.board.KW.domain.Charge;
 
-public interface BoardRepository extends JpaRepository<Board, Long>{
+public interface ChargeRepository extends JpaRepository<Charge, Long>{
 
-	Page<Board> findByOrderByNumDesc(Pageable page);
+	Page<Charge> findByOrderByNumDesc(Pageable page);
 	
 	/*
 	 * @Transactional

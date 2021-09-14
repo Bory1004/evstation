@@ -8,23 +8,23 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.board.KW.domain.Board;
-import com.board.KW.persistence.BoardRepository;
+import com.board.KW.domain.Charge;
+import com.board.KW.persistence.ChargeRepository;
 
 
 @Service
-public class BoardServiceImpl implements BoardService{
+public class ChargeServiceImpl implements ChargeService{
 	
 	@Autowired
-	private BoardRepository boardRepo;
+	private ChargeRepository boardRepo;
 	
 	@Override
-	public Page<Board> getBoardList(int pNum){
+	public Page<Charge> getBoardList(int pNum){
 		Pageable page = PageRequest.of(pNum-1, 10);
 		return boardRepo.findByOrderByNumDesc(page);
 	}
 	@Override
-	public void saveBoard(Board board) {
+	public void saveBoard(Charge board) {
 		boardRepo.save(board);
 	}
 	
@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService{
 	 * boardRepo.getById(num); }
 	 */
 	@Override
-	public Board onlyBoard(Long num) {
+	public Charge onlyBoard(Long num) {
 		return boardRepo.getById(num);
 	}
 	@Override
@@ -41,12 +41,12 @@ public class BoardServiceImpl implements BoardService{
 		boardRepo.deleteById(num);
 	}
 	@Override
-	public Board getBoard(Long num) {
+	public Charge getBoard(Long num) {
 	return boardRepo.getById(num);
 	}
 	
 	@Override
-	public List<Board> openMap() {
+	public List<Charge> openMap() {
 		return boardRepo.findAll();
 	}
 	

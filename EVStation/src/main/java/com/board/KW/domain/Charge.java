@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Board implements Serializable {
+public class Charge implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

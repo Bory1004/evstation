@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.board.KW.domain.Board;
-import com.board.KW.service.BoardService;
+import com.board.KW.domain.Charge;
+import com.board.KW.service.ChargeService;
 
 @Controller
-public class BoardController {
+public class ChargeController {
 
 	@Autowired
-	private BoardService boardService;
+	private ChargeService boardService;
 
 	@RequestMapping("/getBoardList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum) {
-		Page<Board> pageList = boardService.getBoardList(pNum);
-		List<Board> bList = pageList.getContent();// 보여질 글
+		Page<Charge> pageList = boardService.getBoardList(pNum);
+		List<Charge> bList = pageList.getContent();// 보여질 글
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		m.addAttribute("blist", bList);
 		m.addAttribute("totalPage", totalPageCount);
@@ -43,7 +43,7 @@ public class BoardController {
 
 	@RequestMapping("/content/{num}")
 	public String getBoard(@PathVariable Long num, Model m) {
-		Board board = boardService.getBoard(num);
+		Charge board = boardService.getBoard(num);
 		m.addAttribute("board", board);
 		
 		return "getBoard";
@@ -52,7 +52,7 @@ public class BoardController {
 	
 	@RequestMapping("/openMap")
 	public String mapView(Model m) {
-		List<Board> list = boardService.openMap();
+		List<Charge> list = boardService.openMap();
 		m.addAttribute("list",list);
 		return "openMap";
 	}
