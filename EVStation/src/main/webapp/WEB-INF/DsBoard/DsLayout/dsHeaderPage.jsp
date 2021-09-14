@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EvStation</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -35,9 +35,8 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> <img src="/img/logo.png"
-						width="200" height="100">
-					</a>
+					<a href="/main" class="link-secondary">
+					 <img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
@@ -64,12 +63,12 @@ a {
 		<div class="menubar py-1 mb-2">
 			<nav
 				class="nav d-flex justify-content-center border-top border-bottom">
-				<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> <a
-					class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
-					class="p-2 link-success" href="/benefit">기대효과</a> <a
-					class="p-2 link-success" href="/getBoardList">자유게시판</a> <a
-					class="p-2 link-success" href="#">공지사항</a> <a
-					class="p-2 link-success" href="/qnaList">Q&A</a>
+				<a class="p-2 bg-success text-white" href="/pageIntro">페이지 소개</a>
+				<a	class="p-2 link-success" href="/reviewList">충전소 현황</a> 
+				<a	class="p-2 link-success" href="/benefit">기대효과</a>
+				<a	class="p-2 link-success" href="/getBoardList">자유게시판</a>
+				<a class="p-2 link-success" href="#">공지사항</a> 
+				<a class="p-2 link-success" href="/qnaList">Q&A</a>
 			</nav>
 		</div>
 	</div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds_entity.DsEmail;
@@ -45,6 +46,8 @@ public class DsConstroller {
 		Page<DsEntity> pageList = null;
 		if (search != null) {
 			pageList = dsService.AllListQnA(pNum, searchn, search);
+			String search_msg = "\"" + search + "\" 검색 결과";
+			m.addAttribute("search_msg", search_msg);
 		} else {
 			pageList = dsService.AllListQnA(pNum);
 		}
