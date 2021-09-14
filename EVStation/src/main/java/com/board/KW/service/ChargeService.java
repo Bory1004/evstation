@@ -9,9 +9,9 @@ import com.board.KW.domain.Charge;
 
 public interface ChargeService {
 
-	void saveBoard(Charge board);
-	Page<Charge> getBoardList(int pNum);
-	Charge getBoard(Long num);
+	void saveBoard(Charge charge);
+	Page<Charge> getChargeList(int pNum);
+	Charge getCharge(Long num);
 	Charge onlyBoard(Long num);
 	void deleteBoard(Long num);
 	List<Charge> openMap();

@@ -19,11 +19,11 @@ import com.board.KW.service.ChargeService;
 public class ChargeController {
 
 	@Autowired
-	private ChargeService boardService;
+	private ChargeService chargeService;
 
-	@RequestMapping("/getBoardList")
+	@RequestMapping("/getChargeList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum) {
-		Page<Charge> pageList = boardService.getBoardList(pNum);
+		Page<Charge> pageList = chargeService.getChargeList(pNum);
 		List<Charge> bList = pageList.getContent();// 보여질 글
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		m.addAttribute("blist", bList);
@@ -38,21 +38,21 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "getBoardList";
+		return "getChargeList";
 	}
 
 	@RequestMapping("/content/{num}")
-	public String getBoard(@PathVariable Long num, Model m) {
-		Charge board = boardService.getBoard(num);
-		m.addAttribute("board", board);
+	public String getCharge(@PathVariable Long num, Model m) {
+		Charge charge = chargeService.getCharge(num);
+		m.addAttribute("charge", charge);
 		
-		return "getBoard";
+		return "getChargeInfo";
 	}
 
 	
 	@RequestMapping("/openMap")
 	public String mapView(Model m) {
-		List<Charge> list = boardService.openMap();
+		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
 		return "openMap";
 	}

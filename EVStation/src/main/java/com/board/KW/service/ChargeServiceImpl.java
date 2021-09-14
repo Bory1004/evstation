@@ -19,13 +19,13 @@ public class ChargeServiceImpl implements ChargeService{
 	private ChargeRepository boardRepo;
 	
 	@Override
-	public Page<Charge> getBoardList(int pNum){
+	public Page<Charge> getChargeList(int pNum){
 		Pageable page = PageRequest.of(pNum-1, 10);
 		return boardRepo.findByOrderByNumDesc(page);
 	}
 	@Override
-	public void saveBoard(Charge board) {
-		boardRepo.save(board);
+	public void saveBoard(Charge charge) {
+		boardRepo.save(charge);
 	}
 	
 	/*
@@ -41,7 +41,7 @@ public class ChargeServiceImpl implements ChargeService{
 		boardRepo.deleteById(num);
 	}
 	@Override
-	public Charge getBoard(Long num) {
+	public Charge getCharge(Long num) {
 	return boardRepo.getById(num);
 	}
 	
