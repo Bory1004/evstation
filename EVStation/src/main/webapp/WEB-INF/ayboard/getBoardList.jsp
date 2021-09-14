@@ -68,8 +68,8 @@ a {
 				<a class="p-2  link-success" href="#">페이지 소개</a> <a
 					class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="#">기대효과</a> <a
-					class="p-2 link-success" href="#">자유게시판</a> <a
-					class="p-2 link-success" href="/ay/getBoardList">공지사항</a> <a
+					class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> <a
+					class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> <a
 					class="p-2 link-success" href="#">Q&A</a>
 			</nav>
 		</div>
@@ -149,12 +149,14 @@ a {
 
 
 	<form>
-		<select name="searchn">
+	<div style="width: 400px;" class="input-group">
+		<select style="width: 130px;" class="form-select" name="searchn">
 			<option value="0">제목</option>
 			<option value="1">내용</option>
 		</select> 
-		<input type="text" class="form-control" name="search" size="15" maxlength="50" /> 
-		<input type="submit" class="form-control" value="검색" />
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+		</div>
 		<!--<a href="insertBoard">새글 등록</a>  -->
 	</form>
 </div>	
