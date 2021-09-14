@@ -40,11 +40,9 @@ a {
 	text-align: center;
 }
 </style>
-
 </head>
 
 <body>
-
 
 	<div class="container">
 		<header class="py-3">
@@ -72,7 +70,7 @@ a {
 					<a class="p-2  link-success" href="pageIntro">페이지 소개</a> 
 					<a class="p-2 link-success" href="reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="benefit">기대효과</a> 
-					<a class="p-2 link-success" href="getBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="getchargeList">자유게시판</a> 
 					<a class="p-2 link-success" href="#">공지사항</a> 
 					<a class="p-2 link-success" href="qnaList">Q&A</a>
 				</nav>
@@ -83,24 +81,24 @@ a {
 
 <body>
 <div class="container">
-	<h1>${board.st_name }</h1>
+	<h1>${charge.st_name }</h1>
 	 <div class="row">
 	 	<div class="col-md-7"> 
 	 	
 	 	<table class="table table-bordered border-secondary" style="width: 500px; margin-right:auto;">
-	<%-- <tr><td class="table-secondary text-center">충전소이름</td><td>${board.st_name }</td></tr> --%>
-	<tr><td class="table-secondary text-center">주소(도로명)</td><td>${board.st_address1 }</td></tr>
-	<tr><td class="table-secondary text-center">주소(지번)</td><td>${board.st_address2 }</td></tr>
-	<tr><td class="table-secondary text-center">휴무일</td><td>${board.st_closedday }</td></tr>
-	<tr><td class="table-secondary text-center">완속충전</td><td>${board.st_slowcharge }</td></tr>
-	<tr><td class="table-secondary text-center">완속충전대수</td><td>${board.st_slowcharge_num }</td></tr>
-	<tr><td class="table-secondary text-center">급속충전</td><td>${board.st_fastcharge }</td></tr>
-	<tr><td class="table-secondary text-center">급속충전대수</td><td>${board.st_fastcharge_num}</td></tr>
-	<tr><td class="table-secondary text-center">충전타입</td><td>${board.st_fastcharge_type }</td></tr>
-	<tr><td class="table-secondary text-center">오픈</td><td>${board.st_time }</td></tr>
-	<tr><td class="table-secondary text-center">마감</td><td>${board.st_closetime }</td></tr>
-	<tr><td class="table-secondary text-center">주차료</td><td>${board.st_park }</td></tr>
-	<tr><td class="table-secondary text-center">재공기관</td><td>${board.st_agency }</td></tr>
+	<%-- <tr><td class="table-secondary text-center">충전소이름</td><td>${charge.st_name }</td></tr> --%>
+	<tr><td class="table-secondary text-center">주소(도로명)</td><td>${charge.st_address1 }</td></tr>
+	<tr><td class="table-secondary text-center">주소(지번)</td><td>${charge.st_address2 }</td></tr>
+	<tr><td class="table-secondary text-center">휴무일</td><td>${charge.st_closedday }</td></tr>
+	<tr><td class="table-secondary text-center">완속충전</td><td>${charge.st_slowcharge }</td></tr>
+	<tr><td class="table-secondary text-center">완속충전대수</td><td>${charge.st_slowcharge_num }</td></tr>
+	<tr><td class="table-secondary text-center">급속충전</td><td>${charge.st_fastcharge }</td></tr>
+	<tr><td class="table-secondary text-center">급속충전대수</td><td>${charge.st_fastcharge_num}</td></tr>
+	<tr><td class="table-secondary text-center">충전타입</td><td>${charge.st_fastcharge_type }</td></tr>
+	<tr><td class="table-secondary text-center">오픈</td><td>${charge.st_time }</td></tr>
+	<tr><td class="table-secondary text-center">마감</td><td>${charge.st_closetime }</td></tr>
+	<tr><td class="table-secondary text-center">주차료</td><td>${charge.st_park }</td></tr>
+	<tr><td class="table-secondary text-center">재공기관</td><td>${charge.st_agency }</td></tr>
 	
 
 </table>
@@ -123,14 +121,14 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(${board.st_longitude}, ${board.st_latitude}), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(${charge.st_longitude}, ${charge.st_latitude}), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-var markerPosition  = new kakao.maps.LatLng(${board.st_longitude}, ${board.st_latitude}); 
+var markerPosition  = new kakao.maps.LatLng(${charge.st_longitude}, ${charge.st_latitude}); 
 
 var marker = new kakao.maps.Marker({
     position: markerPosition
@@ -140,7 +138,7 @@ marker.setMap(map);
 </script>
 
 <div style="text-align:center;">
-	<a href="/getBoardList"><button type="button" class="btn btn-primary">충전소 목록</button></a>
+	<a href="/getChargeList"><button type="button" class="btn btn-primary">충전소 목록</button></a>
 </div>
 
 <footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
