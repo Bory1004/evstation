@@ -54,7 +54,7 @@ textarea {
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="../../logout">로그아웃</a>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -153,7 +153,7 @@ textarea {
 			$("#h").click(function() {
 				
 								let num = ${board.num};
-								let id = ${member.id};
+								let id = sessionStorage.getItem('id');
 								let url = "/upRecom/" + num + "/" + id;
 								
 								$.ajax({
@@ -177,174 +177,6 @@ textarea {
 										})//2
 		}); 
 		
-		//댓글 !!!!!!
-		$(function() {
-			$('#comment_button').click(function() { //댓글 생성 및 ajax
-				let comcontent = $('#comment').val()
-			
-				let boardnum = $('#boardnum').html()
-				
-				if (comcontent == "") {
-					alert("댓글을 입력하세요!")
-					return false;
-				}
-				;
-
-				$.ajax({
-					type : "get",
-					url : "insertNoticeCom",
-					data : {
-						"num" : num,
-						"nocontent" : nocontent
-					},
-					dataType : "json"
-				}).done(function(data) {
-					
-					$('#comment').val('');
-					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
-					//alert($('#comment').val())
-					let date = new Date(data.nodate);
-					$("#commentlist").append(
-						"<div id='"+data.nonum+"'><div class='mb-2'><strong>"+data.num+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
-							+"<a id='comment_reply"+data.nonum+"' href='#replyComment' onclick='replyCommentForm("+data.nonum+","+data.nogroupnum+")'>답글</a> "
-							+"<a id='comment_update"+data.nonum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.nonum+")'>수정</a> "
-							+"<a id='comment_delete"+data.nonum+"' href='#delete' onclick='deleteComment("+data.nonum+","+data.nogroupnum+")'>삭제</a></span></div><span id='comcontent"+data.nonum+"'>"+data.nocontent+"</span><hr></div>"
-					);
-					
-				}).fail(function(e) {
-					alert(e.responseText);
-				})
-			});
-		//----------------------------------------------
-	
-		function deleteComment(x,y){ // 화면에서 댓글삭제 및 DB삭제
-				let comnum = x;
-				let comgroupnum = y;
-				//alert(comnum);
-				//$('#'+comnum).remove();
-				if(confirm("댓글을 삭제하시겠습니까?")){
-					$.ajax({
-						type : "get",
-						url :  "deleteNoticeCom" ,
-						data : {"nonum" : nonum ,"nogroupnum" : nogroupnum},
-						dataType : "text"
-					}).done(function(data){
-						//alert(data)
-						alert("삭제되었습니다.")
-						$('#'+nonum).remove();
-					}).fail(function(e){
-						alert("삭제중에 오류가 발생했습니다.")
-						alert(e.responseText);
-					})
-				}else{
-					return false;
-				}
-			}
-	//----------------------------	
-		function updateCommentForm(x){ // 댓글 수정창 생성
-			let comnum = x;
-			$('#updateComment'+comnum).remove(); //중복생성 방지
-			$('#replyComment'+comnum).remove();
-			$('#'+comnum).append(
-					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>"
-					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할 내용을 입력하세요'></textarea>"
-					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
-					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
-			);
-		}
-	//---------------------------------	
-		function updateCommentFormCancel(x){ //댓글 수정창에서 취소버튼 클릭시 수정창을 삭제하는 함수
-			let comnum = x;
-			$('#updateComment'+comnum).remove();
-		}
-		function replyCommentFormCancel(x){ //댓글 답글창에서 취소버튼 클릭시 답글창을 삭제하는 함수
-			let comnum = x;
-			$('#replyComment'+comnum).remove();
-		}
-	//---------------------------------
-		function updateComment(x,y){ // 댓글 수정 DB ajax
-			let comnum = x;
-			let comcontent = $('#newComment'+comnum).val();
-			//alert(comnum);
-			//alert(comcontent);
-			//$('#'+comnum).remove();
-			if(comcontent == ""){
-				alert("댓글을 입력하세요!!")
-				return false;
-			}
-			
-			if(confirm("댓글을 수정하시겠습니까?")){
-				$.ajax({
-					type : "get",
-					url :  "/updateComment" ,
-					data : {"comnum" : comnum, "comcontent" : comcontent},
-					dataType : "text"
-				}).done(function(data){
-					//alert(data)
-					alert("수정되었습니다.")
-					$('#updateComment'+comnum).remove(); //수정창 제거
-					$('#comcontent'+comnum).html(comcontent+" (수정됨)")
-				}).fail(function(e){
-					alert("수정중에 오류가 발생했습니다.")
-					alert(e.responseText);
-				})
-			}else{
-				return false;
-			}
-		}
-	//------------------------------------------
-		function replyCommentForm(x,y){ // 댓글답장하는 답글창 생성
-			let comnum = x;
-			let comgroupnum = y;
-			// let alafromid = comment.member.id <- 보내는 사람의 아이디
-			//alert(comnum)
-			//alert(comgroupnum)
-			$('#replyComment'+comnum).remove(); //중복생성 방지 일반댓글의 답장창을 삭제하기 위해 일반댓글의 comnum을 가져옴
-			$('#updateComment'+comnum).remove();
-			$('#'+nonum).append(
-					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span>프로필사진 세션아이디</span></p>" //
-					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
-					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
-					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
-			);
-		}
-	//-----------------------------------
-		function replyComment(x,y){ //대댓글 DB에 등록하고 프론트에서 추가하는 ajax
-			let comnum = x;
-			let comgroupnum = y;
-			let comcontent = $('#newreplyComment'+comnum).val();
-			let boardnum = $('#boardnum').html();
-			//alert(boardnum)
-			//alert(comnum)
-			//alert(comgroupnum)
-			//alert(comcontent)
-			if(comcontent == ""){
-				alert("답글을 입력하세요!!")
-				return false;
-			}
-			$.ajax({
-				type : "get",
-				url : "/replyComment",
-				data : {"comgroupnum" : comgroupnum,"comcontent" : comcontent, "boardnum" : boardnum},
-				dataType : "json"
-			}).done(function(data){
-				//alert(data)
-				let date = new Date(data.comdate);
-				$('#replyComment'+comnum).remove();
-				$('#'+data.comgroupnum).append( //새로 작성한 답글의 객체를 받아온다.
-						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 아이디"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
-					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
-					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a>"
-					   +"</span></p>"
-					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span></div></div>"
-				);
-			}).fail(function(e){
-				alert("답글 작성중에 오류가 발생했습니다.")
-				alert(e.responseText);
-			})
-		}
 		
 	</script>
 

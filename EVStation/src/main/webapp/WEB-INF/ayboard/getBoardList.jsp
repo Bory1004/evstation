@@ -177,10 +177,10 @@ a {
 </footer>		
 
 <script>
-	/* function init() {
+ function init() {
 		let id = '${member.id}';
 		sessionStorage.setItem("id",id);
-	} */
+	} 
 </script>
 </body>
 
