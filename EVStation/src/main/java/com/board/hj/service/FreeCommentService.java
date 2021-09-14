@@ -2,21 +2,21 @@ package com.board.hj.service;
 
 import org.springframework.data.domain.Page;
 
-import com.board.hj.domain.Comment;
+import com.board.hj.domain.FreeBoardComment;
 
-public interface CommentService2 {
+public interface FreeCommentService {
 	
 	//저장
-	void saveComment(Comment comment);
+	void saveComment(FreeBoardComment comment);
 	
 	//모든 댓글 출력
-	Page<Comment> getCommentList(int pNum);
+	Page<FreeBoardComment> getCommentList(int pNum);
 	
 	//게시판에 작성된 댓글 출력
-	Page<Comment> getComment(int pNum, Long boardnum);
+	Page<FreeBoardComment> getComment(int pNum, Long boardnum);
 			
 	//수정
-	Comment onlyComment(Long comnum);
+	FreeBoardComment onlyComment(Long comnum);
 	
 	//댓글 하나 삭제
 	void deleteCommentOne(Long comnum);

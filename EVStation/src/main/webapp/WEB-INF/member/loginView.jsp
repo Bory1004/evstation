@@ -19,7 +19,7 @@ a {
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="main" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>
@@ -28,7 +28,7 @@ a {
 	</header>
 	<main>
 		<div class="container input-group d-flex justify-content-center">
-			<form id="loginForm" action="login" method="post">
+			<form id="/loginForm" action="/login" method="post">
 				<div class="input-group">
 					<span class="input-group-text"> 
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
