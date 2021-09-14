@@ -57,9 +57,9 @@ public class BoardServiceImpl implements BoardService{
 		Pageable page = PageRequest.of(pNum-1, 10);
 		Page<Board> list = null;
 		if(searchn == 0) {
-			list = boardRepo.findByBoardtitleContainingIgnoreCase(search, page);
+			//list = boardRepo.findByBoardtitleContainingIgnoreCase(search, page);
 		}else if(searchn == 1) {
-			list = boardRepo.findByBoardcontentContainingIgnoreCase(search, page);
+			//list = boardRepo.findByBoardcontentContainingIgnoreCase(search, page);
 		}
 		return list;
 	}
@@ -67,7 +67,14 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public Page<Board> AllListQnA(int pNum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return boardRepo.findByOrderByBoardrefDescBoardrestepAsc(page);
+		return null;
+		//return boardRepo.findByOrderByBoardrefDescBoardrestepAsc(page);
+	}
+
+	@Override
+	public Page<Board> getBoardList(int pNum) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

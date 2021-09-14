@@ -35,9 +35,9 @@ public class BoardController {
 		
 		Page<Board> pageList = null;
 		if(search != null) {
-			pageList = BoardService.AllListQnA(pNum, searchn, search);
+			//pageList = BoardService.AllListQnA(pNum, searchn, search);
 			}else {
-			pageList = BoardService.AllListQnA(pNum);	
+			//pageList = BoardService.AllListQnA(pNum);	
 			}
 		List<Board> bList = pageList.getContent();// 보여질 글
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수

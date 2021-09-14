@@ -16,7 +16,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
 	/* Page<Board> findByOrderByNumDesc(Pageable page); */
 	
-	Page<Board>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
+	//Page<Board>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
 	
 	Board save(Long boardnum);
 	
@@ -25,8 +25,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	@Query("UPDATE Board d SET d.boardsee = d.boardsee+1 WHERE d.boardnum =?1")
 	int updateSee(Long boardnum);
 
-	Page<Board> findByBoardtitleContainingIgnoreCase(String st_name, Pageable page);
-	Page<Board> findByBoardcontentContainingIgnoreCase(String st_address1, Pageable page);
+	//Page<Board> findByBoardtitleContainingIgnoreCase(String st_name, Pageable page);
+	//Page<Board> findByBoardcontentContainingIgnoreCase(String st_address1, Pageable page);
 	
 	
 	}
