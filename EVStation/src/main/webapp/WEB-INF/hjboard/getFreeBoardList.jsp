@@ -27,7 +27,6 @@
 a {
 	text-decoration-line: none;
 }
-
 #page {
 	text-align: center;
 }
@@ -39,7 +38,7 @@ a {
 		<header class="py-3">
 			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
-					<a href="main" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
@@ -50,8 +49,8 @@ a {
 					<c:choose>
 						<c:when test="${member.id eq null}">
 							<div>
-								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
-								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
@@ -64,9 +63,9 @@ a {
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 bg-success text-white" href="getFreeBoardList">자유게시판</a> 
+					<a class="p-2 bg-success text-white" href="/getFreeBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="#">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
@@ -80,7 +79,7 @@ a {
 	</div> -->
 	<div id="center">
 		<h4>자유 게시판</h4>
-		<a href="getFreeBoardList"><small class="text-muted">자유게시판 전체 목록</small></a>
+		<a href="/getFreeBoardList"><small class="text-muted">자유 게시판 전체 목록 ></small></a>
 		
 		<div id="search_msg"><h4>${search_msg}</h4></div>
 		
@@ -107,12 +106,6 @@ a {
 					</tr>
 				</c:forEach>
 			</table>
-		<div align="right">
-			<a class="btn btn-outline-secondary btn-sm" href="insertFreeBoard">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-  				<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-				</svg>글쓰기</a> 
-		</div>
 			<div id="page">
 				<c:if test="${search == null}">
 					<c:if test="${begin > 2}">
@@ -137,7 +130,13 @@ a {
 					</c:if>
 				</c:if>
 			</div>
-		</c:if>		
+		</c:if>
+		<div align="right">
+			<a class="btn btn-outline-secondary btn-sm" href="insertFreeBoard">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+  				<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+				</svg>글쓰기</a> 
+		</div>	
 		<br>
 		<form>
 		<div style="width: 400px;" class="input-group">

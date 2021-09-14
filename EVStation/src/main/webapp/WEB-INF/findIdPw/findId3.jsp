@@ -17,7 +17,7 @@
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="main" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>

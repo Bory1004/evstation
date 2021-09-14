@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.hj.domain.FreeBoard;
-import com.board.hj.domain.FreeComment;
+import com.board.hj.domain.FreeBoardComment;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeCommentService;
 
@@ -32,7 +32,7 @@ public class FreeCommentController {
 	//입력한 댓글 저장
 	@RequestMapping("/insertComment/{boardnum}")
 	@ResponseBody
-	public void inserComment(FreeComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {
+	public void inserComment(FreeBoardComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {
 		//comment.setWriter(member.getId());
 		comment.setCommennum(member.getMemnum());
 		comment.setBoardnum(boardnum);
@@ -49,7 +49,7 @@ public class FreeCommentController {
 	
 	@RequestMapping("/updateComment")
 	@ResponseBody
-	public void updateComment(FreeComment comment) {
+	public void updateComment(FreeBoardComment comment) {
 		//Comment comment = commentService.onlyComment(comnum);
 		//comment.setComnum(comnum);
 		commentService.saveComment(comment);

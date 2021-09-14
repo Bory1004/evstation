@@ -13,7 +13,6 @@
 		width: 750px
 	}
 }
-
 @media ( min-width : 992px) {
 	.container {
 		width: 940px
@@ -27,19 +26,17 @@
 a {
 	text-decoration-line: none;
 }
-
 #page {
 	text-align: center;
 }
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
-					<a href="main" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
@@ -50,12 +47,12 @@ a {
 					<c:choose>
 						<c:when test="${member.id eq null}">
 							<div>
-								<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> 
-								<a class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
+								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -64,62 +61,63 @@ a {
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 bg-success text-white" href="getFreeBoardList">자유게시판</a> 
+					<a class="p-2 bg-success text-white" href="/getFreeBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="#">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
 		</header>
 	</div>
-
-
-<table border="1">
-	<tr><td>제목</td><td>${board.boardtitle}</td><td>조회수</td><td>${board.boardsee}</td></tr>
-	<tr><td>작성자</td><td>${board.boardwriter}</td><td>등록일</td><td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd"/></td></tr>
-	<tr><td>내용</td><td colspan="4">${board.boardcontent}</td></tr>
-	<tr><td colspan="5">
-	<c:if test="${board.boardwriter eq member.id}">
-		<a href="/updateFreeBoard/${board.boardnum}">글 수정</a>	
-		<a href="/deleteFree/${board.boardnum}">글 삭제</a>
-	</c:if>
-	<a href="/getFreeBoardList">글 목록</a>
-	</td></tr>
-</table>
-<hr width="350" align="left">
-
-<div id="comment_out">
-	<c:if test="${total == 0}">댓글이 없습니다.</c:if>
-		<c:if test="${total != 0}">
-			<h3>댓글 ${total}</h3>
-			<c:forEach items="${clist}" var="comment">
-				<c:out value="${member.id}" />
-				<br>
-				<div id="reply<c:out value="${comment.comnum}"/>">
-					<c:out value="${comment.comcontent}" /><br>
-					<fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" />
-
-					<c:if test="${comment.commennum eq member.memnum}">
-						<div>						
+	
+	<main>
+		<div id="center">
+			<table class="table table-borderless border">
+				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
+				<tr><td><h2>${board.boardtitle}</h2></td></tr>
+				<tr><td colspan="2"><img src="${photo}" width="45" height="30"><strong>${board.boardwriter}</strong></td></tr>
+				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}</td>
+					<td align="right"><c:if test="${board.boardwriter eq member.id}">
+							<a href="/updateFreeBoard/${board.boardnum}">수정</a>	
+							<a href="/deleteFreeBoard/${board.boardnum}">삭제</a>
+						</c:if>
+					</td></tr>
+				<tr><td colspan="2"><hr align="center"></td></tr>
+				<tr><td colspan="2">${board.boardcontent}</td></tr>
+			</table>
+			
+					
+			<div id="comment_out">							
+				<h3>댓글 ${total}</h3>
+				<table class="table table-borderless">
+					<c:forEach items="${clist}" var="comment">
+						<tr><td>
+								<strong><c:out value="${member.id}"/></strong><small>
+								<fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
+							</td>
+						</tr>
+						<tr><td><div id="reply<c:out value="${comment.comnum}"/>">
+							<c:out value="${comment.comcontent}" />
+								
+							
+					<c:if test="${comment.commennum eq member.memnum}">												
 						<a href="" onclick="modify_comment('<c:out value="${comment.comnum}"/>'); return false;">수정</a>
-						<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a></div>
+						<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a>
 					</c:if>
-				</div>
-
+				</div></td></tr>
 				<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
-						<form id="form1"><!--  action="/updateComment" method="post"-->	
-							<input type="hidden" name="comnum" value="<c:out value="${comment.comnum}"/>">
-							<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
-							<input type="hidden" name="boardnum" value="<c:out value="${comment.boardnum}"/>">
-							<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
-							<input id="update_comment" type="submit">
-							<!-- <a href="" onclick="fn_replyUpdateSave('<c:out value="${comment.comnum}"/>'); return false;">저장</a>
-        					<a href="" onclick="fn_replyUpdateCancel()">취소</a> -->
-        				</form>
+					<form id="form1"><!--  action="/updateComment" method="post"-->	
+						<input type="hidden" name="comnum" value="<c:out value="${comment.comnum}"/>">
+						<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
+						<input type="hidden" name="boardnum" value="<c:out value="${comment.boardnum}"/>">
+						<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
+						<input id="update_comment" type="submit">
+        			</form>
 				</div>
-				<hr width="350" align="left">
+				<tr><td><hr width="800"></td></tr>
 			</c:forEach>
+			</table>
 			
 			<div id="page">
 				<c:if test="${begin > 2}">
@@ -132,13 +130,14 @@ a {
 					<a href="/content/${board.boardnum}?p=${end+1}">[다음]</a>
 				</c:if>
 			</div>		
-		</c:if>
+		
 	</div>
 	
 	<br>
-	<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 달아주세요."></textarea> 
-	<input type="button" id="bnt_c" value="등록">
-	
+		<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 달아주세요."></textarea> 
+		<input type="button" id="bnt_c" value="등록">
+	</div>
+	</main>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

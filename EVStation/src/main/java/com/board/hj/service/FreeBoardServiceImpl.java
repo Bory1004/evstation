@@ -61,4 +61,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		}
 		return list;
 	}
+
+	@Override
+	public String getMemberPhoto(Long boardnum) {	
+		return boardRepo.getMemberPhoto(boardnum);
+	}
 }

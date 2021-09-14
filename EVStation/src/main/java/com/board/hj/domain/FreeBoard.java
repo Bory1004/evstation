@@ -42,9 +42,9 @@ public class FreeBoard implements Serializable {
 	private int boardtype; //글 타입(자유게시판 1)
 	private Long boardstnum; //리뷰게시판에 쓸 충전소 번호	
 	
-	//@ManyToOne
-	//@JoinColumn(name="MEMNUM")
-	//Member member;
+	@ManyToOne
+	@JoinColumn(name="MEMNUM")
+	Member member;
 	
 	//@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
 	//private transient List<Comment> comments = new ArrayList<Comment>();

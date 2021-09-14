@@ -2,6 +2,8 @@ package com.board.hj.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.hj.domain.FreeBoard;
-import com.board.hj.domain.FreeComment;
+import com.board.hj.domain.FreeBoardComment;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
 import com.board.hj.service.FreeCommentService;
@@ -84,17 +86,20 @@ public class FreeBoardController {
 	}
 	
 	//게시판 입력 후 게시판 리스트 출력하는 곳으로 이동
-	@PostMapping("/insertFreeBoard")
-	public String insertBoard(FreeBoard board, @ModelAttribute("member") Member member) {
+	@RequestMapping("/insertFreeBoard")
+	//@PostMapping("/insertFreeBoard")
+	public String insertBoard(HttpServletRequest request, FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setBoardwriter(member.getId());
 		board.setBoardmennum(member.getMemnum());
 		boardService.saveBoard(board);
+		System.out.println(request.getParameter("boardcontent"));
 		return "redirect:/getFreeBoardList";
 	}
 
 	//게시판 클릭 후 보이는 것(게시글 + 댓글)
 	@RequestMapping("/content/{boardnum}")
-	public String getBoard(@ModelAttribute("member") Member member, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardnum, Model m) {
+	public String getBoard(@ModelAttribute("member") Member member, @RequestParam(name = "p", defaultValue = "1") int pNum, 
+			@PathVariable Long boardnum, Model m) {
 		m.addAttribute("member", member);
 		
 		//게시판
@@ -102,9 +107,9 @@ public class FreeBoardController {
 		m.addAttribute("board", board);
 		
 		//댓글
-		Page<FreeComment> pageList = null;
+		Page<FreeBoardComment> pageList = null;
 		pageList = commentService.getComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
-		List<FreeComment> cList = pageList.getContent();// 보여질 글
+		List<FreeBoardComment> cList = pageList.getContent();// 보여질 글
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements(); //전제 글 수		
@@ -112,7 +117,7 @@ public class FreeBoardController {
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		
-		//System.err.println("total : " + total);	
+		//System.err.println("total : " + total);
 		int pageNum = 2;
 		int begin = (pNum - 1) / pageNum * pageNum + 1;
 		int end = begin + pageNum - 1;
@@ -124,11 +129,15 @@ public class FreeBoardController {
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
 		
+		//프로필 사진
+		String photo = boardService.getMemberPhoto(board.getBoardmennum());
+		m.addAttribute("photo", photo);
+		
 		return "hjboard/getFreeBoard";
 	}
 	
 	//게시판 수정 요청 받아서 수정
-	@GetMapping("/updateform/{boardnum}")
+	@GetMapping("/updateFreeBoard/{boardnum}")
 	public String updateform(@PathVariable Long boardnum, Model m) {
 		FreeBoard board = boardService.onlyBoard(boardnum);
 		m.addAttribute("board", board);

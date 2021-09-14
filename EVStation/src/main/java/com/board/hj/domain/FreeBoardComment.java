@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @SequenceGenerator(name="COM_SEQ_GEN", sequenceName="COM_SEQ", initialValue=1, allocationSize=1)
-public class FreeComment implements Serializable {
+public class FreeBoardComment implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class FreeComment implements Serializable {
 	private Long comrecom; //추천수
 	
 	//@JoinColumn(name = "BOARDNUM", insertable = false, updatable = false)
-	@JoinColumn(name = "BOARDNUM")
+	//@JoinColumn(name = "BOARDNUM")
 	private Long boardnum; //게시글 번호
 	
 	//@ManyToOne
@@ -46,5 +46,9 @@ public class FreeComment implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="boardnum", insertable = false, updatable = false)
 	private FreeBoard freeboard;
+	
+	@ManyToOne
+	@JoinColumn(name="MEMNUM", insertable = false, updatable = false)
+	private Member member;
 	
 }

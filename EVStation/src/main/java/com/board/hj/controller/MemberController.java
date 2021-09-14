@@ -109,6 +109,6 @@ public class MemberController {
 			cookies[i].setMaxAge(0);
 			response.addCookie(cookies[i]);
 		}		
-		return "main";
+		return "redirect:main";
 	}	
 }
