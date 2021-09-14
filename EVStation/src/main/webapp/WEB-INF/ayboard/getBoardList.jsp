@@ -107,7 +107,7 @@ a {
 		</c:if>
 		<c:forEach begin="${begin }" end="${end}" var="i">
 		<li class="page-item">
-			<a class="page-link" href="/ay/getBoardList?p=${i}">[${i}]</a></li>
+			<a class="page-link" href="/ay/getBoardList?p=${i}">${i}</a></li>
 		</c:forEach>
 		<c:if test="${end < totalPage }">
 		<li class="page-item">
@@ -127,7 +127,7 @@ a {
 		
 		
 		<c:forEach begin="${begin}" end="${end }" var="i">
-			<li class="page-item"><a class="page-link" href="/ay/getBoardList?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a></li>
+			<li class="page-item"><a class="page-link" href="/ay/getBoardList?p=${i}&search=${search}&searchn=${searchn}">${i}</a></li>
 		</c:forEach>
 		<c:if test="${end < totalPage }">
 			<li class="page-item">
@@ -177,10 +177,10 @@ a {
 </footer>		
 
 <script>
-	function init() {
+	/* function init() {
 		let id = '${member.id}';
 		sessionStorage.setItem("id",id);
-	}
+	} */
 </script>
 </body>
 
