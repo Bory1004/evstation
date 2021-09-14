@@ -50,5 +50,10 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	void deleteByComgroupnum(Long comgroupnum); //일반댓글인 경우 대댓글까지 데이터베이스에서 지움
 	
 	List<BoardComment> findByComgroupnum(Long comgroupum); //알람 테이블에 추가할 멤버번호들 가져오기
+	
+	@Transactional
+	@Modifying
+	@Query("delete from BoardComment d where d.boardnum = ?1")
+	void deleteByBoardnum(Long boardnum);
 
 }

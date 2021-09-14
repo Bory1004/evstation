@@ -70,4 +70,11 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepo.findByComgroupnum(comgroupnum);
 	}
 
+
+	@Override
+	public void deleteComment(Long boardnum) {
+		commentRepo.deleteByBoardnum(boardnum);
+		
+	}
+
 }

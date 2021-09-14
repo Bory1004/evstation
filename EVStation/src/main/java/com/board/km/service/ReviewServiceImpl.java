@@ -49,4 +49,9 @@ public class ReviewServiceImpl implements ReviewService {
 		 	reviewRepo.save(board);
 	}
 
+	@Override
+	public void deleteReview(Long boardnum) {
+			reviewRepo.deleteById(boardnum);
+	}
+
 }

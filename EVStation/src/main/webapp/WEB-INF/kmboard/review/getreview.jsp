@@ -157,10 +157,13 @@ ${member}
 
 				</div>
 				<div class="col-md-12 d-flex justify-content-end">
+				<c:if test="${member.memnum== review.boardmemnum}">	<span><a class="btn btn-md btn-outline-success"
+						href="/deleteReview/${review.boardnum}"
+						style="margin: 5px">삭제</a></span></c:if>
 					<span><a class="btn btn-md btn-outline-success"
 						href="../../reviewList?p=${pNum}&search=${search}&searchn=${searchn}"
-						style="margin: 5px">목록</a></span> <span><a
-						class="btn btn-md btn-outline-success" href="#" onClick="javascript:window.scrollTo(0,0)"
+						style="margin: 5px">목록</a></span> 
+					<span><a class="btn btn-md btn-outline-success" href="#" onClick="javascript:window.scrollTo(0,0)"
 						style="margin: 5px">TOP</a></span>
 				</div>
 			</div>

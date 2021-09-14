@@ -98,9 +98,9 @@ a {
 						</tr>
 						<c:forEach items="${rList}" var="board">
 							<tr>
-								<td>${board.boardnum}</td>
+								<td>${board.boardnum} </td>
 								<td><a href="/content/2/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
-									class="text-success"><img src="${board.boardthumbnail}" style="width:60px;height:60px;">&nbsp;&nbsp;${board.boardtitle}</a></td>
+									class="text-success"><c:if test="${board.boardthumbnail != null }"><img src="${board.boardthumbnail}" style="width:60px;height:60px;"></c:if>&nbsp;&nbsp;${board.boardtitle}</a></td>
 								<td>${board.boardwriter}</td>
 								<td><fmt:formatDate value="${board.boarddate}"
 										pattern="MM.dd HH:mm" /></td>

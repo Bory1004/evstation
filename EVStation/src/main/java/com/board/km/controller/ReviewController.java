@@ -98,7 +98,12 @@ public class ReviewController implements ApplicationContextAware  {
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
-	
+	@RequestMapping("deleteReview/{boardnum}")
+	public String deleteReview(@PathVariable Long boardnum) {
+			commentService.deleteComment(boardnum);
+			reviewService.deleteReview(boardnum);
+		return "redirect:/reviewList";
+	}
 
 	@RequestMapping("content/{boardtype}/{num}")
 	public String getReview(@PathVariable Long num, @RequestParam(name= "p",defaultValue="1")int pNum,String search, 
@@ -148,6 +153,7 @@ public class ReviewController implements ApplicationContextAware  {
 		if (files.get(0).getSize() != 0) {
 			String path = getFilePath(files.get(0));
 			board.setBoardthumbnail(path);
+			System.out.println(files.get(0).getContentType());
 			ReviewFile fi = new ReviewFile();
 			fi.setBoardnum(board.getBoardnum());
 			fi.setFilepath(path);
@@ -244,7 +250,7 @@ public class ReviewController implements ApplicationContextAware  {
 	
 	
 	//(이미지)실제 업로드할 경로 만드는 부분
-	private String getFilePath(MultipartFile image) {
+	private String getFilePath(MultipartFile image)  {
 			
 			String oriName = image.getOriginalFilename(); //저장 된 파일의 원본 이름
 			int index = oriName.lastIndexOf(".");
@@ -254,6 +260,7 @@ public class ReviewController implements ApplicationContextAware  {
 		
 			String path = context.getServletContext().getRealPath("File/"+fileName); 
 			System.out.println(path);
+			
 			try {
 				image.transferTo(new File(path));
 			}catch(IllegalStateException | IOException e){

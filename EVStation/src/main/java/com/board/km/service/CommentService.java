@@ -20,7 +20,7 @@ public interface CommentService {
 
 
 	void deleteComment(Long comnum, Long comgroupnum);
-
+	void deleteComment(Long boardnum);
 
 	void updateComment(Long comnum, String comcontent);
 
