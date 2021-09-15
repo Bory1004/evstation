@@ -83,10 +83,10 @@ textarea {
 			<div class="w-100 row">
 				<div class="col-xs-12 col-md-12 mb-2" style="text-align: right;">
 			
-			<c:if test= "${member.id == null}">
+				<c:if test= "${member.id == null}">
 					<img id="h" src="/img/empty.png" width="20px" title="123">
 				</c:if>
-			<!-- 로그인 안된 상태 , 빈 하트 보이게-->
+				<!-- 로그인 안된 상태 , 빈 하트 보이게-->
 					<c:if test= "${member.id != null}">
 						<c:if test="${result == 0}">
 							<img id="h" src="/img/empty.png" width="20px">
@@ -95,7 +95,6 @@ textarea {
 							<img id="h" src="/img/full.png" width="20px">
 						</c:if>
 					</c:if>	
-				
 					추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
 				</div>
 				<div class="col-xs-12 col-md-12">
