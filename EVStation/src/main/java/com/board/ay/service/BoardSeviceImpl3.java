@@ -33,7 +33,7 @@ public class BoardSeviceImpl3 implements BoardService3{
 	@Override
 	public Page<Board3> getBoardList(int pNum){
 		Pageable page = PageRequest.of(pNum-1, 5);
-		return boardRepo.findByOrderByNumAsc(page);
+		return boardRepo.findByOrderByNumDesc(page);
 	}
 	
 	@Override

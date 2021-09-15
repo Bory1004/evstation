@@ -102,9 +102,10 @@ public class BoardController3 {
 	
 	@PostMapping("/ay/insertBoard") 
 	//@RequestMapping(value = "insertBoard", method= {RequestMethod.GET, RequestMethod.POST})
-	public String insertBoard(Board3 board) {//새로 글 써서 보드에 넘겨
+	public String insertBoard(Board3 board, @ModelAttribute("member") Member member) { //새로 글 써서 넘겨
+		
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/getBoardList";
 	}
 	
 	@GetMapping("/ay/updateForm/{num}")

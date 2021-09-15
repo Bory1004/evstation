@@ -38,8 +38,7 @@ textarea {
 			<div class="row justify-content-center">
 
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> <img src="/img/logo.png" width="200" height="100">
-					</a>
+					<a href="/" class="link-secondary"> <img src="/img/logo.png" width="200" height="100"></a>
 					
 				</div>
 
@@ -58,13 +57,10 @@ textarea {
 						</c:otherwise>						
 					</c:choose>
 				</div>
-
 			</div>
 
-
 			<div class="menubar py-1 mb-2">
-				<nav
-					class="nav d-flex justify-content-center border-top border-bottom">
+				<nav class="nav d-flex justify-content-center border-top border-bottom">
 					<a class="p-2  link-success" href="#">페이지 소개</a> <a
 						class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
 						class="p-2 link-success" href="#">기대효과</a> <a
@@ -78,14 +74,9 @@ textarea {
 
 
 	<main>
-		<div class="container input-group d-flex justify-content-center">
-			<h1>${board.title}</h1>
-			<div class="w-100 row">
-				<div class="col-xs-12 col-md-12 mb-2" style="text-align: right;">
-			
-			<c:if test= "${member.id == null}">
-					<img id="h" src="/img/empty.png" width="20px" title="123">
-				</c:if>
+	
+	<div id="center">
+	<c:if test= "${member.id == null}"><img id="h" src="/img/empty.png" width="20px" title="123"></c:if>
 			<!-- 로그인 안된 상태 , 빈 하트 보이게-->
 					<c:if test= "${member.id != null}">
 						<c:if test="${result == 0}">
@@ -95,40 +86,32 @@ textarea {
 							<img id="h" src="/img/full.png" width="20px">
 						</c:if>
 					</c:if>	
-				
-					추천수<span id="recom_div">${board.recom}</span> 조회수 ${board.cnt}
-				</div>
-				<div class="col-xs-12 col-md-12">
-					<div class="table table-responsive">
-						<table class="table" style="text-align: center">
-							<tr>
-								<th class="table-success">글번호</th>
-								<td id="boardnum">${board.num}</td>
-							</tr>
-							<tr>
-								<th class="table-success">작성일</th>
-								<td><fmt:formatDate value="${board.createDate }"
-										pattern="MM.dd HH:mm" /></td>
-							</tr>
-							<tr>
-								<th class="table-success" colspan="1">내용</th>
-								<td colspan="3">${board.content}</td>
-							</tr>
-						</table>
-						<a class="btn btn-sm btn-outline-success" href="/ay/getBoardList">목록으로</a>
-					</div>	
-					
+			<table class="table table-borderless border">
+				<tr><td><a href="/ay/getBoardList"><small style="color: green">공지사항 ></small></a></td></tr>
+				<tr><td><h2>${board.title}</h2></td></tr>
+				<tr><td colspan="2"><img src="${member.memphoto}" width="45" height="30"><strong>${member.id}</strong></td></tr>
+				<tr><td><fmt:formatDate value="${board.createDate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.cnt}추천<span id="recom_div">${board.recom}
+				</span></td>
+					<td align="right"><c:if test="${member.id eq member.id}"><!-- !!!!!!!!!관리자 아이디 넣기!!!!!! -->
+							<a href="/ay/updateForm/${board.num}">수정</a>	
+							<a href="/ay/delete/${board.num}">삭제</a>
+						</c:if>
+					</td></tr>
+				<tr><td colspan="2"><hr align="center"></td></tr>
+				<tr><td colspan="2">${board.content}</td></tr>
+			</table><br>
+		
 						<!-- 댓글시작 -->
 			<div id="comment_out">							
 				<h3>댓글 ${total}</h3>				
 					<c:forEach items="${clist}" var="comment">
 						<img src="${comment.member.memphoto}" width="45" height="30"><strong><c:out value="${member.id}"/></strong>
-						<span style="align-content: right">
+		
 							<c:if test="${comment.commennum eq member.memnum}">												
 								<a href="" onclick="modify_comment('<c:out value="${comment.comnum}"/>'); return false;">수정</a>
 								<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a>
 							</c:if>
-						</span>					
+									
 						<div id="reply<c:out value="${comment.comnum}"/>"><c:out value="${comment.comcontent}" /></div>						
 						<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
 						<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
@@ -137,7 +120,7 @@ textarea {
 								<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
 								<input type="hidden" name="boardnum" value="<c:out value="${comment.num}"/>">
 								<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
-								<input id="update_comment" type="submit">
+								<button type="button" id="update_comment">수정</button>
         					</form>
 						</div>
 						<hr width="800">
@@ -159,6 +142,8 @@ textarea {
 		<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 입력해주세요."></textarea> 
 		<input type="button" id="bnt_c" value="등록">
 		</div>
+		</main>
+		</body>
 							<!-- 댓글 끝! -->
 							
 						<!--   <a class="btn btn-sm btn-outline-success" href="/ay/updateForm/${board.num }">수정</a>   -->
@@ -168,27 +153,7 @@ textarea {
 							 
 					
 
-				</div>
-			</div>
-
-		</div>
-
-	</main>
-
-	<footer
-		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"
-		style="height: 100px;">
-
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>
-					Project built for <a href="#">Portfolio</a> by <a href="#">Team
-						2</a>.
-				</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-	</footer>
+				
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>

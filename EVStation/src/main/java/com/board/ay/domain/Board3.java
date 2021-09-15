@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.board.hj.domain.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,5 +35,8 @@ public class Board3 implements Serializable {
 	private Long cnt;
 	@Column(updatable = false, insertable = false, columnDefinition = "number default 0")
 	private Long recom;
+	
+	
+	
    
 }

@@ -66,7 +66,7 @@ a {
 					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
 					<a class="p-2 bg-success text-white" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 link-success" href="#">공지사항</a> 
+					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
