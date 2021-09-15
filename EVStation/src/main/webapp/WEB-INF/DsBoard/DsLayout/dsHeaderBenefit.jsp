@@ -51,7 +51,7 @@ a {
 					</c:if>
 					<c:if test="${member.id != null}"><!-- 로그인인 상태>-->
 						<div>
-							${member.id}님 환영합니다! <a class="btn btn-sm btn-outline-success"
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success"
 								href="logout">로그아웃</a>
 						</div>
 					</c:if>
