@@ -37,9 +37,10 @@ public class BoardController3 {
 
 	
 	@RequestMapping("/upRecom/{num}/{id}")
-	@ResponseBody
+	@ResponseBody// - 자바 객체를 HTTP 응답 몸체로 전송함.뷰 따로 없고 데이터만 보내는 용도.Ajax처럼 데이터만 받아서 화면 수정하는 용도로 사용
 	public long upRecom(@PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
 		
+		m.addAttribute("member", member);
 		int result = boardService.isRecom(num, id);
 		Board3 board = null;
 		if(result == 0) {
@@ -56,15 +57,11 @@ public class BoardController3 {
 	public String getBoard(@PathVariable Long num, Model m,@ModelAttribute("member")Member member) {
 		Board3 board = boardService.getBoard(num);
 		m.addAttribute("board", board);
-
-		
 		
 		if(member.getId() != null) { 
 		int result = boardService.isRecom(num, member.getId());
 		m.addAttribute("result", result);
 		}
-		
-		
 		
 		return "/ayboard/getBoard";
 	}

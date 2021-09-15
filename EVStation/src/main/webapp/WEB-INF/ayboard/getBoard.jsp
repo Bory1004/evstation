@@ -194,9 +194,10 @@ textarea {
 	<script>
 		$(function() {
 			$("#h").click(function() {
-				
+							
 								let num = ${board.num};
-								let id = sessionStorage.getItem('id');
+								let id = "${member.id}";
+									console.log(id);
 								let url = "/upRecom/" + num + "/" + id;
 								
 								$.ajax({
