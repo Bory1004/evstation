@@ -39,7 +39,7 @@ a {
 	width : 30px;
 	height : 20px;
 	left : 1200px;
-	top : 45px;
+	top : 5px;
 	border-radius: 10px;
 	text-align : center;
 	vertical-align : middle;
@@ -52,12 +52,12 @@ a {
 </style>
 </head>
 <body>
-${member }
+<%-- ${member } --%>
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
-					<a href="/" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>

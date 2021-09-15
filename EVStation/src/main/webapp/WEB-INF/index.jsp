@@ -70,8 +70,9 @@ a {
 		<div class="menubar py-1 mb-2">
 			<nav
 				class="nav d-flex justify-content-center border-top border-bottom">
-				<a class="p-2  link-success" href="#">페이지 소개</a> <a
-					class="p-2 link-success" href="/getChargeList">충전소 현황</a> <a
+
+				<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> <a
+					class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="#">기대효과</a> <a
 					class="p-2 link-success" href="#">자유게시판</a> <a
 					class="p-2 link-success" href="#">공지사항</a> <a

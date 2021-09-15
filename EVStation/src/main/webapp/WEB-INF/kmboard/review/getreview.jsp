@@ -101,10 +101,25 @@ textarea {
 		<div class="container input-group d-flex justify-content-center">
 			<div id="center">
 			<table class="table table-borderless border">
-				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
+				<tr><td><a href="/reviewList"><small style="color: green">리뷰 게시판 ></small></a></td></tr>
 				<tr><td><h2>${review.boardtitle}</h2></td></tr>
 				<tr><td colspan="2"><img src="${review.member.memphoto}" width="45" height="30"><strong>${review.member.id}</strong></td></tr>
-				<tr><td><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${review.boardsee}</td>
+				<tr><td><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${review.boardsee}
+					<!-- 로그인 안된 상태 , 빈 하트 보이게-->
+					<c:if test= "${member.id == null}">
+					<img id="h" src="/img/empty.png" width="20px" title="123">
+					</c:if>
+					
+					추천수 <span id="recom_div2">${recomCnt}</span>
+					<c:if test= "${member.id != null}">
+						<c:if test="${result == 0}">
+							<img id="h" src="/img/empty.png" width="20px">
+						</c:if>
+						<c:if test="${result != 0}">
+							<img id="h" src="/img/full.png" width="20px">
+						</c:if>
+					</c:if>	
+				</td>
 					<td align="right"><c:if test="${review.member.id eq member.id}">
 							<a href="/updateReview/${review.boardnum}">수정</a>	
 							<a href="/deleteReview/${review.boardnum}">삭제</a>
@@ -271,9 +286,31 @@ textarea {
 			alert("실패")
 			alert(e.responseText)				
 		})
-			
 		
-		})
+		$("#h").click(function() {
+					let num = ${review.boardnum};
+					let id = "${member.id}";
+					let url = "/updateReRecom/" + num + "/" + id;
+							$.ajax({
+								url : url
+							})	
+							.done(
+								function(data) {
+								if (document.getElementById("h").getAttribute('src') == '/img/empty.png') {
+									document.getElementById("h").src = "/img/full.png";
+										} else {
+										document.getElementById("h").src = "/img/empty.png";//.src는 속성값 변경
+									}
+									$("#recom_div2").html(data);//매개변수가 있으니까 변경된 값 가져옴
+									}).fail(
+										function(jqXHR, textStatus,errorThrown) {
+										console.log("error");
+								}); 
+							
+					})
+		
+	
+	})
 		
 	//---------------	왜 여기는 안들어가지??
 		function deleteComment(x,y){ // 화면에서 댓글삭제 및 DB삭제
@@ -407,6 +444,8 @@ textarea {
 				alert(e.responseText);
 			})
 		}
+	//--------------------------------------------------- 추천부분
+	
 	//--------------------------------------------------- 알람부분
 		function ring(x){ //알람 창 열고 데이터 가져오는 함수
 		//alert(${memnum})
