@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html>   
 <head>
     <meta charset="utf-8">
     <title>마커 표시</title>
@@ -24,6 +24,7 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 </script>
  
 <script>
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
@@ -38,9 +39,9 @@ var positions = [
 
 	 <c:forEach items="${list}" var="list">
     {
-    	number: '${list.st_num}',
-        title: '${list.st_name}', 
-        latlng: new kakao.maps.LatLng(${list.st_longitude},${list.st_latitude})
+    	number: '${list.stnum}',
+        title: '${list.stname}', 
+        latlng: new kakao.maps.LatLng(${list.stlongitude},${list.stlatitude})
     },
 
     </c:forEach> 
@@ -70,7 +71,7 @@ for (var i = 0; i < positions.length; i ++) {
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
     	position: positions[i].latlng, 
-        content : '<a href="http://localhost:8088/content/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
+        content : '<a href="http://localhost:8088/list/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
     	removable : iwRemoveable
     });
 

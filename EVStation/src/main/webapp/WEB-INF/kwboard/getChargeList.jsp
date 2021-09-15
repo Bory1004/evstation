@@ -82,7 +82,11 @@ a {
 <body>
 	<div style="text-align:center;">
 	<h1>게시글 목록</h1>
-
+	<div id="search_msg"><h4>${search_msg}</h4></div>
+		
+	<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>	
+	
+	<c:if test="${total != 0}">	
 	<table class="table table-bordered table-hover" style="width: 800px; margin-left:auto; margin-right:auto;" >
 		<thead class="table-secondary text-center">
 			<tr>
@@ -96,31 +100,57 @@ a {
 		<tbody class="text-center">
 			<c:forEach items="${blist}" var="charge">
 				<tr>
-					<td style="width: 8%">${charge.st_num}</td>
-					<td style="width: 30%"><a href="/content/${charge.st_num}">${charge.st_name}</a></td>
-					<td style="width: 50%">${charge.st_address1}</td>
-					<td style="width: 12%">${charge.st_closedday}</td>
+					<td style="width: 8%">${charge.stnum}</td>
+					<td style="width: 30%"><a href="/list/${charge.stnum}">${charge.stname}</a></td>
+					<td style="width: 50%">${charge.staddress1}</td>
+					<td style="width: 12%">${charge.stclosedday}</td>
 				</tr>	
 			</c:forEach>
 		</tbody>		
-</table>
+	</table>
 
 
 	<div id="page">
-		<c:if test="${begin > 2 }">
-			<a href="/getChargeList?p=${begin-1}">[이전]</a>
+				<c:if test="${search == null}">
+					<c:if test="${begin > 2}">
+						<a href="/getChargeList?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/getChargeList?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/getChargeList?p=${end+1}">[다음]</a>
+					</c:if>
+				</c:if>
+				<c:if test="${search != null}">
+					<c:if test="${begin > 2}">
+						<a href="/getChargeList?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/getChargeList?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/getChargeList?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+					</c:if>
+				</c:if>
+			</div>
 		</c:if>
-			<c:forEach begin="${begin }" end="${end}" var ="i">
-				<a href="/getChargeList?p=${i}">[${i}]</a>
-			</c:forEach>
-		<c:if test="${end < totalPage }">
-			<a href="/getChargeList?p=${end+1}">[다음]</a>
-		</c:if>
-	</div>	
 
-</div>
-
-<div style="text-align:center">
+	
+		<div style="text-align:center;">
+			<form name="search-form">
+				<div style="width: 400px;  text-align:center;" class="input-group">
+				<select style="width: 130px;" class="form-select" name="searchn">
+					<option value="0">제목</option>
+					<option value="1">내용</option>
+				</select> 
+					<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+					<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+				</div>
+			</form>
+		</div>
+			
+<!-- <div style="text-align:center" >
 	<form name="search-form" autocomplete="off">
 		<select name="type">
 			<option selected value="">선택</option>
@@ -130,6 +160,7 @@ a {
 		<input type="text" name="keyword" value=""></input>
 		<input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색"></input>
 	</form>
+	</div> -->
 	</div>
 
 
