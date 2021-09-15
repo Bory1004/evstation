@@ -14,13 +14,11 @@
 		width: 750px
 	}
 }
-
 @media ( min-width : 992px) {
 	.container {
 		width: 940px
 	}
 }
-
 a {
 	text-decoration-line: none;
 }
@@ -211,4 +209,5 @@ ${member }
 		
 		</script>
 </body>
+
 </html>

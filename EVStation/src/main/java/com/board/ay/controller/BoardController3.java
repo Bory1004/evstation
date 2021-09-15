@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ay.domain.Board3;
 import com.board.ay.service.BoardService3;
+
 import com.board.hj.domain.Member;
+
 
 @SessionAttributes("member")
 @Controller
@@ -31,10 +34,13 @@ public class BoardController3 {
 	@Autowired
 	private BoardService3 boardService;
 	
+
+	
 	@RequestMapping("/upRecom/{num}/{id}")
-	@ResponseBody
+	@ResponseBody// - 자바 객체를 HTTP 응답 몸체로 전송함.뷰 따로 없고 데이터만 보내는 용도.Ajax처럼 데이터만 받아서 화면 수정하는 용도로 사용
 	public long upRecom(@PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
 		
+		m.addAttribute("member", member);
 		int result = boardService.isRecom(num, id);
 		Board3 board = null;
 		if(result == 0) {
@@ -51,11 +57,12 @@ public class BoardController3 {
 	public String getBoard(@PathVariable Long num, Model m,@ModelAttribute("member")Member member) {
 		Board3 board = boardService.getBoard(num);
 		m.addAttribute("board", board);
-
+		
 		if(member.getId() != null) { 
 		int result = boardService.isRecom(num, member.getId());
 		m.addAttribute("result", result);
 		}
+		
 		return "/ayboard/getBoard";
 	}
 	@RequestMapping("/ay/getBoardList")
@@ -110,7 +117,7 @@ public class BoardController3 {
 	@PostMapping("/ay/update")
 	public String update(Board3 board) {
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/getBoardList";
 	}
 	
 	@RequestMapping("/ay/delete/{num}")
@@ -118,6 +125,5 @@ public class BoardController3 {
 		boardService.delete(num);
 		return "redirect:/getBoardList";
 	}
-	
 	
 }
