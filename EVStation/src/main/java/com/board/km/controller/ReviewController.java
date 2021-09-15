@@ -52,7 +52,7 @@ public class ReviewController implements ApplicationContextAware  {
 		@ModelAttribute("member")
 		public Member getMember() {
 			return new Member();
-		}
+		}//test
 		
 	@Autowired
 	ReviewService reviewService;
