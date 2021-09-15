@@ -19,13 +19,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@SequenceGenerator(name="BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1,allocationSize=1)  
+@SequenceGenerator(name="K_BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1,allocationSize=1)  
 public class ReviewBoard {
 	
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="BOARD_SEQ_GEN")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="K_BOARD_SEQ_GEN")
 	@Column(name = "board_num")
 	private Long boardnum;
 	@Column(name = "board_mem_num")
