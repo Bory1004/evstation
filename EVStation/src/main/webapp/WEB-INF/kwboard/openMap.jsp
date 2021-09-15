@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html>   
 <head>
     <meta charset="utf-8">
     <title>마커 표시</title>
@@ -70,7 +70,7 @@ for (var i = 0; i < positions.length; i ++) {
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
     	position: positions[i].latlng, 
-        content : '<a href="http://localhost:8088/content/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
+        content : '<a href="http://localhost:8088/list/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
     	removable : iwRemoveable
     });
 

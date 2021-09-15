@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.board.ds_entity.DsEntity;
 
@@ -46,5 +45,10 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Transactional
 	 @Query("UPDATE DsEntity d SET d.boardyn = 'Y'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
 	 int ybReply(Long boardref);
+	 
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE DsEntity d SET d.boardyn = 'N'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
+	 int ybReplyDel(Long boardref);
 	 
 }

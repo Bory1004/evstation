@@ -92,13 +92,13 @@ a {
 				<h3>댓글 ${total}</h3>				
 					<c:forEach items="${clist}" var="comment">
 						<img src="${comment.member.memphoto}" width="45" height="30"><strong><c:out value="${member.id}"/></strong>
-						<span style="align-content: right">
+						
 							<c:if test="${comment.commennum eq member.memnum}">												
-								<a href="" onclick="modify_comment('<c:out value="${comment.comnum}"/>'); return false;">수정</a>
-								<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a>
+								<a href="" onclick="modify_comment(${comment.comnum}); return false;">수정</a>								
+								<a href="" onclick="delete_comment(${comment.comnum});">삭제</a>						
 							</c:if>
-						</span>					
-						<div id="reply<c:out value="${comment.comnum}"/>"><c:out value="${comment.comcontent}" /></div>						
+											
+						<div id="reply<c:out value="${comment.comnum}"/>">${comment.comcontent}</div>						
 						<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
 						<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
 							<form id="form1"><!--  action="/updateComment" method="post"-->	
@@ -106,7 +106,7 @@ a {
 								<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
 								<input type="hidden" name="boardnum" value="<c:out value="${comment.boardnum}"/>">
 								<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
-								<input id="update_comment" type="submit">
+								<button type="button" id="update_comment">수정</button>
         					</form>
 						</div>
 						<hr width="800">
@@ -133,7 +133,7 @@ a {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	
+
 	$(function() {
 		$("#bnt_c").click(function() {
 			let content = $("#comment_in").val();
@@ -152,20 +152,6 @@ a {
 			}); //ajax
 		}); //bnt_c
 
-		/* $("#bnt_comment_delete").click(function(cno) {
-			if (confirm("댓글을 삭제하시겠습니까?") == false) {
-				return false;
-			} else{
-			$.ajax({
-				url : "/deleteComment",
-				data : "cno="+cno,
-				dataType : "json"
-			}).done(function() {
-				$("#comment_out").load(location.href + " #comment_out");
-			}); //ajax
-			}
-		}); //bnt_comment_delete */
-
 		$("#update_comment").click(function() {
 			let form1 = $("#form1").serialize();
 			$.ajax({
@@ -174,11 +160,37 @@ a {
 				data : form1,
 				dataType : "json"
 			}).done(function() {
-				$("#comment_out").load(location.href + " #comment_out");
+				//$("#comment_out").load(location.href + " #comment_out");
 			}); //ajax
 		}); //update_comment
 	});
+	
+	function insert_comment(){
 
+		// 댓글 등록시 필요한 정보들 생략
+	   	// data["name"]=value (json) 형식으로 정보 저장
+	    
+		$.ajax({
+			type : "post",
+			url : "reply",
+			data : JSON.stringify(data),
+		    dataType: "json",
+		    contentType:"application/json;charset=UTF-8",
+			async : false,
+			success : function(data) {
+				
+				if (data.result == "ok") {
+					// 리스트 업데이트하는 getList()를 실행시킨다.
+					getList();
+				}
+
+			},
+			error : function(){
+	               alert("통신실패");
+	           }
+		});
+	}
+	
 	function delete_comment(comnum) {
 		if (!confirm("댓글을 삭제하시겠습니까?")) {
 			return;

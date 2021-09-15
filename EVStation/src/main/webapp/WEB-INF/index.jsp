@@ -46,7 +46,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-		  	<a href="/" class="link-secondary"> <img src="/img/logo.png"
+		  	<a href="/main" class="link-secondary"> <img src="/img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -59,8 +59,8 @@ a {
 					</div>
 					<div style="float:right;">
 						
-						<a class="btn btn-sm btn-outline-success" href="/DsAlarm">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
+						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> <a
+							class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
 					</div>
 				</div>
 

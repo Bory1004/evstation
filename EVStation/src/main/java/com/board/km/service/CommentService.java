@@ -19,8 +19,9 @@ public interface CommentService {
 	List<BoardComment> getComments(int cNum, Long num, Long comrestep);
 
 
-	void deleteComment(Long comnum, Long comgroupnum);
-
+	int deleteComment(Long comnum, Long comgroupnum);
+	
+	void deleteComment(Long boardnum);
 
 	void updateComment(Long comnum, String comcontent);
 
@@ -31,5 +32,7 @@ public interface CommentService {
 
 
 	List<BoardComment> getmembernum(Long comgroupnum);
+	
+	int getCount(Long num);
 
 }

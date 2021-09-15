@@ -32,5 +32,9 @@ public class AlarmServiceImpl implements AlarmService {
 	public void delAlarm(Long alanum) {
 		alarmRepo.deleteById(alanum);
 	}
-
+	
+	@Override
+	public void	checkAlarm(Long alanum) {
+		alarmRepo.checkAlarm(alanum);
+	}
 }
