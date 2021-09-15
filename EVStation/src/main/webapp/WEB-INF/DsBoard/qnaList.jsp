@@ -23,9 +23,11 @@
 						chk_listArr[i].checked = this.checked;
 					}
 			 });
+
 			 $("input[name='ChkBxRow']").click(function(){ //각 체크박스가 선택되어지고 
 		 			if($("input[name='ChkBxRow']:checked").length == rowCnt){ //선택되어진 각 체크박스의 길이가 == 모든 체크박스의 길이와 같다면
 		 				$("input[name='ChkBxAll']")[0].checked = true; // 전체선택 true
+
 		 			}else{
 		 				$("input[name='ChkBxAll']")[0].checked = false; //아니면 false
 		 			}
@@ -111,6 +113,7 @@ a {
 				
 				<c:forEach items="${list}" var="list">
 					<tr>
+
 					<c:if test="${member.getId() == 'admin'}">
 					    <td><input type="checkbox" name="ChkBxRow"  value="${list.boardnum}" alt="${list.boardref}"></td>
 					    </c:if>
