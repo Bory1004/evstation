@@ -97,7 +97,7 @@ a {
 			<c:forEach items="${blist}" var="charge">
 				<tr>
 					<td style="width: 8%">${charge.st_num}</td>
-					<td style="width: 30%"><a href="/content/${charge.st_num}">${charge.st_name}</a></td>
+					<td style="width: 30%"><a href="/list/${charge.st_num}">${charge.st_name}</a></td>
 					<td style="width: 50%">${charge.st_address1}</td>
 					<td style="width: 12%">${charge.st_closedday}</td>
 				</tr>	

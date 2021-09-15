@@ -38,15 +38,15 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "board/getChargeList";
+		return "/kwboard/getChargeList";
 	}
 
-	@RequestMapping("/content/{num}")
+	@RequestMapping("/list/{num}")
 	public String getCharge(@PathVariable Long num, Model m) {
 		Charge charge = chargeService.getCharge(num);
 		m.addAttribute("charge", charge);
-		
-		return "board/getChargeInfo";
+	
+		return "/kwboard/getChargeInfo";
 	}
 
 	
