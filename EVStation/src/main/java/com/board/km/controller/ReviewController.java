@@ -104,15 +104,7 @@ public class ReviewController implements ApplicationContextAware  {
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
-	
-	@RequestMapping("/gofreeboard")
-	public String go() {
-		return "kmboard/review/getFreeBoardList";
-	}
-	@RequestMapping("/goinsertFreeBoard")
-	public String go2(HttpServletRequest request) {
-		return "kmboard/review/insertFreeBoard";
-	}
+
 	
 	
 	@RequestMapping("deleteReview/{boardnum}")

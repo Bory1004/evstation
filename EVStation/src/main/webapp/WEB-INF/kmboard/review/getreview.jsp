@@ -101,7 +101,11 @@ textarea {
 		<div class="container input-group d-flex justify-content-center">
 			<div id="center">
 			<table class="table table-borderless border">
+<<<<<<< HEAD
 				<tr><td><a href="/reviewList"><small style="color: green">리뷰 게시판 ></small></a></td></tr>
+=======
+				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
+>>>>>>> branch 'AY' of git@github.com:k-mini/EV-Station.git
 				<tr><td><h2>${review.boardtitle}</h2></td></tr>
 				<tr><td colspan="2"><img src="${review.member.memphoto}" width="45" height="30"><strong>${review.member.id}</strong></td></tr>
 				<tr><td><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${review.boardsee}</td>

@@ -47,6 +47,7 @@ h2 { text-align: center; }
 							&nbsp;전기차와 관련한 보급정책 등에 대한 정보를 제공합니다.<br><br>
 						  </p>
 				</div>
+
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
 					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -71,6 +72,9 @@ h2 { text-align: center; }
 				<span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden">Next</span>
 					</button>
 				</div>
+
+				<div class="imgBox"></div>
+
 				</div>
 			
 <%@ include file="DsLayout/dsFooter.jsp"%>

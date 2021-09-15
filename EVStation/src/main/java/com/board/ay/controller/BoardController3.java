@@ -103,7 +103,6 @@ public class BoardController3 {
 	@PostMapping("/ay/insertBoard") 
 	//@RequestMapping(value = "insertBoard", method= {RequestMethod.GET, RequestMethod.POST})
 	public String insertBoard(Board3 board, @ModelAttribute("member") Member member) { //새로 글 써서 넘겨
-		System.out.println(board);
 		boardService.saveBoard(board);
 		return "redirect:/ay/getBoardList";
 	}
@@ -126,5 +125,4 @@ public class BoardController3 {
 		boardService.delete(num);
 		return "redirect:/ay/getBoardList";
 	}
-	
 }

@@ -101,7 +101,7 @@ a {
 					<tr>
 						<td>${board.num}</td>
 						<td><a href="/ay/content/${board.num}">${board.title}</a></td>
-						<td><a href="/ay/content/${board.num}">${member.id}</a></td>
+						<td>${member.id}</td>
 						<td><fmt:formatDate value="${board.createDate}" pattern="MM.dd"/></td>
 						<td>${board.recom}</td>
 						<td>${board.cnt}</td>
@@ -169,7 +169,3 @@ a {
 	
 </body>
 </html>
-
-
-
-

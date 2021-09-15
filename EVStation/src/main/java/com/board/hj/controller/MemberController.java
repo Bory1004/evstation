@@ -1,5 +1,6 @@
 package com.board.hj.controller;
 
+
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -121,4 +122,5 @@ public class MemberController {
 		}
 		return "redirect:main";
 	}
+
 }

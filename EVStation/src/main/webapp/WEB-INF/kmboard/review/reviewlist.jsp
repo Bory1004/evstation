@@ -57,6 +57,7 @@ a {
 							</div>	
 						</c:when>
 						<c:otherwise>
+<<<<<<< HEAD
 						<img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
 						</c:otherwise>						
 					</c:choose>
@@ -85,6 +86,36 @@ a {
 	<div id="center">
 		<h4>리뷰 게시판</h4>
 		<a href="/reviewList"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
+=======
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
+				</div>
+			</div>
+
+			<div class="menubar py-1 mb-2">
+				<nav class="nav d-flex justify-content-center border-top border-bottom">
+					<a class="p-2  link-success" href="#">페이지 소개</a> 
+					<a class="p-2 bg-success text-white" href="/reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="#">공지사항</a> 
+					<a class="p-2 link-success" href="#">Q&A</a>
+				</nav>
+			</div>
+		</header>
+
+	</div>
+
+
+	<main>
+	<!-- <div id="group-area" class="">
+		아이디
+	</div> -->
+	<div id="center">
+		<h4>리뷰 게시판</h4>
+		<a href="/getreviewList"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
+>>>>>>> branch 'AY' of git@github.com:k-mini/EV-Station.git
 		
 		<div id="search_msg"><h4>${search_msg}</h4></div>
 		
