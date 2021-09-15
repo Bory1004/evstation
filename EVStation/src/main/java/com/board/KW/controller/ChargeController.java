@@ -38,7 +38,7 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "getChargeList";
+		return "board/getChargeList";
 	}
 
 	@RequestMapping("/content/{num}")
@@ -46,7 +46,7 @@ public class ChargeController {
 		Charge charge = chargeService.getCharge(num);
 		m.addAttribute("charge", charge);
 		
-		return "getChargeInfo";
+		return "board/getChargeInfo";
 	}
 
 	
@@ -54,6 +54,6 @@ public class ChargeController {
 	public String mapView(Model m) {
 		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
-		return "openMap";
+		return "board/openMap";
 	}
 }
