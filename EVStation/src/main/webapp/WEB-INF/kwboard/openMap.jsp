@@ -39,9 +39,9 @@ var positions = [
 
 	 <c:forEach items="${list}" var="list">
     {
-    	number: '${list.st_num}',
-        title: '${list.st_name}', 
-        latlng: new kakao.maps.LatLng(${list.st_longitude},${list.st_latitude})
+    	number: '${list.stnum}',
+        title: '${list.stname}', 
+        latlng: new kakao.maps.LatLng(${list.stlongitude},${list.stlatitude})
     },
 
     </c:forEach> 

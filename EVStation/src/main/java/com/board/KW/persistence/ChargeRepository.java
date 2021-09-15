@@ -10,9 +10,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.board.KW.domain.Charge;
 
+
 public interface ChargeRepository extends JpaRepository<Charge, Long>{
 
 	Page<Charge> findByOrderByNumDesc(Pageable page);
+	Page<Charge> findByStnameContainingIgnoreCase(String st_name,Pageable page);
+	Page<Charge> findByStaddress1ContainingIgnoreCase(String st_address1,Pageable page);
+	
 	
 	/*
 	 * @Transactional
