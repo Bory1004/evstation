@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.board.hj.domain.Member;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,15 +21,15 @@ import lombok.ToString;
 @Entity
 @Table(name="BOARD02")
 @Setter
-@Getter
+@Getter             
 @ToString
-@SequenceGenerator(name="BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1,allocationSize=1)  
+@SequenceGenerator(name="REVBOARD_SEQ_GEN", sequenceName="BOARD02_SEQ", initialValue=1,allocationSize=1)  
 public class ReviewBoard {
 	
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="BOARD_SEQ_GEN")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="REVBOARD_SEQ_GEN")
 	@Column(name = "board_num")
 	private Long boardnum;
 	@Column(name = "board_mem_num")
@@ -46,5 +50,11 @@ private static final long serialVersionUID = 1L;
 	private Long boardtype;
 	@Column(name="board_st_num")
 	private Long boardstnum;
+	@Column(name="board_thumbnail")
+	private String boardthumbnail;
+	
+	@ManyToOne
+	@JoinColumn(name="board_mem_num",insertable=false,updatable=false)
+	private Member member;
 	
 }

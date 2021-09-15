@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.board.hj.domain.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -48,7 +50,9 @@ public class BoardComment {
 	@ManyToOne
 	@JoinColumn(name="board_num",insertable = false, updatable = false)
 	private ReviewBoard reviewboard;
-	
+	@ManyToOne
+	@JoinColumn(name="com_mem_num",insertable = false, updatable=false)
+	private Member member;
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
 <title>아이디 찾기</title>
@@ -16,7 +17,7 @@
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="/" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>
@@ -32,18 +33,27 @@
 					<h3>고객님의 정보와 일치하는 아이디 목록입니다.</h3>			
 				</div>
 				<div class="row">
+				<form class="row g-2" id="form" class="row g-2" action="/findIdPw" method="post"> <!-- id="form" class="row g-2" action="/findIdPw" method="post" -->
 					<table>
-						<c:forEach items="${mlist}" var="member">					
-							<tr><td>아이디 : ${member.id}</td><td>가입일 : ${member.memdate}</td></tr><br>						
+						<c:forEach items="${mlist}" var="member">										
+							<tr>
+								<td><input class="form-check-input" type="radio" name="findId_ck" id="findId_ck" value="${member.id}">	
+									아이디 : ${member.id}</td>
+								<td>가입일 : <fmt:formatDate value="${member.memdate}" pattern="MM.dd" /></td>
+							</tr><br>					
 						</c:forEach>
-					</table>		
-				</div><br>
-				<div class="row">
+					</table>
+					<div class="row">
+						<span id="ch_id"></span>
+					</div><br>
+					<div class="row">
 					<a style="width: 300px; margin: auto;" class="btn btn-success" href="loginView">로그인</a>
-					<a style="width: 300px; margin: auto;" class="btn btn-success" href="findPw">비밀번호 찾기</a>					
-				</div>
-			</div>
-			
+					<button type="submit" id="findIdPw" style="width: 300px; margin: auto;" class="btn btn-success">비밀번호 찾기</button>					
+					</div>
+				</form>	
+				</div><br>
+
+			</div>			
 		</div>
 	</main>
 
@@ -60,8 +70,28 @@
 		</div>
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		
+	<script>		
+		$(function() {
+			$("#findIdPw").on('click', function() {
+			//$("#form").submit(function(){
+				let findId_ck = document.getElementsByName("findId_ck");
+				let findId = null;
+				for (var i = 0; i < findId_ck.length; i++) {
+					//만약 라디오 버튼이 체크가 되어있다면 true
+					if (findId_ck[i].checked == true) {
+						findId = findId_ck[i].value;
+					}
+				}
+				if(findId == null){
+					alert("아이디를 선택해주세요.");
+					return false;
+				
+				}else{
+					$("#ch_id").append("<input type='hidden' id='findId' name='findId' value='"+findId+"'>");
+				}
+				
+			})
+		});
 	</script>	
 </body>
 </html>

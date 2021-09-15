@@ -14,5 +14,7 @@ public interface AlarmService {
 
 	void delAlarm(Long alanum);
 
+	void checkAlarm(Long alanum);
+
 
 }

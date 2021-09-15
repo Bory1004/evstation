@@ -69,4 +69,13 @@ public class MemberServiceImpl implements MemberService {
 		else
 			return null;
 	}
+	
+	//비밀번호 변경
+	@Override
+	public void updatePw(String id, String pw) {
+		memberRepo.updatePw(id, pw);
+		
+	}
+	
+	
 }

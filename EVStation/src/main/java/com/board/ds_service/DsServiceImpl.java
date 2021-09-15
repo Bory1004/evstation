@@ -42,7 +42,8 @@ public class DsServiceImpl implements DsService {
 		return dsRepo.getById(boardnum);
 	}
 	@Override
-	public void deleteQnA(Long boardnum) {
+	public void deleteQnA(Long boardnum,Long boardref) {
+		dsRepo.ybReplyDel(boardref);
 		dsRepo.deleteById(boardnum);  
 	}
 
@@ -84,14 +85,16 @@ public class DsServiceImpl implements DsService {
 		if(dsEntity.getBoardref() == null) {
 			dsRepo.updateRef(num);
 		}
-	
-
-		
 	}
 
 	@Override
-	public void deleteChk(int boardnum) {
+	public void deleteChk(int boardnum, Long boardref) {
+		dsRepo.ybReplyDel(boardref);
 		dsRepo.deleteById((long) boardnum);
 	}
+
+
+	
+	
 	
 }  

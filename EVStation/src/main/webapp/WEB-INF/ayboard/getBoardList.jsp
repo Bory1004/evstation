@@ -32,7 +32,7 @@ a {
 }
 </style>
 </head>
-<body onload="init()">
+<body>
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center  ">
@@ -46,10 +46,17 @@ a {
 
 				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div>
-						<a class="btn btn-sm btn-outline-success" href="#">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="#">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="../loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="../joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="../logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
 				</div>
 
 			</div>
@@ -59,10 +66,10 @@ a {
 			<nav
 				class="nav d-flex justify-content-center border-top border-bottom">
 				<a class="p-2  link-success" href="#">페이지 소개</a> <a
-					class="p-2 link-success" href="reviewList">충전소 현황</a> <a
+					class="p-2 link-success" href="../reviewList">충전소 현황</a> <a
 					class="p-2 link-success" href="#">기대효과</a> <a
-					class="p-2 link-success" href="#">자유게시판</a> <a
-					class="p-2 link-success" href="#">공지사항</a> <a
+					class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> <a
+					class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> <a
 					class="p-2 link-success" href="#">Q&A</a>
 			</nav>
 		</div>
@@ -94,17 +101,17 @@ a {
 	<c:if test="${search == null }">
 	<nav aria-label="Page navigation">
 	<ul class="pagination">
-		<c:if test="${begin > 2 }">
+		<c:if test="${begin > 5 }">
 		<li class="page-item">
-			<a class="page-link" aria-label="Previous" href="/getBoardList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
+			<a class="page-link" aria-label="Previous" href="/ay/getBoardList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
 		</c:if>
 		<c:forEach begin="${begin }" end="${end}" var="i">
 		<li class="page-item">
-			<a class="page-link" href="/getBoardList?p=${i}">[${i}]</a></li>
+			<a class="page-link" href="/ay/getBoardList?p=${i}">${i}</a></li>
 		</c:forEach>
 		<c:if test="${end < totalPage }">
 		<li class="page-item">
-			<a class="page-link" aria-label="Next" href="/getBoardList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
+			<a class="page-link" aria-label="Next" href="/ay/getBoardList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
 		</c:if>
 		</ul>
 		</nav>
@@ -113,18 +120,18 @@ a {
 	<c:if test="${search != null}">
 	<nav aria-label="Page navigation">
 						<ul class="pagination">
-		<c:if test="${begin > 2}">
+		<c:if test="${begin > 5}">
 		<li class="page-item">
-			<a class="page-link" aria-label="Previous" href="/getBoardList?p=${begin-1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&laquo;</span></a></li>
+			<a class="page-link" aria-label="Previous" href="/ay/getBoardList?p=${begin-1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&laquo;</span></a></li>
 		</c:if>
 		
 		
-		<c:forEach begin="${being}" end="${end }" var="i">
-			<li class="page-item"><a class="page-link" href="/getBoardList?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a></li>
+		<c:forEach begin="${begin}" end="${end }" var="i">
+			<li class="page-item"><a class="page-link" href="/ay/getBoardList?p=${i}&search=${search}&searchn=${searchn}">${i}</a></li>
 		</c:forEach>
 		<c:if test="${end < totalPage }">
 			<li class="page-item">
-			<a class="page-link" aria-label="Next" href="/getBoardList?p=${end+1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&raquo;</span></a></li>
+			<a class="page-link" aria-label="Next" href="/ay/getBoardList?p=${end+1}&search=${search}&searchn=${searchn}"><span aria-hidden="true">&raquo;</span></a></li>
 		</c:if>
 		</ul>
 		</nav>
@@ -142,12 +149,15 @@ a {
 
 
 	<form>
-		<select name="searchn">
+	<div style="width: 400px;" class="input-group">
+		<select style="width: 130px;" class="form-select" name="searchn">
 			<option value="0">제목</option>
 			<option value="1">내용</option>
 		</select> 
-		<input type="text" class="form-control" name="search" size="15" maxlength="50" /> 
-		<input type="submit" class="form-control" value="검색" />
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+		</div>
+		<!--<a href="insertBoard">새글 등록</a>  -->
 	</form>
 </div>	
 </div>
@@ -169,10 +179,10 @@ a {
 </footer>		
 
 <script>
-	function init() {
+	/* function init() {
 		let id = '${member.id}';
 		sessionStorage.setItem("id",id);
-	}
+	}  */ 
 </script>
 </body>
 

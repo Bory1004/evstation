@@ -87,7 +87,7 @@ a {
 		
 			<div class="w-100" style="text-align:right;margin-top:10px">
 			<input type="submit" class="btn btn-sm btn-outline-success" value="등 록">
-			<a class="btn btn-sm btn-outline-success" href="reviewList">목록으로</a>
+			<a class="btn btn-sm btn-outline-success" href="getBoardList">목록으로</a>
 		</div>
 		</form>
 		</div>

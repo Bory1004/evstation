@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.board.KW.domain.Charge;
 import com.board.KW.persistence.ChargeRepository;
+import com.board.hj.domain.FreeBoard;
 
 
 
