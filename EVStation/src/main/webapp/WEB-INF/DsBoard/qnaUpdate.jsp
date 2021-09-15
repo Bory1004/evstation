@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="DsLayout/dsHeader.jsp"%>
+<%@ include file="DsLayout/dsHeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +30,11 @@
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input class="form-control" name="boardemail" /></td>
+							<td>${member.mememail}</td>
 						</tr>
 						<tr>
 							<td>작성자</td>
-							<td>${tempId}</td>
+							<td>${member.id}</td>
 						</tr>
 
 						<tr>
@@ -51,6 +51,7 @@
 			</div>
 		</div>
 	</form>
+	
 <%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 </html>

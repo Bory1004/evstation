@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="DsLayout/dsHeader.jsp"%>
+<%@ include file="DsLayout/dsHeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<td class="orange">작성자</td>
-							<td>${tempId}</td>
+							<td>${member.id}</td>
 						</tr>
 
 						<tr>
