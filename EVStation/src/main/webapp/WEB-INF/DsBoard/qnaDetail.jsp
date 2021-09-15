@@ -31,7 +31,7 @@
 	<div id="center">
 		<table class="table table-borderless border">
 			<tr>
-				<td><a href="/qnaList"><small style="color: green">자유 게시판 ></small></a></td>
+				<td><a href="/qnaList"><small style="color: green">QnA 게시판 ></small></a></td>
 			</tr>
 			<tr>
 				<td><h2>${detail.boardtitle}</h2></td>
@@ -62,92 +62,50 @@
 		<img src="${review.member.memphoto}" width="45" height="30"> <a href="">${review.member.id}님의 게시글 더보기 ></a>
 
 
+
+<!-- 댓글  -->
 		<hr style="margin-botton: 10px;">
 		<textarea style="width: 100%;" rows="3" cols="30" id="comment" placeholder="댓글을 입력하세요"></textarea>
 		<div class="mb-2" style="text-align: right;">
 			<button id="comment_button" class="btn btn-sm btn-success">등록</button>
 		</div>
 		<div id="commentlist">
-		
 				<h3>댓글 <span id="cCnt">${Cnt}</span></h3>
+				<c:forEach items="${coList}" var="coList">
+				${coList.comcontent}<br>
+				</c:forEach>
 		</div>
-		<!-- 	<div class="card">
-			<div class="card-body">
-				<textarea id="reply-content" class="form-control" rows="1"></textarea>
-			</div>
-			<div class="card-footer">
-				<button id="btn-reply-save" class="btn btn-primary">등록</button>
-			</div>
 		</div>
-		<br />
-		<div class="card">
-			<div class="card-header">댓글리스트</div>
-			<ul id="reply-box" class="list-group">
-				<li id="reply--1"
-					class="list-group-item d-flex justify-content-between">
-					<div>댓글 내용입니다!!</div>
-					<div class="d-flex">
-						<!--  display 일자로 -->
-		<!-- 					<div class="font-italic">작성자:I could not set reply &nbsp;</div>
-						<button class="badge badge-dark">삭제</button>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div> -->
-
+		
 		<%@ include file="DsLayout/dsFooter.jsp"%>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 	<script>
-		/* $(document).on('click','#comment2',function(){
-			alert("Test")
-		}); */
 		$(function() {
 			$('#comment_button').click(function() { //댓글 생성 및 ajax
-				let comcontent = $('#comment').val()   //id가 comment인 textarea 안에 있는 값을 정의
-				//let comcontent2 = $('#comment').html()
-				let boardnum = '${review.boardnum}'
-				//alert(${review.boardnum});
-				//alert(comcontent)
-				//alert(boardnum)
-				let commemnum = '${member.memnum}'
-				let number = $('#cCnt').html();
-				
-				if (comcontent == "") {
+				let comcontent = $('#comment').val();   //id가 comment인 textarea 안에 있는 값을 정의
+				let boardnum = '${detail.boardnum}'
+				if (!comcontent) {
 					alert("댓글을 입력하세요!")
+					$("#comment").focus();
 					return false;
-				}
-				;
-
+				};
 				$.ajax({
-					type : "get",
-					url : "insertCommentReview",
+					url : "/insertQnAComment",
 					data : {
-						"boardnum" : boardnum,
 						"comcontent" : comcontent,
-						"commemnum" : commemnum
+						"boardnum" : boardnum,
 					},
-					dataType : "json"
-				}).done(function(data) {
-					//alert(data.comdate)
+					dataType : "text"
+				}).done(function() {
+					$('#commentlist').append(comcontent+"</br>");
 					$('#comment').val('');
-					//$('#comment').empty(); -> textarea는 태그안이 아니라 value값에 저장되서 안지워지는거 같다.
-					//alert($('#comment').val())
-					let date = new Date(data.comdate);
-					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong><img src='"+data.member.memphoto+"' width='45' height='30'>"+data.member.name+"("+data.member.id+")</strong><span>"
-							+" <a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
-							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
-							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><br>"+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"<hr></div>"
-					);
-					let cnt = parseInt(number)+1
-					$('#cCnt').html(cnt);
-				}).fail(function(e) {
-					alert(e.responseText);
-				})
-			});
-			</script>
-</body>
+				}); //ajax
+			}); //bnt_c
+		});
+	
+	</script>
 </html>
 
 

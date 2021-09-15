@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.board.ds.domain.DsComment;
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
+import com.board.ds.service.DsCommentService;
 import com.board.ds.service.DsService;
 import com.board.ds.service.EmailService2;
 import com.board.hj.domain.Member;
@@ -39,6 +41,9 @@ public class DsConstroller {
 
 	@Autowired
 	private EmailService2 emailService;
+	
+	@Autowired
+	private DsCommentService dsCoService;
 
 	@RequestMapping("/qnaList") // 리스트에 페이징 처리, 검색 처리
 
@@ -103,8 +108,14 @@ public class DsConstroller {
 		} else {
 			DsEntity detail = dsService.qnaDetail(boardnum);
 			m.addAttribute("detail", detail);
+			//댓글부분
+			List<DsComment> coList  = dsCoService.QnACommentList(boardnum);
+			m.addAttribute("coList", coList);
+			
 			return "/DsBoard/qnaDetail";
 		}
+		
+		
 	}
 
 	@RequestMapping("/deleteChk")
