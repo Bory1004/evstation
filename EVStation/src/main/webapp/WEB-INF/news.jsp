@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>전기차 충전소 이슈</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -23,6 +23,11 @@
 
 a {
 	text-decoration-line: none;
+}
+#center {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 </head>
@@ -66,22 +71,34 @@ a {
 		</header>
 	</div>
 
-
-	<main>
-		<div class="container input-group d-flex justify-content-center">
-			<div class="w-100 input-group">
-				<span class="input-group-text"> 
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-					</svg>
-				</span>
-				<input type="text" class="form-control" id="search1" placeholder="충전소명을 입력하세요">
-			</div>
-			<div id="map" class="m-3" style="width: 500px; height: 400px;"></div>
+	<div id="center" class="w-50">
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 		</div>
-	</main>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="https://file2.nocutnews.co.kr/newsroom/databank/image/2021/09/08/202109081811363249.gif" class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://file2.nocutnews.co.kr/newsroom/databank/image/2021/09/08/202109080913022961.gif" class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://file2.nocutnews.co.kr/newsroom/databank/image/2021/09/08/202109080916085457.gif" class="d-block w-100" alt="...">
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden">Next</span>
+		</button>
+	</div>
+	</div>
 
-	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
+	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top fixed-bottom" style="height: 100px;">
 		<div class="row">
 			<div class="col-12 pt-3">
 				<p>Project built for <a href="#">Portfolio</a> by <a href="#">Team2</a>.</p>
