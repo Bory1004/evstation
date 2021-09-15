@@ -255,8 +255,8 @@ public class ReviewController implements ApplicationContextAware  {
 	public String deleteComment(Long comnum , Long comgroupnum) {//댓글삭제
 		//System.out.println(comnum);
 		//System.out.println(comgroupnum);
-		commentService.deleteComment(comnum,comgroupnum);
-		return "Success!!";
+		String cnt = commentService.deleteComment(comnum,comgroupnum) +"" ;
+		return cnt;
 	}
 	
 	@RequestMapping(value="updateComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")

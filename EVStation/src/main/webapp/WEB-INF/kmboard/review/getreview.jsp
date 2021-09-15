@@ -290,7 +290,7 @@ textarea {
 						//alert(data)
 						alert("삭제되었습니다.")
 						$('#'+comnum).remove();
-						let cnt = parseInt(number)-1
+						let cnt = parseInt(number)-parseInt(data);
 						$('#cCnt').html(cnt)
 					}).fail(function(e){
 						alert("삭제중에 오류가 발생했습니다.")
