@@ -156,9 +156,10 @@
 				}); 
 			});
 			
+			let email = null;
 			$("#mail_ck").on("click", function() {
 				let name = $("#name").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				email = $("#mememail1").val()+"@"+$("#mememail2").val();
 				
 				//let param = {"name":name, "mememail":email};
 				
@@ -209,20 +210,27 @@
 						}
 					})
 				});
-					
-			//인증번호 입력
+			
+			let email2 = null;
+			//인증번호 입력완료
 			$("#num_ck").on("click", function() {
 				let num_in = $("#num_in").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				//let email = $("#mememail").val();
+				email2 = $("#mememail1").val()+"@"+$("#mememail2").val();
 						
 				if (num_in == num) {
-					$("#name").attr("readonly", true);
-					$("#mememail1").attr("readonly", true);
-					$("#num_in").attr("readonly", true);
-					$("#num_msg").text("인증완료");
-					$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
-					$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
-				} else {
+					//$("#mememail").attr("readonly", true);
+					if(email != email2){
+						$("#num_msg").text("인증 실패했습니다.");
+					}
+					else{
+						$("#mememail1").attr("readonly", true);
+						$("#num_in").attr("readonly", true);
+						$("#num_msg").text("인증완료");
+						$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
+						$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
+					}			
+				} else {				
 					$("#num_msg").text("인증 실패했습니다.");
 				}
 			})

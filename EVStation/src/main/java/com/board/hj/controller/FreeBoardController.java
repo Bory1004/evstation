@@ -38,6 +38,12 @@ public class FreeBoardController {
 	@Autowired
 	private FreeCommentService commentService;
 	
+	//캐러셀
+	@GetMapping("/news")
+	public String newsView() {
+		return "news";
+	}
+	
 	//작성된 모든 게시판 리스트 + 검색
 	@RequestMapping("/getFreeBoardList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,
