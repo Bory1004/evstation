@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
-<title>회원가입 완료</title>
+<title>비밀번호 찾기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -16,7 +16,7 @@
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="/" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>
@@ -28,7 +28,7 @@
 		<div class="container d-flex justify-content-center align-items-center">		
 		<div id="content">	
 			
-		<form id="form" class="row g-2" action="/findId" method="post">
+		<form id="form" class="row g-2" action="/findPw" method="post">
 			<div class="row mb-3 justify-content-center align-items-center">
 			</div>	
 			
@@ -121,7 +121,8 @@
 					$("#id_msg").text("아이디를 입력해주세요.");
 					//$("#bnt_submit").attr("disabled", true);
 					return false;
-			}	
+				}
+			})
 		
 			//이름
 			$("#name").blur(function() {
@@ -155,9 +156,10 @@
 				}); 
 			});
 			
+			let email = null;
 			$("#mail_ck").on("click", function() {
 				let name = $("#name").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				email = $("#mememail1").val()+"@"+$("#mememail2").val();
 				
 				//let param = {"name":name, "mememail":email};
 				
@@ -208,20 +210,27 @@
 						}
 					})
 				});
-					
-			//인증번호 입력
+			
+			let email2 = null;
+			//인증번호 입력완료
 			$("#num_ck").on("click", function() {
 				let num_in = $("#num_in").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				//let email = $("#mememail").val();
+				email2 = $("#mememail1").val()+"@"+$("#mememail2").val();
 						
 				if (num_in == num) {
-					$("#name").attr("readonly", true);
-					$("#mememail1").attr("readonly", true);
-					$("#num_in").attr("readonly", true);
-					$("#num_msg").text("인증완료");
-					$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
-					$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
-				} else {
+					//$("#mememail").attr("readonly", true);
+					if(email != email2){
+						$("#num_msg").text("인증 실패했습니다.");
+					}
+					else{
+						$("#mememail1").attr("readonly", true);
+						$("#num_in").attr("readonly", true);
+						$("#num_msg").text("인증완료");
+						$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
+						$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
+					}			
+				} else {				
 					$("#num_msg").text("인증 실패했습니다.");
 				}
 			})

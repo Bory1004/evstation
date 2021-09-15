@@ -12,7 +12,6 @@ public interface DsService {
 	List<DsEntity> QnA_AllList();
 
 	DsEntity qnaDetail(Long boardnum);
-	void deleteQnA(Long boardnum);
 	void updateQnA(DsEntity dsEntity);
 	Page<DsEntity>AllListQnA(int pNum, int searchn, String search);
 	Page<DsEntity>AllListQnA(int pNum);
@@ -22,7 +21,9 @@ public interface DsService {
 	 
 	int saveReply(Long boardref, Long boardrestep, Long boardrelevel);
 
-	void deleteChk(int boardnum);
+	void deleteChk(int boardnum, Long boardref);
+
+	void deleteQnA(Long boardnum, Long boardref);
 	
 	
 

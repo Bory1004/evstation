@@ -21,7 +21,7 @@ import lombok.ToString;
 @Entity
 @Table(name="BOARD02")
 @Setter
-@Getter
+@Getter             
 @ToString
 @SequenceGenerator(name="REVBOARD_SEQ_GEN", sequenceName="BOARD02_SEQ", initialValue=1,allocationSize=1)  
 public class ReviewBoard {
