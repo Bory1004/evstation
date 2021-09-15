@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session = "true" %>
 <!DOCTYPE html>
 <html>
@@ -90,7 +91,7 @@ ${member }
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 
 					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
-					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
 					<a class="p-2 link-success" href="/benefit">기대효과</a> 
 					<a class="p-2 link-success" href="/getBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
@@ -126,12 +127,14 @@ ${member }
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
+	<jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
+	
+<!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
-	</script>
+	</script> -->
 	<script>
 		$(function(){
 			$.ajax({

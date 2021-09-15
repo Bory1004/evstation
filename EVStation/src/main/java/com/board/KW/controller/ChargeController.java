@@ -54,6 +54,14 @@ public class ChargeController {
 	public String mapView(Model m) {
 		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
-		return "board/openMap";
+		return "/kwboard/openMap";
+	}
+	
+	@RequestMapping("/main")
+	public String markList(Model m) {
+		List<Charge> list = chargeService.openMap();
+		System.out.println(list.size());
+		m.addAttribute("list",list);
+		return "/main";
 	}
 }
