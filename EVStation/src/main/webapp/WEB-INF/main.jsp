@@ -15,13 +15,11 @@
 		width: 750px
 	}
 }
-
 @media ( min-width : 992px) {
 	.container {
 		width: 940px
 	}
 }
-
 a {
 	text-decoration-line: none;
 }
@@ -81,7 +79,7 @@ ${member }
 							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
 							width="30" height="30" onclick="ring(${member.memnum})">
 							</div>
-							<div style="float:right;">${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -93,7 +91,7 @@ ${member }
 					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
 					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
 					<a class="p-2 link-success" href="/benefit">기대효과</a> 
-					<a class="p-2 link-success" href="/getBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
 					<a class="p-2 link-success" href="/qnaList">Q&A</a>
 
@@ -214,4 +212,5 @@ ${member }
 		
 		</script>
 </body>
+
 </html>
