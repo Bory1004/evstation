@@ -24,6 +24,7 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 </script>
  
 <script>
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
