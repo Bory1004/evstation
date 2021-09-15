@@ -1,4 +1,4 @@
-package com.board.ds_persistence;
+package com.board.ds.persistence;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.board.ds_entity.DsEntity;
+import com.board.ds.domain.DsEntity;
 
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
@@ -50,5 +50,8 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Transactional
 	 @Query("UPDATE DsEntity d SET d.boardyn = 'N'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
 	 int ybReplyDel(Long boardref);
+	 
+	 DsEntity findByBoardnum(Long boardnum); //댓글부분
+	 
 	 
 }

@@ -1,4 +1,4 @@
-package com.board.ds_service;
+package com.board.ds.service;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort.Order;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
-import com.board.ds_persistence.DsRepository;
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
+import com.board.ds.persistence.DsRepository;
 
 @Service
 public class DsServiceImpl implements DsService {
@@ -91,6 +91,13 @@ public class DsServiceImpl implements DsService {
 	public void deleteChk(int boardnum, Long boardref) {
 		dsRepo.ybReplyDel(boardref);
 		dsRepo.deleteById((long) boardnum);
+	}
+
+	@Override
+	public DsEntity qnaConmment(Long boardnum) {
+		dsRepo.updateSee(boardnum);
+		return dsRepo.findByBoardnum(boardnum);  
+	 
 	}
 
 

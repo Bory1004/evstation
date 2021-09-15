@@ -1,4 +1,4 @@
-package com.board.ds_controller;
+package com.board.ds.controller;
 
 import java.util.List;
 
@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
-import com.board.ds_service.DsService;
-import com.board.ds_service.EmailService2;
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
+import com.board.ds.service.DsService;
+import com.board.ds.service.EmailService2;
 import com.board.hj.domain.Member;
+import com.board.km.domain.BoardComment;
+import com.google.gson.Gson;
 
 @SessionAttributes("member")
 @Controller
@@ -188,5 +191,23 @@ public class DsConstroller {
 		return "/DsBoard/benefit";
 
 	}
+//	@RequestMapping(value = "content/2/insertCommentReview",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+//	public String insertComment(BoardComment board) { //댓글달기
+		//commentService.saveComment(board);     //comnum,boardnum,comcontent 저장
+		//commentService.saveReply(board.getComnum()); // comgroupnum,comrestep 저장
+//		Long comnum = board.getComnum();
+//	
+//		return "redirect:/content2?comnum="+comnum;
+//	}
+	
+	//@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+	//@ResponseBody
+//	public String goComment(Long comnum) { //댓글달기와 대댓글달기 이어서받음. 요청을나눈이유는 바로 ajax로 가면 데이터베이스에는 저장되있는데 엔티티에는 저장이 안되있음.
+		//BoardComment list = commentService.getComment(comnum).get();
+	//	Gson json = new Gson();
+	//	return json.toJson(list);
+//	}
+	
+	
 
 }

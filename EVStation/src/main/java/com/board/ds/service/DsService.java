@@ -1,11 +1,11 @@
-package com.board.ds_service;
+package com.board.ds.service;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
 
 public interface DsService {
 	
@@ -25,8 +25,7 @@ public interface DsService {
 
 	void deleteQnA(Long boardnum, Long boardref);
 	
-	
-
+	DsEntity qnaConmment(Long boardnum);
 	
 	
 
