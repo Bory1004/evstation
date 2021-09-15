@@ -45,7 +45,7 @@ public class ChargeController {
 	public String getCharge(@PathVariable Long num, Model m) {
 		Charge charge = chargeService.getCharge(num);
 		m.addAttribute("charge", charge);
-		
+	
 		return "/kwboard/getChargeInfo";
 	}
 
@@ -54,6 +54,6 @@ public class ChargeController {
 	public String mapView(Model m) {
 		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
-		return "openMap";
+		return "board/openMap";
 	}
 }

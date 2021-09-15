@@ -20,7 +20,7 @@
 		<div class="container"> 
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<a href="/" class="link-secondary"> 
+					<a href="/main" class="link-secondary"> 
 					<img src="/img/logo.png" width="220" height="100">
 					</a>
 				</div>
@@ -256,7 +256,10 @@
 					$("#pw_msg").text("비밀번호를 입력해주세요.");
 					return false;
 				}
-				
+				if ($("#mempw").val() == $("#pw2").val() && $("#mempw").val() != "" && $("#pw2").val() != "") {
+					$("#pw_msg").text("");
+					$("#pw_msg2").text("");
+				}			
 			});
 			
 			$("#pw2").blur(function() {
@@ -269,24 +272,11 @@
 					$("#pw_msg2").text("비밀번호 확인을 입력해주세요.");
 					return false;
 				}
-			});
-			
-	/* 			$("#mempw").keyup(function() {
-				$("#pw_msg").text("");
-				if ($("#mempw").val() != $("#pw2").val()) {
-					$("#pw_msg").text("비밀번호가 일치하지않습니다.");
-				} else {
+				if ($("#mempw").val() == $("#pw2").val() && $("#mempw").val() != "" && $("#pw2").val() != "") {
 					$("#pw_msg").text("");
-				}
+					$("#pw_msg2").text("");
+				} 
 			});
-			
-			$("#pw2").keyup(function() {
-				if ($("#mempw").val() != $("#pw2").val()) {
-					$("#pw_msg").text("비밀번호가 일치하지않습니다.");
-				} else {
-					$("#pw_msg").text("");
-				}
-			}); */
 			
 			$("#name").blur(function() {
 				let name = $("#name").val();
@@ -319,9 +309,10 @@
 				}); 
 			});
 			
+			let email = null;
 			$("#mail_ck").on("click", function() {
 				//let email = $("#mememail").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				email = $("#mememail1").val()+"@"+$("#mememail2").val();
 				console.log(email);
 				let email_ck =/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 				
@@ -349,21 +340,27 @@
 					}
 				});
 			})
-		
-			//인증번호 입력
+			
+			let email2 = null;
+			//인증번호 입력완료
 			$("#num_ck").on("click", function() {
 				let num_in = $("#num_in").val();
 				//let email = $("#mememail").val();
-				let email = $("#mememail1").val()+"@"+$("#mememail2").val();
+				email2 = $("#mememail1").val()+"@"+$("#mememail2").val();
 						
 				if (num_in == num) {
 					//$("#mememail").attr("readonly", true);
-					$("#mememail1").attr("readonly", true);
-					$("#num_in").attr("readonly", true);
-					$("#num_msg").text("인증완료");
-					$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
-					$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
-				} else {
+					if(email != email2){
+						$("#num_msg").text("인증 실패했습니다.");
+					}
+					else{
+						$("#mememail1").attr("readonly", true);
+						$("#num_in").attr("readonly", true);
+						$("#num_msg").text("인증완료");
+						$("#num_msg").append("<input type='hidden' id='ck' value='1'>");
+						$("#num_msg").append("<input type='hidden' name='mememail' value='"+email+"'>");
+					}			
+				} else {				
 					$("#num_msg").text("인증 실패했습니다.");
 				}
 			})
@@ -466,15 +463,16 @@
 					$("#pw_msg").text("비밀번호를 입력주세요.")
 					return false;
 				}
+				if(!$("#pw2").val()){
+					console.log('비밀번호 빈칸');
+					$("#pw_msg2").text("새 비밀번호를 입력주세요.")
+					return false;
+				}
 				if(!$("#name").val()){
 					console.log("이름 빈칸")
 					$("#name_msg").text("이름를 입력주세요.")
 					return false;
 				}
-				/* if(!$("#mememail").val()){
-					$("#email_msg").text("이메일을 입력주세요.")
-					return false;
-				} */
 				if(!$("#mememail1").val()){
 					$("#email_msg").text("이메일을 입력주세요.")
 					return false;

@@ -45,11 +45,14 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void deleteComment(Long comnum,Long comgroupnum) { //commentRepo.deleteByComroupnum
+	public int deleteComment(Long comnum,Long comgroupnum) { //commentRepo.deleteByComroupnum
 		if ( (long)comnum == (long)comgroupnum) { //일반댓글인 경우 대댓글까지 다지움
+			int count =commentRepo.countComment(comgroupnum);
 			commentRepo.deleteByComgroupnum(comgroupnum);
+			return count;
 		}else { //대댓글인경우
 			commentRepo.deleteById(comnum);
+			return 1;
 		}
 	}
 
@@ -68,6 +71,17 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<BoardComment> getmembernum(Long comgroupnum) { //해당그룹번호에 해당하는 멤버번호가져오기
 		return commentRepo.findByComgroupnum(comgroupnum);
+	}
+
+
+	@Override //글지울때 지우는 메서드
+	public void deleteComment(Long boardnum) {
+		commentRepo.deleteByBoardnum(boardnum);
+		
+	}
+	@Override
+	public int getCount(Long num) {
+		return commentRepo.getCount(num);
 	}
 
 }
