@@ -94,10 +94,11 @@ public class ReviewController implements ApplicationContextAware  {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		
+		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
+		m.addAttribute("search_msg",search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum",stnum);
 		//System.out.println("test");
@@ -110,7 +111,6 @@ public class ReviewController implements ApplicationContextAware  {
 	}
 	@RequestMapping("/goinsertFreeBoard")
 	public String go2(HttpServletRequest request) {
-		System.out.println(request.getRealPath("test"));
 		return "kmboard/review/insertFreeBoard";
 	}
 	
