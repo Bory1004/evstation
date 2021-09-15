@@ -27,18 +27,21 @@ a {
 
 #alarmpage {
 	position :absolute;
-	border: solid black 1px;
-	width : 210px;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
 	height : 300px;
 	left : 1230px;
+	padding : 10px;
 	overflow-y : auto;
 }
 #alarmcount {
 	position : absolute;
-	width : 20px;
+	width : 30px;
 	height : 20px;
 	left : 1200px;
 	top : 45px;
+	border-radius: 10px;
 	text-align : center;
 	vertical-align : middle;
 }

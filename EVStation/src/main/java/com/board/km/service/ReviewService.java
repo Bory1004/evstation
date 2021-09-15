@@ -16,4 +16,5 @@ public interface ReviewService {
 	void saveReview(ReviewBoard board);
 
 	void deleteReview(Long boardnum);
+
 }

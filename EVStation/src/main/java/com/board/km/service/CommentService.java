@@ -31,5 +31,7 @@ public interface CommentService {
 
 
 	List<BoardComment> getmembernum(Long comgroupnum);
+	
+	int getCount(Long num);
 
 }

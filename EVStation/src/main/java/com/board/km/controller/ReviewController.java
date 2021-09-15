@@ -1,11 +1,16 @@
 package com.board.km.controller;
 
+
+
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +103,18 @@ public class ReviewController implements ApplicationContextAware  {
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
+	
+	@RequestMapping("/gofreeboard")
+	public String go() {
+		return "kmboard/review/getFreeBoardList";
+	}
+	@RequestMapping("/goinsertFreeBoard")
+	public String go2(HttpServletRequest request) {
+		System.out.println(request.getRealPath("test"));
+		return "kmboard/review/insertFreeBoard";
+	}
+	
+	
 	@RequestMapping("deleteReview/{boardnum}")
 	public String deleteReview(@PathVariable Long boardnum) {
 			commentService.deleteComment(boardnum);
@@ -114,7 +131,8 @@ public class ReviewController implements ApplicationContextAware  {
 		}
 		
 		ReviewBoard review = reviewService.getReview(num);
-		
+		int commentCnt = commentService.getCount(num);
+		m.addAttribute("Cnt",commentCnt);
 		
 		m.addAttribute("review",review); //가져온 리뷰객체
 		m.addAttribute("pNum",pNum); //목록으로 돌아갈때 필요
@@ -258,8 +276,9 @@ public class ReviewController implements ApplicationContextAware  {
 			Random r = new Random();
 			String fileName = System.currentTimeMillis() + "_" + r.nextInt(50) + "." + ext;
 		
-			String path = context.getServletContext().getRealPath("File/"+fileName); 
+			String path = context.getServletContext().getRealPath("File/"+fileName+"/"); 
 			System.out.println(path);
+			System.out.println(File.separator);
 			
 			try {
 				image.transferTo(new File(path));

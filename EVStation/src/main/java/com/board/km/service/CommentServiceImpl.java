@@ -76,5 +76,9 @@ public class CommentServiceImpl implements CommentService {
 		commentRepo.deleteByBoardnum(boardnum);
 		
 	}
+	@Override
+	public int getCount(Long num) {
+		return commentRepo.getCount(num);
+	}
 
 }

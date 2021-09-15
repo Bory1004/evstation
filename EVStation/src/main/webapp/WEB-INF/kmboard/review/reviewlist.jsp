@@ -23,18 +23,16 @@
 		width: 940px
 	}
 }
-
+#center {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
 a {
 	text-decoration-line: none;
 }
-
-#alarmpage {
-	position :absolute;
-	border: solid black 1px;
-	width : 210px;
-	height : 300px;
-	left : 1230px;
-	overflow-y : auto;
+#page {
+	text-align: center;
 }
 </style>
 </head>
@@ -48,20 +46,18 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
-						width="30" height="30" onclick="ring(${member.memnum})">
-					</div>						
+													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div style="float:right;">
+							<div>
 								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							<div style="float:right;">${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -70,9 +66,9 @@ a {
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
+					<a class="p-2 bg-success text-white" href="/reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 link-success" href="/getBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
 					<a class="p-2 link-success" href="#">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
@@ -82,110 +78,83 @@ a {
 
 
 	<main>
-		<div class="container  justify-content-center">
-
-			<div class="w-100 input-group justify-content-center">
-				<h1 class="mb-3 text-success text-center">리뷰 목록</h1>
-				<c:if test="${ total != 0}">
-					<table class="table table-hover table-striped text-center" style="vertical-align:middle;">
-						<tr class="table-dark">
-							<th>No.</th>
-							<th>작성글</th>
-							<th>작성자</th>
-							<th>날짜</th>
-							<th>조회수</th>
-							<th>추천수</th>
-						</tr>
-						<c:forEach items="${rList}" var="board">
-							<tr>
-								<td>${board.boardnum} </td>
-								<td><a href="/content/2/${board.boardnum}?p=${pNum}&search=${search}&searchn=${searchn}"
-									class="text-success"><c:if test="${board.boardthumbnail != null }"><img src="${board.boardthumbnail}" style="width:60px;height:60px;"></c:if>&nbsp;&nbsp;${board.boardtitle}</a></td>
-								<td>${board.boardwriter}</td>
-								<td><fmt:formatDate value="${board.boarddate}"
-										pattern="MM.dd HH:mm" /></td>
-								<td>${board.boardsee}</td>
-								<td>${board.boardrecom}</td>
-							</tr>
-						</c:forEach>
-					</table>
-					<br>
+	<!-- <div id="group-area" class="">
+		아이디
+	</div> -->
+	<div id="center">
+		<h4>리뷰 게시판</h4>
+		<a href="/getreviewList"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
+		
+		<div id="search_msg"><h4>${search_msg}</h4></div>
+		
+		<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>	
+		<c:if test="${board.boardnum == comment.boardnum}">
+		<c:if test="${total != 0}">
+			<table style="text-align: center;vertical-align:middle;" class="table table-hover caption-top">				
+				<thead class="table-light">
+				<tr>
+					<th scope="col">번호</th>
+					<th style="width: 300px;" scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">등록일</th>
+					<th scope="col">조회수</th>
+				</tr>
+				</thead>
+				<c:forEach items="${rList}" var="board">
+					<tr>
+						<td>${board.boardnum}</td>
+						<td><a href="/content/2/${board.boardnum}"><c:if test="${board.boardthumbnail != null }"><img src="${board.boardthumbnail}" style="width:60px;height:60px;"></c:if> ${board.boardtitle}</a></td>
+						<td>${board.member.id}</td>
+						<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd"/></td>
+						<td>${board.boardsee}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<div id="page">
+				<c:if test="${search == null}">
+					<c:if test="${begin > 2}">
+						<a href="/reviewList?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/reviewList?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/reviewList?p=${end+1}">[다음]</a>
+					</c:if>
 				</c:if>
-				<c:if test="${total == 0}">
-				검색 결과가 없습니다.
-				</c:if>
-			
-			<div class="w-100" style="text-align:right;"><a class="btn btn-sm btn-outline-success" href="reviewwrite?stnum=${stnum}">글쓰기</a></div>
-			
-			<div class="page">
-				<c:if test="${search == null }">
-					<nav aria-label="Page navigation">
-						<ul class="pagination">
-							<c:if test="${begin > 5 }"> <!-- 다음장으로 넘어가는경우 -->
-								<li class="page-item"><a class="page-link"
-									aria-label="Previous" class="page-link" aria-label="Previous"
-									href="/reviewList?p=${begin-1}"><span aria-hidden="true">&laquo;</span></a></li>
-							</c:if>
-							<c:forEach begin="${begin }" end="${end}" var="i">
-								<li class="page-item"><a class="page-link"
-									href="/reviewList?p=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${end < totalPage }"> <!-- 페이지가 남아잇는경우 -->
-								<li class="page-item"><a class="page-link"
-									aria-label="Next" class="page-link" aria-label="Next"
-									href="/reviewList?p=${end+1}"><span aria-hidden="true">&raquo;</span></a></li>
-							</c:if>
-						</ul>
-					</nav>
-				</c:if>
-
-				<c:if test="${search != null }">
-					<nav aria-label="Page navigation">
-						<ul class="pagination">
-							<c:if test="${begin > 5 }">
-								<li class="page-item"><a class="page-link"
-									aria-label="Previous"
-									href="/reviewList?p=${begin-1}&search=${search}&searchn=${searchn}"><span
-										aria-hidden="true">&laquo;</span></a></li>
-							</c:if>
-							<c:forEach begin="${begin }" end="${end}" var="i">
-								<li class="page-item"><a class="page-link"
-									href="/reviewList?p=${i}&search=${search}&searchn=${searchn}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${end < totalPage }">
-								<li class="page-item"><a class="page-link"
-									aria-label="Next"
-									href="/reviewList?p=${end+1}&search=${search}&searchn=${searchn}"><span
-										aria-hidden="true">&raquo;</span></a></li>
-							</c:if>
-						</ul>
-					</nav>
+				<c:if test="${search != null}">
+					<c:if test="${begin > 2}">
+						<a href="/reviewList?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/reviewList?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/reviewList?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+					</c:if>
 				</c:if>
 			</div>
+		</c:if>
+		<div align="right">
+			<a class="btn btn-outline-secondary btn-sm" href="reviewwrite?stnum=${stnum}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+  				<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+				</svg>글쓰기</a> 
+		</div>	
+		<br>
+		<form>
+		<div style="width: 400px;" class="input-group">
+			<select style="width: 130px;" class="form-select" name="searchn">
+				<option value="0">제목</option>
+				<option value="1">내용</option>
+				<option value="2">작성자</option>
+			</select> 
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 		</div>
-		
-			<!-- 여기서 검색창코딩 -->
-				<div class="container row justify-content-center">
-				
-				<div class="col-6">
-				<form>
-					
-				<select name="searchn" class="form-control" style="text-align-last:center;">
-					<option value="0">제목</option>
-					<option value="1">내용</option>
-					<option value="2">작성자</option>
-				</select>
-				
-				<input type="text" class="form-control" id="search" name="search"  />
-				<input type="submit" class="form-control" value="검색" />
-					
-				</form>
-				</div>
-				</div>
-		
-		</div>
-		
-		
+		</form>
+		</c:if>
+	</div>
 	</main>
 
 
@@ -203,78 +172,9 @@ a {
 				<p>Copyright @ 2021 EvStation</p>
 			</div>
 		</div>
+		
 	</footer>
-	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	$(function(){
-		$.ajax({
-			type : "get",
-			url : "/countAlarm",
-			data : { "memnum" : ${member.memnum}},
-			dataType : "text"
-		}).done(function(data){
-			//alert(data)
-			//$('#'+알람카운트부분).css("",data);
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText)				
-		})
-		
-		
-	})
-	
-	function ring(x){ //알람 창 열고 데이터 가져오는 함수
-		//alert(${memnum})
-		$.ajax({
-			type : "get",
-			url : "/getAlarm",
-			data : {"memnum" : ${member.memnum}},
-			dataType : "text"
-		}).done(function(data){
-			//alert("성공")
-			if($('#alarmpage').html()){
-				$('#alarmpage').remove();
-			}else{
-				$('#login').append("<div id='alarmpage'></div>"	);
-				$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
-			}
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function delAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/delAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			//alert(data)
-			$('#'+alanum).remove();
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function checkAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/checkAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			alert(data)
-			//$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText)
-		})
-	}
-	</script>
 </body>
 
 </html>

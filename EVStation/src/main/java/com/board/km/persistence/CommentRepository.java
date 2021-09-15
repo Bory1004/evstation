@@ -55,5 +55,8 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	@Modifying
 	@Query("delete from BoardComment d where d.boardnum = ?1")
 	void deleteByBoardnum(Long boardnum);
+	
+	@Query("SELECT count(d) from BoardComment d where d.boardnum = ?1")
+	int getCount(Long num);
 
 }

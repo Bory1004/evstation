@@ -1,213 +1,136 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>리뷰 상세보기</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<title>자유 게시판</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 @media ( min-width : 768px) {
 	.container {
 		width: 750px
 	}
 }
-
 @media ( min-width : 992px) {
 	.container {
 		width: 940px
 	}
-}
-
-a {
-	text-decoration-line: none;
-}
-
-textarea {
-	width: 100%;
-}
-
-#alarmpage {
-	position: absolute;
-	border: solid black 1px;
-	width: 210px;
-	height: 300px;
-	left: 1230px;
-	overflow-y: auto;
 }
 #center {
 	width: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
+a {
+	text-decoration-line: none;
+}
+#page {
+	text-align: center;
+}
 </style>
 </head>
 <body>
-	${member}
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> <img
-						src="/img/logo.png" width="220" height="100"></a>
+					<a href="/main" class="link-secondary"> 
+					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div
-					class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+				<div class="col-6 d-flex justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div id="login" style="text-align: right; margin-bottom: 10px;">
-						<img style="cursor: pointer;" src="/img/alarm1.png" width="30"
-							height="30" onclick="ring(${member.memnum})">
-					</div>
+													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div style="float: right;">
-								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a>
+							<div>
+								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
-							</div>
+							</div>	
 						</c:when>
 						<c:otherwise>
-							<div style="float: right;">${member.id}님
-								환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
-							</div>
-						</c:otherwise>
+							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+						</c:otherwise>						
 					</c:choose>
 				</div>
 			</div>
 
 			<div class="menubar py-1 mb-2">
-				<nav
-					class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> <a
-						class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
-						class="p-2 link-success" href="#">기대효과</a> <a
-						class="p-2 link-success" href="/getBoardList">자유게시판</a> <a
-						class="p-2 link-success" href="#">공지사항</a> <a
-						class="p-2 link-success" href="#">Q&A</a>
+				<nav class="nav d-flex justify-content-center border-top border-bottom">
+					<a class="p-2  link-success" href="#">페이지 소개</a> 
+					<a class="p-2 bg-success text-white" href="/reviewList">충전소 현황</a> 
+					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="#">공지사항</a> 
+					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
 		</header>
 	</div>
-
-
+	
 	<main>
-		<div class="container input-group d-flex justify-content-center">
-			<div id="center">
+		<div id="center">
 			<table class="table table-borderless border">
 				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
 				<tr><td><h2>${review.boardtitle}</h2></td></tr>
 				<tr><td colspan="2"><img src="${review.member.memphoto}" width="45" height="30"><strong>${review.member.id}</strong></td></tr>
 				<tr><td><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${review.boardsee}</td>
 					<td align="right"><c:if test="${review.member.id eq member.id}">
-							<a href="/updateReview/${review.boardnum}">수정</a>	
-							<a href="/deleteReview/${review.boardnum}">삭제</a>
+							<a href="/updateFreeBoard/${review.boardnum}">수정</a>	
+							<a href="/deleteFreeBoard/${review.boardnum}">삭제</a>
 						</c:if>
 					</td></tr>
 				<tr><td colspan="2"><hr align="center"></td></tr>
 				<tr><td colspan="2">${review.boardcontent}</td></tr>
 			</table><br>
-			<img src="${review.member.memphoto}" width="45" height="30"> <a href="">${review.member.id}님의 게시글 더보기 ></a>
-			
-			
-			<hr style="margin-botton: 10px;">
-			<textarea style="width: 100%;" rows="3" cols="30" id="comment"
-				placeholder="댓글을 입력하세요"></textarea>
-			<div class="mb-2" style="text-align: right;">
-				<button id="comment_button" class="btn btn-sm btn-success">등록</button>
-			</div>
-			<div id="commentlist">
-				<h3>댓글 <span id="cCnt">${Cnt}</span></h3>
-				<hr>
-						<c:forEach items="${comments}" var="comment">
-							<div id="${comment.comnum}">
-							<div class="mb-2">
-							<strong><span><img src="${comment.member.memphoto}" width="45" height="30">
-									${comment.member.name}(${comment.member.id})</span></strong> <span
-								><a
-								id="comment_reply${comment.comnum}" href="#replyComment"
-								onclick="replyCommentForm(${comment.comnum},${comment.comgroupnum})">답글</a>
-								<c:if test="${comment.commemnum == member.memnum }">
-									<a id="comment_update${comment.comnum}"
-										href="#updateCommentForm"
-										onClick="updateCommentForm(${comment.comnum},${comment.comgroupnum})">수정</a>
-									<a id="comment_delete${comment.comnum}" href="#delete"
-										onclick="deleteComment(${comment.comnum},${comment.comgroupnum})">삭제</a>
-								</c:if></span>
-							</div>
-							<div id="comcontent${comment.comnum}" style="margin-bottom: 5px;">${comment.comcontent}<br>
-							<fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" />
-							</div>
-							<hr>
-						<!-- 대댓글부분 -->
-						<c:forEach items="${replycomments}" var="replycomment">
-							<c:if test="${replycomment.comgroupnum == comment.comgroupnum }">
-								<div id="${replycomment.comnum}" class="my-3"
-									style='position: relative; left: 20px;'>
-									<p class='my-2'>
-										<strong><span><img src="${replycomment.member.memphoto}" width="45" height="30">
-												${replycomment.member.name}(${replycomment.member.id})
-										</span> </strong><span><a
-											id="replycomment_reply${replycomment.comnum}"
-											href="#replyComment"
-											onclick="replyCommentForm(${replycomment.comnum},${replycomment.comgroupnum})">답글</a>
-											<c:if test="${replycomment.commemnum == member.memnum }">
-												<a id="replycomment_update${replycomment.comnum}"
-													href="#updateCommentForm"
-													onClick="updateCommentForm(${replycomment.comnum})">수정</a>
-												<a id="replycomment_delete${replycomment.comnum}"
-													href="#delete"
-													onclick="deleteComment(${replycomment.comnum},${replycomment.comgroupnum})">삭제</a>
-											</c:if> </span>
-									</p>
-									<div>
-										<span id="comcontent${replycomment.comnum}">${replycomment.comcontent}</span><br>
-										<fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" />
-									</div><hr>
-								</div>
+
+			<!-- 댓글 -->	
+			<div id="comment_out">							
+				<h3>댓글 ${total}</h3>				
+					<c:forEach items="${clist}" var="comment">
+						<img src="${comment.member.memphoto}" width="45" height="30"><strong><c:out value="${member.id}"/></strong>
+						<span style="align-content: right">
+							<c:if test="${comment.commennum eq member.memnum}">												
+								<a href="" onclick="modify_comment('<c:out value="${comment.comnum}"/>'); return false;">수정</a>
+								<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a>
 							</c:if>
-						</c:forEach>
-						<!-- 대댓글 끝  -->
-
+						</span>					
+						<div id="reply<c:out value="${comment.comnum}"/>"><c:out value="${comment.comcontent}" /></div>						
+						<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
+						<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
+							<form id="form1"><!--  action="/updateComment" method="post"-->	
+								<input type="hidden" name="comnum" value="<c:out value="${comment.comnum}"/>">
+								<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
+								<input type="hidden" name="boardnum" value="<c:out value="${comment.boardnum}"/>">
+								<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
+								<input id="update_comment" type="submit">
+        					</form>
 						</div>
-					</c:forEach>
-			</div>
-			<div class="col-md-12 d-flex justify-content-end">
-			<c:if test="${member.memnum== review.boardmemnum}">
-				<span><a class="btn btn-md btn-outline-success"
-					href="/deleteReview/${review.boardnum}" style="margin: 5px">삭제</a></span>
-			</c:if>
-			<span><a class="btn btn-md btn-outline-success"
-				href="../../reviewList?p=${pNum}&search=${search}&searchn=${searchn}"
-				style="margin: 5px">목록</a></span> <span><a
-				class="btn btn-md btn-outline-success" href="#"
-				onClick="javascript:window.scrollTo(0,0)" style="margin: 5px">TOP</a></span>
-			</div>
-		  </div>
-		  
+						<hr width="800">
+				</c:forEach>
+						
+			<div id="page">
+				<c:if test="${begin > 2}">
+					<a href="/content/${board.boardnum}?p=${begin-1}">[이전]</a>
+				</c:if>
+				<c:forEach begin="${begin}" end="${end}" var="i">
+					<a href="/content/${board.boardnum}?p=${i}">[${i}]</a>
+				</c:forEach>
+				<c:if test="${end < totalPage}">
+					<a href="/content/${board.boardnum}?p=${end+1}">[다음]</a>
+				</c:if>
+			</div>				
+			</div>	
+		<br>
+		<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 달아주세요."></textarea> 
+		<input type="button" id="bnt_c" value="등록">
 		</div>
-		
 	</main>
+</body>
 
-	<footer
-		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"
-		style="height: 100px;">
-
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>
-					Project built for <a href="#">Portfolio</a> by <a href="#">Team
-						2</a>.
-				</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		/* $(document).on('click','#comment2',function(){
@@ -217,12 +140,11 @@ textarea {
 			$('#comment_button').click(function() { //댓글 생성 및 ajax
 				let comcontent = $('#comment').val()
 				//let comcontent2 = $('#comment').html()
-				let boardnum = '${review.boardnum}'
+				let boardnum = $('#boardnum').html()
 				//alert(${review.boardnum});
 				//alert(comcontent)
 				//alert(boardnum)
 				let commemnum = '${member.memnum}'
-				let number = $('#cCnt').html();
 				
 				if (comcontent == "") {
 					alert("댓글을 입력하세요!")
@@ -246,13 +168,12 @@ textarea {
 					//alert($('#comment').val())
 					let date = new Date(data.comdate);
 					$("#commentlist").append(
-						"<div id='"+data.comnum+"'><div class='mb-2'><strong><img src='"+data.member.memphoto+"' width='45' height='30'>"+data.member.name+"("+data.member.id+")</strong><span>"
-							+" <a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong> 사진 "+data.member.name+"("+data.member.id+")"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</strong><span style='float:right;'>"
+							+"<a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
 							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
-							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><br>"+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"<hr></div>"
+							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><hr></div>"
 					);
-					let cnt = parseInt(number)+1
-					$('#cCnt').html(cnt);
+					
 				}).fail(function(e) {
 					alert(e.responseText);
 				})
@@ -278,8 +199,8 @@ textarea {
 		function deleteComment(x,y){ // 화면에서 댓글삭제 및 DB삭제
 				let comnum = x;
 				let comgroupnum = y;
-				let number = $('#cCnt').html()
-				
+				//alert(comnum);
+				//$('#'+comnum).remove();
 				if(confirm("댓글을 삭제하시겠습니까?")){
 					$.ajax({
 						type : "get",
@@ -290,8 +211,6 @@ textarea {
 						//alert(data)
 						alert("삭제되었습니다.")
 						$('#'+comnum).remove();
-						let cnt = parseInt(number)-1
-						$('#cCnt').html(cnt)
 					}).fail(function(e){
 						alert("삭제중에 오류가 발생했습니다.")
 						alert(e.responseText);
@@ -307,7 +226,7 @@ textarea {
 			$('#replyComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='updateComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span><img src='"+'${member.memphoto}'+"' width='45' height='30'>"+'${member.name}(${member.id})'+"</span></p>"
+					+"<p class='mb-1'><span>프로필사진 "+'${member.name}(${member.id})'+"</span></p>"
 					+"<textarea id='newComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='수정할 내용을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#updateComment' onclick='updateComment("+comnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='updateCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
@@ -326,6 +245,9 @@ textarea {
 		function updateComment(x,y){ // 댓글 수정 DB ajax
 			let comnum = x;
 			let comcontent = $('#newComment'+comnum).val();
+			//alert(comnum);
+			//alert(comcontent);
+			//$('#'+comnum).remove();
 			if(comcontent == ""){
 				alert("댓글을 입력하세요!!")
 				return false;
@@ -360,7 +282,7 @@ textarea {
 			$('#updateComment'+comnum).remove();
 			$('#'+comnum).append(
 					"<div id='replyComment"+comnum+"' class='mb-5' style='position:relative;left:10px;'>"
-					+"<p class='mb-1'><span><img src='"+'${member.memphoto}'+"' width='45' height='30'>"+'${member.name}(${member.id})'+"</span></p>" //
+					+"<p class='mb-1'><span>프로필사진 "+'${member.name}(${member.id})'+"</span></p>" //
 					+"<textarea id='newreplyComment"+comnum+"' class='my-3' rows='3' cols='30' placeholder='답글을 입력하세요'></textarea>"
 					+"<div style='text-align:right;'><span><a href='#replyComment' onclick='replyComment("+comnum+","+comgroupnum+")'>완료</a>"
 					+" <a href='#cancelUpdate' onclick='replyCommentFormCancel("+comnum+")'>취소</a></span></div></div>"
@@ -371,10 +293,9 @@ textarea {
 			let comnum = x;
 			let comgroupnum = y;
 			let comcontent = $('#newreplyComment'+comnum).val();
-			let boardnum = '${review.boardnum}'
+			let boardnum = $('#boardnum').html();
 			let commemnum = '${member.memnum}';
 			let frommemnum = '${member.memnum}';
-			let number = $('#cCnt').html()
 			//alert(boardnum)
 			//alert(comnum)
 			//alert(comgroupnum)
@@ -393,14 +314,12 @@ textarea {
 				let date = new Date(data.comdate);
 				$('#replyComment'+comnum).remove();
 				$('#'+data.comgroupnum).append( //새로 작성한 답글의 객체를 받아온다.
-						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:20px;'><p class='my-2'><strong><span><img src='${member.memphoto}' width='45' height='30'> ${member.name}(${member.id})</span></strong><span> <a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
+						"<div id='"+data.comnum+"' class='my-3' style='position:relative;left:10px;'><p class='my-2'><strong><span>사진 ${member.name}(${member.id})"+" "+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"</span></strong><span style='float:right;'><a id='replycomment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a>"
 					   +" <a id='replycomment_update"+data.comnum+"' href='#updateCommentForm' onClick='updateCommentForm("+data.comnum+")'>수정</a>"
 					   +" <a id='replycomment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a>"
 					   +"</span></p>"
-					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><br>"+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"<hr></div></div>"
+					   +"<div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span></div></div>"
 				);
-				let cnt = parseInt(number)+1
-				$('#cCnt').html(cnt);
 			}).fail(function(e){
 				alert("답글 작성중에 오류가 발생했습니다.")
 				alert(e.responseText);

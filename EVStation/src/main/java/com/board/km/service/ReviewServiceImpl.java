@@ -54,4 +54,6 @@ public class ReviewServiceImpl implements ReviewService {
 			reviewRepo.deleteById(boardnum);
 	}
 
+	
+
 }
