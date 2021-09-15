@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session = "true" %>
 <!DOCTYPE html>
 <html>
@@ -14,13 +15,11 @@
 		width: 750px
 	}
 }
-
 @media ( min-width : 992px) {
 	.container {
 		width: 940px
 	}
 }
-
 a {
 	text-decoration-line: none;
 }
@@ -126,12 +125,14 @@ a {
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
+	<jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
+	
+<!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
-	</script>
+	</script> -->
 	<script>
 		$(function(){
 			$.ajax({
@@ -211,4 +212,5 @@ a {
 		
 		</script>
 </body>
+
 </html>

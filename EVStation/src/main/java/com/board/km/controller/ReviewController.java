@@ -69,7 +69,7 @@ public class ReviewController implements ApplicationContextAware  {
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
 			String search, @RequestParam(defaultValue = "-1") int searchn, @RequestParam(name="stnum",defaultValue ="1") Long stnum ) {
 		
-		Page<ReviewBoard> pageList =null;
+		Page<ReviewBoard> pageList = null;
 		if(search != null) { //검색값이 있을때
 			pageList = reviewService.getReviewBoardList(pNum,stnum,searchn,search);
 		}else { 
