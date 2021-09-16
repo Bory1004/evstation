@@ -260,9 +260,12 @@ a {
 	}
 
 	function cancle_comment(comnum) {
+		let reply = document.getElementById("reply" + comnum);
 		let replyDiv = document.getElementById("replyDiv" + comnum);
-		document.body.appendChild(replyDiv);
+		//document.body.appendChild(replyDiv);
+		reply.style.display = "";
 		replyDiv.style.display = "none";
+		return false;
 	}
 		
 </script>
