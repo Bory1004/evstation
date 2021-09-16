@@ -15,7 +15,7 @@ public interface ChargeService {
 	Charge onlyBoard(Long num);
 	void deleteBoard(Long num);
 	List<Charge> openMap();
-	
+	Page<Charge> getChargeList(int pNum, int searchn, String search);
 
 	
 }

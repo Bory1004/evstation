@@ -27,6 +27,7 @@ a {
 </style>
 </head>
 <body>
+${member }
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center  ">
