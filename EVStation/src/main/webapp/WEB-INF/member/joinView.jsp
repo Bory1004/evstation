@@ -284,8 +284,8 @@
 				
 				$("#name_msg").text("");
 				if(!$("#name").val()){
-					console.log("이름 빈칸");
 					$("#name_msg").text("이름을 입력해주세요.");
+					$("#name_msg").focus();
 					return false;
 				}
 				if (!name_ck.test(name)) {
@@ -318,6 +318,7 @@
 				
 				if (!email) {
 					$("#email_msg").text("메일 주소를 입력하세요.");
+					$("#email_msg").focus();
 					return false;
 				} else{
 					$("#email_msg").text("");
@@ -455,67 +456,52 @@
 				console.log("제출");
 				if(!$("#id").val()){
 					console.log('아이디 빈칸');
-					$("#id_msg").text("아이디를 입력주세요.")
+					$("#id_msg").text("아이디를 입력주세요.");
 					return false;
 				}
 				if(!$("#mempw").val()){
 					console.log('비밀번호 빈칸');
-					$("#pw_msg").text("비밀번호를 입력주세요.")
+					$("#pw_msg").text("비밀번호를 입력주세요.");
 					return false;
 				}
 				if(!$("#pw2").val()){
 					console.log('비밀번호 빈칸');
-					$("#pw_msg2").text("새 비밀번호를 입력주세요.")
+					$("#pw_msg2").text("새 비밀번호를 입력주세요.");
 					return false;
 				}
 				if(!$("#name").val()){
 					console.log("이름 빈칸")
-					$("#name_msg").text("이름를 입력주세요.")
+					$("#name_msg").text("이름를 입력주세요.");
 					return false;
 				}
 				if(!$("#mememail1").val()){
-					$("#email_msg").text("이메일을 입력주세요.")
+					$("#email_msg").text("이메일을 입력주세요.");
 					return false;
 				}
 				if(!$("#mememail2").val()){
-					$("#email_msg").text("이메일을 입력주세요.")
+					$("#email_msg").text("이메일을 입력주세요.");
 					return false;
 				}
 				if($("#ck").val() != 1){
-					$("#email_msg").text("이메일 인증해주세요.")
+					$("#email_msg").text("이메일 인증해주세요.");
 					return false;
 				}
 				if(!$("#memaddress").val()){
-					$("#address_msg").text("주소를 입력주세요.")
+					$("#address_msg").text("주소를 입력주세요.");
 					return false;
 				}
 				if(!$("#memaddressdetail").val()){
-					$("#address_msg2").text("상세주소를 입력주세요.")
+					$("#address_msg2").text("상세주소를 입력주세요.");
 					return false;
 				}
 				if(!$("#membirth").val()){
-					$("#birth_msg").text("생년월일을 입력주세요.")
+					$("#birth_msg").text("생년월일을 입력주세요.");
 					return false;
 				}
 				if(!$("#check").prop("checked")){
-					$("#check_msg").text("개인정보수집 동의해주세요.")
+					$("#check_msg").text("개인정보수집 동의해주세요.");
 					return false;
 				}
-				
-/* 				let form = $("#member").serialize();
-				$.ajax({
-					type : "post",
-					url : "/join",
-					data : form,
-					dataType : "json",
-					success: function () {
-					//location.href = "/join_success";
-					console.log("success");				 							 
-		            },
-		            error: function (status, err) {
-		            console.log(status +"error:"+ err);
-		            }				
-				}) //ajax */
 			})
 		});
 	</script>
