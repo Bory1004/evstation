@@ -146,9 +146,8 @@
 			}).done(function(data) {
 				console.log(data)
 				alert(data)
-				$('#con').prepend("<div class='cocomen' style='margin-bottom: 5px;''>"+ data.comcontent+"</div><hr>"
-						+"<a id=commentUp"+data.comnum+" href=#commentUp onclick=commentUp(" +data.comnum+ ")">수정</a> 
-						+"<a id=commentDel"+data.comnum+" href=#commentDel onclick=commentUp("+data.comnum+ ")">삭제</a>);
+				$('#con').prepend("<div class='cocomen' style='margin-bottom: 5px;''>"+ data.comcontent+"</div><hr>");
+						
 				  
 				                                
 				$('#comment').val('');
