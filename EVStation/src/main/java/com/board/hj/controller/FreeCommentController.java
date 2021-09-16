@@ -37,13 +37,11 @@ public class FreeCommentController {
 	//입력한 댓글 저장
 	@RequestMapping("/insertComment/{boardnum}")
 	@ResponseBody
-	public String inserComment(FreeBoardComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {		
+	public void inserComment(FreeBoardComment comment, FreeBoard board, @ModelAttribute("member") Member member, @PathVariable Long boardnum, String content) {		
 		comment.setBoard(board);
 		comment.setMember(member);
 		comment.setComcontent(content);
 		commentService.saveComment(comment);
-		
-		return "success";
 	}
 	
 	//댓글 하나 삭제
@@ -63,7 +61,7 @@ public class FreeCommentController {
 	}
 	
 	// 게시판 클릭 후 보이는 것(게시글 + 댓글)
-	@RequestMapping("/reply/{boardnum}")
+	@RequestMapping("/replyFreeComment/{boardnum}")
 	public String getBoard(@ModelAttribute("member") Member member, @PathVariable Long boardnum, Model m) {
 		List<FreeBoardComment> cList = commentService.getCommentlist(boardnum);
 		m.addAttribute("clist", cList);		

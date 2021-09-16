@@ -181,21 +181,16 @@ a {
 			$.ajax({
 				url : "/insertComment/${board.boardnum}",
 				data : "content=" + content,
-				dataType: "text",
 				success : function(data) {
-					if (data == "success") {				
-						$("#comment_in").val("");
-						getList();
-					}
+					
 				},
 				error : function(request,status,error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	            }
 				
 				}).done(function() {
-				//$("#comment_out").load(location.href + " #comment_out");
-				//$("#comment_in").val("");
-				//getList();
+					$("#comment_in").val("");
+					getList();
 			}); //ajax
 		}); //bnt_c
 	});
@@ -204,22 +199,22 @@ a {
 		let formData = new FormData();
 		$.ajax({
 			type : "get",
-			url : "/reply/${board.boardnum}",
-				dataType : "text",
-				data : formData, 
-				contentType: false, 
-				processData: false, 
-				cache : false,
-				success : function(data) {
-	           		 // C에서 받아온 데이터로 새로 뿌려주기
-					let html = jQuery('<div>').html(data);
-					let contents1 = html.find("div#comment_out").html();
-					$("#comment_out").html(contents1);
-				},
-				error : function(request,status,error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
+			url : "/replyFreeComment/${board.boardnum}",
+			dataType : "text",
+			data : formData, 
+			contentType: false, 
+			processData: false, 
+			cache : false,
+			success : function(data) {
+	           	// C에서 받아온 데이터로 새로 뿌려주기
+				let html = jQuery('<div>').html(data);
+				let contents = html.find("div#comment_out").html();
+				$("#comment_out").html(contents);
+			},
+			error : function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
+		});
 	}
 	
 	function delete_comment(comnum) {
