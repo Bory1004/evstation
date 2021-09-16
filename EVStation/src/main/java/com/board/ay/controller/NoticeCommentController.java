@@ -29,7 +29,7 @@ public class NoticeCommentController {
 		private NoticeCommentService noticeService;
 		
 		//입력한 댓글 저장
-		@RequestMapping("/ay/insertComment/{boardnum}")
+		@RequestMapping("/ay/insertComment/{num}")
 		@ResponseBody
 		public void inserComment(NoticeComment comment, Board3 board, @ModelAttribute("member") Member member, @PathVariable Long num, String content) {
 			

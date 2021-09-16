@@ -139,6 +139,8 @@ marker.setMap(map);
 
 <div style="text-align:center;">
 	<a href="/getChargeList"><button type="button" class="btn btn-primary">충전소 목록</button></a>
+
+
 	<a href="/reviewlist?${charge.stnum }"><button type="button" class="btn btn-primary">리뷰 보기</button></a>
 </div>
 

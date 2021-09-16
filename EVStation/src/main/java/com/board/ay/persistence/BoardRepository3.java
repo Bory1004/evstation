@@ -14,7 +14,7 @@ import com.board.ay.domain.Board3;
 @Repository
 public interface BoardRepository3 extends JpaRepository<Board3, Long>{
 	
-	Page<Board3> findByOrderByNumAsc(Pageable page);
+	Page<Board3> findByOrderByNumDesc(Pageable page);
 	
 	@Transactional
 	@Modifying

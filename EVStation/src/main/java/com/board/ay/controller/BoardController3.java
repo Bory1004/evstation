@@ -58,11 +58,10 @@ public class BoardController3 {
 		Board3 board = boardService.getBoard(num);
 		m.addAttribute("board", board);
 		
-		if(member.getId() != null) { 
-		int result = boardService.isRecom(num, member.getId());
-		m.addAttribute("result", result);
+		if(member.getId() != null){
+			int result = boardService.isRecom(num, member.getId());
+			m.addAttribute("result", result);
 		}
-		
 		return "/ayboard/getBoard";
 	}
 	@RequestMapping("/ay/getBoardList")
@@ -70,13 +69,15 @@ public class BoardController3 {
 		Page<Board3> pageList = null;
 		if(search != null) {
 			pageList = boardService.getBoardList(pNum,searchn,search);
+			String search_msg = "\"" + search + "\" 검색 결과";
+			m.addAttribute("search_msg", search_msg);
 		}else {
 			pageList = boardService.getBoardList(pNum);
 		}
 		List<Board3> bList = pageList.getContent();// 보여질 글
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements();
-		m.addAttribute("blist", bList);
+		m.addAttribute("bList", bList);
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		System.err.println("total : "+total);
@@ -86,11 +87,11 @@ public class BoardController3 {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
+		m.addAttribute("member", member);
 		
 		return "/ayboard/getBoardList";
 	}
@@ -102,9 +103,9 @@ public class BoardController3 {
 	
 	@PostMapping("/ay/insertBoard") 
 	//@RequestMapping(value = "insertBoard", method= {RequestMethod.GET, RequestMethod.POST})
-	public String insertBoard(Board3 board) {//새로 글 써서 보드에 넘겨
+	public String insertBoard(Board3 board, @ModelAttribute("member") Member member) { //새로 글 써서 넘겨
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/ay/getBoardList";
 	}
 	
 	@GetMapping("/ay/updateForm/{num}")
@@ -117,13 +118,26 @@ public class BoardController3 {
 	@PostMapping("/ay/update")
 	public String update(Board3 board) {
 		boardService.saveBoard(board);
-		return "redirect:/getBoardList";
+		return "redirect:/ay/getBoardList";
 	}
 	
 	@RequestMapping("/ay/delete/{num}")
 	public String delete(@PathVariable Long num) {
 		boardService.delete(num);
-		return "redirect:/getBoardList";
+		return "redirect:/ay/getBoardList";
+	}
+	
+	@RequestMapping("/ay/deleteChk")//체크박스 삭제
+	public String qnaDeletechk(int[] valueArr) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			boardService.deleteChk(valueArr[i]);
+		}
+
+		return "redirect:/ay/getBoardList";
+
 	}
 	
 }
