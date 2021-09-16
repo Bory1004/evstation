@@ -186,15 +186,12 @@ a {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
 	
-<<<<<<< HEAD
 <!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
 	</script> -->
-=======
->>>>>>> branch 'main' of https://github.com/k-mini/EV-Station.git
 	<script>
 		$(function(){
 			$.ajax({

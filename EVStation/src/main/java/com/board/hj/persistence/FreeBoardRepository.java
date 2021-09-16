@@ -24,6 +24,11 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>{
 	Page<FreeBoard> findByBoardcontentContainingIgnoreCase(String boardcontent,Pageable page);
 	Page<FreeBoard> findByBoardwriterContainingIgnoreCase(String boardwriter,Pageable page);
 	
+	//해당 게시물의 댓글수
+	@Transactional
+	@Query("select count(*) from FreeBoardComment c where c.boardnum=?1")
+	int getCommentCount(Long boardnum);
+	
 	//Page<FreeBoard> findByMemberContainingIgnoreCase(String boardwriter,Pageable page);
 	
 }

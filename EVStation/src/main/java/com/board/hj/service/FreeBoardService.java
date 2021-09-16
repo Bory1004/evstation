@@ -23,5 +23,7 @@ public interface FreeBoardService {
 	
 	//검색
 	Page<FreeBoard> getBoardList(int pNum, int searchn, String search);
+	
+	int getCommentCount(Long boardnum);
 		
 }

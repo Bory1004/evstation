@@ -30,6 +30,35 @@ a {
 #page {
 	text-align: center;
 }
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
+	width : 30px;
+	height : 20px;
+	left : 380px;
+	top : 10px; 
+	border-radius: 10px;
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmcount > span {
+	position :relative;
+	color : white;
+	bottom : 3px;
+	left : 1700px;
+	top : 200px;
+	width : 300px;
+	height : 400px;
+}
 </style>
 </head>
 <body>
@@ -43,18 +72,21 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -83,8 +115,8 @@ a {
 		
 		<div id="search_msg"><h4>${search_msg}</h4></div>
 		
-		<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>	
-		<c:if test="${board.boardnum == comment.boardnum}">
+		<c:if test="${total == 0}">게시물이 없습니다.</c:if>	
+
 		<c:if test="${total != 0}">
 			<table style="text-align: center" class="table table-hover caption-top">				
 				<thead class="table-light">
@@ -99,7 +131,7 @@ a {
 				<c:forEach items="${blist}" var="board">
 					<tr>
 						<td>${board.boardnum}</td>
-						<td><a href="/content/${board.boardnum}">${board.boardtitle}</a></td>
+						<td><a href="/content/1/${board.boardnum}">${board.boardtitle}</a></td>
 						<td>${board.member.id}</td>
 						<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd"/></td>
 						<td>${board.boardsee}</td>
@@ -132,14 +164,14 @@ a {
 			</div>
 		</c:if>
 		
-		<c:if test="${member.id ne null}">
+		
 		<div align="right">
-			<a class="btn btn-outline-secondary btn-sm" href="insertFreeBoard">
+			<a class="btn btn-outline-secondary btn-sm" href="/insertFreeBoard">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
   				<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
 				</svg>글쓰기</a> 
 		</div>
-		</c:if>
+		
 		<br>
 		
 		<form>
@@ -153,7 +185,7 @@ a {
 			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 		</div>
 		</form>
-		</c:if>
+
 	</div>
 	</main>
 	
@@ -167,6 +199,9 @@ a {
 	</footer>
 	
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+</script>
 </html>
 
 
