@@ -1,5 +1,7 @@
 package com.board.hj.persistence;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -20,8 +22,10 @@ public interface FreeCommentRepository extends JpaRepository<FreeBoardComment, L
 	
 	//Page<FreeBoardComment> findByBoardnumOrderByComnumAsc(Pageable page, Long boardnum);
 	
+	List<FreeBoardComment> findByBoardnumOrderByComnumAsc(Long boardnum);
+	
 	@Transactional
 	@Modifying
-	@Query("UPDATE BoardComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
+	@Query("UPDATE FreeBoardComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
 	void updateComment(Long comnum, String comcontent);
 }

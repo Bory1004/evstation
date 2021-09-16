@@ -39,6 +39,19 @@ public class MemberController {
 		return new Member();
 	}
 
+	//마이페이지 가기전 비밀번호 입력 페이지로 이동
+	@GetMapping("/check_mypage")
+	public String check_mypage() {
+		return "member/check_mypage";
+	}
+	
+	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
+	@GetMapping("/checkPw_mypage")
+	public String checkPw_mypage(@ModelAttribute("member") Member member) {
+		//Member findMember = memberService.findIdPw();
+		return "member/check_mypage";
+	}
+	
 	// 메인 페이지로 이동
 	@GetMapping("/main")
 	public String mainView(HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model,

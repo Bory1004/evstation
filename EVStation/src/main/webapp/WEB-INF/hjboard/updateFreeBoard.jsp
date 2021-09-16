@@ -75,7 +75,7 @@ a {
 	<main>
 		<div id="center">
 			<h4>자유 게시판 수정하기</h4><br>
-			<form action="/updateFreeBoard" method="post">
+			<form id="update_form" action="/updateFreeBoard" method="post">
 				<input type="hidden" name="boardnum" value="${board.boardnum}">
 				<table class="table table-borderless border">
 					<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>	
@@ -142,6 +142,7 @@ a {
 	             return false;
 	        }
 			//폼 submit
+			
 			})
 		});
 	</script>
