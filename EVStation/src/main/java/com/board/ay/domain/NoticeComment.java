@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.board.hj.domain.FreeBoard;
 import com.board.hj.domain.Member;
 
 import lombok.Getter;

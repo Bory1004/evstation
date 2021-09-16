@@ -65,7 +65,7 @@ a {
 					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
 					<a class="p-2 link-success" href="#">기대효과</a> 
 					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 bg-success text-white" href="#">공지사항</a> 
+					<a class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> 
 					<a class="p-2 link-success" href="#">Q&A</a>
 				</nav>
 			</div>
@@ -89,14 +89,7 @@ a {
 		</div>
 	</main>
 
-	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top fixed-bottom" style="height: 100px;">
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>Project built for <a href="#">Portfolio</a> by <a href="#">Team2</a>.</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/resources/naver-smarteditor2/demo/js/service/HuskyEZCreator.js" charset="utf-8"></script>

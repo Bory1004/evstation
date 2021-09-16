@@ -63,12 +63,12 @@ a {
 
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a	class="p-2 link-success" href="../reviewList">충전소 현황</a> 
-					<a	class="p-2 link-success" href="#">기대효과</a> 
-					<a	class="p-2 link-success" href="#">자유게시판</a> 
+					<a class="p-2  link-success" href="../../pageIntro">페이지 소개</a> 
+					<a	class="p-2 link-success" href="#">충전소 현황</a> 
+					<a	class="p-2 link-success" href="../../benefit">기대효과</a> 
+					<a	class="p-2 link-success" href="../../getFreeBoardList">자유게시판</a> 
 					<a	class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> 
-					<a	class="p-2 link-success" href="#">Q&A</a>
+					<a	class="p-2 link-success" href="../../qnaList">Q&A</a>
 				</nav>
 			</div>
 		</header>
@@ -92,7 +92,7 @@ a {
 						</c:if>
 					</c:if>	</td>
 
-					<td align="right"><c:if test="${member.id eq member.id}"><!-- !!!!!!!!!관리자 아이디 넣기!!!!!! -->
+					<td align="right"><c:if test="${member.getId() == 'dkdus'}"><!-- !!!!!!!!!관리자 아이디 넣기!!!!!! -->
 							<a href="/ay/updateForm/${board.num}">수정</a>	
 							<a href="/ay/delete/${board.num}">삭제</a>
 						</c:if>
@@ -100,61 +100,11 @@ a {
 				<tr><td colspan="2"><hr align="center"></td></tr>
 				<tr><td colspan="2">${board.content}</td></tr>
 			</table><br>
-		
-						<!-- 댓글시작 -->
-			<div id="comment_out">							
-				<h3>댓글 ${total}</h3>				
-					<c:forEach items="${clist}" var="comment">
-						<img src="${comment.member.memphoto}" width="45" height="30"><strong><c:out value="${member.id}"/></strong>
-		
-							<c:if test="${comment.commennum eq member.memnum}">												
-								<a href="" onclick="modify_comment('<c:out value="${comment.comnum}"/>'); return false;">수정</a>
-								<a href="" onclick="delete_comment('<c:out value="${comment.comnum}"/>')">삭제</a>
-							</c:if>
-									
-						<div id="reply<c:out value="${comment.comnum}"/>"><c:out value="${comment.comcontent}" /></div>						
-						<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
-						<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
-							<form id="form1"><!--  action="/updateComment" method="post"-->	
-								<input type="hidden" name="comnum" value="<c:out value="${comment.comnum}"/>">
-								<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
-								<input type="hidden" name="boardnum" value="<c:out value="${comment.num}"/>">
-								<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
-								<button type="button" id="update_comment">수정</button>
-        					</form>
-						</div>
-						<hr width="800">
-				</c:forEach>
-						
-			<div id="page">
-				<c:if test="${begin > 2}">
-					<a href="/content/${board.num}?p=${begin-1}">[이전]</a>
-				</c:if>
-				<c:forEach begin="${begin}" end="${end}" var="i">
-					<a href="/content/${board.num}?p=${i}">[${i}]</a>
-				</c:forEach>
-				<c:if test="${end < totalPage}">
-					<a href="/content/${board.num}?p=${end+1}">[다음]</a>
-				</c:if>
-			</div>				
-		</div>	
-		<br>
-		<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 입력해주세요."></textarea> 
-		<input type="button" id="bnt_c" value="등록">
 		</div>
 		</main>
+		<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
 		</body>
-							<!-- 댓글 끝! -->
 							
-						<!--   <a class="btn btn-sm btn-outline-success" href="/ay/updateForm/${board.num }">수정</a>   -->
-							<!--   <a class="btn btn-sm btn-outline-success" href="/ay/delete/${board.num }">삭제</a>      -->
-							
-							
-							 
-					
-
-				
-
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function() {
@@ -203,8 +153,6 @@ a {
 					$("#comment_in").val("");
 				}); //ajax
 			}); //bnt_c
-
-		
 
 			$("#update_comment").click(function() {
 				let form1 = $("#form1").serialize();

@@ -83,5 +83,11 @@ public class BoardSeviceImpl3 implements BoardService3{
 	@Override public void del(String id, Long num) { 
 		  boardRepo.del(id, num);
 	  }
+
+	@Override
+	public void deleteChk(int num) {
+		boardRepo.deleteById((long)num);
+		
+	}
 	
 }
