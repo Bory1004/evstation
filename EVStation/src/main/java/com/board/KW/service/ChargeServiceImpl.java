@@ -13,6 +13,7 @@ import com.board.KW.persistence.ChargeRepository;
 import com.board.hj.domain.FreeBoard;
 
 
+
 @Service
 public class ChargeServiceImpl implements ChargeService{
 	
