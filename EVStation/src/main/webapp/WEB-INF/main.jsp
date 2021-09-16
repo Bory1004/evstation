@@ -17,18 +17,37 @@
 }
 @media ( min-width : 992px) {
 	.container {
-		width: 940px
+		width: 840px
 	}
 }
 a {
 	text-decoration-line: none;
 }
 #ad {
-	position : absolute;
+	position : relative;
+	width : 200px;
+	height : 200px;
+	right : 185px;
+	bottom : 470px; 
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
 	width : 30px;
 	height : 20px;
-	left : 1200px;
-	top : 5px;
+	left : 380px;
+	top : 10px; 
 	border-radius: 10px;
 	text-align : center;
 	vertical-align : middle;
@@ -45,7 +64,6 @@ a {
 </style>
 </head>
 <body>
-<%-- ${member } --%>
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
@@ -55,18 +73,21 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							<a href="/mypage"><img src="${member.memphoto}" width="45" height="30"></a> ${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -74,12 +95,12 @@ a {
 
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
-					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
+					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/benefit">기대효과</a> 
 					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 link-success" href="#">공지사항</a> 
-					<a class="p-2 link-success" href="#">Q&A</a>
+					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
+					<a class="p-2 link-success" href="/qnaList">Q&A</a>
 				</nav>
 			</div>
 		</header>
@@ -98,7 +119,7 @@ a {
 							</span>
 							<input type="text" class="form-control" id="search1" placeholder="충전소명을 입력하세요">
 						</div>
-						<div id="map" class="m-3" style="width: 900px; height: 400px;"></div>
+						<div id="map" class="m-3" style="width: 800px; height: 400px;"></div>
      				 </div>
    			 	</div>
    			 
@@ -165,12 +186,15 @@ a {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
 	
+<<<<<<< HEAD
 <!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
 		var map = new kakao.maps.Map(container, options);
 	</script> -->
+=======
+>>>>>>> branch 'main' of https://github.com/k-mini/EV-Station.git
 	<script>
 		$(function(){
 			$.ajax({
