@@ -17,7 +17,7 @@
 }
 @media ( min-width : 992px) {
 	.container {
-		width: 940px
+		width: 840px
 	}
 }
 a {
@@ -25,11 +25,10 @@ a {
 }
 #ad {
 	position : absolute;
-<<<<<<< HEAD
-	width : 30px;
-	height : 20px;
+	width : 200px;
+	height : 200px;
 	left : 1200px;
-	top : 5px;
+	top : 120px;
 	border-radius: 10px;
 	text-align : center;
 	vertical-align : middle;
@@ -38,34 +37,33 @@ a {
 	position :relative;
 	color : white;
 	bottom : 3px;
-=======
 	left : 1700px;
 	top : 200px;
 	width : 300px;
 	height : 400px;
->>>>>>> branch 'HJ' of https://github.com/k-mini/EV-Station.git
+	border-radius: 10px;
+}
+
+#alarmpage {
+	position :absolute;
+	border: solid black 1px;
+	width : 210px;
+	height : 300px;
+	left : 1230px;
 }
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-<%-- ${member } --%>
-=======
->>>>>>> branch 'HJ' of https://github.com/k-mini/EV-Station.git
 	<div class="container">
 		<header class="py-3">
 			<div class="row justify-content-center">
 				<div class="col-6 pt-2">
-<<<<<<< HEAD
 					<a href="/main" class="link-secondary"> 
-=======
-					<a href="main" class="link-secondary"> 
->>>>>>> branch 'HJ' of https://github.com/k-mini/EV-Station.git
 					<img src="/img/logo.png" width="220" height="100"></a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 													
 					<c:choose>
@@ -108,7 +106,7 @@ a {
 							</span>
 							<input type="text" class="form-control" id="search1" placeholder="충전소명을 입력하세요">
 						</div>
-						<div id="map" class="m-3" style="width: 900px; height: 400px;"></div>
+						<div id="map" class="m-3" style="width: 800px; height: 400px;"></div>
      				 </div>
    			 	</div>
    			 
@@ -175,13 +173,6 @@ a {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
 	
-<!-- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
-	<script>
-		var container = document.getElementById('map');
-		var options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
-		var map = new kakao.maps.Map(container, options);
-<<<<<<< HEAD
-	</script> -->
 	<script>
 		$(function(){
 			$.ajax({
@@ -260,9 +251,6 @@ a {
 		}
 		
 		</script>
-=======
-	</script>
->>>>>>> branch 'HJ' of https://github.com/k-mini/EV-Station.git
 </body>
 
 </html>
