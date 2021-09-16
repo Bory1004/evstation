@@ -19,13 +19,16 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#page {
+	text-align: center;
+}
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 
 	<!-- 	<div class="container">  -->
-
 
 
 	<div id="center">
@@ -63,49 +66,85 @@
 
 
 
-<!-- 댓글  -->
+
+
+		<!-- 댓글  -->
 		<hr style="margin-botton: 10px;">
-		<textarea style="width: 100%;" rows="3" cols="30" id="comment" placeholder="댓글을 입력하세요"></textarea>
+		<textarea style="width: 100%;" rows="3" cols="30" name="comment" id="comment" placeholder="댓글을 입력하세요"></textarea>
 		<div class="mb-2" style="text-align: right;">
 			<button id="comment_button" class="btn btn-sm btn-success">등록</button>
 		</div>
-		<div id="commentlist">
-				<h3>댓글 <span id="cCnt">${Cnt}</span></h3>
-				<c:forEach items="${coList}" var="coList">
-				${coList.comcontent}<br>
-				</c:forEach>
+
+
+		<div id="commentAll">
+			<h3>
+				댓글 <span id="Cnt">${total}</span>
+			</h3>
+			<div id="con">
+			<c:forEach items="${coList}" var="coList">
+				<div class="cocomen" style="margin-bottom: 5px;">${coList.comcontent}</div>
+					<div class="mb-2" style="text-align: right;">
+					<button id="comment_del" class="btn btn-sm btn-success">삭제</button>		
+					<button id="comment_up" class="btn btn-sm btn-success">수정</button>
+					</div>
+
+				<hr>
+			</c:forEach>
 		</div>
 		</div>
-		
-		<%@ include file="DsLayout/dsFooter.jsp"%>
+		<!-- commentAll -->
+		<div id="page">
+			<c:if test="${begin > 2}">
+				<a href="/qnaDetail/${detail.boardnum}?p=${begin-1}">[이전]</a>
+			</c:if>
+			<c:forEach begin="${begin}" end="${end}" var="i">
+				<a href="/qnaDetail/${detail.boardnum}?p=${i}">[${i}]</a>
+			</c:forEach>
+			<c:if test="${end < totalPage}">
+				<a href="/qnaDetail/${detail.boardnum}?p=${end+1}">[다음]</a>
+			</c:if>
+		</div>
+		<!-- id: page -->
+
+	</div>
+	<!-- id: center -->
+
+	<%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$(function() {
+		$('#comment_button').click(function() { //댓글 생성 및 ajax
+			let comcontent = $('#comment').val(); //id가 comment인 textarea 안에 있는 값을 정의
+			//let boardnum = '${detail.boardnum}' // 댓글을 작성한 글의 넘버(pk)
+
+			if (!comcontent) {
+				alert("댓글을 입력하세요!")
+				$("#comment").focus();
+				return false;
+			}
+			$.ajax({
+				url : "/insertQnAComment/${detail.boardnum}",
+				data : "comcontent=" + comcontent,
+				dataType : "json",
+			}).done(function(data) {
+				console.log(data)
+				alert(data)
+				$('#con').prepend("<div class='cocomen' style='margin-bottom: 5px;''>"+ data.comcontent+"</div><hr>");
+				$('#comment').val('');
+			}); //ajax
+		}); //#comment_button
 	
-	<script>
-		$(function() {
-			$('#comment_button').click(function() { //댓글 생성 및 ajax
-				let comcontent = $('#comment').val();   //id가 comment인 textarea 안에 있는 값을 정의
-				let boardnum = '${detail.boardnum}'
-				if (!comcontent) {
-					alert("댓글을 입력하세요!")
-					$("#comment").focus();
-					return false;
-				};
-				$.ajax({
-					url : "/insertQnAComment",
-					data : {
-						"comcontent" : comcontent,
-						"boardnum" : boardnum,
-					},
-					dataType : "text"
-				}).done(function() {
-					$('#commentlist').append(comcontent+"</br>");
-					$('#comment').val('');
-				}); //ajax
-			}); //bnt_c
-		});
-	
-	</script>
+		$(function(){
+			$("#commen_del").click(function(){
+				
+			}
+		})
+		
+		
+	});
+</script>
 </html>
 
 

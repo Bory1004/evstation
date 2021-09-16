@@ -102,14 +102,35 @@ public class DsConstroller {
 	}
 
 	@RequestMapping("/qnaDetail/{boardnum}")
-	public String qnaDetail(@PathVariable Long boardnum, Model m, @ModelAttribute("member") Member member) {
+	public String qnaDetail(@PathVariable Long boardnum, Model m, @ModelAttribute("member") Member member,@RequestParam(name = "p", defaultValue = "1") int pNum) {
 		if (member.getId() == null) {
 			return "redirect:/loginView";
 		} else {
 			DsEntity detail = dsService.qnaDetail(boardnum);
 			m.addAttribute("detail", detail);
+		
+			
 			//댓글부분
-			List<DsComment> coList  = dsCoService.QnACommentList(boardnum);
+			Page<DsComment> pageList = null;
+			pageList = dsCoService.QnAComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
+			
+			List<DsComment>coList = pageList.getContent(); // 보여질 글
+			
+			int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+			long total = pageList.getTotalElements(); //전제 글 수		
+			
+			m.addAttribute("totalPage", totalPageCount);
+			m.addAttribute("total", total);
+
+			int pageNum = 2;
+			int begin = (pNum - 1) / pageNum * pageNum + 1;
+			int end = begin + pageNum - 1;
+			if (end > totalPageCount) {
+				end = totalPageCount;
+			}
+			
+			m.addAttribute("begin", begin);
+			m.addAttribute("end", end);
 			m.addAttribute("coList", coList);
 			
 			return "/DsBoard/qnaDetail";
