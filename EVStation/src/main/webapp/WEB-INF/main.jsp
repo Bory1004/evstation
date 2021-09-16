@@ -24,11 +24,30 @@ a {
 	text-decoration-line: none;
 }
 #ad {
-	position : absolute;
+	position : relative;
 	width : 200px;
 	height : 200px;
-	left : 1200px;
-	top : 120px;
+	right : 185px;
+	bottom : 470px; 
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
+	width : 30px;
+	height : 20px;
+	left : 380px;
+	top : 10px; 
 	border-radius: 10px;
 	text-align : center;
 	vertical-align : middle;
@@ -37,19 +56,6 @@ a {
 	position :relative;
 	color : white;
 	bottom : 3px;
-	left : 1700px;
-	top : 200px;
-	width : 300px;
-	height : 400px;
-	border-radius: 10px;
-}
-
-#alarmpage {
-	position :absolute;
-	border: solid black 1px;
-	width : 210px;
-	height : 300px;
-	left : 1230px;
 }
 </style>
 </head>
@@ -68,13 +74,16 @@ a {
 													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							<a href="/mypage"><img src="${member.memphoto}" width="45" height="30"></a> ${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -82,12 +91,12 @@ a {
 
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
-					<a class="p-2 link-success" href="#">기대효과</a> 
+					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
+					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/benefit">기대효과</a> 
 					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 link-success" href="#">공지사항</a> 
-					<a class="p-2 link-success" href="#">Q&A</a>
+					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
+					<a class="p-2 link-success" href="/qnaList">Q&A</a>
 				</nav>
 			</div>
 		</header>
