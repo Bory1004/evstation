@@ -31,6 +31,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
 	@Autowired
 	private ChargeService chargeService;
 
@@ -39,17 +40,17 @@ public class MemberController {
 		return new Member();
 	}
 
-	//마이페이지 가기전 비밀번호 입력 페이지로 이동
+	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
 	@GetMapping("/check_mypage")
 	public String check_mypage() {
 		return "member/check_mypage";
 	}
 	
-	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
+	// 비밀번호 입력 후, 마이페이지 이동
 	@GetMapping("/checkPw_mypage")
 	public String checkPw_mypage(@ModelAttribute("member") Member member) {
 		//Member findMember = memberService.findIdPw();
-		return "member/check_mypage";
+		return "member/mypage";
 	}
 	
 	// 메인 페이지로 이동
