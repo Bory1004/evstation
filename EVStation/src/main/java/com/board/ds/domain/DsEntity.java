@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.board.hj.domain.Member;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,7 @@ public class DsEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,  generator="QNA_SEQ_GEN")
 	@Column(name="board_num")
 	private Long boardnum;   
-	@Column(name="BOARD_MEM_NUM")
+	@Column(name="BOARD_MEM_NUM",insertable=false,updatable=false)
 	private Long boardmemnum;
 	@Column(name="BOARD_TITLE", length=20)
 	private String boardtitle;
@@ -53,5 +54,8 @@ public class DsEntity implements Serializable {
 	@Column(name="BOARD_RELEVEL",columnDefinition ="number default 0")
     private Long boardrelevel;
 
+	@ManyToOne
+	@JoinColumn(name="BOARD_MEM_NUM")
+	private Member member;
 	
 }

@@ -77,6 +77,7 @@ public class DsConstroller {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
+		System.out.println(list);
 		return "/DsBoard/qnaList";
 	}
 
@@ -91,6 +92,7 @@ public class DsConstroller {
 
 	@PostMapping("/insertQnA")
 	public String insertQnA(DsEntity dsEntity, @ModelAttribute("member") Member member) {
+		dsEntity.setMember(member);
 		dsEntity.setBoardwriter(member.getId());
 		dsEntity.setBoardrestep((long) 0); // 글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setBoardrelevel((long) 0);
@@ -223,23 +225,38 @@ public class DsConstroller {
 		return "/DsBoard/benefit";
 
 	}
-//	@RequestMapping(value = "content/2/insertCommentReview",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-//	public String insertComment(BoardComment board) { //댓글달기
-		//commentService.saveComment(board);     //comnum,boardnum,comcontent 저장
-		//commentService.saveReply(board.getComnum()); // comgroupnum,comrestep 저장
-//		Long comnum = board.getComnum();
-//	
-//		return "redirect:/content2?comnum="+comnum;
-//	}
-	
-	//@RequestMapping(value = "content2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
-	//@ResponseBody
-//	public String goComment(Long comnum) { //댓글달기와 대댓글달기 이어서받음. 요청을나눈이유는 바로 ajax로 가면 데이터베이스에는 저장되있는데 엔티티에는 저장이 안되있음.
-		//BoardComment list = commentService.getComment(comnum).get();
-	//	Gson json = new Gson();
-	//	return json.toJson(list);
-//	}
-	
-	
 
+	
+	@RequestMapping("/myBoardList")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, Long boardmemnum){
+	
+		Page<DsEntity> pageList = null;
+		int pageNum = 5;
+		
+	
+	
+		pageList = dsService.AllListQnA(pNum, boardmemnum);
+		
+		List<DsEntity> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		System.out.println(list);
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+
+		return "/DsBoard/myBoardList";
+		}
+	
 }

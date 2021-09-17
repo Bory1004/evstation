@@ -27,7 +27,10 @@ public interface DsService {
 	
 	DsEntity qnaConmment(Long boardnum);
 	
+	Page<DsEntity>AllListQnA(int pNum, Long boardmemnum);
+
 	
+
 
 }
 	

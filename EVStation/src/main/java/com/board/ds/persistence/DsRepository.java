@@ -7,12 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.Member;
 
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
-	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
+	
+	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  //글 리스트
 	
 	DsEntity save(Long boardnum);
 	
@@ -24,6 +28,7 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	Page<DsEntity> findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
+	//Page<DsEntity>
 
 	@Transactional
 	@Modifying
@@ -53,5 +58,7 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 
 	 DsEntity findByBoardnum(Long boardnum); //댓글부분
 	 
+
+	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc(Pageable page, Long Boardmemnum);
 	 
 }

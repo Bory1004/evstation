@@ -86,7 +86,7 @@ ${member }
 				</div>
 			</div>
 
-			<div class="menubar py-1 mb-2">
+			<div class="menubar py-3 mb-12">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 
 					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
