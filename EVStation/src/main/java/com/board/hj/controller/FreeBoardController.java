@@ -21,6 +21,7 @@ import com.board.hj.domain.FreeBoardComment;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
 import com.board.hj.service.FreeCommentService;
+import com.board.km.domain.ReviewBoard;
 
 @SessionAttributes("member")
 @Controller
@@ -156,5 +157,53 @@ public class FreeBoardController {
 	public String delete(@PathVariable Long boardnum) {
 		boardService.deleteBoard(boardnum);
 		return "redirect:/getFreeBoardList";
+	}
+	
+	
+	
+	
+	  //내가 쓴글 // 대순이씀
+    @RequestMapping("/myFreeBoardList/{boardmennum}")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmennum){
+	
+		Page<FreeBoard> pageList = null;
+		int pageNum = 5;
+		
+	
+	
+		pageList = boardService.myFreeList(pNum, boardmennum);
+		
+		List<FreeBoard> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		System.out.println(list);
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+
+		return   "hjboard/myFreeBoardList";
+		}
+	@RequestMapping("/deleteFreeChk")
+	public String freeDeletechk(int[] valueArr) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			boardService.deleteChk(valueArr[i]);
+		}
+
+		return "redirect:/getFreeBoardList";
+
 	}
 }

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.board.ds.domain.DsEntity;
 import com.board.hj.domain.Member;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
@@ -293,5 +294,59 @@ public class ReviewController implements ApplicationContextAware  {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 	       this.context = (WebApplicationContext) applicationContext;
 	    }
+    
+    
+    
+    
+    
+    
+    //내가 쓴글 // 대순이씀
+    @RequestMapping("/myReviewBoardList/{boardmemnum}")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+	
+		Page<ReviewBoard> pageList = null;
+		int pageNum = 5;
+		
+	
+	
+		pageList = reviewService.myReviewList(pNum, boardmemnum);
+		
+		List<ReviewBoard> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		System.out.println(list);
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+
+		return  "kmboard/review/myReviewBoardList";
+		}
+	@RequestMapping("/deleteReviewChk")
+	public String reviewDeletechk(int[] valueArr) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			reviewService.deleteChk(valueArr[i]);
+		}
+
+		return "redirect:/reviewList";
+
+	}
+    
+    
+    
+    
 	
 }

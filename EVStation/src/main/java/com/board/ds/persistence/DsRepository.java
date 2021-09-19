@@ -7,12 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.stereotype.Repository;
 
 import com.board.ds.domain.DsEntity;
-import com.board.hj.domain.Member;
-
+@Repository
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
 	
@@ -57,8 +55,7 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 int ybReplyDel(Long boardref);
 	 
 	 DsEntity findByBoardnum(Long boardnum); //댓글부분
-	 
-
-	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc(Pageable page, Long Boardmemnum);
+	
+	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
 	 
 }

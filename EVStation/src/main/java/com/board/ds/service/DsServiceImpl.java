@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.data.domain.Sort.Order;
 
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
@@ -102,9 +98,10 @@ public class DsServiceImpl implements DsService {
 	}
 
 	@Override
-	public Page<DsEntity> AllListQnA(int pNum, Long boardmemnum) {
+	public Page<DsEntity> AAllListQnA(int pNum, Long boardmemnum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return dsRepo.findByBoardmemnumOrderByBoardnumDesc(page, boardmemnum);
+		 
+		return dsRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);  
 	}
 
 	

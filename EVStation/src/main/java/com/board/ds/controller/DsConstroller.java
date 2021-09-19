@@ -179,6 +179,7 @@ public class DsConstroller {
 	@RequestMapping("/qnaReplyForm/{boardnum}/{boardref}/{boardrestep}/{boardrelevel}")
 	public String writeReply(@PathVariable Long boardnum, @PathVariable Long boardref, @PathVariable Long boardrestep,
 			@PathVariable Long boardrelevel, Model m) {
+
 		m.addAttribute("boardnum", boardnum);
 		m.addAttribute("ref", boardref);
 		m.addAttribute("restep", boardrestep);
@@ -191,7 +192,6 @@ public class DsConstroller {
 	public String saveReply(DsEntity dsEntity, DsEmail dsEmail, @ModelAttribute("member") Member member)
 			throws Exception {
 		dsService.saveReply(dsEntity.getBoardref(), dsEntity.getBoardrestep(), dsEntity.getBoardrelevel());
-
 		dsEntity.setBoardrestep(dsEntity.getBoardrestep() + 1); // 답변 달릴 때 + 1
 		dsEntity.setBoardrelevel(dsEntity.getBoardrelevel() + 1);
 
@@ -227,15 +227,15 @@ public class DsConstroller {
 	}
 
 	
-	@RequestMapping("/myBoardList")
-	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, Long boardmemnum){
+	@RequestMapping("/myQnABoardList/{boardmemnum}")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
 	
 		Page<DsEntity> pageList = null;
 		int pageNum = 5;
 		
 	
 	
-		pageList = dsService.AllListQnA(pNum, boardmemnum);
+		pageList = dsService.AAllListQnA(pNum, boardmemnum);
 		
 		List<DsEntity> list = pageList.getContent();  
 		m.addAttribute("list", list);
@@ -256,7 +256,7 @@ public class DsConstroller {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "/DsBoard/myBoardList";
+		return "/DsBoard/myQnABoardList";
 		}
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.Member;
 
 public interface DsService {
 	
@@ -27,7 +28,7 @@ public interface DsService {
 	
 	DsEntity qnaConmment(Long boardnum);
 	
-	Page<DsEntity>AllListQnA(int pNum, Long boardmemnum);
+	Page<DsEntity>AAllListQnA(int pNum, Long boardmemnum);
 
 	
 

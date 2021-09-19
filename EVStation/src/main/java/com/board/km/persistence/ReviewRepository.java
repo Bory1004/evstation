@@ -30,4 +30,10 @@ public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 	@Query("UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=:boardnum")
 	int updateCnt(@Param("boardnum") Long num); //"UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=?1" JPQL
 							                    // "UPDATE Board01 b SET b.board_see = b.board_see+1 WHERE b.board_num=?1" 네이티브쿼리
+
+
+	//내가 쓴글  //대순이씀...
+	 Page<ReviewBoard>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+
+
 }

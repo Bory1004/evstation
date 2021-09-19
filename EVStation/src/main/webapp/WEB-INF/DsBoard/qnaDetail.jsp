@@ -72,8 +72,8 @@
 					onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}/${detail.boardrelevel }';">답글달기</button>
 			</c:if>
 		</div>
-		<img src="${review.member.memphoto}" width="45" height="30"> <a
-			href="">${review.member.id}님의 게시글 더보기 ></a>
+		<img src="${detail.member.memphoto}" width="45" height="30"> <a
+			href="">${detail.member.id}님의 게시글 더보기 ></a>
 
 
 

@@ -128,9 +128,9 @@ a {
 
 						<td>${list.boardnum}</td>
 
-						<td><a href="qnaDetail/${list.boardnum}"> <c:if test="${list.boardrelevel == 1 }">[답변]</c:if> <c:if test="${list.boardrelevel > 1 }">&nbsp; [답변]
+						<td><a href="qnaDetail/${list.boardnum}"> <c:if test="${list.boardrelevel == 1 }">Re:💌</c:if> <c:if test="${list.boardrelevel > 1 }">&nbsp; Re:💌
 						<c:forEach begin="2" end="${list.boardrelevel}">
-								Re:
+							Re:💌
 						</c:forEach>
 								</c:if> ${list.boardtitle}
 						</a></td>
@@ -147,11 +147,13 @@ a {
 
 					</tr>
 				</c:forEach>
+				
 			</table>
 			<c:if test="${member.getId() == 'admin'}">
 				<!-- 관리자만 보이게 -->
 				<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">선택삭제</button>
 			</c:if>
+			
 			<div id="page">
 				<c:if test="${search == null }">
 					<c:if test="${begin > 2 }">
