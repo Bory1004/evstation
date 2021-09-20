@@ -262,13 +262,13 @@ a {
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
 			<div id="page">
 					<c:if test="${begin > 2 }">
-						<a href="/myReviewBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
+						<a href="/myFreeBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin }" end="${end}" var="i">
-						<a href="/myReviewBoardList/${member.memnum}?p=${i}">[${i}]</a>
+						<a href="/myFreeBoardList/${member.memnum}?p=${i}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/myReviewBoardList/${member.memnum}?p=${end+1}">[다음]</a>
+						<a href="/myFreeBoardList/${member.memnum}?p=${end+1}">[다음]</a>
 					</c:if>
 			</div>
 				

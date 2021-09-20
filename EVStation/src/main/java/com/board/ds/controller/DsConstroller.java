@@ -226,7 +226,7 @@ public class DsConstroller {
 
 	}
 
-	
+	//QnA 내가 쓴글
 	@RequestMapping("/myQnABoardList/{boardmemnum}")
 	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
 	
@@ -258,5 +258,12 @@ public class DsConstroller {
 
 		return "/DsBoard/myQnABoardList";
 		}
+	
+	@RequestMapping("myAllBoardList")
+	public String myAllList() {
+		return "/DsBoard/myAllBoardList";
+	}
+	
+	
 	
 }

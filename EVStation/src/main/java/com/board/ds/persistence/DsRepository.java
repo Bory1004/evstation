@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.FreeBoard;
+import com.board.km.domain.ReviewBoard;
 @Repository
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
@@ -57,5 +59,6 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 DsEntity findByBoardnum(Long boardnum); //댓글부분
 	
 	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+	
 	 
 }
