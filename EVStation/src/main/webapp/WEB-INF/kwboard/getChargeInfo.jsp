@@ -81,24 +81,24 @@ a {
 
 <body>
 <div class="container">
-	<h1>${charge.st_name }</h1>
+	<h1>${charge.stname }</h1>
 	 <div class="row">
 	 	<div class="col-md-7"> 
 	 	
 	 	<table class="table table-bordered border-secondary" style="width: 500px; margin-right:auto;">
 	<%-- <tr><td class="table-secondary text-center">충전소이름</td><td>${charge.st_name }</td></tr> --%>
-	<tr><td class="table-secondary text-center">주소(도로명)</td><td>${charge.st_address1 }</td></tr>
-	<tr><td class="table-secondary text-center">주소(지번)</td><td>${charge.st_address2 }</td></tr>
-	<tr><td class="table-secondary text-center">휴무일</td><td>${charge.st_closedday }</td></tr>
-	<tr><td class="table-secondary text-center">완속충전</td><td>${charge.st_slowcharge }</td></tr>
-	<tr><td class="table-secondary text-center">완속충전대수</td><td>${charge.st_slowcharge_num }</td></tr>
-	<tr><td class="table-secondary text-center">급속충전</td><td>${charge.st_fastcharge }</td></tr>
-	<tr><td class="table-secondary text-center">급속충전대수</td><td>${charge.st_fastcharge_num}</td></tr>
-	<tr><td class="table-secondary text-center">충전타입</td><td>${charge.st_fastcharge_type }</td></tr>
-	<tr><td class="table-secondary text-center">오픈</td><td>${charge.st_time }</td></tr>
-	<tr><td class="table-secondary text-center">마감</td><td>${charge.st_closetime }</td></tr>
-	<tr><td class="table-secondary text-center">주차료</td><td>${charge.st_park }</td></tr>
-	<tr><td class="table-secondary text-center">재공기관</td><td>${charge.st_agency }</td></tr>
+	<tr><td class="table-secondary text-center">주소(도로명)</td><td>${charge.staddress1 }</td></tr>
+	<tr><td class="table-secondary text-center">주소(지번)</td><td>${charge.staddress2 }</td></tr>
+	<tr><td class="table-secondary text-center">휴무일</td><td>${charge.stclosedday }</td></tr>
+	<tr><td class="table-secondary text-center">완속충전</td><td>${charge.stslowcharge }</td></tr>
+	<tr><td class="table-secondary text-center">완속충전대수</td><td>${charge.stslowcharge_num }</td></tr>
+	<tr><td class="table-secondary text-center">급속충전</td><td>${charge.stfastcharge }</td></tr>
+	<tr><td class="table-secondary text-center">급속충전대수</td><td>${charge.stfastcharge_num}</td></tr>
+	<tr><td class="table-secondary text-center">충전타입</td><td>${charge.stfastcharge_type }</td></tr>
+	<tr><td class="table-secondary text-center">오픈</td><td>${charge.sttime }</td></tr>
+	<tr><td class="table-secondary text-center">마감</td><td>${charge.stclosetime }</td></tr>
+	<tr><td class="table-secondary text-center">주차료</td><td>${charge.stpark }</td></tr>
+	<tr><td class="table-secondary text-center">재공기관</td><td>${charge.stagency }</td></tr>
 	
 
 </table>
@@ -121,14 +121,14 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(${charge.st_longitude}, ${charge.st_latitude}), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(${charge.stlongitude}, ${charge.stlatitude}), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-var markerPosition  = new kakao.maps.LatLng(${charge.st_longitude}, ${charge.st_latitude}); 
+var markerPosition  = new kakao.maps.LatLng(${charge.stlongitude}, ${charge.stlatitude}); 
 
 var marker = new kakao.maps.Marker({
     position: markerPosition
@@ -139,7 +139,11 @@ marker.setMap(map);
 
 <div style="text-align:center;">
 	<a href="/getChargeList"><button type="button" class="btn btn-primary">충전소 목록</button></a>
+
+
+	<a href="/reviewlist?${charge.stnum }"><button type="button" class="btn btn-primary">리뷰 보기</button></a>
 </div>
+
 
 <footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top" style="height: 100px;">
 		<div class="row">

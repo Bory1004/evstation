@@ -57,7 +57,7 @@ a {
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
+						<img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -84,7 +84,7 @@ a {
 	</div> -->
 	<div id="center">
 		<h4>리뷰 게시판</h4>
-		<a href="/getreviewList"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
+		<a href="/reviewList"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
 		
 		<div id="search_msg"><h4>${search_msg}</h4></div>
 		

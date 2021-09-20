@@ -1,7 +1,7 @@
 package com.board.km.controller;
 
 
-
+   
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +38,7 @@ import com.board.km.domain.ReviewBoard;
 import com.board.km.domain.ReviewFile;
 import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
+import com.board.km.service.ReRecomService;
 import com.board.km.service.ReviewFileService;
 import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
@@ -66,13 +67,18 @@ public class ReviewController implements ApplicationContextAware  {
 	@Autowired 
 	ReviewFileService reviewFileService;
 	
+	@Autowired
+	ReRecomService rerecomService;
+	
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum,  
 			String search, @RequestParam(defaultValue = "-1") int searchn, @RequestParam(name="stnum",defaultValue ="1") Long stnum ) {
 		
-		Page<ReviewBoard> pageList =null;
+		Page<ReviewBoard> pageList = null;
 		if(search != null) { //검색값이 있을때
 			pageList = reviewService.getReviewBoardList(pNum,stnum,searchn,search);
+			String search_msg = "\"" + search + "\" 검색결과";
+			m.addAttribute("search_msg",search_msg);
 		}else { 
 			pageList = reviewService.getReviewBoardList(pNum,stnum); //페이지번호와 충전소번호
 		}
@@ -95,25 +101,17 @@ public class ReviewController implements ApplicationContextAware  {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		
+		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
+		m.addAttribute("search_msg",search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum",stnum);
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
-	
-	@RequestMapping("/gofreeboard")
-	public String go() {
-		return "kmboard/review/getFreeBoardList";
-	}
-	@RequestMapping("/goinsertFreeBoard")
-	public String go2(HttpServletRequest request) {
-		System.out.println(request.getRealPath("test"));
-		return "kmboard/review/insertFreeBoard";
-	}
+
 	
 	
 	@RequestMapping("deleteReview/{boardnum}")
@@ -148,8 +146,27 @@ public class ReviewController implements ApplicationContextAware  {
 		//---------------------------------------------------- 파일 이미지 부분
 		List<ReviewFile> reviewFiles= reviewFileService.getFile(num);
 		m.addAttribute("reviewFiles",reviewFiles);
-		
+		//--------------------------------------------------추천수 부분
+		int result = rerecomService.isRecom(num,member.getId());
+		m.addAttribute("result",result);
+		int recomCnt = rerecomService.getRecom(num); 
+		m.addAttribute("recomCnt",recomCnt);
 		return "kmboard/review/getreview";
+	}
+	@RequestMapping("/updateReRecom/{num}/{id}")
+	@ResponseBody
+	public int updateReRecom(@PathVariable Long num, @PathVariable String id) {
+		int result = rerecomService.isRecom(num, id);
+		int recomCnt ;
+		if(result == 0) {
+			rerecomService.insertRecom(num,id);
+			recomCnt = rerecomService.getRecom(num); 
+		}else {
+			rerecomService.deleteRecom(num,id);
+			recomCnt = rerecomService.getRecom(num);
+		}
+//			int recomCnt = rerecomService.getRecom(num);
+		return recomCnt;
 	}
 	
 	@RequestMapping("/reviewwrite")

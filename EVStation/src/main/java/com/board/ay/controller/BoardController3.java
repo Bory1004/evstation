@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ay.domain.Board3;
 import com.board.ay.service.BoardService3;
+
 import com.board.hj.domain.Member;
+
 
 @SessionAttributes("member")
 @Controller
@@ -31,10 +34,13 @@ public class BoardController3 {
 	@Autowired
 	private BoardService3 boardService;
 	
+
+	
 	@RequestMapping("/upRecom/{num}/{id}")
-	@ResponseBody
+	@ResponseBody// - 자바 객체를 HTTP 응답 몸체로 전송함.뷰 따로 없고 데이터만 보내는 용도.Ajax처럼 데이터만 받아서 화면 수정하는 용도로 사용
 	public long upRecom(@PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
 		
+		m.addAttribute("member", member);
 		int result = boardService.isRecom(num, id);
 		Board3 board = null;
 		if(result == 0) {
@@ -51,10 +57,10 @@ public class BoardController3 {
 	public String getBoard(@PathVariable Long num, Model m,@ModelAttribute("member")Member member) {
 		Board3 board = boardService.getBoard(num);
 		m.addAttribute("board", board);
-
-		if(member.getId() != null) { 
-		int result = boardService.isRecom(num, member.getId());
-		m.addAttribute("result", result);
+		
+		if(member.getId() != null){
+			int result = boardService.isRecom(num, member.getId());
+			m.addAttribute("result", result);
 		}
 		return "/ayboard/getBoard";
 	}
@@ -63,13 +69,15 @@ public class BoardController3 {
 		Page<Board3> pageList = null;
 		if(search != null) {
 			pageList = boardService.getBoardList(pNum,searchn,search);
+			String search_msg = "\"" + search + "\" 검색 결과";
+			m.addAttribute("search_msg", search_msg);
 		}else {
 			pageList = boardService.getBoardList(pNum);
 		}
 		List<Board3> bList = pageList.getContent();// 보여질 글
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements();
-		m.addAttribute("blist", bList);
+		m.addAttribute("bList", bList);
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		System.err.println("total : "+total);
@@ -79,11 +87,11 @@ public class BoardController3 {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
+		m.addAttribute("member", member);
 		
 		return "/ayboard/getBoardList";
 	}
@@ -95,9 +103,9 @@ public class BoardController3 {
 	
 	@PostMapping("/ay/insertBoard") 
 	//@RequestMapping(value = "insertBoard", method= {RequestMethod.GET, RequestMethod.POST})
-	public String insertBoard(Board3 board) {//새로 글 써서 보드에 넘겨
+	public String insertBoard(Board3 board, @ModelAttribute("member") Member member) { //새로 글 써서 넘겨
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/ay/getBoardList";
 	}
 	
 	@GetMapping("/ay/updateForm/{num}")
@@ -110,14 +118,26 @@ public class BoardController3 {
 	@PostMapping("/ay/update")
 	public String update(Board3 board) {
 		boardService.saveBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/ay/getBoardList";
 	}
 	
 	@RequestMapping("/ay/delete/{num}")
 	public String delete(@PathVariable Long num) {
 		boardService.delete(num);
-		return "redirect:/getBoardList";
+		return "redirect:/ay/getBoardList";
 	}
 	
+	@RequestMapping("/ay/deleteChk")//체크박스 삭제
+	public String qnaDeletechk(int[] valueArr) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			boardService.deleteChk(valueArr[i]);
+		}
+
+		return "redirect:/ay/getBoardList";
+
+	}
 	
 }

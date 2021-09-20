@@ -36,4 +36,6 @@ public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 	 Page<ReviewBoard>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
 
 
+	
+
 }

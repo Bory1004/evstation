@@ -115,6 +115,7 @@ a {
 			<div class="menubar py-3 mb-12">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 
+
 					<a class="p-2 bg-success text-white"  href="/pageIntro">페이지 소개</a> 
 					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
 					<a class="p-2 link-success" href="/benefit">기대효과</a> 
@@ -125,6 +126,8 @@ a {
 				</nav>
 			</div>
 		</header>
+
+	
 	</div>
 			
 </body>
