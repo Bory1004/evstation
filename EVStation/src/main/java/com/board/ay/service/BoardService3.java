@@ -31,4 +31,6 @@ public interface BoardService3 {
 
 	void del(String id, Long num);
 
+	void deleteChk(int num);
+
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.board.KW.domain.Charge;
 import com.board.KW.persistence.ChargeRepository;
+import com.board.hj.domain.FreeBoard;
+
 
 
 @Service
@@ -50,5 +52,15 @@ public class ChargeServiceImpl implements ChargeService{
 		return boardRepo.findAll();
 	}
 	
-
+	@Override
+	public Page<Charge> getChargeList(int pNum, int searchn, String search) { 
+		Pageable page = PageRequest.of(pNum-1, 10);
+		Page<Charge> list = null;
+		if(searchn == 0) {
+			list = boardRepo.findByStnameContainingIgnoreCase(search, page);
+		}else if(searchn == 1) {
+			list = boardRepo.findByStaddress1ContainingIgnoreCase(search, page);
+		}
+		return list;
+	}
 }

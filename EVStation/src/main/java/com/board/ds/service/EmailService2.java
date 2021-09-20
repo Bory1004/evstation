@@ -1,4 +1,4 @@
-package com.board.ds_service;
+package com.board.ds.service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.board.ds_entity.DsEmail;
+import com.board.ds.domain.DsEmail;
 
 
 @Service("emailService2")

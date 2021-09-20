@@ -48,7 +48,7 @@
 					</div><br>
 					<div class="row">
 					<a style="width: 300px; margin: auto;" class="btn btn-success" href="loginView">로그인</a>
-					<button type="submit" id="findIdPw" style="width: 300px; margin: auto;" class="btn btn-success">비밀번호 찾기</button>					
+					<button type="submit" id="findIdPw" style="width: 300px; margin: auto;" class="btn btn-success">비밀번호 변경하기</button>					
 					</div>
 				</form>	
 				</div><br>

@@ -1,5 +1,7 @@
 package com.board.hj.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.board.hj.domain.FreeBoardComment;
@@ -24,4 +26,8 @@ public interface FreeCommentService {
 	//댓글 모두 삭제
 	void deleteComment(Long boardnum);
 	
+	//댓글 수정
+	void updateComment(Long comnum, String content);
+	
+	List<FreeBoardComment> getCommentlist(Long boardnum);
 }
