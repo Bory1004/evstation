@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,16 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.board.KW.domain.Charge;
 import com.board.KW.service.ChargeService;
+import com.board.ay.service.NoticeCommentService;
+import com.board.ds.service.DsCommentService;
+import com.board.ds.service.DsService;
 import com.board.hj.domain.Member;
+import com.board.hj.service.FreeBoardService;
+import com.board.hj.service.FreeCommentService;
 import com.board.hj.service.MemberService;
+import com.board.km.service.AlarmService;
+import com.board.km.service.CommentService;
+import com.board.km.service.ReviewService;
 
 @SessionAttributes("member")
 @Controller
@@ -33,7 +42,23 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ChargeService chargeService;
-
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private AlarmService alarmService;
+	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private FreeBoardService freeboardService;
+	@Autowired
+	private FreeCommentService freecommentService;
+	@Autowired
+	private DsService dsService;
+	@Autowired
+	private DsCommentService dscommentService;
+	@Autowired
+	private NoticeCommentService noticecommentService;
+	
 	@ModelAttribute("member")
 	public Member getMember() {
 		return new Member();
@@ -134,6 +159,17 @@ public class MemberController {
 			response.addCookie(cookies[i]);
 		}
 		return "redirect:main";
+	}
+	
+	//회원탈퇴 
+	@RequestMapping("/withdrawForm")
+	public String withdrawForm() {
+		return "member/withdrawForm";
+	}
+	@RequestMapping("/withdraw/{memnum}")
+	public String withdraw(@PathVariable Long memnum){
+		memberService.delAccount(memnum);
+		return "member/withdrawComplete";
 	}
 
 }

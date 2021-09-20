@@ -283,7 +283,7 @@ a {
 				<br>
 				<button type="button" class="btn btn-secondary">즐겨찾기</button>
 				<br>
-				<button type="button" class="btn btn-secondary">회원탈퇴</button>
+				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
 				<br>
 			</div>
 		

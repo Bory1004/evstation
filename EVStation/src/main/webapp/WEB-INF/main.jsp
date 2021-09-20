@@ -47,7 +47,7 @@ a {
    width : 30px;
    height : 20px;
    left : 380px;
-   top : 10px; 
+   top : 10px;   
    border-radius: 10px;
    text-align : center;
    vertical-align : middle;
