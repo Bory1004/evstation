@@ -55,5 +55,19 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	
+	
+	
+	//내가쓴글 // 대순이가씀
+	@Override
+	public Page<ReviewBoard> myReviewList(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return reviewRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);
+	}
+	@Override
+	public void deleteChk(int boardnum) {
+		reviewRepo.deleteById((long) boardnum);
+	}
+
+	
 
 }

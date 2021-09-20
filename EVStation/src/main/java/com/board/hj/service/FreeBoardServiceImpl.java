@@ -56,6 +56,20 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return list;
 	}
 
+	
+	
+	//내가쓴글 // 대순이가씀
+	@Override
+	public Page<FreeBoard> myFreeList(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return boardRepo.findByBoardmennumOrderByBoardnumDesc(boardmemnum, page);
+	}
+
+	@Override
+	public void deleteChk(int boardnum) {
+		boardRepo.deleteById((long) boardnum);
+		
+
 	@Override
 	public int getCommentCount(Long boardnum) {
 		return boardRepo.getCommentCount(boardnum);

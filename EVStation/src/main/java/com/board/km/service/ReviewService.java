@@ -16,5 +16,12 @@ public interface ReviewService {
 	void saveReview(ReviewBoard board);
 
 	void deleteReview(Long boardnum);
+	
+	
+	//내가 쓴글 // 대순이가씀
+	Page<ReviewBoard>myReviewList(int pNum, Long boardmemnum);
+
+	void deleteChk(int boardnum);
+
 
 }

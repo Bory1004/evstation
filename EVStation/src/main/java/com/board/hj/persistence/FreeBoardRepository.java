@@ -31,4 +31,6 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>{
 	
 	//Page<FreeBoard> findByMemberContainingIgnoreCase(String boardwriter,Pageable page);
 	
+	//내가 쓴글  //대순이씀...
+		 Page<FreeBoard>findByBoardmennumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 	
 }

@@ -1,4 +1,4 @@
-package com.board.ds_persistence;
+package com.board.ds.persistence;
 
 import javax.transaction.Transactional;
 
@@ -7,12 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import com.board.ds_entity.DsEntity;
-
+import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.FreeBoard;
+import com.board.km.domain.ReviewBoard;
+@Repository
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	
-	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
+	
+	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  //글 리스트
 	
 	DsEntity save(Long boardnum);
 	
@@ -24,6 +28,7 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	Page<DsEntity> findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
+	//Page<DsEntity>
 
 	@Transactional
 	@Modifying
@@ -50,5 +55,10 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Transactional
 	 @Query("UPDATE DsEntity d SET d.boardyn = 'N'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
 	 int ybReplyDel(Long boardref);
+	 
+	 DsEntity findByBoardnum(Long boardnum); //댓글부분
+	
+	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+	
 	 
 }

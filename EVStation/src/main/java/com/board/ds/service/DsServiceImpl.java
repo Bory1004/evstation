@@ -1,4 +1,4 @@
-package com.board.ds_service;
+package com.board.ds.service;
 
 import java.util.List;
 
@@ -6,17 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort.Order;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
-import com.board.ds_persistence.DsRepository;
-
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
+import com.board.ds.persistence.DsRepository;
 @Service
 public class DsServiceImpl implements DsService {
+	
 	
 	@Autowired
 	 private DsRepository dsRepo;
@@ -93,7 +90,22 @@ public class DsServiceImpl implements DsService {
 		dsRepo.deleteById((long) boardnum);
 	}
 
+	@Override
+	public DsEntity qnaConmment(Long boardnum) {
+		dsRepo.updateSee(boardnum);
+		return dsRepo.findByBoardnum(boardnum);  
+	 
+	}
 
+	@Override
+	public Page<DsEntity> AAllListQnA(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		 
+		return dsRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);  
+	}
+
+	
+	
 	
 	
 	

@@ -1,4 +1,4 @@
-package com.board.ds_controller;
+package com.board.ds.controller;
 
 import java.util.List;
 
@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
-import com.board.ds_service.DsService;
-import com.board.ds_service.EmailService2;
+import com.board.ds.domain.DsComment;
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
+import com.board.ds.service.DsCommentService;
+import com.board.ds.service.DsService;
+import com.board.ds.service.EmailService2;
 import com.board.hj.domain.Member;
+import com.board.km.domain.BoardComment;
+import com.google.gson.Gson;
 
 @SessionAttributes("member")
 @Controller
@@ -36,6 +41,9 @@ public class DsConstroller {
 
 	@Autowired
 	private EmailService2 emailService;
+	
+	@Autowired
+	private DsCommentService dsCoService;
 
 	@RequestMapping("/qnaList") // 리스트에 페이징 처리, 검색 처리
 
@@ -69,6 +77,7 @@ public class DsConstroller {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
+		System.out.println(list);
 		return "/DsBoard/qnaList";
 	}
 
@@ -83,6 +92,7 @@ public class DsConstroller {
 
 	@PostMapping("/insertQnA")
 	public String insertQnA(DsEntity dsEntity, @ModelAttribute("member") Member member) {
+		dsEntity.setMember(member);
 		dsEntity.setBoardwriter(member.getId());
 		dsEntity.setBoardrestep((long) 0); // 글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setBoardrelevel((long) 0);
@@ -94,14 +104,41 @@ public class DsConstroller {
 	}
 
 	@RequestMapping("/qnaDetail/{boardnum}")
-	public String qnaDetail(@PathVariable Long boardnum, Model m, @ModelAttribute("member") Member member) {
+	public String qnaDetail(@PathVariable Long boardnum, Model m, @ModelAttribute("member") Member member,@RequestParam(name = "p", defaultValue = "1") int pNum) {
 		if (member.getId() == null) {
 			return "redirect:/loginView";
 		} else {
 			DsEntity detail = dsService.qnaDetail(boardnum);
 			m.addAttribute("detail", detail);
+		
+			
+			//댓글부분
+			Page<DsComment> pageList = null;
+			pageList = dsCoService.QnAComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
+			
+			List<DsComment>coList = pageList.getContent(); // 보여질 글
+			
+			int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+			long total = pageList.getTotalElements(); //전제 글 수		
+			
+			m.addAttribute("totalPage", totalPageCount);
+			m.addAttribute("total", total);
+
+			int pageNum = 2;
+			int begin = (pNum - 1) / pageNum * pageNum + 1;
+			int end = begin + pageNum - 1;
+			if (end > totalPageCount) {
+				end = totalPageCount;
+			}
+			
+			m.addAttribute("begin", begin);
+			m.addAttribute("end", end);
+			m.addAttribute("coList", coList);
+			
 			return "/DsBoard/qnaDetail";
 		}
+		
+		
 	}
 
 	@RequestMapping("/deleteChk")
@@ -142,6 +179,7 @@ public class DsConstroller {
 	@RequestMapping("/qnaReplyForm/{boardnum}/{boardref}/{boardrestep}/{boardrelevel}")
 	public String writeReply(@PathVariable Long boardnum, @PathVariable Long boardref, @PathVariable Long boardrestep,
 			@PathVariable Long boardrelevel, Model m) {
+
 		m.addAttribute("boardnum", boardnum);
 		m.addAttribute("ref", boardref);
 		m.addAttribute("restep", boardrestep);
@@ -154,7 +192,6 @@ public class DsConstroller {
 	public String saveReply(DsEntity dsEntity, DsEmail dsEmail, @ModelAttribute("member") Member member)
 			throws Exception {
 		dsService.saveReply(dsEntity.getBoardref(), dsEntity.getBoardrestep(), dsEntity.getBoardrelevel());
-
 		dsEntity.setBoardrestep(dsEntity.getBoardrestep() + 1); // 답변 달릴 때 + 1
 		dsEntity.setBoardrelevel(dsEntity.getBoardrelevel() + 1);
 
@@ -189,4 +226,44 @@ public class DsConstroller {
 
 	}
 
+	//QnA 내가 쓴글
+	@RequestMapping("/myQnABoardList/{boardmemnum}")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+	
+		Page<DsEntity> pageList = null;
+		int pageNum = 5;
+		
+	
+	
+		pageList = dsService.AAllListQnA(pNum, boardmemnum);
+		
+		List<DsEntity> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		System.out.println(list);
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+
+		return "/DsBoard/myQnABoardList";
+		}
+	
+	@RequestMapping("myAllBoardList")
+	public String myAllList() {
+		return "/DsBoard/myAllBoardList";
+	}
+	
+	
+	
 }
