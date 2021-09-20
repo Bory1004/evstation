@@ -64,9 +64,6 @@ a {
 
 				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<%-- <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
-						width="30" height="30" onclick="ring(${member.memnum})">
-					</div>	 --%>					
 					<c:choose>
 						<c:when test="${member.id eq null}">
 
@@ -79,13 +76,28 @@ a {
 							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
 							width="30" height="30" onclick="ring(${member.memnum})">
 							</div>
-							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!
+								<div id="btns" style="float: right;">
+										<button class="btn btn-sm btn-outline-success dropdown-toggle"
+											type="button" id="dropdownMenuButton1"
+											data-bs-toggle="dropdown" aria-expanded="false">
+										 마이페이지</button>
+										<ul class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item" href="#">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+											<li><a class="dropdown-item" href="#">비밀번호 변경</a></li>
+										</ul>
+									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+								</div>
+							</div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
 			</div>
 
-			<div class="menubar py-1 mb-2">
+			<div class="menubar py-3 mb-12">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
 
 					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
