@@ -167,9 +167,21 @@ public class MemberController {
 		return "member/withdrawForm";
 	}
 	@RequestMapping("/withdraw/{memnum}")
+	@ResponseBody
 	public String withdraw(@PathVariable Long memnum){
-		memberService.delAccount(memnum);
+		/*
+		 * reviewService.withdraw(memnum); alarmService.withdraw(memnum);
+		 * commentService.withdraw(memnum); freeboardService.withdraw(memnum);
+		 * freecommentService.withdraw(memnum); dsService.withdraw(memnum);
+		 * dscommentService.withdraw(memnum); noticecommentService.withdraw(memnum);
+		 * 
+		 * memberService.delAccount(memnum);
+		 */
+		
+		return "success!";
+	}
+	@RequestMapping("/withdrawCom")
+	public String withdrawComplete() {
 		return "member/withdrawComplete";
 	}
-
 }

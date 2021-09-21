@@ -23,6 +23,11 @@ public interface AlarmRepository extends JpaRepository<Alarm, Long> {
 	@Modifying
 	@Query("UPDATE Alarm a set a.alacheck = 1 where a.alanum = ?1")
 	public void checkAlarm(Long alanum);
+
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Alarm d WHERE d.frommemnum=?1")
+	public void deleteByMemnum(Long memnum);
 		
 	
 }

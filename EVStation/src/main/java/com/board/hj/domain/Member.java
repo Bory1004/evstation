@@ -83,28 +83,36 @@ public class Member implements Serializable {
 	@Column(insertable = false, updatable = false, columnDefinition = "date default sysdate")
 	private Date memdate; // 가입일
 
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<ReviewBoard> reviewboards = new ArrayList<ReviewBoard>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<Alarm> alarm = new ArrayList<Alarm>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<BoardComment> boardcomment = new ArrayList<BoardComment>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<FreeBoardComment> freeboardcomment = new ArrayList<FreeBoardComment>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<FreeBoard> freeboard = new ArrayList<FreeBoard>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<DsComment> dscomment = new ArrayList<DsComment>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<DsEntity> dsentity = new ArrayList<DsEntity>();
-
-	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL,orphanRemoval=true)
-	private transient List<NoticeComment> noticecomment = new ArrayList<NoticeComment>();
+	/*
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<ReviewBoard> reviewboards = new
+	 * ArrayList<ReviewBoard>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<Alarm> alarm = new ArrayList<Alarm>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<BoardComment> boardcomment = new
+	 * ArrayList<BoardComment>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<FreeBoardComment> freeboardcomment = new
+	 * ArrayList<FreeBoardComment>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<FreeBoard> freeboard = new
+	 * ArrayList<FreeBoard>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<DsComment> dscomment = new
+	 * ArrayList<DsComment>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<DsEntity> dsentity = new ArrayList<DsEntity>();
+	 * 
+	 * @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private transient List<NoticeComment> noticecomment = new
+	 * ArrayList<NoticeComment>();
+	 */
 
 }

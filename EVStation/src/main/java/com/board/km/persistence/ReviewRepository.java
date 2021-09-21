@@ -33,7 +33,12 @@ public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 
 
 	//내가 쓴글  //대순이씀...
-	 Page<ReviewBoard>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+	 Page<ReviewBoard>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page);
+	 
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM ReviewBoard d where d.boardmemnum = ?1")
+	void deleteByMemnum(Long memnum); 
 
 
 	

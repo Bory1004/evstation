@@ -23,5 +23,7 @@ public interface ReviewService {
 
 	void deleteChk(int boardnum);
 
+	void withdraw(Long memnum);
+
 
 }

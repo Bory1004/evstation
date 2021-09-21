@@ -30,6 +30,8 @@ public interface DsService {
 	
 	Page<DsEntity>AAllListQnA(int pNum, Long boardmemnum);
 
+	void withdraw(Long memnum);
+
 	
 
 

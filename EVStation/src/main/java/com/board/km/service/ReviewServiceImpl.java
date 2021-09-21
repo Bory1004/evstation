@@ -68,6 +68,11 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewRepo.deleteById((long) boardnum);
 	}
 
+	@Override
+	public void withdraw(Long memnum) {
+		reviewRepo.deleteByMemnum(memnum);
+	}
+
 	
 
 }

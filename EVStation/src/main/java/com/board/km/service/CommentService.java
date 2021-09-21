@@ -35,4 +35,7 @@ public interface CommentService {
 	
 	int getCount(Long num);
 
+
+	void withdraw(Long memnum);
+
 }

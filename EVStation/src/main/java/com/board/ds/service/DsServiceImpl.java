@@ -104,6 +104,11 @@ public class DsServiceImpl implements DsService {
 		return dsRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);  
 	}
 
+	@Override
+	public void withdraw(Long memnum) {
+		dsRepo.deleteByMemnum(memnum);
+	}
+
 	
 	
 	

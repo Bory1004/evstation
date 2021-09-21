@@ -14,5 +14,7 @@ public interface DsCommentService {
 
 	Page<DsComment> QnAComment(int pNum, Long boardnum); //게시판에 작성된 댓글 출력 
 
+	void withdraw(Long memnum);
+
 }
  

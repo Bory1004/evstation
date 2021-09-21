@@ -24,4 +24,6 @@ public interface NoticeCommentService {
 	// 댓글 모두 삭제
 	void deleteComment(Long num);
 
+	void withdraw(Long commemnum);
+
 }

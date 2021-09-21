@@ -33,5 +33,9 @@ public class DsCommentServiceImpl implements DsCommentService {
 		Pageable page = PageRequest.of(pNum-1, 5);
 		return DsCoRepo.findByBoardnumOrderByComnumDesc(page, boardnum);
 	}
+	@Override
+	public void withdraw(Long memnum) {
+		DsCoRepo.deleteByMemnum(memnum);
+	}
 
 }   
