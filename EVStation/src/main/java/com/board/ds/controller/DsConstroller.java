@@ -19,11 +19,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.board.ds.domain.DsComment;
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
+import com.board.ds.persistence.DsRecomRepository;
 import com.board.ds.service.DsCommentService;
+import com.board.ds.service.DsRecomService;
 import com.board.ds.service.DsService;
 import com.board.ds.service.EmailService2;
+import com.board.hj.domain.FreeBoard;
 import com.board.hj.domain.Member;
+import com.board.hj.service.FreeBoardService;
 import com.board.km.domain.BoardComment;
+import com.board.km.domain.ReviewBoard;
+import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
 
 @SessionAttributes("member")
@@ -44,6 +50,19 @@ public class DsConstroller {
 	
 	@Autowired
 	private DsCommentService dsCoService;
+	
+	
+	@Autowired
+	private FreeBoardService boardService;
+	
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private DsRecomService dsRecomService;
+	
+	
 
 	@RequestMapping("/qnaList") // 리스트에 페이징 처리, 검색 처리
 
@@ -110,7 +129,6 @@ public class DsConstroller {
 		} else {
 			DsEntity detail = dsService.qnaDetail(boardnum);
 			m.addAttribute("detail", detail);
-		
 			
 			//댓글부분
 			Page<DsComment> pageList = null;
@@ -135,12 +153,33 @@ public class DsConstroller {
 			m.addAttribute("end", end);
 			m.addAttribute("coList", coList);
 			
+			//--------------------------------------------------추천수 부분
+			int result = dsRecomService.isRecom(boardnum,member.getId());
+			m.addAttribute("result",result);
+				
+			
 			return "/DsBoard/qnaDetail";
 		}
-		
-		
 	}
-
+	
+	//추천기능
+	@RequestMapping("/updateQnaRecom/{num}/{id}")
+	@ResponseBody
+	public long updateQnaRecom(@PathVariable Long num, @PathVariable String id) {
+		int result = dsRecomService.isRecom(num, id);
+		DsEntity dsEntity = null ;
+		if(result == 0) {
+			dsRecomService.insertRecom(num,id);
+			dsEntity = dsService.upRecom(num); 
+		}else { 
+			dsRecomService.deleteRecom(num,id);
+			dsEntity = dsService.dnRecom(num);
+		}
+		return dsEntity.getBoardrecom();
+	}
+	
+	
+	
 	@RequestMapping("/deleteChk")
 	public String qnaDeletechk(int[] valueArr, Long[] valueRef) {
 
@@ -259,8 +298,51 @@ public class DsConstroller {
 		return "/DsBoard/myQnABoardList";
 		}
 	
-	@RequestMapping("myAllBoardList")
-	public String myAllList() {
+	
+	
+	@RequestMapping("/myAllBoardList/{boardmemnum}")
+	public String myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+		
+		
+				
+	    Page<DsEntity> pageList = null;
+		int pageNum = 5;
+		pageList = dsService.AAllListQnA(pNum, boardmemnum);
+		
+		List<DsEntity> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		
+		
+		Page<FreeBoard> pageList1 = null;
+		pageList1 = boardService.myFreeList(pNum, boardmemnum);
+		List<FreeBoard> flist = pageList1.getContent();  
+		m.addAttribute("flist",flist);
+		
+		Page<ReviewBoard> pageList2 = null;
+		pageList2 = reviewService.myReviewList(pNum, boardmemnum);
+		List<ReviewBoard> rlist = pageList2.getContent();  
+		m.addAttribute("rlist",rlist);
+    
+		long total = pageList.getTotalElements()+pageList1.getTotalElements()+pageList2.getTotalElements();
+		double totalPageCount = (double) Math.ceil((double)total /(double)10);
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = (int) totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		System.out.println(totalPageCount); //2.0
+		System.out.println(total);//17
+		System.out.println(begin);//		1
+		System.out.println(end);//2
+
 		return "/DsBoard/myAllBoardList";
 	}
 	

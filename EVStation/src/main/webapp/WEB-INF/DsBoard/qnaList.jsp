@@ -128,7 +128,9 @@ a {
 
 						<td>${list.boardnum}</td>
 
-						<td><a href="qnaDetail/${list.boardnum}"> <c:if test="${list.boardrelevel == 1 }">Re:💌</c:if> <c:if test="${list.boardrelevel > 1 }">&nbsp; Re:💌
+						<td><a href="qnaDetail/${list.boardnum}">
+						 <c:if test="${list.boardrelevel == 1 }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㄴRe:💌</c:if>
+						  <c:if test="${list.boardrelevel > 1 }">&nbsp; Re:💌
 						<c:forEach begin="2" end="${list.boardrelevel}">
 							Re:💌
 						</c:forEach>

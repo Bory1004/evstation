@@ -56,7 +56,7 @@
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myQnABoardList/${member.memnum}") // qnaList 페이지로 새로고침
+					location.replace("/myAllBoardList/${member.memnum}") // qnaList 페이지로 새로고침
 
 				}
 			});
@@ -90,9 +90,9 @@
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
 		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
-			<button type="button" class="btn btn-secondary"  onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-outline-secondary"  onclick="location.href='/myAllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
-			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>
 		</div>
 	</div>
@@ -110,16 +110,13 @@
 					<th scope="col"><b>조회수</b></th>
 					<th scope="col"><b>추천수</b></th>
 
-					<c:if test="${member.getId() == 'admin'}">
-						<!-- 관리자만 보이게 -->
-						<th><b>답변여부</b></th>
-					</c:if>
+					
 				</tr>
 			</thead>
 			
 			<c:forEach items="${list}" var="list">
 					<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
+							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 
 						<td>${list.boardnum}</td>
 
@@ -137,24 +134,57 @@
 						<td>${list.boardsee}</td>
 						<td>${list.boardrecom}</td>
 
-						<c:if test="${member.getId() == 'admin'}">
-							<!-- 관리자만 보이게 -->
-							<td>${list.boardyn}</td>
-						</c:if>
+					
+					</tr>
+				</c:forEach>
+					<c:forEach items="${rlist}" var="rlist">
+					<tr>
+							<td><input type="checkbox" name="ChkBxRow" value="${rlist.boardnum}" ></td>
+
+						<td>${rlist.boardnum}</td>
+
+						<td><a href="/qnaDetail/${rlist.boardnum}">${rlist.boardtitle}</a></td>
+
+						<td>${rlist.boardwriter}</td>
+						<td><fmt:formatDate value="${rlist.boarddate}" pattern="MM.dd" /></td>
+						<td>${rlist.boardsee}</td>
+						<td>${rlist.boardrecom}</td>
+
+					
+					</tr>
+				</c:forEach>
+					<c:forEach items="${flist}" var="flist">
+					<tr>
+							<td><input type="checkbox" name="ChkBxRow" value="${flist.boardnum}"></td>
+
+						<td>${flist.boardnum}</td>
+
+						<td><a href="/qnaDetail/${flist.boardnum}"> 
+						 ${flist.boardtitle}
+						</a></td>
+
+						<td>${flist.boardwriter}</td>
+						<td><fmt:formatDate value="${flist.boarddate}" pattern="MM.dd" /></td>
+						<td>${flist.boardsee}</td>
+						<td>${flist.boardrecom}</td>
+
+					
 					</tr>
 				</c:forEach>
 
 		</table>
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
+			
+			
 			<div id="page">
 					<c:if test="${begin > 2 }">
-						<a href="/myQnABoardList/${member.memnum}?p=${begin-1}">[이전]</a>
+						<a href="/myAllBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin }" end="${end}" var="i">
-						<a href="/myQnABoardList/${member.memnum}?p=${i}">[${i}]</a>
+						<a href="/myAllBoardList/${member.memnum}?p=${i}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/myQnABoardList/${member.memnum}?p=${end+1}">[다음]</a>
+						<a href="/myAllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
 					</c:if>
 			</div>
 				

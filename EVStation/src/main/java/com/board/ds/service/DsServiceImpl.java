@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.board.ay.domain.Board3;
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
 import com.board.ds.persistence.DsRepository;
@@ -102,6 +103,20 @@ public class DsServiceImpl implements DsService {
 		Pageable page = PageRequest.of(pNum-1, 10);
 		 
 		return dsRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);  
+	}
+
+	
+	//추천부분
+	@Override
+	public DsEntity dnRecom(Long boardnum) {
+			dsRepo.dnRecom(boardnum);
+			return dsRepo.getById(boardnum);
+	}
+
+	@Override
+	public DsEntity upRecom(Long boardnum) {
+			dsRepo.upRecom(boardnum);
+		return dsRepo.getById(boardnum);
 	}
 
 	

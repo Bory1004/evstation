@@ -49,7 +49,23 @@
 			<!--  	<tr><td colspan="2"><img src="${board.member.memphoto}" width="45" height="30"><strong>${board.member.id}</strong></td></tr> 프로필사진 부분-->
 			<tr>
 				<td><fmt:formatDate value="${detail.boarddate}"
-						pattern="YYYY.MM.dd. hh:mm" /> 조회 ${detail.boardsee}</td>
+						pattern="YYYY.MM.dd. hh:mm" /> 조회 ${detail.boardsee}
+						<!-- 로그인 안된 상태 , 빈 하트 보이게-->
+					<c:if test= "${member.id == null}">
+					<img id="h" src="/img/empty.png" width="20px" title="123">
+					</c:if>
+					
+					추천수 <span id="recom_qna">${detail.boardrecom}</span>
+					<c:if test= "${member.id != null}">
+						<c:if test="${result == 0}">
+							<img id="h" src="/img/empty.png" width="20px">
+						</c:if>
+						<c:if test="${result != 0}">
+							<img id="h" src="/img/full.png" width="20px">
+						</c:if>
+					</c:if>	
+						
+						</td>
 				<td align="right"><c:if
 						test="${detail.boardwriter eq member.getId() or member.getId() == 'admin' }">
 						<!--  같은 아이디만 수정 삭제 가능 -->
@@ -106,7 +122,6 @@
 				</c:forEach>
 				</div>
 			</div>
-		</div>
 		<!-- commentAll -->
 		<div id="page">
 			<c:if test="${begin > 2}">
@@ -162,6 +177,34 @@
 		
 		
 	});
+		
+	//추천 부분	
+	$(function() {
+	$("#h").click(function() {
+		let num = ${detail.boardnum};
+		let id = "${member.id}";
+        console.log(id);
+		let url = "/updateQnaRecom/" + num + "/" + id;
+				$.ajax({
+					url : url
+				})	
+				.done(
+					function(data) {
+					if (document.getElementById("h").getAttribute('src') == '/img/empty.png') {
+						document.getElementById("h").src = "/img/full.png";
+							} else {
+							document.getElementById("h").src = "/img/empty.png";//.src는 속성값 변경
+						}
+						$("#recom_qna").html(data);//매개변수가 있으니까 변경된 값 가져옴
+						}).fail(
+							function(jqXHR, textStatus,errorThrown) {
+							console.log("error");
+					}); 
+				
+		})
+
+
+})
 </script>
 </html>
 

@@ -43,8 +43,8 @@ public class DsEntity implements Serializable {
 	private Long boardrecom;
 	@Column(name="BOARD_CONTENT", length=4000)
 	private String boardcontent;
-	@Column(name="BOARD_TYPE")
-	private Long boardtype;
+	@Column(name="BOARD_TYPE",  insertable = false, updatable = false, columnDefinition ="number default 4")
+	private int boardtype; //글 타입 (QNA게시판 4)
 	@Column(name="BOARD_YN", length=20) // 답변 여부 
 	private String boardyn;
 	@Column(name="BOARD_REF", columnDefinition ="number default 0")
