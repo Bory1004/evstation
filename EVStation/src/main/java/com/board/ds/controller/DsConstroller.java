@@ -113,6 +113,7 @@ public class DsConstroller {
 	public String insertQnA(DsEntity dsEntity, @ModelAttribute("member") Member member) {
 		dsEntity.setMember(member);
 		dsEntity.setBoardwriter(member.getId());
+		dsEntity.setBoardmemnum(member.getMemnum());
 		dsEntity.setBoardrestep((long) 0); // 글 작성시 초기 값 0 입력 (테이블에는 타입이 Long 이여서 null로 값이 들어감)
 		dsEntity.setBoardrelevel((long) 0);
 		dsEntity.setBoardrecom((long) 0);
@@ -201,16 +202,24 @@ public class DsConstroller {
 
 	}
 
-	@RequestMapping("/updateQnAform/{boardnum}")
-	public String qnaUpdateForm(@PathVariable Long boardnum, Model m) {
+	@RequestMapping("/updateQnAform/{boardnum}/{boardmemnum}/{boardrecom}/{boardrelevel}/{boardrestep}/{boardref}")
+	public String qnaUpdateForm(@PathVariable Long boardnum, @PathVariable Long boardmemnum,@PathVariable Long boardrecom,@PathVariable Long boardrelevel,@PathVariable Long boardrestep,@PathVariable Long boardref,Model m) {
 
 		m.addAttribute("boardnum", boardnum);
+		m.addAttribute("boardmemnum",boardmemnum);
+		m.addAttribute("boardrecom", boardrecom);
+		m.addAttribute("boardrelevel", boardrelevel);
+		m.addAttribute("boardrestep", boardrestep);
+		m.addAttribute("boardref", boardref);
+
+		System.out.println(boardmemnum);
 		return "/DsBoard/qnaUpdate";
 	}
 
 	@PostMapping("/updateQnA")
 	public String qnaUpdate(DsEntity dsEntity, @ModelAttribute("member") Member member) {
 		dsEntity.setBoardwriter(member.getId());
+		dsEntity.setBoardmemnum(member.getMemnum());
 		dsService.saveQnA(dsEntity);
 		return "redirect:/qnaList";
 	}
@@ -233,12 +242,16 @@ public class DsConstroller {
 		dsService.saveReply(dsEntity.getBoardref(), dsEntity.getBoardrestep(), dsEntity.getBoardrelevel());
 		dsEntity.setBoardrestep(dsEntity.getBoardrestep() + 1); // 답변 달릴 때 + 1
 		dsEntity.setBoardrelevel(dsEntity.getBoardrelevel() + 1);
+		dsEntity.setBoardrecom((long) 0);
 
-		dsEntity.setBoardwriter(member.getId()); // 임의 아이디 추가
+
+		dsEntity.setBoardwriter(member.getId()); // 현재아이디(관리자)
+		dsEntity.setBoardmemnum(member.getMemnum()); // 현재 회원번호
+
 
 		dsService.saveQnA(dsEntity);
 
-		String receiver = "gpdlqnd@gmail.com"; // Receiver.
+		String receiver =  member.getMememail(); // Receiver.
 
 		String subject = "답변메일입니다."; // 메일 제목
 

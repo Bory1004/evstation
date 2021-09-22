@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>QnA 상세보기</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -40,13 +40,12 @@
 	<div id="center">
 		<table class="table table-borderless border">
 			<tr>
-				<td><a href="/qnaList"><small style="color: green">QnA
-							게시판 ></small></a></td>
+				<td><a href="/qnaList"><small style="color: green">QnA게시판 ></small></a></td>
 			</tr>
 			<tr>
 				<td><h2>${detail.boardtitle}</h2></td>
 			</tr>
-			<!--  	<tr><td colspan="2"><img src="${board.member.memphoto}" width="45" height="30"><strong>${board.member.id}</strong></td></tr> 프로필사진 부분-->
+			<tr><td colspan="2"><img src="${detail.member.memphoto}" width="45" height="30"><strong>${detail.member.id}</strong></td></tr><!--  프로필사진 부분-->
 			<tr>
 				<td><fmt:formatDate value="${detail.boarddate}"
 						pattern="YYYY.MM.dd. hh:mm" /> 조회 ${detail.boardsee}
@@ -69,8 +68,8 @@
 				<td align="right"><c:if
 						test="${detail.boardwriter eq member.getId() or member.getId() == 'admin' }">
 						<!--  같은 아이디만 수정 삭제 가능 -->
-						<a href="/updateQnAform/${detail.boardnum}">수정</a>
-						<a href="/deleteQnA/${detail.boardnum}">삭제</a>
+						<a href="/updateQnAform/${detail.boardnum}/${detail.boardmemnum}/${detail.boardrecom}/${detail.boardrelevel}/${detail.boardrestep}/${detail.boardref}">수정</a>
+						<a href="/deleteQnA/${detail.boardnum}/${detail.boardref}">삭제</a>
 					</c:if></td>
 			</tr>
 			<tr>

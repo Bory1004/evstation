@@ -124,12 +124,11 @@
 						<td>${list.boardnum}</td>
 
 						<td><a href="/qnaDetail/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel == 1 }">[답변]</c:if> 
-							<c:if test="${list.boardrelevel > 1 }">&nbsp; [답변]
-								<c:forEach begin="2" end="${list.boardrelevel}">
+						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
+								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
 										Re:
-								</c:forEach>
-							</c:if> ${list.boardtitle}
+								</c:forEach> --%>
+						 ${list.boardtitle}
 						</a></td>
 
 						<td>${list.boardwriter}</td>
