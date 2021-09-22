@@ -10,30 +10,27 @@ import javax.persistence.InheritanceType;
 
 import com.board.hj.domain.Member;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.Value;
 
-@Entity
+
 @Setter
 @Getter             
 @ToString
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AllTable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class AllTableDTO {
 
-	@Id
-	@Column(name = "board_num")
-	private String boardnum;
-	@Column(name = "board_mem_num")
-	private Long boardmemnum;
-	@Column(name = "board_title")
+	private Long boardnum;
 	private String boardtitle;
-	@Column(name="board_writer")
 	private String boardwriter;
-	@Column(name= "board_date")
 	private Date boarddate;
-	@Column(name= "board_see")
 	private Long boardsee;
-	@Column(name="board_recom")
 	private Long boardrecom;
+	
+	
 }
