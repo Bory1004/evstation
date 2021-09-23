@@ -63,4 +63,21 @@ public class ChargeServiceImpl implements ChargeService{
 		}
 		return list;
 	}
+	
+	@Override
+	public int isRecom(Long num, String id) {
+		return boardRepo.isRecom(num, id);
+	}
+	
+	@Override
+	public int insertRecom(Long num, String id) {
+		return boardRepo.insertRecom(num,id);
+	}
+
+	@Override public void del(String id, Long num) { 
+		  boardRepo.del(id, num);
+	  }
+	
+	
+	
 }

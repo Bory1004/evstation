@@ -20,6 +20,11 @@ import com.board.hj.domain.Member;
 @Controller
 public class ChargeController {
 
+	@ModelAttribute("member")
+	public Member getMember() {
+		return new Member();
+	}
+	
 	@Autowired
 	private ChargeService chargeService;
 	
@@ -61,10 +66,15 @@ public class ChargeController {
 	}
 
 	@RequestMapping("/list/{num}")
-	public String getCharge(@PathVariable Long num, Model m) {
+	public String getCharge(@PathVariable Long num, Model m, @ModelAttribute("member")Member member) {
 		Charge charge = chargeService.getCharge(num);
 		m.addAttribute("charge", charge);
 	
+		if(member.getId() != null) { 
+			int result = chargeService.isRecom(num, member.getId());
+			m.addAttribute("result", result);
+			}
+		
 		return "/kwboard/getChargeInfo";
 	}
 

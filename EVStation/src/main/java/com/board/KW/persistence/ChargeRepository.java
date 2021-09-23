@@ -17,14 +17,18 @@ public interface ChargeRepository extends JpaRepository<Charge, Long>{
 	Page<Charge> findByStnameContainingIgnoreCase(String st_name,Pageable page);
 	Page<Charge> findByStaddress1ContainingIgnoreCase(String st_address1,Pageable page);
 	
+	@Transactional
+	@Query("SELECT COUNT(*) FROM KRecom r WHERE r.num=?1 AND r.id=?2")
+	int isRecom(Long num, String id);
 	
-	/*
-	 * @Transactional
-	 * 
-	 * @Modifying
-	 * 
-	 * @Query("UPDATE chargelist b SET b.cnt = b.cnt+1 WHERE b.num=?1") int
-	 * updateCnt(Long num);
-	 */
+	@Transactional
+	@Modifying
+	@Query(value="INSERT INTO KRecom(temp, num, id) VALUES(recom_seq.nextval, :num, :id)", nativeQuery=true)
+	int insertRecom(Long num,String id);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM KRecom WHERE id=?1 AND num=?2") 
+	void del(String id, Long num);
 	
 }
