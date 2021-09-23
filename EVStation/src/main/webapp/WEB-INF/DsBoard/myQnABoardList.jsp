@@ -90,7 +90,7 @@
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
 		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
-			<button type="button" class="btn btn-secondary"  onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary"  onclick="location.href='/myAllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>
@@ -124,12 +124,11 @@
 						<td>${list.boardnum}</td>
 
 						<td><a href="/qnaDetail/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel == 1 }">[답변]</c:if> 
-							<c:if test="${list.boardrelevel > 1 }">&nbsp; [답변]
-								<c:forEach begin="2" end="${list.boardrelevel}">
+						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
+								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
 										Re:
-								</c:forEach>
-							</c:if> ${list.boardtitle}
+								</c:forEach> --%>
+						 ${list.boardtitle}
 						</a></td>
 
 						<td>${list.boardwriter}</td>

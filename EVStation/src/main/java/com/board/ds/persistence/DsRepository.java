@@ -59,6 +59,18 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 DsEntity findByBoardnum(Long boardnum); //댓글부분
 	
 	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+	 
+	 
+		@Transactional
+		@Modifying
+		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom+1 WHERE b.boardnum=?1")
+		int upRecom(Long boardnum);
 	
+		//추천한 적 있다면 추천수 내림
+		@Transactional
+		@Modifying
+		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom-1 WHERE b.boardnum=?1")
+		int dnRecom(Long boardnum);
+
 	 
 }

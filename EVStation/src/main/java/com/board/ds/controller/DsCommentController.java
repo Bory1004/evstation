@@ -28,16 +28,17 @@ public class DsCommentController {
 		@Autowired
 		private DsCommentService dsCoService;
 		
-		@RequestMapping("/insertQnAComment/{boardnum}")
-		@ResponseBody
-		public String insetQnAComment(DsComment dc, DsEntity de,@ModelAttribute("member") Member member,@PathVariable Long boardnum, String comcontent) {
-			
-			dc.setDsEntity(de);
-			dc.setMember(member);
-			dc.setComcontent(comcontent); //입력한 댓글을 받아와서 db에 저장
-			Gson gson = new Gson();
-			
-			return gson.toJson(dsCoService.saveQnaComment(dc))  ;
-		}
+		/*
+		 * @RequestMapping("/insertQnAComment/{boardnum}")
+		 * 
+		 * @ResponseBody public String insetQnAComment(DsComment dc, DsEntity
+		 * de,@ModelAttribute("member") Member member,@PathVariable Long boardnum,
+		 * String comcontent) {
+		 * 
+		 * dc.setDsEntity(de); dc.setMember(member); dc.setComcontent(comcontent); //입력한
+		 * 댓글을 받아와서 db에 저장 Gson gson = new Gson();
+		 * 
+		 * // return gson.toJson(dsCoService.saveQnaComment(dc)) ; }
+		 */
 
 }
