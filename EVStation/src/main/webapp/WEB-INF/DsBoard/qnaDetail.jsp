@@ -26,6 +26,7 @@
 
 	<!-- 	<div class="container">  -->
 
+<div class="container input-group d-flex justify-content-center">
 
 	<div id="center">
 		<table class="table table-borderless border">
@@ -137,13 +138,14 @@
 					</div>
 				</c:forEach>
 		</div><!-- commentlist -->
-			<div class="col-md-12 d-flex justify-content-end">
-			<c:if test="${member.memnum== review.boardmemnum}">
+			
+			<div class="col-md-12 d-flex justify-content-end"> 
+			<c:if test="${member.memnum== detail.boardmemnum}">
 				<span><a class="btn btn-md btn-outline-success"
-					href="/deleteReview/${detail.boardnum}" style="margin: 5px">삭제</a></span>
+					href="/#/${detail.boardnum}" style="margin: 5px">삭제</a></span>
 			</c:if>
 			<span><a class="btn btn-md btn-outline-success"
-				href="../../reviewList?p=${pNum}&search=${search}&searchn=${searchn}"
+				href="/qnaList"
 				style="margin: 5px">목록</a></span> <span><a
 				class="btn btn-md btn-outline-success" href="#"
 				onClick="javascript:window.scrollTo(0,0)" style="margin: 5px">TOP</a></span>
@@ -152,7 +154,7 @@
 
 	</div>
 	<!-- id: center -->
-
+</div>
 	<%@ include file="DsLayout/dsFooter.jsp"%>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
