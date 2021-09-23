@@ -33,7 +33,7 @@
 		<div id="content">		
 		<form class="row g-2" id="member" action="/join" method="post"><!-- action="/join" method="post" -->
 			
-			<div class="row mb-2 justify-content-center align-items-center">
+			<div class="row mb-3 justify-content-center align-items-center">
 				<div class="col-md-6">
 					<label for="id" class="col-form-label"><span id="star">*</span>아이디</label>
 					<input type="text" id="id" name="id" class="form-control" maxlength="20" aria-describedby="id_msg">
@@ -152,7 +152,7 @@
 			
 			<div class="row mb-3 justify-content-center align-items-center">
 				<div class="col-md-6">
-				<label for="memphone" class="col-form-label">차종/충전타입</label>
+				<label for="memcar" class="col-form-label">차종/충전타입</label>
 				<div class="input-group">
 					<select class="form-select" id="memcar" name="memcar">
 						<option value="없음">없음</option>
@@ -163,7 +163,7 @@
 					<select class="form-select" id="memcharge" name="memcharge">
   						<option value="없음">없음</option>
 						<option value="AC단상">AC단상</option>
-						<option value="DC 콤보">DC 콤보</option>
+						<option value="DC콤보">DC콤보</option>
 					</select>
 				</div>
 				</div>
@@ -178,7 +178,7 @@
 			</div>
 			
 			<div class="row mb-3 justify-content-center align-items-center">
-				<div class="col-md-6">
+				<div class="col-md-6" align="center">
 					<input style="width: 200px;" type="submit" id="bnt_submit" class="btn btn-success" value="가입" />
 				</div>
 			</div>		
@@ -246,10 +246,6 @@
 				$("#pw_msg").text("");
 				if ($("#mempw").val() != $("#pw2").val() && $("#pw2").val() != "") {
 					$("#pw_msg2").text("비밀번호가 일치하지않습니다.");
-					return false;
-				}
-				if (!$("#mempw").val()) {
-					$("#pw_msg").text("비밀번호를 입력해주세요.");
 					return false;
 				}
 				if (!$("#mempw").val()) {
@@ -456,30 +452,30 @@
 				console.log("제출");
 				if(!$("#id").val()){
 					console.log('아이디 빈칸');
-					$("#id_msg").text("아이디를 입력주세요.");
+					$("#id_msg").text("아이디를 입력해주세요.");
 					return false;
 				}
 				if(!$("#mempw").val()){
 					console.log('비밀번호 빈칸');
-					$("#pw_msg").text("비밀번호를 입력주세요.");
+					$("#pw_msg").text("비밀번호를 입력해주세요.");
 					return false;
 				}
 				if(!$("#pw2").val()){
 					console.log('비밀번호 빈칸');
-					$("#pw_msg2").text("새 비밀번호를 입력주세요.");
+					$("#pw_msg2").text("새 비밀번호를 입력해주세요.");
 					return false;
 				}
 				if(!$("#name").val()){
 					console.log("이름 빈칸")
-					$("#name_msg").text("이름를 입력주세요.");
+					$("#name_msg").text("이름를 입력해주세요.");
 					return false;
 				}
 				if(!$("#mememail1").val()){
-					$("#email_msg").text("이메일을 입력주세요.");
+					$("#email_msg").text("이메일을 입력해주세요.");
 					return false;
 				}
 				if(!$("#mememail2").val()){
-					$("#email_msg").text("이메일을 입력주세요.");
+					$("#email_msg").text("이메일을 입력해주세요.");
 					return false;
 				}
 				if($("#ck").val() != 1){
@@ -487,15 +483,15 @@
 					return false;
 				}
 				if(!$("#memaddress").val()){
-					$("#address_msg").text("주소를 입력주세요.");
+					$("#address_msg").text("주소를 입력해주세요.");
 					return false;
 				}
 				if(!$("#memaddressdetail").val()){
-					$("#address_msg2").text("상세주소를 입력주세요.");
+					$("#address_msg2").text("상세주소를 입력해주세요.");
 					return false;
 				}
 				if(!$("#membirth").val()){
-					$("#birth_msg").text("생년월일을 입력주세요.");
+					$("#birth_msg").text("생년월일을 입력해주세요.");
 					return false;
 				}
 				if(!$("#check").prop("checked")){

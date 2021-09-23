@@ -161,6 +161,7 @@ public class FreeBoardController {
 	//게시판 삭제를 누르면 게시판과 함께 댓글도 삭제 후, 게시판 리스트 출력하는 곳으로 이동
 	@GetMapping("/deleteFreeBoard/{boardnum}")
 	public String delete(@PathVariable Long boardnum) {
+		commentService.deleteComment(boardnum);
 		boardService.deleteBoard(boardnum);
 		return "redirect:/getFreeBoardList";
 	}

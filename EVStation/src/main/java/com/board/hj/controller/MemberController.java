@@ -1,6 +1,9 @@
 package com.board.hj.controller;
 
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -17,9 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.board.KW.domain.Charge;
 import com.board.KW.service.ChargeService;
@@ -40,6 +45,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
 	@Autowired
 	private ChargeService chargeService;
 	@Autowired
@@ -62,19 +68,6 @@ public class MemberController {
 	@ModelAttribute("member")
 	public Member getMember() {
 		return new Member();
-	}
-
-	//마이페이지 가기전 비밀번호 입력 페이지로 이동
-	@GetMapping("/check_mypage")
-	public String check_mypage() {
-		return "member/check_mypage";
-	}
-	
-	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
-	@GetMapping("/checkPw_mypage")
-	public String checkPw_mypage(@ModelAttribute("member") Member member) {
-		//Member findMember = memberService.findIdPw();
-		return "member/check_mypage";
 	}
 	
 	// 메인 페이지로 이동
@@ -161,6 +154,71 @@ public class MemberController {
 		return "redirect:main";
 	}
 	
+
+	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
+	@GetMapping("/check_mypage")
+	public String check_mypage() {
+		return "member/check_mypage";
+	}
+
+	// 비밀번호 입력 후, 마이페이지 이동
+	@RequestMapping("/mypage")
+	public String checkPw_mypage(@ModelAttribute("member") Member member, Model m) {
+
+		// 생일
+		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		String birth = format.format(member.getMembirth());
+		m.addAttribute("birth", birth);
+
+		// 이메일
+		String mem_email = member.getMememail();
+		String[] email = mem_email.split("@");
+		m.addAttribute("email1", email[0]);
+		m.addAttribute("email2", email[1]);
+
+		return "member/mypage";
+	}
+	
+	// 회원정보 수정
+	@PostMapping("/update_mypage")
+	public String update_mypage(@ModelAttribute("member") Member member) {
+		memberService.saveMember(member);
+		return "redirect:mypage";
+	}
+	
+	// 프로필 변경
+	@PostMapping("/update_photo")
+	public String update_photo(@ModelAttribute("member") Member member, @RequestParam("file_photo") MultipartFile file, HttpServletRequest request)
+			throws Exception {
+		System.out.println(file.getOriginalFilename());
+		System.out.println(file.getSize());
+		
+		String uploadPath = request.getSession().getServletContext().getRealPath("/").concat("resources/profile");
+		System.out.println(uploadPath);
+		
+		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+
+		if (file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
+			// 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
+			String[] file_fullname = file.getOriginalFilename().split("\\.");
+			fileName = member.getId()+"."+file_fullname[1];
+			File file_photo = new File(uploadPath, fileName);
+			file.transferTo(file_photo);
+			
+			// 원본 파일 경로 + 파일명 저장
+			member.setMemphoto(request.getContextPath()+"/resources/profile/"+fileName);
+			memberService.saveMember(member);
+		} else { // 첨부된 파일이 없으면
+			fileName = "/profile/basic.png";
+			// 미리 준비된 none.png파일을 대신 출력함
+
+			member.setMemphoto(fileName);
+			memberService.saveMember(member);
+		}
+		System.out.println("fileName : " + fileName);
+
+		return "redirect:mypage";
+
 	//회원탈퇴 
 	@RequestMapping("/withdrawForm")
 	public String withdrawForm() {
@@ -183,5 +241,6 @@ public class MemberController {
 	@RequestMapping("/withdrawCom")
 	public String withdrawComplete() {
 		return "member/withdrawComplete";
+
 	}
 }
