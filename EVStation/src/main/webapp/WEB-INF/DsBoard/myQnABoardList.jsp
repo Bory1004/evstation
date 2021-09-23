@@ -104,7 +104,7 @@
 				<tr>
 						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
 					<th scope="col"><b>No.</b></th>  
-					<th scope="col"><b>제목</b></th>
+					<th style="width: 250px;" scope="col">제목</th>					
 					<th scope="col"><b>작성자</b></th>
 					<th scope="col"><b>작성일</b></th>
 					<th scope="col"><b>조회수</b></th>
@@ -124,7 +124,8 @@
 						<td>${list.boardnum}</td>
 
 						<td><a href="/qnaDetail/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
+						<c:if test="${list.boardrelevel == 0 }">[질문]</c:if>
+						<c:if test="${list.boardrelevel >= 1 }">[답변]</c:if> 
 								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
 										Re:
 								</c:forEach> --%>
@@ -168,7 +169,7 @@
 				<br>
 				<button type="button" class="btn btn-secondary">즐겨찾기</button>
 				<br>
-				<button type="button" class="btn btn-secondary">회원탈퇴</button>
+				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
 				<br>
 			</div>
 		

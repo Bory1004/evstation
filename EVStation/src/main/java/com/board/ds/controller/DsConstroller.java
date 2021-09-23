@@ -248,7 +248,7 @@ public class DsConstroller {
 
 		emailService.sendMail(dsEmail);
 
-		return "redirect:/qnaList";
+		return "redirect:/adminOnly";
 	}
 
 	@RequestMapping("/pageIntro") // 페이지 소개

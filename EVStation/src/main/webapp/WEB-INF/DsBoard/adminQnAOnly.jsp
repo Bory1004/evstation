@@ -57,7 +57,7 @@
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myQnABoardList/${member.memnum}") // qnaList 페이지로 새로고침
+					location.replace("/adminOnly") // 삭제후 해당 페이지로 새로고침
 
 				}
 			});
@@ -76,16 +76,21 @@
 	margin-left: 23%;
 	margin-top: 0%;
 }
+#page {
+	text-align: center;
+}
 </style>
 </head>
 <body>
 <div id="center">
+<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>
+<c:if test="${ total != 0}">
 <table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
 						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
 					<th scope="col"><b>No.</b></th>  
-					<th scope="col"><b>제목</b></th>
+					<th style="width: 250px;" scope="col">제목</th>
 					<th scope="col"><b>작성자</b></th>
 					<th scope="col"><b>작성일</b></th>
 					<th scope="col"><b>조회수</b></th>
@@ -93,29 +98,70 @@
 					<th scope="col"><b>답변여부</b></th>
 				</tr>
 			</thead>
-			
 			<c:forEach items="${list}" var="list">
-					<tr>
+			
+						<tr>
 							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
-						<td>${list.boardnum}</td>
-						<td><a href="/qnaDetail/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
-								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
-										Re:
-								</c:forEach> --%>
+							<td>${list.boardnum}</td>
+
+							<td><a href="qnaDetail/${list.boardnum}">
+						<c:if test="${list.boardrelevel == 0 }">[질문]</c:if>
+						 <c:if test="${list.boardrelevel >= 1 }">&nbsp; &nbsp; &nbsp; &nbsp;ㄴRE:</c:if>
+						<%--   <c:if test="${list.boardrelevel > 1 }">
+						<c:forEach begin="2" end="${list.boardrelevel}">
+							Re:
+						</c:forEach>
+								</c:if> --%>  <!-- 답변의 답변의 경우부터 사용 -->
 						 ${list.boardtitle}
 						</a></td>
-
-						<td>${list.boardwriter}</td>
-						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
-						<td>${list.boardsee}</td>
-						<td>${list.boardrecom}</td>
-						<td>${list.boardyn}</td>
-					</tr>
+							
+							<td>${list.boardwriter}</td>
+							<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
+							<td>${list.boardsee}</td>
+							<td>${list.boardrecom}</td>
+							<td>${list.boardyn}</td>
+					 </tr>
+							
 				</c:forEach>
+				
 		</table>
 		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>	
+<div id="page">
+				<c:if test="${search == null }">
+					<c:if test="${begin > 2 }">
+						<a href="/qnaList?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin }" end="${end}" var="i">
+						<a href="/qnaList?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage }">
+						<a href="/qnaList?p=${end+1}">[다음]</a>
+					</c:if>
+				</c:if>
+				<c:if test="${search != null }">
+					<c:if test="${begin > 2 }">
+						<a href="/qnaList?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin }" end="${end}" var="i">
+						<a href="/qnaList?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage }">
+						<a href="/qnaList?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+					</c:if>
+				</c:if>
 
+			</div><!-- page -->
+		</c:if>
+			
+			<form>
+			<div style="width: 400px;" class="input-group">
+				<select style="width: 130px" class="form-select" name="searchn">
+					<option value="0">제목</option>
+					<option value="1">내용</option>
+					<option value="2">작성자</option>
+				</select> <input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" /> <input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+			</div>
+		</form>
 
 
 </div><!--  center -->

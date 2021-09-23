@@ -108,8 +108,8 @@ a {
 										 마이페이지</button>
 										<ul class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" href="#">개인정보수정</a></li>
-											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
 											<li><a class="dropdown-item" href="/adminOnly">관리자페이지</a></li>

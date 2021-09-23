@@ -4,13 +4,6 @@
 <%@ include file="DsLayout/dsHeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
-<style>
-#img{
-	margin-bottom: 8px;
-}
-
-
-</style>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -137,15 +130,13 @@ a {
 
 						<td><a href="qnaDetail/${list.boardnum}">
 						<c:if test="${list.boardrelevel == 0 }">[질문]</c:if>
-						 <c:if test="${list.boardrelevel >= 1 }">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ㄴ[답변완료]</c:if>
+						 <c:if test="${list.boardrelevel >= 1 }">&nbsp; &nbsp; &nbsp; &nbsp;ㄴRE:</c:if>
 						<%--   <c:if test="${list.boardrelevel > 1 }">
 						<c:forEach begin="2" end="${list.boardrelevel}">
 							Re:
 						</c:forEach>
 								</c:if> --%>  <!-- 답변의 답변의 경우부터 사용 -->
 						 ${list.boardtitle}
-						  <c:if test="${list.boardrelevel >= 1 }">
-						 <img id=img src="/img/qnaPost2.jpg" width="20px"  ></c:if>
 						</a></td>
 
 						<td>${list.boardwriter}</td>
