@@ -27,9 +27,16 @@ a {
 		<br>
 		<form action="/updateQnA" method="post">
 			<input type="hidden" name="boardnum" value="${boardnum}">
+			<input type="hidden" name="boardmemnum" value="${boardmemnum}">
+			<input type="hidden" name="boardrecom" value="${boardrecom}">
+			<input type="hidden" name="boardrelevel" value="${boardrelevel}">
+			<input type="hidden" name="boardrestep" value="${boardrestep}">
+			<input type="hidden" name="boardref" value="${boardref}">
+			
+			
 			<table class="table table-borderless border">
 				<tr>
-					<td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td>
+					<td><a href="/qnaList"><small style="color: green">QnA 게시판 ></small></a></td>
 				</tr>
 				<tr>
 					<td><input class="form-control" name="boardtitle" id="boardtitle" value="${board.boardtitle}" placeholder="제목을 입력해 주세요."></td>

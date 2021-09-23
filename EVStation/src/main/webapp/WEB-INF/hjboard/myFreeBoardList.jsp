@@ -219,7 +219,7 @@ a {
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
 		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
-			<button type="button" class="btn btn-secondary"  onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary"  onclick="location.href='/myAllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-outline-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>

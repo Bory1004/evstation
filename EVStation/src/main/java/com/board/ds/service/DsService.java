@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.board.ay.domain.Board3;
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
 import com.board.hj.domain.Member;
@@ -30,9 +31,12 @@ public interface DsService {
 	
 	Page<DsEntity>AAllListQnA(int pNum, Long boardmemnum);
 
-	void withdraw(Long memnum);
-
 	
+	//추천 부분
+	DsEntity dnRecom(Long boardnum);
+
+	DsEntity upRecom(Long boardnum);
+
 
 
 }
