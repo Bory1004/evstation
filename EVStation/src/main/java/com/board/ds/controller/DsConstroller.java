@@ -132,29 +132,14 @@ public class DsConstroller {
 			m.addAttribute("detail", detail);
 			
 			//댓글부분
-			Page<DsComment> pageList = null;
-			pageList = dsCoService.QnAComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
-			
-			List<DsComment>coList = pageList.getContent(); // 보여질 글
-			
-			int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
-			long total = pageList.getTotalElements(); //전제 글 수		
-			
-			m.addAttribute("totalPage", totalPageCount);
-			m.addAttribute("total", total);
-
-			int pageNum = 2;
-			int begin = (pNum - 1) / pageNum * pageNum + 1;
-			int end = begin + pageNum - 1;
-			if (end > totalPageCount) {
-				end = totalPageCount;
-			}
-			
-			m.addAttribute("begin", begin);
-			m.addAttribute("end", end);
-			m.addAttribute("coList", coList);
-			
-			//--------------------------------------------------추천수 부분
+			int commentCnt = dsCoService.getComentCount(boardnum);
+			m.addAttribute("Cnt", commentCnt);  //댓글 갯수 
+			//-------------------댓글로딩
+			List<DsComment>comments = dsCoService.getComments(boardnum, (long) 0);
+			m.addAttribute("comments",comments); //댓글
+			List<DsComment>replycomments = dsCoService.getReplyComments(boardnum, (long) 0);
+			m.addAttribute("replycomments",replycomments); //대댓글
+			//-------------------------------------------------- 추천수 부분
 			int result = dsRecomService.isRecom(boardnum,member.getId());
 			m.addAttribute("result",result);
 				
@@ -288,6 +273,10 @@ public class DsConstroller {
 	
 	
 		pageList = dsService.AAllListQnA(pNum, boardmemnum);
+		
+		
+		
+		
 		
 		List<DsEntity> list = pageList.getContent();  
 		m.addAttribute("list", list);
