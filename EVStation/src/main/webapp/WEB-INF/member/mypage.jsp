@@ -22,35 +22,29 @@
 }
 
 #alarmpage {
-	position: absolute;
-	border: solid #BDBDBD 1px;
-	border-radius: 20px;
-	width: 230px;
-	height: 300px;
-	left: 1230px;
-	padding: 10px;
-	overflow-y: auto;
+   position :absolute;
+   border: solid #BDBDBD 1px;
+   border-radius: 20px;
+   width : 230px;
+   height : 300px;
+   left : 1200px;
+   padding : 10px;
+   overflow-y : auto;
 }
-
 #alarmcount {
-	position: relative;
-	width: 30px;
-	height: 20px;
-	left: 380px;
-	top: 10px;
-	border-radius: 10px;
-	text-align: center;
-	vertical-align: middle;
+   position : relative;
+   width : 30px;
+   height : 20px;
+   left : 380px;
+   top : 10px;   
+   border-radius: 10px;
+   text-align : center;
+   vertical-align : middle;
 }
-
-#alarmcount>span {
-	position: relative;
-	color: white;
-	bottom: 3px;
-	left: 1700px;
-	top: 200px;
-	width: 300px;
-	height: 400px;
+#alarmcount > span {
+   position :relative;
+   color : white;
+   bottom : 3px;
 }
 
 div.form-text {
@@ -99,45 +93,9 @@ ul {
     object-fit: cover;
 }
 </style>
-<script type="text/javascript">
-//이미지 크키 조절
-function resize(img){
-	// 원본 이미지 사이즈 저장
-	let width = img.width;
-	let height = img.height;
-
-	// 가로, 세로 최대 사이즈 설정
-	let maxWidth = img.width*0.09;   // 원하는대로 설정. 픽셀로 하려면 maxWidth = 100  이런 식으로 입력
-	let maxHeight = img.height*0.09;   // 원래 사이즈 * 0.5 = 50%
-
-	let resizeHeight = null; 
-	let resizeWidth = null;
-	
-	// 가로나 세로의 길이가 최대 사이즈보다 크면 실행  
-	if(width > maxWidth || height > maxHeight){
-		// 가로가 세로보다 크면 가로는 최대사이즈로, 세로는 비율 맞춰 리사이즈
-		if(width > height){
-			resizeWidth = maxWidth;
-			resizeHeight = Math.round((height * resizeWidth) / width);
-			// 세로가 가로보다 크면 세로는 최대사이즈로, 가로는 비율 맞춰 리사이즈
-		}else{
-			resizeHeight = maxHeight;
-			resizeWidth = Math.round((width * resizeHeight) / height);
-		}
-	 // 최대사이즈보다 작으면 원본 그대로
-	 }else{
-		 resizeWidth = width;
-		 resizeHeight = height;
-		}
-		// 리사이즈한 크기로 이미지 크기 다시 지정
-		img.width = resizeWidth;
-		img.height = resizeHeight;
-	}	
-</script>
 </head>
 <body>
-
-	<div class="container">
+   <div class="container">
       <header class="py-3">
          <div class="row justify-content-center">
             <div class="col-6 pt-2">
@@ -159,13 +117,13 @@ function resize(img){
                   <c:otherwise>
                      <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png" width="30" height="30" onclick="ring(${member.memnum})">
                      </div>
-						<div style="float: right;">
-							<img style = "border-radius:70%;" src="${member.memphoto}" onload="resize(this)">${member.name}(${member.id})님 환영합니다!!
-							<div class="dropdown">
+						<div style="float: right;">						
+							<img id="main_profile" style = "border-radius:70%;" src="${member.memphoto}" width="40px" height="auto">${member.name}(${member.id})님 환영합니다!!							
+								<div class="dropdown">
 									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<li><a class="dropdown-item" href="/check_mypage">마이페이지</a></li>
-										<li><a class="dropdown-item" href="#">내가 쓴 글</a></li>
+										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
+										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 									</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>

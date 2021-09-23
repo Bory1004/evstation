@@ -48,7 +48,7 @@ function resize(img){
 		// 리사이즈한 크기로 이미지 크기 다시 지정
 		img.width = resizeWidth;
 		img.height = resizeHeight;
-	}
+}
   
 </script>
 <body>
