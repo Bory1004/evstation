@@ -30,4 +30,6 @@ public interface FreeCommentService {
 	void updateComment(Long comnum, String content);
 	
 	List<FreeBoardComment> getCommentlist(Long boardnum);
+
+	void withdraw(Long memnum);
 }

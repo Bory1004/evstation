@@ -1,4 +1,4 @@
-package com.board.ds_entity;
+package com.board.ds.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;

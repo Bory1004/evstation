@@ -34,4 +34,10 @@ public interface FreeCommentRepository extends JpaRepository<FreeBoardComment, L
 	@Modifying
 	@Query("delete from FreeBoardComment d where d.boardnum = ?1")
 	void deleteBoardComment(Long boardnum);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM FreeBoardComment d WHERE d.commennum=?1")
+	void deleteByMemnum(Long memnum);
+
 }

@@ -38,7 +38,7 @@ a {
    border-radius: 20px;
    width : 230px;
    height : 300px;
-   left : 1230px;
+   left : 1200px;
    padding : 10px;
    overflow-y : auto;
 }
@@ -47,7 +47,7 @@ a {
    width : 30px;
    height : 20px;
    left : 380px;
-   top : 10px; 
+   top : 10px;   
    border-radius: 10px;
    text-align : center;
    vertical-align : middle;
@@ -56,10 +56,6 @@ a {
    position :relative;
    color : white;
    bottom : 3px;
-   left : 1700px;
-   top : 200px;
-   width : 300px;
-   height : 400px;
 }
 </style>
 <script type="text/javascript">
@@ -127,7 +123,7 @@ function resize(img){
 									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
-										<li><a class="dropdown-item" href="#">내가 쓴 글</a></li>
+										<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
 										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 									</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>

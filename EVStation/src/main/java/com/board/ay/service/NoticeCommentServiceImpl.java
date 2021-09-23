@@ -47,4 +47,9 @@ public class NoticeCommentServiceImpl implements NoticeCommentService {
 
 	}
 
+	@Override
+	public void withdraw(Long commemnum) {
+		noticeRepo.deleteByCommemnum(commemnum);
+	}
+
 }

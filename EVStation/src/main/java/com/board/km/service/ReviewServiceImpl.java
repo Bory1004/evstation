@@ -1,11 +1,14 @@
 package com.board.km.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.board.km.domain.AllTableDTO;
 import com.board.km.domain.ReviewBoard;
 import com.board.km.persistence.ReviewRepository;
 
@@ -21,6 +24,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewRepo.findByBoardstnumOrderByBoardnumDesc(stnum , page);
 	}
 
+	
+	
 	@Override
 	public Page<ReviewBoard> getReviewBoardList(int pNum, Long stnum ,int searchn, String search) {
 		Pageable page = PageRequest.of(pNum-1,10);
@@ -52,6 +57,31 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteReview(Long boardnum) {
 			reviewRepo.deleteById(boardnum);
+	}
+
+	
+	
+	
+	//내가쓴글 // 대순이가씀
+	@Override
+	public Page<ReviewBoard> myReviewList(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return reviewRepo.findByBoardmemnumOrderByBoardnumDesc(boardmemnum, page);
+	}
+	@Override
+	public void deleteChk(int boardnum) {
+		reviewRepo.deleteById((long) boardnum);
+	}
+
+	@Override
+	public void withdraw(Long memnum) {
+		reviewRepo.deleteByMemnum(memnum);
+	}
+
+	@Override
+	public List<AllTableDTO> AllBoardList(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10); // 불러올페이지, 페이지크기
+		return reviewRepo.findAllBoard(boardmemnum);
 	}
 
 	

@@ -16,5 +16,7 @@ public interface AlarmService {
 
 	void checkAlarm(Long alanum);
 
+	void withdraw(Long memnum);
+
 
 }
