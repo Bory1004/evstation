@@ -1,6 +1,5 @@
 package com.board.hj.controller;
 
-
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,7 +45,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private ChargeService chargeService;
 	@Autowired
@@ -64,12 +64,12 @@ public class MemberController {
 	private DsCommentService dscommentService;
 	@Autowired
 	private NoticeCommentService noticecommentService;
-	
+
 	@ModelAttribute("member")
 	public Member getMember() {
 		return new Member();
 	}
-	
+
 	// 메인 페이지로 이동
 	@GetMapping("/main")
 	public String mainView(HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model,
@@ -153,7 +153,6 @@ public class MemberController {
 		}
 		return "redirect:main";
 	}
-	
 
 	// 마이페이지 가기전 비밀번호 입력 페이지로 이동
 	@GetMapping("/check_mypage")
@@ -178,14 +177,14 @@ public class MemberController {
 
 		return "member/mypage";
 	}
-	
+
 	// 회원정보 수정
 	@PostMapping("/update_mypage")
 	public String update_mypage(@ModelAttribute("member") Member member) {
 		memberService.saveMember(member);
 		return "redirect:mypage";
 	}
-	
+
 	// 프로필 변경
 	@PostMapping("/update_photo")
 	public String update_photo(@ModelAttribute("member") Member member, @RequestParam("file_photo") MultipartFile file, HttpServletRequest request)
@@ -218,26 +217,31 @@ public class MemberController {
 		System.out.println("fileName : " + fileName);
 
 		return "redirect:mypage";
-
+	}
 	//회원탈퇴 
 	@RequestMapping("/withdrawForm")
 	public String withdrawForm() {
 		return "member/withdrawForm";
 	}
+
 	@RequestMapping("/withdraw/{memnum}")
 	@ResponseBody
-	public String withdraw(@PathVariable Long memnum){
-		/*
-		 * reviewService.withdraw(memnum); alarmService.withdraw(memnum);
-		 * commentService.withdraw(memnum); freeboardService.withdraw(memnum);
-		 * freecommentService.withdraw(memnum); dsService.withdraw(memnum);
-		 * dscommentService.withdraw(memnum); noticecommentService.withdraw(memnum);
-		 * 
-		 * memberService.delAccount(memnum);
-		 */
-		
+	public String withdraw(@PathVariable Long memnum) {
+
+		reviewService.withdraw(memnum);
+		alarmService.withdraw(memnum);
+		commentService.withdraw(memnum);
+		freeboardService.withdraw(memnum);
+		freecommentService.withdraw(memnum);
+		dsService.withdraw(memnum);
+		dscommentService.withdraw(memnum);
+		noticecommentService.withdraw(memnum);
+
+		memberService.delAccount(memnum);
+
 		return "success!";
 	}
+
 	@RequestMapping("/withdrawCom")
 	public String withdrawComplete() {
 		return "member/withdrawComplete";

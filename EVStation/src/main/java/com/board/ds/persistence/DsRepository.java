@@ -74,6 +74,11 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom-1 WHERE b.boardnum=?1")
 		int dnRecom(Long boardnum);
 
+		@Transactional
+		@Modifying
+		@Query("DELETE FROM DsEntity d WHERE d.boardmemnum = ?1")
+		void deleteByMemnum(Long memnum);
+
 	 
 
 }

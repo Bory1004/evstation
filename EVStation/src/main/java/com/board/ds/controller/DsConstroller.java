@@ -265,7 +265,7 @@ public class DsConstroller {
 
 	//QnA 내가 쓴글
 	@RequestMapping("/myQnABoardList/{boardmemnum}")
-	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @RequestParam(name = "type", defaultValue = "1") int boardtype,@PathVariable Long boardmemnum){
 	
 		Page<DsEntity> pageList = null;
 		int pageNum = 5;

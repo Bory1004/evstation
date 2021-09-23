@@ -123,7 +123,7 @@ function resize(img){
 									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
-										<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 									</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>

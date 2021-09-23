@@ -30,5 +30,8 @@ public class DsCommentServiceImpl implements DsCommentService {
 		return DsCoRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(boardnum, comrestep);
 	}
 
-
+	@Override
+	public void withdraw(Long memnum) {
+		DsCoRepo.deleteByMemnum(memnum);
+	}
 }   
