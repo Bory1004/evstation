@@ -32,14 +32,14 @@
 <br>
 	<main>
 		<div id="center" style="width: 400px;">			
-			<form action="/checkPw_mypage" method="post">	
+			<form action="/mypage" method="post">
 				<table class="table table-borderless border">								
 					<tr><td align="center"><img src="${member.memphoto}" width="250" height="160"></td></tr>
 					<tr><td align="center"><h4>${member.id} 님</h4></td></tr>
 					<tr><td align="center">소중한 개인정보를 위해 비밀번호를 확인해주세요!</td></tr>
 					<tr><td align="center" ><input type="hidden" id="id" name="id" class="form-control" value="${member.id}"></td></tr>
 					<tr><td align="center"><input type="password" id="mempw" name="mempw" class="form-control" maxlength="20" aria-describedby="pw_msg" placeholder="비밀번호를 입력해주세요."></td></tr>
-					<tr><td align="center"><div id="pw_msg" class="form-text"></div></td></tr>
+					<tr><td><div id="pw_msg" class="form-text"></div></td></tr>
 					<tr><td align="center"><input type="submit" id="bnt_submit" class="btn btn-success" value="비밀번호 확인" /></td></tr>				
 				</table>
 			</form>
@@ -61,15 +61,28 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 	$(function() {				
+		$("#mempw").blur(function() {			
+			if (!$("#mempw").val()) {
+				$("#pw_msg").text("비밀번호를 입력해주세요.");
+				return false;
+			}			
+		});
 		
 		$("#bnt_submit").on("click",function(){
 			if(!$("#mempw").val()){
-				$("#pw_msg").text("비밀번호를 입력주세요.")
+				$("#pw_msg").text("비밀번호를 입력해주세요.")
 				$("#mempw").focus();
 				return false;
 			}
 			
-		})
+			let pw = "${member.mempw}";
+			if($("#mempw").val() != pw){
+				alert("비밀번호를 확인해주세요.");
+				$("#mempw").focus();
+				return false;
+			}
+			
+		});
 	});
 	</script>	
 </body>

@@ -84,11 +84,21 @@ a {
                      </div>   
                   </c:when>
                   <c:otherwise>
-                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
-                     width="30" height="30" onclick="ring(${member.memnum})">
+                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png" width="30" height="30" onclick="ring(${member.memnum})">
                      </div>
-                     <div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
-                  </c:otherwise>                  
+						<div style="float: right;">
+							<img style = "border-radius:70%;" src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!
+								<div class="dropdown">
+									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
+										<li><a class="dropdown-item" href="#">내가 쓴 글</a></li>
+										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+									</ul>
+									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+								</div>
+							</div>
+						</c:otherwise>                  
                </c:choose>
             </div>
          </div>

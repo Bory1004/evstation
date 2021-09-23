@@ -112,7 +112,7 @@ a {
 				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}</td>
 					<td align="right"><c:if test="${board.member.id eq member.id}">
 							<a href="/updateFreeBoard/${board.boardnum}">수정</a>	
-							<a href="/deleteFreeBoard/${board.boardnum}">삭제</a>
+							<a id="delete_board" href="/deleteFreeBoard/${board.boardnum}" onclick='return confirm("정말 삭제하시겠습니까?");'>삭제</a>
 						</c:if>
 					</td></tr>
 				<tr><td colspan="2"><hr align="center"></td></tr>
@@ -196,6 +196,8 @@ a {
 					getList();
 			}); //ajax
 		}); //bnt_c
+		
+		
 	});
 
 	function getList(){
