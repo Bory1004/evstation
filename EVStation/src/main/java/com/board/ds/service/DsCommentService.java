@@ -16,5 +16,7 @@ public interface DsCommentService {
 	List<DsComment>getReplyComments(Long boardnum, Long comrestep);
 	
 
+	void withdraw(Long memnum);
+
 }
  

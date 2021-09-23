@@ -31,6 +31,8 @@ public interface FreeBoardService {
 	void deleteChk(int boardnum);
 
 	int getCommentCount(Long boardnum);
+
+	void withdraw(Long memnum);
 		
 
 }

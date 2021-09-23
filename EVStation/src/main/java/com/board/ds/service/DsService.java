@@ -30,6 +30,7 @@ public interface DsService {
 	DsEntity qnaConmment(Long boardnum);
 	
 	Page<DsEntity>AAllListQnA(int pNum, Long boardmemnum);
+
 	
 	//추천 부분
 	DsEntity dnRecom(Long boardnum);

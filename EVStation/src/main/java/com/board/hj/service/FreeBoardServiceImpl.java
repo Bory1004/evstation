@@ -75,4 +75,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return boardRepo.getCommentCount(boardnum);
 	}
 
+	@Override
+	public void withdraw(Long memnum) {
+		boardRepo.deleteByMemnum(memnum);
+	}
+
 }

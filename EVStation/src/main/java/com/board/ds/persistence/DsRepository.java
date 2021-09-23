@@ -12,23 +12,25 @@ import org.springframework.stereotype.Repository;
 import com.board.ds.domain.DsEntity;
 import com.board.hj.domain.FreeBoard;
 import com.board.km.domain.ReviewBoard;
+
 @Repository
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
-	
-	
-	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  //글 리스트
-	
+
+	Page<DsEntity> findByOrderByBoardrefDescBoardrestepAsc(Pageable page); // 글 리스트
+
 	DsEntity save(Long boardnum);
-	
+
 	@Transactional
 	@Modifying
 	@Query("UPDATE DsEntity d SET d.boardsee = d.boardsee+1 WHERE d.boardnum =?1")
 	int updateSee(Long boardnum);
 
 	Page<DsEntity> findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
+
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
+
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
-	//Page<DsEntity>
+	// Page<DsEntity>
 
 	@Transactional
 	@Modifying
@@ -73,4 +75,5 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 		int dnRecom(Long boardnum);
 
 	 
+
 }

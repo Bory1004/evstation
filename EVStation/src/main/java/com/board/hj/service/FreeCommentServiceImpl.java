@@ -62,4 +62,9 @@ public class FreeCommentServiceImpl implements FreeCommentService {
 		commentRepo.findByBoardnumOrderByComnumAsc(boardnum);
 		return null;
 	}
+
+	@Override
+	public void withdraw(Long memnum) {
+		commentRepo.deleteByMemnum(memnum);
+	}
 }

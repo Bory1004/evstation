@@ -3,13 +3,17 @@ package com.board.km.domain;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import com.board.hj.domain.Member;
@@ -23,6 +27,36 @@ import lombok.ToString;
 @Setter
 @Getter             
 @ToString
+@NamedNativeQuery(
+		name = "find_alltable",
+		query="select boardnum,boardtitle,boardwriter,boarddate,boardsee,boardrecom from"
+				+ "("
+				+ "   select board_num as boardnum ,board_title as boardtitle ,board_writer as boardwriter,"
+				+ "	  board_date as boarddate ,board_see as boardsee ,board_recom as boardrecom from board02 a where a.board_mem_num =?1"
+				+ "   union all"
+				+ "   select board_num as boardnum ,board_title as boardtitle ,board_writer as boardwriter,"
+				+ "   board_date as boarddate ,board_see as boardsee, board_recom as boardrecom from qnaboard b where b.board_mem_num =?1"
+				+ "   union all"
+				+ "   select boardnum, boardtitle, boardwriter ,"
+				+ "   boarddate , boardsee  , boardrecom from freeboard c where c.memnum =?1"
+				+ ") te "
+				+ "order by boarddate desc ",
+		resultSetMapping = "alltable"
+)
+@SqlResultSetMapping(
+		name="alltable",
+		classes = @ConstructorResult(
+			targetClass = AllTableDTO.class,
+			columns = {
+				@ColumnResult(name="boardnum", type = Long.class),
+				@ColumnResult(name="boardtitle", type = String.class),
+				@ColumnResult(name="boardwriter", type = String.class),
+				@ColumnResult(name="boarddate", type = Date.class),
+				@ColumnResult(name="boardsee", type = Long.class),
+				@ColumnResult(name="boardrecom", type = Long.class),
+			}
+		)
+)
 @SequenceGenerator(name="REVBOARD_SEQ_GEN", sequenceName="BOARD02_SEQ", initialValue=1,allocationSize=1)  
 public class ReviewBoard {
 	

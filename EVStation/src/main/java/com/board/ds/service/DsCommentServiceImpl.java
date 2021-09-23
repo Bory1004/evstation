@@ -29,9 +29,6 @@ public class DsCommentServiceImpl implements DsCommentService {
 	public List<DsComment> getReplyComments(Long boardnum, Long comrestep) {
 		return DsCoRepo.findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(boardnum, comrestep);
 	}
-	
-	
-	
-  
+
 
 }   

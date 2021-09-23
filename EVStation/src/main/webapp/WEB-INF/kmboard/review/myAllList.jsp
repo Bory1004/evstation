@@ -219,8 +219,8 @@ a {
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
 		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
-			<button type="button" class="btn btn-secondary"  onclick="location.href='/myAllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
-			<button type="button" class="btn btn-outline-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-outline-secondary"  onclick="location.href='/AllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
 			<button type="button" class="btn btn-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>
 		</div>
@@ -242,19 +242,15 @@ a {
 				</tr>
 			</thead>
 			
-			<c:forEach items="${list}" var="list">
+			<c:forEach items="${All}" var="list">
 					<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
-
+						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
-
-						<td><a href="/content/${list.boardtype}/${list.boardnum}">${list.boardtitle}</a></td>
-
+						<td><a href="/content/${list.boardnum}">${list.boardtitle}</a></td>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>
 						<td>${list.boardrecom}</td>
-
 					</tr>
 				</c:forEach>
 
@@ -262,13 +258,13 @@ a {
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
 			<div id="page">
 					<c:if test="${begin > 2 }">
-						<a href="/myReviewBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
+						<a href="/AllBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin }" end="${end}" var="i">
-						<a href="/myReviewBoardList/${member.memnum}?p=${i}">[${i}]</a>
+						<a href="/AllBoardList/${member.memnum}?p=${i}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/myReviewBoardList/${member.memnum}?p=${end+1}">[다음]</a>
+						<a href="/AllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
 					</c:if>
 			</div>
 				

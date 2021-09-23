@@ -28,4 +28,9 @@ public interface FreeCommentRepository extends JpaRepository<FreeBoardComment, L
 	@Modifying
 	@Query("UPDATE FreeBoardComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
 	void updateComment(Long comnum, String comcontent);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM FreeBoardComment d WHERE d.commennum=?1")
+	void deleteByMemnum(Long memnum);
 }
