@@ -16,6 +16,41 @@
 	}
 </style>
 </head>
+<script type="text/javascript">
+function resize(img){
+	// 원본 이미지 사이즈 저장
+	let width = img.width;
+	let height = img.height;
+
+	// 가로, 세로 최대 사이즈 설정
+	let maxWidth = 180;   // 원하는대로 설정. 픽셀로 하려면 maxWidth = 100  이런 식으로 입력
+	let maxHeight = 180;   // 원래 사이즈 * 0.5 = 50%
+
+	let resizeHeight = null; 
+	let resizeWidth = null;
+	
+	// 가로나 세로의 길이가 최대 사이즈보다 크면 실행  
+	if(width > maxWidth || height > maxHeight){
+		// 가로가 세로보다 크면 가로는 최대사이즈로, 세로는 비율 맞춰 리사이즈
+		if(width > height){
+			resizeWidth = maxWidth;
+			resizeHeight = Math.round((height * resizeWidth) / width);
+			// 세로가 가로보다 크면 세로는 최대사이즈로, 가로는 비율 맞춰 리사이즈
+		}else{
+			resizeHeight = maxHeight;
+			resizeWidth = Math.round((width * resizeHeight) / height);
+		}
+	 // 최대사이즈보다 작으면 원본 그대로
+	 }else{
+		 resizeWidth = width;
+		 resizeHeight = height;
+		}
+		// 리사이즈한 크기로 이미지 크기 다시 지정
+		img.width = resizeWidth;
+		img.height = resizeHeight;
+	}
+  
+</script>
 <body>
 
 	<header class="py-4">
@@ -34,7 +69,7 @@
 		<div id="center" style="width: 400px;">			
 			<form action="/mypage" method="post">
 				<table class="table table-borderless border">								
-					<tr><td align="center"><img src="${member.memphoto}" width="250" height="160"></td></tr>
+					<tr><td align="center"><img style = "border-radius:70%;" src="${member.memphoto}" onload="resize(this)"></td></tr>
 					<tr><td align="center"><h4>${member.id} 님</h4></td></tr>
 					<tr><td align="center">소중한 개인정보를 위해 비밀번호를 확인해주세요!</td></tr>
 					<tr><td align="center" ><input type="hidden" id="id" name="id" class="form-control" value="${member.id}"></td></tr>
@@ -60,7 +95,8 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-	$(function() {				
+	$(function() {
+		
 		$("#mempw").blur(function() {			
 			if (!$("#mempw").val()) {
 				$("#pw_msg").text("비밀번호를 입력해주세요.");

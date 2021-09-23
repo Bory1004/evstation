@@ -174,18 +174,20 @@ public class MemberController {
 
 		if (file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
 			// 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
-			
-			File file_photo = new File(uploadPath, file.getOriginalFilename());
+			String[] file_fullname = file.getOriginalFilename().split("\\.");
+			fileName = member.getId()+"."+file_fullname[1];
+			File file_photo = new File(uploadPath, fileName);
 			file.transferTo(file_photo);
 			
 			// 원본 파일 경로 + 파일명 저장
-			member.setMemphoto(request.getContextPath()+"/resources/profile/"+file.getOriginalFilename());
-
+			member.setMemphoto(request.getContextPath()+"/resources/profile/"+fileName);
+			memberService.saveMember(member);
 		} else { // 첨부된 파일이 없으면
 			fileName = "/profile/basic.png";
 			// 미리 준비된 none.png파일을 대신 출력함
 
 			member.setMemphoto(fileName);
+			memberService.saveMember(member);
 		}
 		System.out.println("fileName : " + fileName);
 
