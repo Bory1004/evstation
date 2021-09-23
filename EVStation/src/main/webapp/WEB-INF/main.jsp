@@ -56,10 +56,6 @@ a {
    position :relative;
    color : white;
    bottom : 3px;
-   left : 1700px;
-   top : 200px;
-   width : 300px;
-   height : 400px;
 }
 </style>
 </head>

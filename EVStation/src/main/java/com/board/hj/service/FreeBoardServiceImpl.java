@@ -69,7 +69,6 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public void deleteChk(int boardnum) {
 		boardRepo.deleteById((long) boardnum);
 	}
-		
 
 	@Override
 	public int getCommentCount(Long boardnum) {
