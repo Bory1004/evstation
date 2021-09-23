@@ -38,7 +38,7 @@ a {
    border-radius: 20px;
    width : 230px;
    height : 300px;
-   left : 1230px;
+   left : 1200px;
    padding : 10px;
    overflow-y : auto;
 }
