@@ -31,7 +31,11 @@ public interface DsCommentRepository extends JpaRepository<DsComment, Long> {
 	List<DsComment> findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(Long comnum, Long comrestep); //대댓글만 불러오기
 	
 	
-	
+	//댓글창에서 일반댓글을 달때 그룹번호와 restep을 지정
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsComment d SET d.comgroupnum = ?1, d.comrestep= 0 WHERE d.comnum = ?1")  
+	int updategroupnumandcomrestep(Long comnum);
 	
 	
 	

@@ -163,36 +163,41 @@
 	$(function() {
 		$('#comment_button').click(function() { //댓글 생성 및 ajax
 			let comcontent = $('#comment').val(); //id가 comment인 textarea 안에 있는 값을 정의
-			//let boardnum = '${detail.boardnum}' // 댓글을 작성한 글의 넘버(pk)
+			let boardnum = '${detail.boardnum}' // 댓글을 작성한 글의 넘버(pk)
+			let commemnum = '${member.memnum}'
+			let number = $('#cCnt').html();
 
 			if (!comcontent) {
 				alert("댓글을 입력하세요!")
 				$("#comment").focus();
 				return false;
-			}
+			};
 			$.ajax({
-				url : "/insertQnAComment/${detail.boardnum}",
-				data : "comcontent=" + comcontent,
+				type : "get",				
+				url : "insertQnAComment",
+				data :{
+					"boardnum" : boardnum,
+					"comcontent" : comcontent,
+					"commemnum" : commemnum
+				},
 				dataType : "json",
 			}).done(function(data) {
-				console.log(data)
 				alert(data)
-				$('#con').prepend("<div class='cocomen' style='margin-bottom: 5px;''>"+ data.comcontent+"</div><hr>");
-						
-				  
-				                                
 				$('#comment').val('');
-			}); //ajax
-		}); //#comment_button
-	
-		/* $(function(){
-			$("#commen_del").click(function(){
-				
-			}
-		}) */
-		
-		
-	});
+				let date = new Date(data.comdate);
+				$("#commentlist").append(
+						"<div id='"+data.comnum+"'><div class='mb-2'><strong><img src='"+data.member.memphoto+"' width='45' height='30'>"+data.member.name+"("+data.member.id+")</strong><span>"
+							+" <a id='comment_reply"+data.comnum+"' href='#replyComment' onclick='replyCommentForm("+data.comnum+","+data.comgroupnum+")'>답글</a> "
+							+"<a id='comment_update"+data.comnum+"' href='#updateCommentForm' onclick='updateCommentForm("+data.comnum+")'>수정</a> "
+							+"<a id='comment_delete"+data.comnum+"' href='#delete' onclick='deleteComment("+data.comnum+","+data.comgroupnum+")'>삭제</a></span></div><span id='comcontent"+data.comnum+"'>"+data.comcontent+"</span><br>"+(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+"<hr></div>"
+					);
+				let cnt = parseInt(number)+1
+				$('#cCnt').html(cnt);
+			}).fail(function(e) {
+				alert(e.responseText);
+			})
+		});
+	//----------------------------------------
 		
 	//추천 부분	
 	$(function() {
@@ -218,6 +223,7 @@
 					}); 
 				
 		})
+	})
 
 
 })

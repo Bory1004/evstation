@@ -349,5 +349,38 @@ public class DsConstroller {
 	}
 	
 	
+	//관리자 페이지 
+	@RequestMapping("/adminOnly")
+	public String adminOnly(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
+			@RequestParam(defaultValue = "-1") int searchn) {
+		int pageNum = 5;
+		Page<DsEntity> pageList = null;
+		if (search != null) {
+			pageList = dsService.AllListQnA(pNum, searchn, search);
+		} else {
+			pageList = dsService.AllListQnA(pNum);
+		}
+		List<DsEntity> list = pageList.getContent();
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+		m.addAttribute("list", list);
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		
+		return "/DsBoard/adminQnAOnly";
+		
+	}
+	
 	
 }
