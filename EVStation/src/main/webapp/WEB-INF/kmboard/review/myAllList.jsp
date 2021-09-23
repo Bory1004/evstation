@@ -227,7 +227,8 @@ a {
 	</div>
 </div>
 	<div id="center">
-
+		
+		
 		<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
@@ -241,8 +242,8 @@ a {
 
 				</tr>
 			</thead>
-			
-			<c:forEach items="${All}" var="list">
+			<c:if test="${total != 0}">
+				<c:forEach items="${All}" var="list">
 					<tr>
 						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
@@ -253,7 +254,7 @@ a {
 						<td>${list.boardrecom}</td>
 					</tr>
 				</c:forEach>
-
+			</c:if>		
 		</table>
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
 			<div id="page">
@@ -267,7 +268,7 @@ a {
 						<a href="/AllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
 					</c:if>
 			</div>
-				
+		
 			
 
 </div>
