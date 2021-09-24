@@ -102,16 +102,13 @@ public class ReviewController implements ApplicationContextAware {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
-		m.addAttribute("search_msg",search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
 		return "kmboard/review/reviewlist";
 	}
-
 
 	@RequestMapping("deleteReview/{boardnum}")
 	public String deleteReview(@PathVariable Long boardnum) {
