@@ -137,7 +137,37 @@ public class BoardController3 {
 		}
 
 		return "redirect:/ay/getBoardList";
-
+	}
+	@RequestMapping("/ay/admin")
+	public String admin(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @ModelAttribute("member")Member member,String search,@RequestParam(defaultValue = "-1")int searchn) {//뷰한테 보낼 때 항상 모델 사용!
+		Page<Board3> pageList = null;
+		if(search != null) {
+			pageList = boardService.getBoardList(pNum,searchn,search);
+			String search_msg = "\"" + search + "\" 검색 결과";
+			m.addAttribute("search_msg", search_msg);
+		}else {
+			pageList = boardService.getBoardList(pNum);
+		}
+		List<Board3> bList = pageList.getContent();// 보여질 글
+		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+		long total = pageList.getTotalElements();
+		m.addAttribute("bList", bList);
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+		System.err.println("total : "+total);
+		int pageNum = 5;
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		m.addAttribute("member", member);
+		
+		return "/ayboard/admin";
 	}
 	
 }

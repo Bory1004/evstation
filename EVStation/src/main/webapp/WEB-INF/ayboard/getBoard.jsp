@@ -12,25 +12,54 @@
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 @media ( min-width : 768px) {
-   .container {
-      width: 750px
-   }
+	.container {
+		width: 750px
+	}
 }
 @media ( min-width : 992px) {
-   .container {
-      width: 940px
-   }
+	.container {
+		width: 940px
+	}
 }
 #center {
-   width: 800px;
-   margin-left: auto;
-   margin-right: auto;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
 }
 a {
-   text-decoration-line: none;
+	text-decoration-line: none;
 }
 #page {
-   text-align: center;
+	text-align: center;
+}
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
+	width : 30px;
+	height : 20px;
+	left : 380px;
+	top : 10px; 
+	border-radius: 10px;
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmcount > span {
+	position :relative;
+	color : white;
+	bottom : 3px;
+	left : 1700px;
+	top : 200px;
+	width : 300px;
+	height : 400px;
 }
 </style>
 </head>
@@ -40,25 +69,49 @@ a {
          <div class="row justify-content-center">
 
             <div class="col-6 pt-2">
-               <a href="/" class="link-secondary"> <img src="/img/logo.png" width="200" height="100"></a>
+               <a href="/" class="link-secondary"> <img src="/img/logo.png" width="220" height="100"></a>
                
             </div>
 
-            <div class="col-6 d-flex justify-content-end align-items-center">
-               <!-- justify-content 자식요소 정렬  -->
-                                       
-               <c:choose>
-                  <c:when test="${member.id eq null}">
-                     <div>
-                        <a class="btn btn-sm btn-outline-success" href="../../loginView">로그인</a> 
-                        <a class="btn btn-sm btn-outline-success" href="../../joinView">회원가입</a>
-                     </div>   
-                  </c:when>
-                  <c:otherwise>
-                     ${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="../../logout">로그아웃</a>
-                  </c:otherwise>                  
-               </c:choose>
-            </div>
+           <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+					<!-- justify-content 자식요소 정렬  -->
+					<%-- <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+						width="30" height="30" onclick="ring(${member.memnum})">
+					</div>	 --%>					
+					<c:choose>
+						<c:when test="${member.id eq null}">
+
+							<div style="float:right;">
+								<a class="btn btn-sm btn-outline-success" href="../../loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="../../joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! </br>
+							<div id="btns" style="float: right;">
+										<button class="btn btn-sm btn-outline-success dropdown-toggle"
+											type="button" id="dropdownMenuButton1"
+											data-bs-toggle="dropdown" aria-expanded="false">
+										 마이페이지</button>
+										<ul class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
+											<li><a class="dropdown-item" href="/ay/admin">관리자페이지</a></li>
+											</c:if>
+											
+										</ul>
+									<a class="btn btn-sm btn-outline-success" href="../../logout">로그아웃</a>
+								</div>
+							</div>
+						</c:otherwise>						
+					</c:choose>
+				</div>
          </div>
 
          <div class="menubar py-1 mb-2">
@@ -92,7 +145,7 @@ a {
                   </c:if>
                </c:if>   </td>
 
-               <td align="right"><c:if test="${member.getId() == 'dkdus'}"><!-- !!!!!!!!!관리자 아이디 넣기!!!!!! -->
+               <td align="right"><c:if test="${member.getId() == 'admin'}"><!-- !!!!!!!!!관리자 아이디 넣기!!!!!! -->
                      <a href="/ay/updateForm/${board.num}">수정</a>   
                      <a href="/ay/delete/${board.num}">삭제</a>
                   </c:if>
@@ -136,79 +189,7 @@ a {
                               })//2
       }); 
       
-      $(function() {
-         $("#bnt_c").click(function() {
-            let content = $("#comment_in").val();
-            if (!content) {
-               alert('댓글을 입력하세요.')
-               $("#comment_in").focus();
-               return false;
-            }
-            $.ajax({
-               url : "/ay/insertComment/${board.num}",
-               data : "content=" + content,
-               dataType : "text"
-            }).done(function() {
-               $("#comment_out").load(location.href + " #comment_out");
-               $("#comment_in").val("");
-            }); //ajax
-         }); //bnt_c
-
-         $("#update_comment").click(function() {
-            let form1 = $("#form1").serialize();
-            $.ajax({
-               type : "post",
-               url : "/ay/updateComment",
-               data : form1,
-               dataType : "json"
-            }).done(function() {
-               $("#comment_out").load(location.href + " #comment_out");
-            }); //ajax
-         }); //update_comment
-      });
-
-      function delete_comment(comnum) {
-         if (!confirm("댓글을 삭제하시겠습니까?")) {
-            return;
-         }
-         $.ajax({
-            url : "/ay/deleteComment",
-            data : "comnum=" + comnum,
-            dataType : "json"
-         }).done(function() {
-            $("#comment_out").load(location.href + " #comment_out");
-         }); //ajax
-      } //delete_comment
-
-      function modify_comment(comnum) {
-         let reply = document.getElementById("reply" + comnum);
-         let replyDiv = document.getElementById("replyDiv" + comnum);
-         replyDiv.style.display = "";
-         reply.style.display = "none";
-      } //modify_comment
-
-      function fn_replyUpdateSave() {
-         let replyDiv = document.getElementById("replyDiv" + comnum);
-         let r = replyDiv.rememo.value;
-
-         alert(r);
-         let content = $("#rememo").val();
-         
-         $.ajax({
-            url : "/ay/modifyComment",
-            data : "content=" + content,
-            dataType : "json"
-         }).done(function() {
-            alert("수정완료")
-            $("#comment_out").load(location.href + " #comment_out");
-         });
-      }
-
-      function fn_replyUpdateCancel() {
-         let replyDiv = document.getElementById("replyDiv" + comnum);
-         document.body.appendChild(replyDiv);
-         replyDiv.style.display = "none";
-      }
+      
       
       
    </script>
