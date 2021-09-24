@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.board.hj.domain.FreeBoard;
 import com.board.hj.domain.Member;
 import com.board.hj.persistence.MemberRepository;
 
@@ -17,6 +21,12 @@ public class MemberServiceImpl implements MemberService {
 
 	public Member saveMember(Member member) {
 		return memberRepo.save(member);
+	}
+	
+	//멤버 하나 불러오기
+	@Override
+	public Member getMemberOne(Long memnum) {		
+		return memberRepo.getById(memnum);
 	}
 	
 	//로그인
@@ -73,14 +83,33 @@ public class MemberServiceImpl implements MemberService {
 	//비밀번호 변경
 	@Override
 	public void updatePw(String id, String pw) {
-		memberRepo.updatePw(id, pw);
-		
+		memberRepo.updatePw(id, pw);		
 	}
+	
 	//계정삭제
 	@Override
 	public void delAccount(Long memnum) {
 		memberRepo.deleteById(memnum);
 	}
+
+	@Override
+	public Page<Member> getMemberList(int pNum) {
+		Pageable page = PageRequest.of(pNum-1, 10);		
+		return memberRepo.findByOrderByMemnumDesc(page);
+	}
 	
+	@Override
+	public Page<Member> getMemberList(int pNum, int searchn, String search) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		Page<Member> list = null;
+		if(searchn == 0) {
+			list = memberRepo.findByNameContainingIgnoreCase(search, page);
+		}else if(searchn == 1) {
+			list = memberRepo.findByIdContainingIgnoreCase(search, page);
+		}else if(searchn == 2) {
+			list = memberRepo.findByMemphoneContaining(search, page);
+		}
+		return list;
+	}
 	
 }
