@@ -80,14 +80,14 @@ a {
 	
 				<h1>${charge.stname }
 				<c:if test= "${member.id == null}">
-					<img id="h" src="/img/star3.png" width="30px" height="30px" title="nolog">
+					<img id="h" src="/img/star11.png" width="30px" height="30px" title="nolog">
 				</c:if>
 					<c:if test= "${member.id != null}">
 						<c:if test="${result == 0}">
-							<img id="h" src="/img/star3.png" width="30px" height="30px" title="full">
+							<img id="h" src="/img/star11.png" width="30px" height="30px" title="full">
 						</c:if>
 						<c:if test="${result != 0}">
-							<img id="h" src="/img/star2.png" width="30px" height="30px" title="empty">
+							<img id="h" src="/img/star22.png" width="30px" height="30px" title="empty">
 						</c:if>
 					</c:if>	
 					</h1>
@@ -181,10 +181,10 @@ marker.setMap(map);
 												function(data) {
 													//history.go(0);
 													//alert(data)
-													if (document.getElementById("h").getAttribute('src') == '/img/star3.png') {
-														document.getElementById("h").src = "/img/star2.png";
+													if (document.getElementById("h").getAttribute('src') == '/img/star22.png') {
+														document.getElementById("h").src = "/img/star11.png";
 													} else {
-														document.getElementById("h").src = "/img/star3.png";//.src는 속성값 변경
+														document.getElementById("h").src = "/img/star22.png";//.src는 속성값 변경
 													}
 													$("#recom_div").text(data);//매개변수가 있으니까 변경된 값 가져옴
 												}).fail(

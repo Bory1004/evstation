@@ -93,7 +93,8 @@ public class ChargeController {
 	
 	@RequestMapping("/bookmark/{num}/{id}")
 	@ResponseBody
-	public int upRecom(Book book, @PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
+	public int upRecom(Book book, @PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member)
+	{
 			
 			 int x = 0;
 			m.addAttribute("member", member);
@@ -109,12 +110,31 @@ public class ChargeController {
 		}
 
 	@RequestMapping("/bookmark")
-	public String bookMark(@ModelAttribute("member")Member member,String id,Model m)  {
-				
+	public String bookMark(@ModelAttribute("member")Member member,String id,Model m, @RequestParam(name = "p", defaultValue = "1") int pNum )  {
+
+		Page<Charge> pageList = null;
+		pageList = chargeService.getChargeList(pNum);
 		
 		List<Charge> bList = chargeService.bookmark(member.getId());
-		m.addAttribute("blist",bList);
-		System.out.println(bList);
+		m.addAttribute("blist", bList);
+		
+		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+		long total = pageList.getTotalElements();
+		
+		
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+		
+		int pageNum = 5;
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		
 		            
 		
 		return "/kwboard/bookmark";
