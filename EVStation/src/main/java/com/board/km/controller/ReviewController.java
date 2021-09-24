@@ -53,19 +53,19 @@ public class ReviewController implements ApplicationContextAware {
 	}// test
 
 	@Autowired
-	ReviewService reviewService;
+	private ReviewService reviewService;
 
 	@Autowired
-	CommentService commentService;
+	private CommentService commentService;
 
 	@Autowired
-	AlarmService alarmService;
+	private AlarmService alarmService;
 
 	@Autowired
-	ReviewFileService reviewFileService;
+	private ReviewFileService reviewFileService;
 
 	@Autowired
-	ReRecomService rerecomService;
+	private ReRecomService rerecomService;
 
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
@@ -98,14 +98,11 @@ public class ReviewController implements ApplicationContextAware {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
-		m.addAttribute("search_msg", search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
-		// System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
 
@@ -347,6 +344,7 @@ public class ReviewController implements ApplicationContextAware {
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
 		for (int i = 0; i < size; i++) {
+			commentService.deleteComment((long) valueArr[i]);
 			reviewService.deleteChk(valueArr[i]);
 		}
 
@@ -387,11 +385,9 @@ public class ReviewController implements ApplicationContextAware {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
-		m.addAttribute("search_msg", search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
 		// System.out.println("test");

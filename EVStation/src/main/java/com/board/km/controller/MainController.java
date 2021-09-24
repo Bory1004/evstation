@@ -8,15 +8,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.board.ds.service.DsService;
+import com.board.hj.service.FreeBoardService;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.AllTableDTO;
 import com.board.km.domain.ReviewBoard;
 import com.board.km.service.AlarmService;
+import com.board.km.service.CommentService;
 import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
 
@@ -24,9 +28,15 @@ import com.google.gson.Gson;
 public class MainController {
 	
 	@Autowired
-	AlarmService alarmService;
+	private AlarmService alarmService;
 	@Autowired
-	ReviewService reviewService;
+	private ReviewService reviewService;
+	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private FreeBoardService boardService;
+	@Autowired
+	private DsService dsService;
 
 	@RequestMapping("/")
 	public String Main() {
@@ -67,7 +77,7 @@ public class MainController {
 		return "Success!!";
 	}
 	
-	//내가 쓴글 // 대순이씀
+	//내가 쓴글 //km
     @RequestMapping("/AllBoardList/{boardmemnum}")
 	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
 	
@@ -117,4 +127,26 @@ public class MainController {
 		
 		return  "kmboard/review/myAllList";
 		}
+    
+    @PostMapping("/deleteAllChk")
+	public String qnaDeletechk(int[] valueArr, Long[] valueBoardtype) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			if(valueBoardtype[i] ==1) {
+				boardService.deleteChk(valueArr[i]);
+			}else if(valueBoardtype[i] ==2){
+				commentService.deleteComment((long) valueArr[i]);
+				reviewService.deleteChk(valueArr[i]);
+			}else {
+				dsService.deleteChk(valueArr[i], (long) valueArr[i]);
+			}
+			
+		}
+
+		return "redirect:/qnaList";
+
+	}
+    
 }

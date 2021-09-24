@@ -32,7 +32,7 @@
 		});
 	});
 	function deleteValue() {
-		var url = "/deleteChk";
+		var url = "/deleteReviewChk";
 		var valueArr = new Array(); //boardnum 넣을 변수 
 		var valueRef = new Array(); //boardref 넣을 변수 
 
@@ -54,11 +54,10 @@
 				traditional : true,
 				data : {
 					"valueArr" : valueArr,
-					"valueRef" : valueRef
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myQnABoardList/${member.memnum}") // qnaList 페이지로 새로고침
+					location.replace("/adminReview") // qnaList 페이지로 새로고침
 
 				}
 			});
@@ -84,7 +83,7 @@
 </head>
 <body>
 <div id="center">
-<table style="text-align: center" class="table table-hover caption-top">
+		<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
 						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
@@ -97,7 +96,7 @@
 				</tr>
 			</thead>
 			
-			<c:forEach items="${rList}" var="list">
+				<c:forEach items="${rList}" var="list">
 					<tr>
 						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
@@ -112,16 +111,40 @@
 		
 		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>	
 			<div id="page">
-					<c:if test="${begin > 2 }">
+				<c:if test="${search == null}">
+					<c:if test="${begin > 2}">
 						<a href="/adminReview?p=${begin-1}">[이전]</a>
 					</c:if>
-					<c:forEach begin="${begin }" end="${end}" var="i">
+					<c:forEach begin="${begin}" end="${end}" var="i">
 						<a href="/adminReview?p=${i}">[${i}]</a>
 					</c:forEach>
-					<c:if test="${end < totalPage }">
+					<c:if test="${end < totalPage}">
 						<a href="/adminReview?p=${end+1}">[다음]</a>
 					</c:if>
+				</c:if>
+				<c:if test="${search != null}">
+					<c:if test="${begin > 2}">
+						<a href="/adminReview?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/adminReview?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/adminReview?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+					</c:if>
+				</c:if>
+			</div><br>
+			<form>
+			<div style="width: 400px;" class="input-group">
+			<select style="width: 130px;" class="form-select" name="searchn">
+				<option value="0">제목</option>
+				<option value="1">내용</option>
+				<option value="2">작성자</option>
+			</select> 
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 			</div>
+			</form>
 
 
 </div><!--  center -->
