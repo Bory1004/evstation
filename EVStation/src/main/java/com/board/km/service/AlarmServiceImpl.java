@@ -37,4 +37,9 @@ public class AlarmServiceImpl implements AlarmService {
 	public void	checkAlarm(Long alanum) {
 		alarmRepo.checkAlarm(alanum);
 	}
+
+	@Override
+	public void withdraw(Long memnum) {
+		alarmRepo.deleteByMemnum(memnum);
+	}
 }

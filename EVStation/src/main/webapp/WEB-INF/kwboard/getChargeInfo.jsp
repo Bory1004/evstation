@@ -81,24 +81,26 @@ a {
 
 <body>
 <div class="container">
-	<h1>${charge.stname }</h1>
-	 <div class="row">
-	 	<div class="col-md-7"> 
-	 		<div class="col-xs-12 col-md-12 mb-2" style="text-align: right;">
-			
+	<div class="col-xs-12 col-md-12 mb-2" style="text-align: left;">
+	
+				<h1>${charge.stname }
 				<c:if test= "${member.id == null}">
-					<img id="h" src="/img/empty.png" width="20px" title="123">
+					<img id="h" src="/img/star3.png" width="20px" title="123">
 				</c:if>
-				<!-- 로그인 안된 상태 , 빈 하트 보이게-->
 					<c:if test= "${member.id != null}">
 						<c:if test="${result == 0}">
-							<img id="h" src="/img/star1.png" width="20px">
+							<img id="h" src="/img/star3.png" width="20px">
 						</c:if>
 						<c:if test="${result != 0}">
 							<img id="h" src="/img/star2.png" width="20px">
 						</c:if>
 					</c:if>	
+					</h1>
 				</div>
+				
+	 <div class="row">
+	 	<div class="col-md-7"> 
+	 		
 	 	
 	 	<table class="table table-bordered border-secondary" style="width: 500px; margin-right:auto;">
 	<%-- <tr><td class="table-secondary text-center">충전소이름</td><td>${charge.st_name }</td></tr> --%>
@@ -184,10 +186,10 @@ marker.setMap(map);
 												function(data) {
 													//history.go(0);
 													//alert(data)
-													if (document.getElementById("h").getAttribute('src') == '/img/star1.png') {
+													if (document.getElementById("h").getAttribute('src') == '/img/star3.png') {
 														document.getElementById("h").src = "/img/star2.png";
 													} else {
-														document.getElementById("h").src = "/img/star1.png";//.src는 속성값 변경
+														document.getElementById("h").src = "/img/star3.png";//.src는 속성값 변경
 													}
 													$("#recom_div").text(data);//매개변수가 있으니까 변경된 값 가져옴
 												}).fail(

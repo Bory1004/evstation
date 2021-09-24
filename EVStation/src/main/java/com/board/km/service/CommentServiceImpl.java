@@ -84,4 +84,10 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepo.getCount(num);
 	}
 
+
+	@Override
+	public void withdraw(Long memnum) {
+		commentRepo.deleteByMemnum(memnum);
+	}
+
 }

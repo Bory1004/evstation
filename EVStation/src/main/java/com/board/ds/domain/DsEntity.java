@@ -1,4 +1,4 @@
-package com.board.ds_entity;
+package com.board.ds.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.board.hj.domain.Member;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,8 +43,8 @@ public class DsEntity implements Serializable {
 	private Long boardrecom;
 	@Column(name="BOARD_CONTENT", length=4000)
 	private String boardcontent;
-	@Column(name="BOARD_TYPE")
-	private Long boardtype;
+	@Column(name="BOARD_TYPE",  insertable = false, updatable = false, columnDefinition ="number default 4")
+	private int boardtype; //글 타입 (QNA게시판 4)
 	@Column(name="BOARD_YN", length=20) // 답변 여부 
 	private String boardyn;
 	@Column(name="BOARD_REF", columnDefinition ="number default 0")
@@ -53,5 +54,8 @@ public class DsEntity implements Serializable {
 	@Column(name="BOARD_RELEVEL",columnDefinition ="number default 0")
     private Long boardrelevel;
 
+	@ManyToOne
+	@JoinColumn(name="BOARD_MEM_NUM",insertable=false,updatable=false)
+	private Member member;
 	
 }

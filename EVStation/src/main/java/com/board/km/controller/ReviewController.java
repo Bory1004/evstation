@@ -1,7 +1,7 @@
 package com.board.km.controller;
 
 
-
+   
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
+/*import com.board.ds.domain.DsEntity;*/
 import com.board.hj.domain.Member;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
@@ -52,7 +53,7 @@ public class ReviewController implements ApplicationContextAware  {
 		@ModelAttribute("member")
 		public Member getMember() {
 			return new Member();
-		}
+		}//test
 		
 	@Autowired
 	ReviewService reviewService;
@@ -100,24 +101,17 @@ public class ReviewController implements ApplicationContextAware  {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		
+		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
+		m.addAttribute("search_msg",search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum",stnum);
 		//System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
-	
-	@RequestMapping("/gofreeboard")
-	public String go() {
-		return "kmboard/review/getFreeBoardList";
-	}
-	@RequestMapping("/goinsertFreeBoard")
-	public String go2(HttpServletRequest request) {
-		return "kmboard/review/insertFreeBoard";
-	}
+
 	
 	
 	@RequestMapping("deleteReview/{boardnum}")
@@ -317,5 +311,59 @@ public class ReviewController implements ApplicationContextAware  {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 	       this.context = (WebApplicationContext) applicationContext;
 	    }
+    
+    
+    
+    
+    
+    
+    //내가 쓴글 // 대순이씀
+    @RequestMapping("/myReviewBoardList/{boardmemnum}")
+	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+	
+		Page<ReviewBoard> pageList = null;
+		int pageNum = 5;
+		
+	
+	
+		pageList = reviewService.myReviewList(pNum, boardmemnum);
+		
+		List<ReviewBoard> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		System.out.println(list);
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+
+		return  "kmboard/review/myReviewBoardList";
+		}
+	@RequestMapping("/deleteReviewChk")
+	public String reviewDeletechk(int[] valueArr) {
+
+		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
+
+		for (int i = 0; i < size; i++) {
+			reviewService.deleteChk(valueArr[i]);
+		}
+
+		return "redirect:/reviewList";
+
+	}
+    
+    
+    
+    
 	
 }

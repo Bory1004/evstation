@@ -1,11 +1,13 @@
-package com.board.ds_service;
+package com.board.ds.service;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.board.ds_entity.DsEmail;
-import com.board.ds_entity.DsEntity;
+import com.board.ay.domain.Board3;
+import com.board.ds.domain.DsEmail;
+import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.Member;
 
 public interface DsService {
 	
@@ -25,10 +27,19 @@ public interface DsService {
 
 	void deleteQnA(Long boardnum, Long boardref);
 	
+	DsEntity qnaConmment(Long boardnum);
 	
+	Page<DsEntity>AAllListQnA(int pNum, Long boardmemnum);
 
 	
-	
+	//추천 부분
+	DsEntity dnRecom(Long boardnum);
+
+	DsEntity upRecom(Long boardnum);
+
+	void withdraw(Long memnum);
+
+
 
 }
 	

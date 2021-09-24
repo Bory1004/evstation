@@ -63,4 +63,9 @@ public interface CommentRepository extends JpaRepository<BoardComment, Long> {
 	@Query("SELECT COUNT(d) from BoardComment d where d.comgroupnum=?1")
 	int countComment(Long comgroupnum);
 
+	@Transactional
+	@Modifying
+	@Query("delete from BoardComment d where d.commemnum = ?1")
+	void deleteByMemnum(Long memnum);
+
 }

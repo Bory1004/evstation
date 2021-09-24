@@ -1,4 +1,4 @@
-package com.board.ds_persistence;
+package com.board.ds.persistence;
 
 import javax.transaction.Transactional;
 
@@ -7,23 +7,30 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import com.board.ds_entity.DsEntity;
+import com.board.ds.domain.DsEntity;
+import com.board.hj.domain.FreeBoard;
+import com.board.km.domain.ReviewBoard;
 
+@Repository
 public interface DsRepository extends JpaRepository<DsEntity, Long> {
-	
-	Page<DsEntity>findByOrderByBoardrefDescBoardrestepAsc(Pageable page);  
-	
+
+	Page<DsEntity> findByOrderByBoardrefDescBoardrestepAsc(Pageable page); // 글 리스트
+
 	DsEntity save(Long boardnum);
-	
+
 	@Transactional
 	@Modifying
 	@Query("UPDATE DsEntity d SET d.boardsee = d.boardsee+1 WHERE d.boardnum =?1")
 	int updateSee(Long boardnum);
 
 	Page<DsEntity> findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
+
 	Page<DsEntity> findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
+
 	Page<DsEntity> findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
+	// Page<DsEntity>
 
 	@Transactional
 	@Modifying
@@ -51,4 +58,27 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 @Query("UPDATE DsEntity d SET d.boardyn = 'N'  WHERE d.boardref =?1 AND d.boardrestep = 0") 
 	 int ybReplyDel(Long boardref);
 	 
+	 DsEntity findByBoardnum(Long boardnum); //댓글부분
+	
+	 Page<DsEntity>findByBoardmemnumOrderByBoardnumDesc( Long boardmemnum, Pageable page); 
+	 
+	 
+		@Transactional
+		@Modifying
+		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom+1 WHERE b.boardnum=?1")
+		int upRecom(Long boardnum);
+	
+		//추천한 적 있다면 추천수 내림
+		@Transactional
+		@Modifying
+		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom-1 WHERE b.boardnum=?1")
+		int dnRecom(Long boardnum);
+
+		@Transactional
+		@Modifying
+		@Query("DELETE FROM DsEntity d WHERE d.boardmemnum = ?1")
+		void deleteByMemnum(Long memnum);
+
+	 
+
 }
