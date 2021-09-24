@@ -43,10 +43,10 @@ public class BoardController3 {
 		m.addAttribute("member", member);
 		int result = boardService.isRecom(num, id);
 		Board3 board = null;
-		if(result == 0) {
+		if(result == 0) {//추천한 적이 없으면 추천기록 table에 추가하고 추천수 올림
 			boardService.insertRecom(num, id);
 			board = boardService.upRecom(num);
-		} else {
+		} else {//추천한 적이 있으면 추천기록 지우고 추천수 내림
 			boardService.del(id, num);
 			board = boardService.dnRecom(num);
 		}
