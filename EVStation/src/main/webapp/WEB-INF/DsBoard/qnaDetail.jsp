@@ -55,7 +55,7 @@
 				<td align="right"><c:if test="${detail.boardwriter eq member.getId() or member.getId() == 'admin' }">
 						<!--  같은 아이디만 수정 삭제 가능 -->
 						<a href="/updateQnAform/${detail.boardnum}/${detail.boardmemnum}/${detail.boardrecom}/${detail.boardrelevel}/${detail.boardrestep}/${detail.boardref}">수정</a>
-						<a href="/deleteQnA/${detail.boardnum}/${detail.boardref}">삭제</a>
+						<a href="/deleteQnA/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}">삭제</a>
 					</c:if></td>
 			</tr>
 			<tr>
@@ -198,9 +198,51 @@
 				alert(e.responseText);
 			})
 		});
-	//----------------------------------------
-		
-	//추천 부분	
+	})	
+	//----------------------------------------댓글삭제
+	function deleteComment(x,y){ // 화면에서 댓글삭제 및 DB삭제
+				let comnum = x;
+				let comgroupnum = y;
+				let number = $('#cCnt').html()
+				
+				if(confirm("댓글을 삭제하시겠습니까?")){
+					$.ajax({
+						type : "get",
+						url :  "deleteComment" ,
+						data : {"comnum" : comnum ,"comgroupnum" : comgroupnum},
+						dataType : "text"
+					}).done(function(data){
+						//alert(data)
+						alert("삭제되었습니다.")
+						$('#'+comnum).remove();
+						let cnt = parseInt(number)-parseInt(data);
+						$('#cCnt').html(cnt)
+					}).fail(function(e){
+						alert("삭제중에 오류가 발생했습니다.")
+						alert(e.responseText);
+					})
+				}else{
+					return false;
+				}
+			}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//-----------------------------추천 부분	
 	$(function() {
 	$("#h").click(function() {
 		let num = ${detail.boardnum};
@@ -227,7 +269,7 @@
 	})
 
 
-})
+
 </script>
 </html>
 

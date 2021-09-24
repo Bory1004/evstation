@@ -167,22 +167,41 @@ public class DsConstroller {
 	
 	
 	@RequestMapping("/deleteChk")
-	public String qnaDeletechk(int[] valueArr, Long[] valueRef) {
+	public String qnaDeletechk(int[] valueArr, Long[] valueRef, Long[] valueRestep) {
 
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
-		for (int i = 0; i < size; i++) {
-			dsService.deleteChk(valueArr[i], valueRef[i]);
-		}
-
+		try {
+			for (int i = 0; i < size; i++) {
+					if(valueRestep[i] == 0) {
+						dsService.deleteChk(valueArr[i], valueRef[i]);
+						dsService.deleteReply(valueRef[i]);
+		
+					}else {
+						dsService.deleteChk(valueArr[i], valueRef[i]);
+					}
+					System.out.println(valueRestep[i]);
+					System.out.println(valueArr[i]);
+					System.out.println(valueRestep[i]);
+				}
+		}catch (Exception e) {
+				return "redirect:/qnaList";
+		}	
 		return "redirect:/qnaList";
-
 	}
 
-	@GetMapping("/deleteQnA/{boardnum}/{boardref}")
-	public String qnaDelete(@PathVariable Long boardnum, @PathVariable Long boardref) {
+	@GetMapping("/deleteQnA/{boardnum}/{boardref}/{boardrestep}")
+	public String qnaDelete(@PathVariable Long boardnum, @PathVariable Long boardref, @PathVariable Long boardrestep) {
 		System.out.println("boardref:::" + boardref);
+		System.out.println("boardrestep:::" + boardrestep);
+		
+		if(boardrestep == 0) {
 		dsService.deleteQnA(boardnum, boardref);
+		dsService.deleteReply(boardref);
+		}else{
+		dsService.deleteQnA(boardnum, boardref);
+		}
+		
 		return "redirect:/qnaList";
 
 	}
@@ -350,7 +369,7 @@ public class DsConstroller {
 	
 	
 	//관리자 페이지 
-	@RequestMapping("/adminOnly")
+	@RequestMapping("/adminQnAOnly")
 	public String adminOnly(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
 			@RequestParam(defaultValue = "-1") int searchn) {
 		int pageNum = 5;

@@ -24,6 +24,9 @@ public interface DsCommentService {
 	void saveReply(Long comnum);
 	
 	Optional<DsComment> getComment(Long comnum);
+	
+	int deleteComment(Long comnum, Long comgroupnum);
+
 
 
 }

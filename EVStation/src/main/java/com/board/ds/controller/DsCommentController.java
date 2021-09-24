@@ -2,19 +2,15 @@ package com.board.ds.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds.domain.DsComment;
-import com.board.ds.domain.DsEntity;
 import com.board.ds.service.DsCommentService;
 import com.board.hj.domain.Member;
-import com.board.km.domain.BoardComment;
 import com.google.gson.Gson;
 
 @SessionAttributes("member")
@@ -46,6 +42,14 @@ public class DsCommentController {
 			System.out.println(list);
 			Gson json = new Gson();
 			return json.toJson(list);   
+		}
+		@RequestMapping(value = "/qnaDetail/deleteQnAComment", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+		@ResponseBody
+		public String deleteComment(Long comnum, Long comgroupnum) {// 댓글삭제
+			// System.out.println(comnum);
+			// System.out.println(comgroupnum);
+			String cnt = dsCoService.deleteComment(comnum, comgroupnum) + "";
+			return cnt;
 		}
 	
 }

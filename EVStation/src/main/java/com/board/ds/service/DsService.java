@@ -36,6 +36,9 @@ public interface DsService {
 	DsEntity upRecom(Long boardnum);
 
 	void withdraw(Long memnum);
+	
+	void deleteReply(Long boardref);
+	
 
 
 
