@@ -114,8 +114,18 @@ a {
 			<table class="table table-borderless border">
 				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
 				<tr><td><h2>${board.boardtitle}</h2></td></tr>
-				<tr><td colspan="2"><img style = "border-radius:70%;" src="${board.member.memphoto}" width="40px" height="auto"><strong>${board.member.id}</strong></td></tr>
-				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}</td>
+				<tr><td colspan="2"><img src="${board.member.memphoto}" width="45" height="30"><strong>${board.member.id}</strong></td></tr>
+				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}
+				<!-- 로그인 안된 상태 , 빈 하트 보이게--> <c:if test="${member.id == null}">
+						<img id="h" src="/img/empty.png" width="20px" title="123">
+					</c:if> 추천수 <span id="recom_free">${board.boardrecom}</span> <c:if test="${member.id != null}">
+						<c:if test="${result == 0}">
+							<img id="h" src="/img/empty.png" width="20px">
+						</c:if>
+						<c:if test="${result != 0}">
+							<img id="h" src="/img/full.png" width="20px">
+						</c:if>
+					</c:if></td>
 					<td align="right"><c:if test="${board.member.id eq member.id}">
 							<a href="/updateFreeBoard/${board.boardnum}">수정</a>	
 							<a id="delete_board" href="/deleteFreeBoard/${board.boardnum}" onclick='return confirm("정말 삭제하시겠습니까?");'>삭제</a>
@@ -292,7 +302,7 @@ a {
 		replyDiv.style.display = "none";
 		return false;
 	}
-	
+  
     function ring(x){ //알람 창 열고 데이터 가져오는 함수
         //alert(${memnum})
         $.ajax({
@@ -349,5 +359,32 @@ a {
            alert(e.responseText)
         })
      }
+
+	//추천 부분	
+	$(function() {
+	$("#h").click(function() {
+		let num = ${board.boardnum};
+		let id = "${member.id}";
+        console.log(id);
+		let url = "/updateFreeRecom/" + num + "/" + id;
+				$.ajax({
+					url : url
+				})	
+				.done(
+					function(data) {
+					if (document.getElementById("h").getAttribute('src') == '/img/empty.png') {
+						document.getElementById("h").src = "/img/full.png";
+							} else {
+							document.getElementById("h").src = "/img/empty.png";//.src는 속성값 변경
+						}
+						$("#recom_free").html(data);//매개변수가 있으니까 변경된 값 가져옴
+						}).fail(
+							function(jqXHR, textStatus,errorThrown) {
+							console.log("error");
+					}); 
+				
+		})
+	})
+		
 </script>
 </html>

@@ -31,7 +31,11 @@ public interface DsCommentRepository extends JpaRepository<DsComment, Long> {
 	List<DsComment> findByBoardnumAndComrestepGreaterThanOrderByComdateAsc(Long comnum, Long comrestep); //대댓글만 불러오기
 	
 	
-	
+	//댓글창에서 일반댓글을 달때 그룹번호와 restep을 지정
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsComment d SET d.comgroupnum = ?1, d.comrestep= 0 WHERE d.comnum = ?1")  
+	int updategroupnumandcomrestep(Long comnum);
 	
 	
 	
@@ -43,6 +47,19 @@ public interface DsCommentRepository extends JpaRepository<DsComment, Long> {
 	@Modifying
 	@Query("DELETE FROM DsComment d WHERE d.commemnum = ?1")
 	void deleteByMemnum(Long memnum);
+	
+	@Transactional
+	@Query("SELECT COUNT(d) from DsComment d where d.comgroupnum=?1")
+	int countComment(Long comgroupnum);
+	
+	//일반댓글인 경우 대댓글까지 데이터베이스에서 지움
+	@Transactional
+	@Modifying
+	@Query("delete from DsComment d where d.comgroupnum = ?1")
+	int deleteByComgroupnum(Long comgroupnum); 
 
-
-}
+	//댓글수정
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
+	void updateComment(Long comnum, String comcontent);}

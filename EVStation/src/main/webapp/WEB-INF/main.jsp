@@ -60,6 +60,7 @@ a {
 </style>
 </head>
 <body>
+
    <div class="container">
       <header class="py-3">
          <div class="row justify-content-center">
@@ -68,6 +69,7 @@ a {
                <img src="/img/logo.png" width="220" height="100"></a>
                <!--  <a class="link-secondary" href="#">Subscribe</a> -->
             </div>
+
 
             <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
                <!-- justify-content 자식요소 정렬  -->
@@ -90,6 +92,9 @@ a {
 										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
 										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+										<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
+										<li><a class="dropdown-item" href="/adminOnly">관리자페이지</a></li>
+										</c:if>
 									</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
 								</div>

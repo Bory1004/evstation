@@ -60,7 +60,14 @@ public interface ReviewRepository extends JpaRepository<ReviewBoard, Long> {
 			 * ") te " + "order by boarddate desc ",
 			 */
 	nativeQuery=true)
-	List<AllTableDTO> findAllBoard(Long boardmemnum); 
+
+	List<AllTableDTO> findAllBoard(Long boardmemnum);
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE ReviewBoard d SET d.boardrecom = ?1 WHERE d.boardnum = ?2")
+	void updateRecom(Long recomCnt,Long num); 
+
 
 
 	

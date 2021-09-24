@@ -31,4 +31,7 @@ public interface ReviewService {
 	List<AllTableDTO> AllBoardList(int pNum,Long boardmemnum);
 
 
+	void updateRecom(Long num, Long recomCnt);
+
+
 }

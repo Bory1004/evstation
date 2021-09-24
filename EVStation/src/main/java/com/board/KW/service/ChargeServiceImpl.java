@@ -53,6 +53,18 @@ public class ChargeServiceImpl implements ChargeService{
 	}
 	
 	@Override
+	public Page<Charge> bookMark(int pNum){
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return boardRepo.findByOrderByNumDesc(page);
+	}
+	
+	@Override
+	public List<Charge> bookmark(String id) {
+		return boardRepo.bookmark(id);
+	}
+	
+	
+	@Override
 	public Page<Charge> getChargeList(int pNum, int searchn, String search) { 
 		Pageable page = PageRequest.of(pNum-1, 10);
 		Page<Charge> list = null;
@@ -63,4 +75,23 @@ public class ChargeServiceImpl implements ChargeService{
 		}
 		return list;
 	}
+	
+	@Override
+	public int isRecom(Long num, String id) {
+		return boardRepo.isRecom(num, id);
+	}
+
+
+	@Override
+	public int insertRecom(Long num, String id) {
+		return boardRepo.insertRecom(num,id);
+	}
+
+	@Override public void del(String id, Long num) { 
+		  boardRepo.del(id, num);
+	  }
+
+	
+	
+	
 }

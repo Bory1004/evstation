@@ -161,14 +161,15 @@ a {
 		});
 	});
 	function deleteValue() {
-		var url = "/deleteReviewChk";
+		var url = "/deleteAllChk";
 		var valueArr = new Array(); //boardnum 넣을 변수 
-		var valueRef = new Array(); //boardref 넣을 변수 
+		var valueBoardtype = new Array(); //boardref 넣을 변수 
 
 		var list = $("input[name='ChkBxRow']"); // 모든 체크박스 값을 list에 정의 
 		for (var i = 0; i < list.length; i++) {
 			if (list[i].checked) { //해당값이 체크되어 있다면
 				valueArr.push(list[i].value); //value값 리스트에
+				valueBoardtype.push(list[i].getAttribute("alt")) //alt값 리스트에
 			}
 		}
 		/* console.log(valueArr)
@@ -182,10 +183,11 @@ a {
 				traditional : true,
 				data : {
 					"valueArr" : valueArr,
+					"valueBoardtype" : valueBoardtype
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myReviewBoardList/${member.memnum}") 
+					location.replace("/AllBoardList/${member.memnum}") 
 
 				}
 			});
@@ -227,7 +229,8 @@ a {
 	</div>
 </div>
 	<div id="center">
-
+		
+		
 		<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
@@ -241,19 +244,20 @@ a {
 
 				</tr>
 			</thead>
-			
-			<c:forEach items="${All}" var="list">
+			<c:if test="${total != 0}">
+				<c:forEach items="${All}" var="list">
 					<tr>
-						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardtype}"></td>
 						<td>${list.boardnum}</td>
-						<td><a href="/content/${list.boardnum}">${list.boardtitle}</a></td>
+					<c:if test="${list.boardtype == 1 || list.boardtype == 2}"><td><a href="/content/${list.boardtype}/${list.boardnum}">${list.boardtitle}</a></td></c:if>
+					<c:if test="${list.boardtype == 4 }"><td><a href="/qnaDetail/${list.boardnum}">${list.boardtitle}</a></td></c:if>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>
 						<td>${list.boardrecom}</td>
 					</tr>
 				</c:forEach>
-
+			</c:if>		
 		</table>
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
 			<div id="page">
@@ -267,7 +271,7 @@ a {
 						<a href="/AllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
 					</c:if>
 			</div>
-				
+		
 			
 
 </div>

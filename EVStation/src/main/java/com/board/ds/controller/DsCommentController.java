@@ -2,15 +2,13 @@ package com.board.ds.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.ds.domain.DsComment;
-import com.board.ds.domain.DsEntity;
 import com.board.ds.service.DsCommentService;
 import com.board.hj.domain.Member;
 import com.google.gson.Gson;
@@ -28,17 +26,34 @@ public class DsCommentController {
 		@Autowired
 		private DsCommentService dsCoService;
 		
-		/*
-		 * @RequestMapping("/insertQnAComment/{boardnum}")
-		 * 
-		 * @ResponseBody public String insetQnAComment(DsComment dc, DsEntity
-		 * de,@ModelAttribute("member") Member member,@PathVariable Long boardnum,
-		 * String comcontent) {
-		 * 
-		 * dc.setDsEntity(de); dc.setMember(member); dc.setComcontent(comcontent); //입력한
-		 * 댓글을 받아와서 db에 저장 Gson gson = new Gson();
-		 * 
-		 * // return gson.toJson(dsCoService.saveQnaComment(dc)) ; }
-		 */
-
+		@RequestMapping(value = "qnaDetail/insertQnAComment",method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+		public String insertComment(DsComment dsComment) { //댓글달기
+			dsCoService.saveComment(dsComment);     //comnum, boardnum, comcontent 저장
+			dsCoService.saveReply(dsComment.getComnum()); // comgroupnum, comrestep 저장
+			Long comnum = dsComment.getComnum();
+			
+			
+			return "redirect:/qnaDetail2?comnum="+comnum;
+		}
+		@RequestMapping(value = "qnaDetail2", method=RequestMethod.GET ,produces = "text/plain;charset=UTF-8")
+		@ResponseBody
+		public String goComment(Long comnum) { //댓글달기와 대댓글달기 이어서받음. 요청을나눈이유는 바로 ajax로 가면 데이터베이스에는 저장되있는데 엔티티에는 저장이 안되있음.
+			DsComment list = dsCoService.getComment(comnum).get();
+			System.out.println(list);
+			Gson json = new Gson();
+			return json.toJson(list);   
+		}
+		@RequestMapping(value = "/qnaDetail/deleteQnAComment", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+		@ResponseBody
+		public String deleteComment(Long comnum, Long comgroupnum) {// 댓글삭제
+			String cnt = dsCoService.deleteComment(comnum, comgroupnum) + "";
+			return cnt;
+		}
+		
+		@RequestMapping(value = "updateQnAComment", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+		@ResponseBody
+		public String updateComment(Long comnum, String comcontent) { // 댓글수정
+			dsCoService.updateComment(comnum, comcontent);
+			return "Success!!";
+		}	
 }
