@@ -109,8 +109,9 @@ public class MemberController {
 	public String login(@ModelAttribute("member") Member member, Model model,
 			@RequestParam(name = "cookie", required = false, defaultValue = "0") int cookie,
 			HttpServletResponse response, HttpSession session) {
+		
 		Member findMember = memberService.getMember(member);
-
+		
 		// 로그인 성공
 		if (findMember != null && findMember.getMempw().equals(member.getMempw())) {
 			model.addAttribute("member", findMember);
