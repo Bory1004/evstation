@@ -3,6 +3,7 @@
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,6 +164,7 @@
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
 				<br>
 			</div>
+
 <%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
 </body>
 </html>

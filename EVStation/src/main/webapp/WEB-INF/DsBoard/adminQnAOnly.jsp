@@ -34,12 +34,16 @@
 		var url = "/deleteChk";
 		var valueArr = new Array(); //boardnum 넣을 변수 
 		var valueRef = new Array(); //boardref 넣을 변수 
-
+		var valueRestep = new Array(); // boardrestep
 		var list = $("input[name='ChkBxRow']"); // 모든 체크박스 값을 list에 정의 
+		var list2 = $("input[name='ChkBxRow2']");
 		for (var i = 0; i < list.length; i++) {
 			if (list[i].checked) { //해당값이 체크되어 있다면
 				valueArr.push(list[i].value); //value값 리스트에
 				valueRef.push(list[i].getAttribute("alt")) //alt값 리스트에
+				if (list[i].checked) {
+					valueRestep.push(list2[i].value);
+				}
 			}
 		}
 		/* console.log(valueArr)
@@ -53,11 +57,12 @@
 				traditional : true,
 				data : {
 					"valueArr" : valueArr,
-					"valueRef" : valueRef
+					"valueRef" : valueRef,
+					"valueRestep" : valueRestep
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/adminOnly") // 삭제후 해당 페이지로 새로고침
+					location.replace("/adminQnAOnly") // 삭제후 해당 페이지로 새로고침
 
 				}
 			});
@@ -83,6 +88,8 @@
 </head>
 <body>
 <div id="center">
+<h4>QnA 게시판</h4>
+		<a href="/adminQnAOnly"><small class="text-muted">QnA 게시판 전체 목록 ></small></a>
 <c:if test="${total == 0}">검색 결과가 없습니다.</c:if>
 <c:if test="${ total != 0}">
 <table style="text-align: center" class="table table-hover caption-top">
@@ -101,7 +108,8 @@
 			<c:forEach items="${list}" var="list">
 			
 						<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
+							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}">
+									<input type="hidden" name="ChkBxRow2" value="${list.boardrestep}"></td>
 							<td>${list.boardnum}</td>
 
 							<td><a href="qnaDetail/${list.boardnum}">

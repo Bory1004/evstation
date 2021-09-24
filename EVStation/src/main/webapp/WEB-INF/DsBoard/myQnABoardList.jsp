@@ -33,12 +33,16 @@
 		var url = "/deleteChk";
 		var valueArr = new Array(); //boardnum 넣을 변수 
 		var valueRef = new Array(); //boardref 넣을 변수 
-
+		var valueRestep = new Array(); // boardrestep
 		var list = $("input[name='ChkBxRow']"); // 모든 체크박스 값을 list에 정의 
+		var list2 = $("input[name='ChkBxRow2']");
 		for (var i = 0; i < list.length; i++) {
 			if (list[i].checked) { //해당값이 체크되어 있다면
 				valueArr.push(list[i].value); //value값 리스트에
 				valueRef.push(list[i].getAttribute("alt")) //alt값 리스트에
+				if (list[i].checked) {
+					valueRestep.push(list2[i].value);
+				}
 			}
 		}
 		/* console.log(valueArr)
@@ -52,7 +56,8 @@
 				traditional : true,
 				data : {
 					"valueArr" : valueArr,
-					"valueRef" : valueRef
+					"valueRef" : valueRef,
+					"valueRestep" : valueRestep
 				},
 				success : function(adata) {
 					alert("삭제성공");
@@ -119,16 +124,19 @@
 			
 			<c:forEach items="${list}" var="list">
 					<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
+							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}">
+									<input type="hidden" name="ChkBxRow2" value="${list.boardrestep}"></td>
 
 						<td>${list.boardnum}</td>
 
-						<td><a href="/qnaDetail/${list.boardnum}"> 
+							<td><a href="/qnaDetail/${list.boardnum}">
 						<c:if test="${list.boardrelevel == 0 }">[질문]</c:if>
-						<c:if test="${list.boardrelevel >= 1 }">[답변]</c:if> 
-								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
-										Re:
-								</c:forEach> --%>
+						 <c:if test="${list.boardrelevel >= 1 }">&nbsp; &nbsp; &nbsp; &nbsp;ㄴRE:</c:if>
+						<%--   <c:if test="${list.boardrelevel > 1 }">
+						<c:forEach begin="2" end="${list.boardrelevel}">
+							Re:
+						</c:forEach>
+								</c:if> --%>  <!-- 답변의 답변의 경우부터 사용 -->
 						 ${list.boardtitle}
 						</a></td>
 

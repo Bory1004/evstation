@@ -47,4 +47,20 @@ public class DsCommentServiceImpl implements DsCommentService {
 	public Optional<DsComment> getComment(Long comnum) {
 		return DsCoRepo.findById(comnum);
 	}
+	@Override
+	public int deleteComment(Long comnum, Long comgroupnum) {
+		if ( (long)comnum == (long)comgroupnum) { //일반댓글인 경우 대댓글까지 다지움
+			int count =DsCoRepo.countComment(comgroupnum);
+			DsCoRepo.deleteByComgroupnum(comgroupnum);
+			return count;
+		}else { //대댓글인 경우
+			DsCoRepo.deleteById(comnum);
+		}
+		return 1;
+	}
+	@Override
+	public void updateComment(Long comnum, String comcontent) {
+		DsCoRepo.updateComment(comnum, comcontent);
+		
+	}
 }   

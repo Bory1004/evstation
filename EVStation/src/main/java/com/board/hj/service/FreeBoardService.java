@@ -34,5 +34,8 @@ public interface FreeBoardService {
 
 	void withdraw(Long memnum);
 		
+	//추천 부분
+	FreeBoard dnRecom(Long boardnum);
+	FreeBoard upRecom(Long boardnum);
 
 }
