@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.board.ay.domain.Board3;
 import com.board.ds.domain.DsEmail;
 import com.board.ds.domain.DsEntity;
-import com.board.hj.domain.Member;
 
 public interface DsService {
 	

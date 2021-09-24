@@ -9,8 +9,6 @@ import com.board.ds.persistence.DsRepository;
 @Service
 public class DsRecomServiceImpl implements DsRecomService {
 	
-	@Autowired
-	DsRepository dsRepo;
 	
 	@Autowired
 	DsRecomRepository dsRecomRepo;

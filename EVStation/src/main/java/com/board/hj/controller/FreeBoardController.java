@@ -2,7 +2,6 @@ package com.board.hj.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +21,7 @@ import com.board.hj.domain.FreeBoardComment;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
 import com.board.hj.service.FreeCommentService;
-import com.board.km.domain.ReviewBoard;
+import com.board.hj.service.FreeRecomService;
 
 @SessionAttributes("member")
 @Controller
@@ -39,6 +38,9 @@ public class FreeBoardController {
 	
 	@Autowired
 	private FreeCommentService commentService;
+	
+	@Autowired
+	private FreeRecomService recomService;
 	
 	//캐러셀
 	@GetMapping("/news")
@@ -98,6 +100,7 @@ public class FreeBoardController {
 	public String insertBoard(FreeBoard board, @ModelAttribute("member") Member member) {
 		board.setMember(member);
 		board.setBoardwriter(member.getId());
+		board.setBoardrecom((long) 0);
 		boardService.saveBoard(board);
 		return "redirect:/getFreeBoardList";
 	}
@@ -133,9 +136,32 @@ public class FreeBoardController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
-		
+		//추천 
+		int result = recomService.isRecom(boardnum, member.getId());
+		m.addAttribute("result",result);
+
 		return "hjboard/getFreeBoard";
 	} 
+	
+	//추천기능
+	@RequestMapping("/updateFreeRecom/{num}/{id}")
+	@ResponseBody
+	public long updateQnaRecom(@PathVariable Long num, @PathVariable String id) {
+		int result = recomService.isRecom(num, id);
+		FreeBoard freeBoard = null ;
+		if(result == 0) {
+			recomService.insertRecom(num,id);
+			freeBoard = boardService.upRecom(num); 
+		}else { 
+			recomService.deleteRecom(num,id);
+			freeBoard = boardService.dnRecom(num);
+		}
+		return freeBoard.getBoardrecom();
+	}
+	
+	
+	
+	
 	
 	//게시판 수정 요청 받아서 수정
 	@GetMapping("/updateFreeBoard/{boardnum}")

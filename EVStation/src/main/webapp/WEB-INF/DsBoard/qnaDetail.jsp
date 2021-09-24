@@ -41,7 +41,8 @@
 			</tr>
 			<!--  프로필사진 부분-->
 			<tr>
-				<td><fmt:formatDate value="${detail.boarddate}" pattern="YYYY.MM.dd. hh:mm" /> 조회 ${detail.boardsee} <!-- 로그인 안된 상태 , 빈 하트 보이게--> <c:if test="${member.id == null}">
+				<td><fmt:formatDate value="${detail.boarddate}" pattern="YYYY.MM.dd. hh:mm" /> 조회 ${detail.boardsee} 
+				<!-- 로그인 안된 상태 , 빈 하트 보이게--> <c:if test="${member.id == null}">
 						<img id="h" src="/img/empty.png" width="20px" title="123">
 					</c:if> 추천수 <span id="recom_qna">${detail.boardrecom}</span> <c:if test="${member.id != null}">
 						<c:if test="${result == 0}">

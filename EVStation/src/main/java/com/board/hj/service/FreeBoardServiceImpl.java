@@ -80,4 +80,17 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		boardRepo.deleteByMemnum(memnum);
 	}
 
+	//추천부분
+	@Override
+	public FreeBoard dnRecom(Long boardnum) {
+		boardRepo.dnRecom(boardnum);
+		return boardRepo.getById(boardnum);
+	}
+
+	@Override
+	public FreeBoard upRecom(Long boardnum) {
+		boardRepo.upRecom(boardnum);		
+		return boardRepo.getById(boardnum);
+	}
+
 }

@@ -38,4 +38,21 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>{
 	@Modifying
 	@Query("DELETE FROM FreeBoard b WHERE b.boardmennum=?1")
 	void deleteByMemnum(Long memnum); 	
+	
+	
+	@Transactional
+	@Modifying
+	@Query("UPDATE FreeBoard b SET b.boardrecom = b.boardrecom+1 WHERE b.boardnum=?1")
+	int upRecom(Long boardnum);
+	
+	//추천한 적 있다면 추천수 내림
+	@Transactional
+	@Modifying
+	@Query("UPDATE FreeBoard b SET b.boardrecom = b.boardrecom-1 WHERE b.boardnum=?1")
+	int dnRecom(Long boardnum);
+	
+
 }
+
+
+
