@@ -93,7 +93,7 @@ a {
 										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 										<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
-										<li><a class="dropdown-item" href="/adminOnly">관리자페이지</a></li>
+										<li><a class="dropdown-item" href="/adminQnAOnly">관리자페이지</a></li>
 										</c:if>
 									</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
