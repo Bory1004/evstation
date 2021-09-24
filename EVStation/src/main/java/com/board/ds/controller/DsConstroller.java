@@ -167,22 +167,43 @@ public class DsConstroller {
 	
 	
 	@RequestMapping("/deleteChk")
-	public String qnaDeletechk(int[] valueArr, Long[] valueRef) {
+
+	public String qnaDeletechk(int[] valueArr, Long[] valueRef, Long[] valueRestep) {
 
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
-		for (int i = 0; i < size; i++) {
-			dsService.deleteChk(valueArr[i], valueRef[i]);
-		}
-
+		try {
+			for (int i = 0; i < size; i++) {
+					if(valueRestep[i] == 0) {
+						dsService.deleteChk(valueArr[i], valueRef[i]);
+						dsService.deleteReply(valueRef[i]);
+		
+					}else {
+						dsService.deleteChk(valueArr[i], valueRef[i]);
+					}
+					System.out.println(valueRestep[i]);
+					System.out.println(valueArr[i]);
+					System.out.println(valueRestep[i]);
+				}
+		}catch (Exception e) {
+				return "redirect:/qnaList";
+		}	
 		return "redirect:/qnaList";
-
 	}
 
-	@GetMapping("/deleteQnA/{boardnum}/{boardref}")
-	public String qnaDelete(@PathVariable Long boardnum, @PathVariable Long boardref) {
+	@GetMapping("/deleteQnA/{boardnum}/{boardref}/{boardrestep}")
+	public String qnaDelete(@PathVariable Long boardnum, @PathVariable Long boardref, @PathVariable Long boardrestep) {
 		System.out.println("boardref:::" + boardref);
+		System.out.println("boardrestep:::" + boardrestep);
+		
+		if(boardrestep == 0) {
 		dsService.deleteQnA(boardnum, boardref);
+		dsService.deleteReply(boardref);
+		}else{
+		dsService.deleteQnA(boardnum, boardref);
+		}
+		
+
 		return "redirect:/qnaList";
 
 	}
@@ -248,7 +269,9 @@ public class DsConstroller {
 
 		emailService.sendMail(dsEmail);
 
-		return "redirect:/qnaList";
+
+		return "redirect:/adminQnAOnly";
+
 	}
 
 	@RequestMapping("/pageIntro") // 페이지 소개
@@ -302,44 +325,87 @@ public class DsConstroller {
 	
 	
 	
-		/*
-		 * @RequestMapping("/myAllBoardList/{boardmemnum}") public String
-		 * myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int
-		 * pNum, @PathVariable Long boardmemnum){
-		 * 
-		 * 
-		 * 
-		 * Page<DsEntity> pageList = null; int pageNum = 5; pageList =
-		 * dsService.AAllListQnA(pNum, boardmemnum);
-		 * 
-		 * List<DsEntity> list = pageList.getContent(); m.addAttribute("list", list);
-		 * 
-		 * 
-		 * 
-		 * Page<FreeBoard> pageList1 = null; pageList1 = boardService.myFreeList(pNum,
-		 * boardmemnum); List<FreeBoard> flist = pageList1.getContent();
-		 * m.addAttribute("flist",flist);
-		 * 
-		 * Page<ReviewBoard> pageList2 = null; pageList2 =
-		 * reviewService.myReviewList(pNum, boardmemnum); List<ReviewBoard> rlist =
-		 * pageList2.getContent(); m.addAttribute("rlist",rlist);
-		 * 
-		 * long total =
-		 * pageList.getTotalElements()+pageList1.getTotalElements()+pageList2.
-		 * getTotalElements(); double totalPageCount = (double) Math.ceil((double)total
-		 * /(double)10);
-		 * 
-		 * m.addAttribute("totalPage", totalPageCount); m.addAttribute("total", total);
-		 * 
-		 * int begin = (pNum - 1) / pageNum * pageNum + 1; int end = begin + pageNum -
-		 * 1; if (end > totalPageCount) { end = (int) totalPageCount; }
-		 * 
-		 * m.addAttribute("begin", begin); m.addAttribute("end", end);
-		 * System.out.println(totalPageCount); //2.0 System.out.println(total);//17
-		 * System.out.println(begin);// 1 System.out.println(end);//2
-		 * 
-		 * return "/DsBoard/myAllBoardList"; }
-		 */
+
+	@RequestMapping("/myAllBoardList/{boardmemnum}")
+	public String myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
+		
+		
+				
+	    Page<DsEntity> pageList = null;
+		int pageNum = 5;
+		pageList = dsService.AAllListQnA(pNum, boardmemnum);
+		
+		List<DsEntity> list = pageList.getContent();  
+		m.addAttribute("list", list);
+    
+		
+		
+		Page<FreeBoard> pageList1 = null;
+		pageList1 = boardService.myFreeList(pNum, boardmemnum);
+		List<FreeBoard> flist = pageList1.getContent();  
+		m.addAttribute("flist",flist);
+		
+		Page<ReviewBoard> pageList2 = null;
+		pageList2 = reviewService.myReviewList(pNum, boardmemnum);
+		List<ReviewBoard> rlist = pageList2.getContent();  
+		m.addAttribute("rlist",rlist);
+    
+		long total = pageList.getTotalElements()+pageList1.getTotalElements()+pageList2.getTotalElements();
+		double totalPageCount = (double) Math.ceil((double)total /(double)10);
+
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = (int) totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		System.out.println(totalPageCount); //2.0
+		System.out.println(total);//17
+		System.out.println(begin);//		1
+		System.out.println(end);//2
+
+		return "/DsBoard/myAllBoardList";
+	}
+	
+	
+	//관리자 페이지 
+	@RequestMapping("/adminQnAOnly")
+	public String adminOnly(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
+			@RequestParam(defaultValue = "-1") int searchn) {
+		int pageNum = 5;
+		Page<DsEntity> pageList = null;
+		if (search != null) {
+			pageList = dsService.AllListQnA(pNum, searchn, search);
+		} else {
+			pageList = dsService.AllListQnA(pNum);
+		}
+		List<DsEntity> list = pageList.getContent();
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements();
+		m.addAttribute("list", list);
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		
+		return "/DsBoard/adminQnAOnly";
+		
+	}
+
 	
 	
 }

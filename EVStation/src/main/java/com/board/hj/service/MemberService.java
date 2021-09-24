@@ -26,5 +26,7 @@ public interface MemberService {
 	
 	//비밀번호 변경
 	void updatePw(String id, String pw);
+
+	void delAccount(Long memnum);
 	
 }

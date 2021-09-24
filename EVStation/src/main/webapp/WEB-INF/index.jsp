@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%
-	String memnum ="17";
-	session.setAttribute("memnum", memnum);
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +45,7 @@ a {
 			<div class="row justify-content-center  ">
 
 				<div class="col-6 pt-2">
-		  	<a href="/main" class="link-secondary"> <img src="/img/logo.png"
+		  		<a href="/main" class="link-secondary"> <img src="/img/logo.png"
 						width="200" height="100">
 					</a>
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
@@ -54,16 +53,22 @@ a {
 
 				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-					<div id="login" style="text-align:right;margin-bottom:10px;"><img style="cursor:pointer;"src="/img/alarm1.png"
+					<div id="login" style="text-align:right;margin-bottom:10px;">
+						<img style="cursor:pointer;"src="/img/alarm1.png"
 						width="30" height="30" onclick="ring(${memnum})">
 					</div>
-					<div style="float:right;">
-						
-						<a class="btn btn-sm btn-outline-success" href="loginView">로그인</a> <a
-							class="btn btn-sm btn-outline-success" href="joinView">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${member.id eq null}">
+							<div style="float:right;">
+								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							<a href="/mypage"><img src="${member.memphoto}" width="45" height="30"></a> ${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+						</c:otherwise>						
+					</c:choose>
 				</div>
-
 			</div>
 		
 

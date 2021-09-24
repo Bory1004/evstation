@@ -25,14 +25,34 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
  
 <script>
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-    mapOption = { 
-        center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
- 
+if (navigator.geolocation) { //GPS 허용 승인하면
+	navigator.geolocation.getCurrentPosition(function(position) {
+		let latitude = position.coords.latitude;
+		let longitude = position.coords.longitude;
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+		mapOption = { 
+			center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+			level: 3 // 지도의 확대 레벨
+		};
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		}, function(error) { //GPS 허용을 거부하면 서울 시청 출력
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+		    mapOption = { 
+			center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
+			level: 3 // 지도의 확대 레벨
+			};
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		//console.error(error);
+		}, {
+			enableHighAccuracy: false, //배터리를 더 소모해서 더 정확한 위치를 찾음
+			maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
+			timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
+		});
+} else {
+	alert('GPS를 지원하지 않습니다');
+}
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
 var positions = [

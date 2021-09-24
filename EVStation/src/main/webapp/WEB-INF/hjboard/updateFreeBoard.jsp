@@ -75,7 +75,7 @@ a {
 	<main>
 		<div id="center">
 			<h4>자유 게시판 수정하기</h4><br>
-			<form action="/updateFreeBoard" method="post">
+			<form id="update_form" action="/updateFreeBoard" method="post">
 				<input type="hidden" name="boardnum" value="${board.boardnum}">
 				<table class="table table-borderless border">
 					<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>	
@@ -89,14 +89,7 @@ a {
 		</div>
 	</main>
 
-	<footer class="container-fluid my-3 d-flex justify-content-center align-items-center border-top fixed-bottom" style="height: 100px;">
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>Project built for <a href="#">Portfolio</a> by <a href="#">Team2</a>.</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/resources/naver-smarteditor2/demo/js/service/HuskyEZCreator.js" charset="utf-8"></script>
@@ -142,6 +135,7 @@ a {
 	             return false;
 	        }
 			//폼 submit
+			
 			})
 		});
 	</script>

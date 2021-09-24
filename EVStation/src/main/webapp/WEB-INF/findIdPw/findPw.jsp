@@ -88,8 +88,8 @@
 			</div>			
 			
 			<div class="row mb-3 justify-content-center align-items-center">
-				<div class="col-md-6">
-					<input style="width: 200px;" type="submit" id="bnt_submit" class="btn btn-success" value="비밀번호 찾기" />
+				<div class="col-md-6" align="center">
+					<input style="width: 200px;" type="submit" id="bnt_submit" class="btn btn-success" value="비밀번호 변경하기" />
 				</div>
 			</div>		
 		</form>
@@ -240,20 +240,20 @@
 				console.log("제출");
 				if(!$("#name").val()){
 					console.log("이름 빈칸")
-					$("#name_msg").text("이름를 입력주세요.")
+					$("#name_msg").text("이름를 입력해주세요.")
 					return false;
 				}
 				if(!$("#id").val()){
 					console.log('아이디 빈칸');
-					$("#id_msg").text("아이디를 입력주세요.")
+					$("#id_msg").text("아이디를 입력해주세요.")
 					return false;
 				}
 				if(!$("#mememail1").val()){
-					$("#email_msg").text("이메일을 입력주세요.")
+					$("#email_msg").text("이메일을 입력해주세요.")
 					return false;
 				}
 				if(!$("#mememail2").val()){
-					$("#email_msg").text("이메일을 입력주세요.")
+					$("#email_msg").text("이메일을 입력해주세요.")
 					return false;
 				}
 				if($("#ck").val() != 1){

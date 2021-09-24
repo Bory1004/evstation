@@ -14,13 +14,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@SequenceGenerator(name="BOARD_SEQ_GEN", sequenceName="BOARD_SEQ", initialValue=1, allocationSize=1)
+@SequenceGenerator(name="FREEBOARD_SEQ_GEN", sequenceName="FREEBOARD_SEQ", initialValue=1, allocationSize=1)
 public class FreeBoard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="BOARD_SEQ_GEN")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="FREEBOARD_SEQ_GEN")
 	private Long boardnum; //게시판 글번호
 	
 	@Column(name="MEMNUM", insertable = false, updatable = false)

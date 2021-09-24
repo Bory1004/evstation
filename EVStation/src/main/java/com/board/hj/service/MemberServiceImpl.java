@@ -76,6 +76,11 @@ public class MemberServiceImpl implements MemberService {
 		memberRepo.updatePw(id, pw);
 		
 	}
+	//계정삭제
+	@Override
+	public void delAccount(Long memnum) {
+		memberRepo.deleteById(memnum);
+	}
 	
 	
 }

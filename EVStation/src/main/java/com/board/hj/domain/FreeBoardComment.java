@@ -15,13 +15,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@SequenceGenerator(name="COM_SEQ_GEN", sequenceName="COM_SEQ", initialValue=1, allocationSize=1)
+@SequenceGenerator(name="FREECOM_SEQ_GEN", sequenceName="FREECOM_SEQ", initialValue=1, allocationSize=1)
 public class FreeBoardComment implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="COM_SEQ_GEN")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="FREECOM_SEQ_GEN")
 	private Long comnum; //댓글 번호
 	
 	@Column(name="MEMNUM", insertable = false, updatable = false)

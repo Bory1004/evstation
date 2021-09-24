@@ -89,7 +89,6 @@ a {
 		<div id="search_msg"><h4>${search_msg}</h4></div>
 		
 		<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>	
-		<c:if test="${board.boardnum == comment.boardnum}">
 		<c:if test="${total != 0}">
 			<table style="text-align: center;vertical-align:middle;" class="table table-hover caption-top">				
 				<thead class="table-light">
@@ -154,7 +153,6 @@ a {
 			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 		</div>
 		</form>
-		</c:if>
 	</div>
 	</main>
 

@@ -29,6 +29,35 @@ a {
 #page {
 	text-align: center;
 }
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
+	width : 30px;
+	height : 20px;
+	left : 380px;
+	top : 10px; 
+	border-radius: 10px;
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmcount > span {
+	position :relative;
+	color : white;
+	bottom : 3px;
+	left : 1700px;
+	top : 200px;
+	width : 300px;
+	height : 400px;
+}
 </style>
 </head>
 <body>
@@ -41,18 +70,21 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 													
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a></div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -60,12 +92,12 @@ a {
 
 			<div class="menubar py-1 mb-2">
 				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 link-success" href="/reviewList">충전소 현황</a> 
-					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 bg-success text-white" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 link-success" href="#">공지사항</a> 
-					<a class="p-2 link-success" href="#">Q&A</a>
+					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
+					<a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
+					<a class="p-2 link-success" href="/benefit">기대효과</a> 
+					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
+					<a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
+					<a class="p-2 link-success" href="/qnaList">Q&A</a>
 				</nav>
 			</div>
 		</header>
@@ -77,10 +109,20 @@ a {
 				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
 				<tr><td><h2>${board.boardtitle}</h2></td></tr>
 				<tr><td colspan="2"><img src="${board.member.memphoto}" width="45" height="30"><strong>${board.member.id}</strong></td></tr>
-				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}</td>
+				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}
+				<!-- 로그인 안된 상태 , 빈 하트 보이게--> <c:if test="${member.id == null}">
+						<img id="h" src="/img/empty.png" width="20px" title="123">
+					</c:if> 추천수 <span id="recom_free">${board.boardrecom}</span> <c:if test="${member.id != null}">
+						<c:if test="${result == 0}">
+							<img id="h" src="/img/empty.png" width="20px">
+						</c:if>
+						<c:if test="${result != 0}">
+							<img id="h" src="/img/full.png" width="20px">
+						</c:if>
+					</c:if></td>
 					<td align="right"><c:if test="${board.member.id eq member.id}">
 							<a href="/updateFreeBoard/${board.boardnum}">수정</a>	
-							<a href="/deleteFreeBoard/${board.boardnum}">삭제</a>
+							<a id="delete_board" href="/deleteFreeBoard/${board.boardnum}" onclick='return confirm("정말 삭제하시겠습니까?");'>삭제</a>
 						</c:if>
 					</td></tr>
 				<tr><td colspan="2"><hr align="center"></td></tr>
@@ -91,44 +133,51 @@ a {
 			<div id="comment_out">							
 				<h3>댓글 ${total}</h3>				
 					<c:forEach items="${clist}" var="comment">
-						<img src="${comment.member.memphoto}" width="45" height="30"><strong><c:out value="${member.id}"/></strong>
+						<div id="comment${comment.comnum}">
+							<img src="${comment.member.memphoto}" width="45" height="30"><strong>${member.id}</strong>
 						
 							<c:if test="${comment.commennum eq member.memnum}">												
-								<a href="" onclick="modify_comment(${comment.comnum}); return false;">수정</a>								
-								<a href="" onclick="delete_comment(${comment.comnum});">삭제</a>						
+								<a href="#modify_comment" onclick="modify_comment(${comment.comnum})">수정</a>								
+								<a href="#delete_comment" onclick="delete_comment(${comment.comnum})">삭제</a>						
 							</c:if>
+						</div>
 											
-						<div id="reply<c:out value="${comment.comnum}"/>">${comment.comcontent}</div>						
-						<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
-						<div id="replyDiv<c:out value="${comment.comnum}"/>" style="display: none">
-							<form id="form1"><!--  action="/updateComment" method="post"-->	
-								<input type="hidden" name="comnum" value="<c:out value="${comment.comnum}"/>">
-								<input type="hidden" name="commennum" value="<c:out value="${comment.commennum}"/>">
-								<input type="hidden" name="boardnum" value="<c:out value="${comment.boardnum}"/>">
-								<textarea name="comcontent" rows="3" cols="40" maxlength="500">${comment.comcontent}</textarea>
-								<button type="button" id="update_comment">수정</button>
-        					</form>
+						<div id="reply${comment.comnum}">${comment.comcontent}</div>						
+							<small><fmt:formatDate value="${comment.comdate}" pattern="YY.MM.dd HH:mm" /></small>
+						
+						<!-- 댓글 수정 -->
+						<div id="replyDiv${comment.comnum}" style="display: none">
+								<input type="hidden" id="boardnum${comment.boardnum}" name="boardnum" value="${comment.boardnum}">
+								<textarea style="width: 100%;" id="comcontent${comment.comnum}" name="comcontent" rows="3" cols="30" maxlength="500">${comment.comcontent}</textarea>
+								<button type="button" id="update_comment" onclick="update_comment(${comment.comnum})" class="btn btn-sm btn-success">저장</button>
+								<button type="button" id="update_comment" onclick="cancle_comment(${comment.comnum})" class="btn btn-sm btn-success">취소</button>
 						</div>
 						<hr width="800">
-				</c:forEach>
+					</c:forEach>
 						
-			<div id="page">
-				<c:if test="${begin > 2}">
-					<a href="/content/${board.boardnum}?p=${begin-1}">[이전]</a>
-				</c:if>
-				<c:forEach begin="${begin}" end="${end}" var="i">
-					<a href="/content/${board.boardnum}?p=${i}">[${i}]</a>
-				</c:forEach>
-				<c:if test="${end < totalPage}">
-					<a href="/content/${board.boardnum}?p=${end+1}">[다음]</a>
-				</c:if>
-			</div>				
-		</div>	
-		<br>
-		<textarea id="comment_in" name="comment_in" rows="3" cols="40" maxlength="500" placeholder="댓글을 달아주세요."></textarea> 
-		<input type="button" id="bnt_c" value="등록">
+				<div id="page">
+					<c:if test="${begin > 2}">
+						<a href="/content/1/${board.boardnum}?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/content/1/${board.boardnum}?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/content/1/${board.boardnum}?p=${end+1}">[다음]</a>
+					</c:if>
+				</div>				
+			</div>	
+		
+			<br>
+			<textarea style="width: 100%;" id="comment_in" name="comment_in" rows="3" cols="30" maxlength="500" placeholder="댓글을 달아주세요."></textarea> 
+			<div class="mb-2" style="text-align: right;">
+				<button id="bnt_c" class="btn btn-sm btn-success">등록</button>
+			</div>
 		</div>
 	</main>
+	
+	<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
+	
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -145,49 +194,41 @@ a {
 			$.ajax({
 				url : "/insertComment/${board.boardnum}",
 				data : "content=" + content,
-				dataType : "text"
-			}).done(function() {
-				$("#comment_out").load(location.href + " #comment_out");
-				$("#comment_in").val("");
+				success : function(data) {
+					
+				},
+				error : function(request,status,error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+				
+				}).done(function() {
+					$("#comment_in").val("");
+					getList();
 			}); //ajax
 		}); //bnt_c
-
-		$("#update_comment").click(function() {
-			let form1 = $("#form1").serialize();
-			$.ajax({
-				type : "post",
-				url : "/updateComment",
-				data : form1,
-				dataType : "json"
-			}).done(function() {
-				//$("#comment_out").load(location.href + " #comment_out");
-			}); //ajax
-		}); //update_comment
+		
+		
 	});
-	
-	function insert_comment(){
 
-		// 댓글 등록시 필요한 정보들 생략
-	   	// data["name"]=value (json) 형식으로 정보 저장
-	    
+	function getList(){
+		let formData = new FormData();
 		$.ajax({
-			type : "post",
-			url : "reply",
-			data : JSON.stringify(data),
-		    dataType: "json",
-		    contentType:"application/json;charset=UTF-8",
-			async : false,
+			type : "get",
+			url : "/replyFreeComment/${board.boardnum}",
+			dataType : "text",
+			data : formData, 
+			contentType: false, 
+			processData: false, 
+			cache : false,
 			success : function(data) {
-				
-				if (data.result == "ok") {
-					// 리스트 업데이트하는 getList()를 실행시킨다.
-					getList();
-				}
-
+	           	// C에서 받아온 데이터로 새로 뿌려주기
+				let html = jQuery('<div>').html(data);
+				let contents = html.find("div#comment_out").html();
+				$("#comment_out").html(contents);
 			},
-			error : function(){
-	               alert("통신실패");
-	           }
+			error : function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        }
 		});
 	}
 	
@@ -196,11 +237,11 @@ a {
 			return;
 		}
 		$.ajax({
-			url : "/deleteComment",
-			data : "comnum=" + comnum,
-			dataType : "json"
+			url : "/deleteFreeBoardComment",
+			data : "comnum=" + comnum
 		}).done(function() {
-			$("#comment_out").load(location.href + " #comment_out");
+			//$("#comment_out").load(location.href + " #comment_out");
+			getList();
 		}); //ajax
 	} //delete_comment
 
@@ -211,31 +252,61 @@ a {
 		reply.style.display = "none";
 	} //modify_comment
 
-	function fn_replyUpdateSave() {
+	function update_comment(comnum) {
 		let replyDiv = document.getElementById("replyDiv" + comnum);
-		let r = replyDiv.rememo.value;
-
-		alert(r);
-		let content = $("#rememo").val();
-		/*  if (!content) {
+		let content = $("#comcontent"+comnum).val();
+		let param = {content:content, comnum:comnum};
+		if (!content) {
 		     alert("글 내용을 입력해주세요.");
-		     $("#rememo").focus();
+		     $("#comcontent"+comnum).focus();
 		     return false;
-		 } */
-		$.ajax({
-			url : "/modifyComment",
-			data : "content=" + content,
-			dataType : "json"
-		}).done(function() {
-			alert("수정완료")
-			$("#comment_out").load(location.href + " #comment_out");
-		});
+		}else{
+			$.ajax({
+				url : "/updateFreeBoardComment",
+				data : param,				
+				error : function(request,status,error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+			}).done(function() {
+				//$("#comment_out").load(location.href + " #comment_out");
+				getList();
+			});
+		}
 	}
 
-	function fn_replyUpdateCancel() {
+	function cancle_comment(comnum) {
+		let reply = document.getElementById("reply" + comnum);
 		let replyDiv = document.getElementById("replyDiv" + comnum);
-		document.body.appendChild(replyDiv);
+		//document.body.appendChild(replyDiv);
+		reply.style.display = "";
 		replyDiv.style.display = "none";
+		return false;
 	}
+	//추천 부분	
+	$(function() {
+	$("#h").click(function() {
+		let num = ${board.boardnum};
+		let id = "${member.id}";
+        console.log(id);
+		let url = "/updateFreeRecom/" + num + "/" + id;
+				$.ajax({
+					url : url
+				})	
+				.done(
+					function(data) {
+					if (document.getElementById("h").getAttribute('src') == '/img/empty.png') {
+						document.getElementById("h").src = "/img/full.png";
+							} else {
+							document.getElementById("h").src = "/img/empty.png";//.src는 속성값 변경
+						}
+						$("#recom_free").html(data);//매개변수가 있으니까 변경된 값 가져옴
+						}).fail(
+							function(jqXHR, textStatus,errorThrown) {
+							console.log("error");
+					}); 
+				
+		})
+	})
+		
 </script>
 </html>

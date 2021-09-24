@@ -17,7 +17,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	
 	@Override
 	public Page<FreeBoard> getBoardList(int pNum){
-		Pageable page = PageRequest.of(pNum-1, 5); //(0,5) 총 5개 페이지 표시 ->1페이지에 10개 표시로 변경 예정
+		Pageable page = PageRequest.of(pNum-1, 10); //1페이지에 10개 표시
 		return boardRepo.findByOrderByBoardnumDesc(page);
 	}
 	
@@ -44,7 +44,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	
 	@Override
 	public Page<FreeBoard> getBoardList(int pNum, int searchn, String search) { //작성자검색,내용검색 등..
-		Pageable page = PageRequest.of(pNum-1, 5);
+		Pageable page = PageRequest.of(pNum-1, 10);
 		Page<FreeBoard> list = null;
 		if(searchn == 0) {
 			list = boardRepo.findByBoardtitleContainingIgnoreCase(search, page);
@@ -54,6 +54,43 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 			list =  boardRepo.findByBoardwriterContainingIgnoreCase(search, page);
 		}
 		return list;
+	}
+
+	
+	
+	//내가쓴글 // 대순이가씀
+	@Override
+	public Page<FreeBoard> myFreeList(int pNum, Long boardmemnum) {
+		Pageable page = PageRequest.of(pNum-1, 10);
+		return boardRepo.findByBoardmennumOrderByBoardnumDesc(boardmemnum, page);
+	}
+
+	@Override
+	public void deleteChk(int boardnum) {
+		boardRepo.deleteById((long) boardnum);
+	}
+
+	@Override
+	public int getCommentCount(Long boardnum) {
+		return boardRepo.getCommentCount(boardnum);
+	}
+
+	@Override
+	public void withdraw(Long memnum) {
+		boardRepo.deleteByMemnum(memnum);
+	}
+
+	//추천부분
+	@Override
+	public FreeBoard dnRecom(Long boardnum) {
+		boardRepo.dnRecom(boardnum);
+		return boardRepo.getById(boardnum);
+	}
+
+	@Override
+	public FreeBoard upRecom(Long boardnum) {
+		boardRepo.upRecom(boardnum);		
+		return boardRepo.getById(boardnum);
 	}
 
 }

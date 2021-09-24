@@ -52,7 +52,7 @@
 					</div>
 
 					<div class="row mb-3 justify-content-center align-items-center">
-						<div class="col-md-6">
+						<div class="col-md-6" align="center">
 							<input style="width: 200px;" type="submit" id="bnt_submit" class="btn btn-success" value="완료" />
 						</div>
 					</div>

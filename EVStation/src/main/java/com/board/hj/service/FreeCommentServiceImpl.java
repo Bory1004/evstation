@@ -48,6 +48,23 @@ public class FreeCommentServiceImpl implements FreeCommentService {
 
 	@Override
 	public void deleteComment(Long boardnum) {
-		commentRepo.deleteById(boardnum);		
+		commentRepo.deleteBoardComment(boardnum);		
+	}
+
+	@Override
+	public void updateComment(Long comnum, String content) {
+		commentRepo.updateComment(comnum, content);
+		
+	}
+
+	@Override
+	public List<FreeBoardComment> getCommentlist(Long boardnum) {
+		commentRepo.findByBoardnumOrderByComnumAsc(boardnum);
+		return null;
+	}
+
+	@Override
+	public void withdraw(Long memnum) {
+		commentRepo.deleteByMemnum(memnum);
 	}
 }

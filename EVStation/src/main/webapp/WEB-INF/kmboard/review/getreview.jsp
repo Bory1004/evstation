@@ -48,38 +48,50 @@ textarea {
 </style>
 </head>
 <body>
-	${member}
-	<div class="container">
-		<header class="py-3">
-			<div class="row justify-content-center">
-				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> <img
-						src="/img/logo.png" width="220" height="100"></a>
-					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
-				</div>
 
-				<div
-					class="col-6 d-flex-column-reverse justify-content-end align-items-center">
-					<!-- justify-content 자식요소 정렬  -->
-					<div id="login" style="text-align: right; margin-bottom: 10px;">
-						<img style="cursor: pointer;" src="/img/alarm1.png" width="30"
-							height="30" onclick="ring(${member.memnum})">
-					</div>
-					<c:choose>
-						<c:when test="${member.id eq null}">
-							<div style="float: right;">
-								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a>
-								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div style="float: right;">${member.id}님
-								환영합니다!! <a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
+	<div class="container">
+      <header class="py-3">
+         <div class="row justify-content-center">
+            <div class="col-6 pt-2">
+               <a href="/main" class="link-secondary"> 
+               <img src="/img/logo.png" width="220" height="100"></a>
+               <!--  <a class="link-secondary" href="#">Subscribe</a> -->
+            </div>
+
+            <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+               <!-- justify-content 자식요소 정렬  -->
+                                       
+               <c:choose>
+                  <c:when test="${member.id eq null}">
+                     <div style="float:right;">
+                        <a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+                        <a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
+                     </div>   
+                  </c:when>
+                  <c:otherwise>
+                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+                     width="30" height="30" onclick="ring(${member.memnum})">
+                     </div>
+                     <div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!
+                      			<div id="btns" style="float: right;">
+										<button class="btn btn-sm btn-outline-success dropdown-toggle"
+											type="button" id="dropdownMenuButton1"
+											data-bs-toggle="dropdown" aria-expanded="false">
+										 마이페이지</button>
+										<ul class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item" href="#">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+											<li><a class="dropdown-item" href="#">비밀번호 변경</a></li>
+										</ul>
+									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+								</div>
+                   </div>
+                  </c:otherwise>                  
+               </c:choose>
+            </div>
+         </div>
 
 			<div class="menubar py-1 mb-2">
 				<nav
@@ -104,7 +116,7 @@ textarea {
 				<tr><td><a href="/reviewList"><small style="color: green">리뷰 게시판 ></small></a></td></tr>
 				<tr><td><h2>${review.boardtitle}</h2></td></tr>
 				<tr><td colspan="2"><img src="${review.member.memphoto}" width="45" height="30"><strong>${review.member.id}</strong></td></tr>
-				<tr><td><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${review.boardsee}
+				<tr><td><small><fmt:formatDate value="${review.boarddate}" pattern="YYYY.MM.dd. hh:mm"/></small> 조회 ${review.boardsee}
 					<!-- 로그인 안된 상태 , 빈 하트 보이게-->
 					<c:if test= "${member.id == null}">
 					<img id="h" src="/img/empty.png" width="20px" title="123">
@@ -157,7 +169,7 @@ textarea {
 								</c:if></span>
 							</div>
 							<div id="comcontent${comment.comnum}" style="margin-bottom: 5px;">${comment.comcontent}<br>
-							<fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" />
+							<small><fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" /></small>
 							</div>
 							<hr>
 						<!-- 대댓글부분 -->
@@ -183,7 +195,7 @@ textarea {
 									</p>
 									<div>
 										<span id="comcontent${replycomment.comnum}">${replycomment.comcontent}</span><br>
-										<fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" />
+									<small><fmt:formatDate value="${comment.comdate}" pattern="yy.MM.dd HH:mm" /></small>
 									</div><hr>
 								</div>
 							</c:if>

@@ -52,7 +52,6 @@ public class LoginController {
 	@PostMapping("/join")
 	public String join(Member member, Model m) {
 		memberService.saveMember(member);
-
 		return "member/join_success";
 	}
 
