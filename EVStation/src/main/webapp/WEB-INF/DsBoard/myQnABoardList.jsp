@@ -129,7 +129,7 @@
 
 						<td>${list.boardnum}</td>
 
-							<td><a href="qnaDetail/${list.boardnum}">
+							<td><a href="/qnaDetail/${list.boardnum}">
 						<c:if test="${list.boardrelevel == 0 }">[질문]</c:if>
 						 <c:if test="${list.boardrelevel >= 1 }">&nbsp; &nbsp; &nbsp; &nbsp;ㄴRE:</c:if>
 						<%--   <c:if test="${list.boardrelevel > 1 }">

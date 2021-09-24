@@ -62,7 +62,7 @@
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/adminOnly") // 삭제후 해당 페이지로 새로고침
+					location.replace("/adminQnAOnly") // 삭제후 해당 페이지로 새로고침
 
 				}
 			});
