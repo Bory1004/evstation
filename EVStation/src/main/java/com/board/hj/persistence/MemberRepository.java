@@ -5,11 +5,14 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.board.hj.domain.FreeBoard;
 import com.board.hj.domain.Member;
 
 @Repository
@@ -29,5 +32,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	@Modifying
 	@Query("UPDATE Member m SET m.mempw = ?2 WHERE m.id=?1")
 	void updatePw(String memnum, String pw);
+	
+	Page<Member> findByOrderByMemnumDesc(Pageable page);
+	
+	Page<Member> findByNameContainingIgnoreCase(String name,Pageable page);
+	Page<Member> findByIdContainingIgnoreCase(String id,Pageable page);
+	Page<Member> findByMemphoneContaining(String phone,Pageable page);
+	
 	
 }
