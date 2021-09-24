@@ -168,8 +168,7 @@ public class FreeBoardController {
 	
 	
 	
-	
-	  //내가 쓴글 // 대순이씀
+	//내가 쓴글 // 대순이씀
     @RequestMapping("/myFreeBoardList/{boardmennum}")
 	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmennum){
 	
@@ -199,18 +198,19 @@ public class FreeBoardController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return   "hjboard/myFreeBoardList";
-		}
-	@RequestMapping("/deleteFreeChk")
+		return "hjboard/myFreeBoardList";
+	}
+	
+    @RequestMapping("/deleteFreeChk")
 	public String freeDeletechk(int[] valueArr) {
 
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
 		for (int i = 0; i < size; i++) {
+			commentService.deleteComment((long)valueArr[i]);
 			boardService.deleteChk(valueArr[i]);
 		}
 
 		return "redirect:/getFreeBoardList";
-
 	}
 }

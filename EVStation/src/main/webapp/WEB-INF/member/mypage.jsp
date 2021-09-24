@@ -75,12 +75,6 @@ a {
 	margin-bottom: 20px;
 	float: left;
 }
-
-ul {
-	list-style: none;
-	padding-left: 0px;
-}
-
 .box {
     width: 150px;
     height: 150px; 
@@ -156,19 +150,30 @@ ul {
 				<!-- 프로필 사진 변경 -->
 				<form class="row" id="member" action="/update_photo" method="post" enctype="multipart/form-data">
 					<div class="row mb-3">
-						<div class="col" align="center">
-							<div id="preview" class="box">
-								<img id="profile_image" class="profile" src="${member.memphoto}">							
+						<div class="col" align="center">						
+							<div id="preview" class="box">								
+								<img id="profile_image" class="profile" src="${member.memphoto}">																			
 							</div>
+							
+							<!-- <label for="file_photo" style="position:absolute;">bottom: 835px;
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-  									<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-  									<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+	  								<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+	  								<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
 								</svg>
-								<input type="file" id="file_photo" name="file_photo" accept="image/*" onchange="previewImage(this)" />							
+							</label> -->						
 						</div>
 					</div>
-					<div class="col" align="center">	
-						<input style="width: 100px;" type="submit" id="bnt_photo" class="btn btn-success" value="사진 변경" />
+					<div class="row">
+						<div class="col" align="right">
+							<label class="btn btn-success" for="file_photo">
+								사진변경
+							</label>
+							<input type="file" id="file_photo" name="file_photo" accept="image/*" onchange="previewImage(this)" style="display:none" />			
+						</div>
+						
+						<div class="col" align="left">
+							<input style="width: 80px;" type="submit" id="bnt_photo" class="btn btn-success" value="저장" />
+						</div>	
 					</div>
 				</form>
 				
@@ -302,14 +307,15 @@ ul {
 					</div>				
 				</form>
 			</div>
+			
 			<div id="jb-sidebar">
-			<h4>마이페이지</h4>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><a href="/mypage">개인정보 수정</a></li>
-					<li class="list-group-item"><a href="#">내가 쓴 글</a></li>
-					<li class="list-group-item"><a href="#">즐겨찾기</a></li>
-					<li class="list-group-item"><a href="#">회원탈퇴</a></li>
-				</ul>
+				<div class="row g-3">
+					
+					<div><a style="width: 150px;" class="btn btn-outline-secondary" href="/mypage">개인정보 수정</a></div>
+					<div><a style="width: 150px;" class="btn btn-secondary" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></div>
+					<div><a style="width: 150px;" class="btn btn-secondary" href="#">즐겨찾기</a></div>
+					<div><a style="width: 150px;" class="btn btn-secondary" href="/withdrawForm">회원탈퇴</a></div>					
+				</div>
 			</div>
 		</div>
 	</main>
@@ -330,9 +336,7 @@ ul {
 		$(function() {
 			$("#memcar").val("${member.memcar}").prop("selected", true);
 			$("#memcharge").val("${member.memcharge}").prop("selected", true);
-			
-			
-	        
+			        
 			$("#mempw").blur(function() {
 				$("#pw_msg").text("");
 				if ($("#mempw").val() != $("#pw2").val() && $("#pw2").val() != "") {

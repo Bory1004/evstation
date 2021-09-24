@@ -114,7 +114,7 @@ a {
 			<table class="table table-borderless border">
 				<tr><td><a href="/getFreeBoardList"><small style="color: green">자유 게시판 ></small></a></td></tr>
 				<tr><td><h2>${board.boardtitle}</h2></td></tr>
-				<tr><td colspan="2"><img src="${board.member.memphoto}" width="45" height="30"><strong>${board.member.id}</strong></td></tr>
+				<tr><td colspan="2"><img style = "border-radius:70%;" src="${board.member.memphoto}" width="40px" height="auto"><strong>${board.member.id}</strong></td></tr>
 				<tr><td><fmt:formatDate value="${board.boarddate}" pattern="YYYY.MM.dd. hh:mm"/> 조회 ${board.boardsee}</td>
 					<td align="right"><c:if test="${board.member.id eq member.id}">
 							<a href="/updateFreeBoard/${board.boardnum}">수정</a>	
@@ -130,7 +130,7 @@ a {
 				<h3>댓글 ${total}</h3>				
 					<c:forEach items="${clist}" var="comment">
 						<div id="comment${comment.comnum}">
-							<img src="${comment.member.memphoto}" width="45" height="30"><strong>${member.id}</strong>
+							<img style = "border-radius:70%;" src="${comment.member.memphoto}" width="40px" height="auto"><strong>${member.id}</strong>
 						
 							<c:if test="${comment.commennum eq member.memnum}">												
 								<a href="#modify_comment" onclick="modify_comment(${comment.comnum})">수정</a>								
