@@ -31,6 +31,7 @@ public class AllTableDTO {
 	private Date boarddate;
 	private Long boardsee;
 	private Long boardrecom;
+	private Long boardtype;
 
 	
 	

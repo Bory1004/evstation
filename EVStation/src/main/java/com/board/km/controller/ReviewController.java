@@ -53,19 +53,19 @@ public class ReviewController implements ApplicationContextAware {
 	}// test
 
 	@Autowired
-	ReviewService reviewService;
+	private ReviewService reviewService;
 
 	@Autowired
-	CommentService commentService;
+	private CommentService commentService;
 
 	@Autowired
-	AlarmService alarmService;
+	private AlarmService alarmService;
 
 	@Autowired
-	ReviewFileService reviewFileService;
+	private ReviewFileService reviewFileService;
 
 	@Autowired
-	ReRecomService rerecomService;
+	private ReRecomService rerecomService;
 
 	@RequestMapping("/reviewList")
 	public String reviewList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
@@ -98,14 +98,11 @@ public class ReviewController implements ApplicationContextAware {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-		String search_msg = search;
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
-		m.addAttribute("search_msg", search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
-		// System.out.println("test");
 		return "kmboard/review/reviewlist";
 	}
 
@@ -347,11 +344,53 @@ public class ReviewController implements ApplicationContextAware {
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
 		for (int i = 0; i < size; i++) {
+			commentService.deleteComment((long) valueArr[i]);
 			reviewService.deleteChk(valueArr[i]);
 		}
 
 		return "redirect:/reviewList";
 
 	}
+	
+	//관리자페이지 리뷰관리
+	//관리자 페이지 
+	@RequestMapping("/adminReview")
+	public String adminReview(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
+			@RequestParam(defaultValue = "-1") int searchn,
+			@RequestParam(name = "stnum", defaultValue = "1") Long stnum) {
 
+		Page<ReviewBoard> pageList = null;
+		if (search != null) { // 검색값이 있을때
+			pageList = reviewService.getReviewBoardList(pNum, stnum, searchn, search);
+			String search_msg = "\"" + search + "\" 검색결과";
+			m.addAttribute("search_msg", search_msg);
+		} else {
+			pageList = reviewService.getReviewBoardList(pNum, stnum); // 페이지번호와 충전소번호
+		}
+
+		List<ReviewBoard> rList = pageList.getContent();
+		m.addAttribute("rList", rList);
+
+		// 여기서부터 페이징 부분
+		int totalPageCount = pageList.getTotalPages();
+		long total = pageList.getTotalElements(); // 글의 총개수
+		// System.out.println(rList.get(0).getBoardnum());
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total); // 글이없으면 글이 없다고 출력
+		m.addAttribute("pNum", pNum);
+
+		int pageNum = 5; // 페이지크기
+		int begin = (pNum - 1) / pageNum * pageNum + 1; // 1 1 1 1 1 6 6 6 6 6 11 11....
+		int end = begin + pageNum - 1; // 5 5 5 5 5 10 10 10 10 ..
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		m.addAttribute("stnum", stnum);
+		// System.out.println("test");
+		return "kmboard/review/adminReview";
+	}
 }
