@@ -84,6 +84,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewRepo.findAllBoard(boardmemnum);
 	}
 
+
+
+	@Override
+	public void updateRecom(Long num, Long recomCnt) { //추천수 게시물 recom항목에 반영
+		reviewRepo.updateRecom(recomCnt,num);
+		
+	}
+
 	
 
 }
