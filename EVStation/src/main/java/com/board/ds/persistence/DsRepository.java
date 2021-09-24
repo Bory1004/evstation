@@ -60,9 +60,11 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 	 
 	 DsEntity findByBoardnum(Long boardnum); //댓글부분
 	
+
 	 Page<DsEntity>findByBoardmemnumOrderByBoardrefDescBoardrestepAsc( Long boardmemnum, Pageable page); 
 	 
 	 	//추천
+
 		@Transactional
 		@Modifying
 		@Query("UPDATE DsEntity b SET b.boardrecom = b.boardrecom+1 WHERE b.boardnum=?1")
@@ -79,10 +81,12 @@ public interface DsRepository extends JpaRepository<DsEntity, Long> {
 		@Query("DELETE FROM DsEntity d WHERE d.boardmemnum = ?1")
 		void deleteByMemnum(Long memnum);
 
+
 		@Transactional
 		@Modifying
 		@Query("DELETE FROM DsEntity d WHERE d.boardref = ?1 and d.boardrestep != 0")
 		void deleteReply(Long boardref);
+
 	 
 
 }

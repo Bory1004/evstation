@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +32,9 @@ import com.board.km.domain.Alarm;
 import com.board.km.domain.AllTableDTO;
 import com.board.km.domain.ReviewBoard;
 import com.board.km.service.AlarmService;
+
 import com.board.km.service.CommentService;
+
 import com.board.km.service.ReviewService;
 import com.google.gson.Gson;
 
@@ -59,6 +63,7 @@ public class MainController {
 		if (cookies != null) {
 			String cookie_id = "";
 			String cookie_pw = "";
+
 
 			for (Cookie c : cookies) {
 				if (c.getName().equals("cookie_id")) {
@@ -113,7 +118,9 @@ public class MainController {
 		return "Success!!";
 	}
 	
+
 	//내가 쓴글 //km
+
     @RequestMapping("/AllBoardList/{boardmemnum}")
 	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
 	
@@ -146,8 +153,9 @@ public class MainController {
 		m.addAttribute("end", end);
 		
 		if (pNum != totalPageCount) {
+
 			if(totalPageCount == 0) { return "kmboard/review/myAllList";};
-			
+
 			for (int i = 10*(pNum-1); i< 10*pNum ;i++) {
 					All.add(list.get(i));
 			}
@@ -163,6 +171,7 @@ public class MainController {
 		
 		return  "kmboard/review/myAllList";
 		}
+
     
     @PostMapping("/deleteAllChk")
 	public String qnaDeletechk(int[] valueArr, Long[] valueBoardtype) {
@@ -185,4 +194,5 @@ public class MainController {
 
 	}
     
+
 }

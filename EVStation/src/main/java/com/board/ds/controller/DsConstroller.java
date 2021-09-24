@@ -167,6 +167,7 @@ public class DsConstroller {
 	
 	
 	@RequestMapping("/deleteChk")
+
 	public String qnaDeletechk(int[] valueArr, Long[] valueRef, Long[] valueRestep) {
 
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
@@ -202,6 +203,7 @@ public class DsConstroller {
 		dsService.deleteQnA(boardnum, boardref);
 		}
 		
+
 		return "redirect:/qnaList";
 
 	}
@@ -267,7 +269,9 @@ public class DsConstroller {
 
 		emailService.sendMail(dsEmail);
 
+
 		return "redirect:/adminQnAOnly";
+
 	}
 
 	@RequestMapping("/pageIntro") // 페이지 소개
@@ -321,6 +325,7 @@ public class DsConstroller {
 	
 	
 	
+
 	@RequestMapping("/myAllBoardList/{boardmemnum}")
 	public String myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
 		
@@ -400,6 +405,7 @@ public class DsConstroller {
 		return "/DsBoard/adminQnAOnly";
 		
 	}
+
 	
 	
 }

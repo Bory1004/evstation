@@ -95,6 +95,7 @@ function resize(img){
 </script>
 </head>
 <body>
+
    <div class="container">
       <header class="py-3">
          <div class="row justify-content-center">
@@ -103,6 +104,7 @@ function resize(img){
                <img src="/img/logo.png" width="220" height="100"></a>
                <!--  <a class="link-secondary" href="#">Subscribe</a> -->
             </div>
+
 
             <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
                <!-- justify-content 자식요소 정렬  -->

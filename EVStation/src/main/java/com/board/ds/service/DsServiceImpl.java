@@ -43,7 +43,7 @@ public class DsServiceImpl implements DsService {
 	public void deleteQnA(Long boardnum,Long boardref) {
 		dsRepo.ybReplyDel(boardref);
 		dsRepo.deleteById(boardnum);  
-			
+
 	}
 
 	@Override
@@ -103,7 +103,9 @@ public class DsServiceImpl implements DsService {
 	public Page<DsEntity> AAllListQnA(int pNum, Long boardmemnum) {
 		Pageable page = PageRequest.of(pNum-1, 10);
 		 
+
 		return dsRepo.findByBoardmemnumOrderByBoardrefDescBoardrestepAsc(boardmemnum, page);  
+
 	}
 
 	@Override
@@ -125,10 +127,12 @@ public class DsServiceImpl implements DsService {
 		return dsRepo.getById(boardnum);
 	}
 
+
 	@Override
 	public void deleteReply(Long boardref) {
 		dsRepo.deleteReply(boardref);
 	}
+
 
 	
 	

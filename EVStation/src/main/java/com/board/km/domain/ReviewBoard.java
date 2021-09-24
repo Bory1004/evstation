@@ -29,6 +29,7 @@ import lombok.ToString;
 @ToString
 @NamedNativeQuery(
 		name = "find_alltable",
+
 		query="select boardnum,boardtitle,boardwriter,boarddate,boardsee,boardrecom,boardtype from"
 				+ "("
 				+ "   select board_num as boardnum ,board_title as boardtitle ,board_writer as boardwriter,"
@@ -55,6 +56,7 @@ import lombok.ToString;
 				@ColumnResult(name="boardsee", type = Long.class),
 				@ColumnResult(name="boardrecom", type = Long.class),
 				@ColumnResult(name="boardtype", type = Long.class)
+
 			}
 		)
 )

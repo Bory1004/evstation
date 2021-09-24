@@ -1,5 +1,7 @@
 package com.board.km.controller;
 
+
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,11 +48,13 @@ public class ReviewController implements ApplicationContextAware {
 
 	private WebApplicationContext context = null;
 
+
 	// session에 member가 없으면 실행, 있으면 실행되지 않는다.
 	@ModelAttribute("member")
 	public Member getMember() {
 		return new Member();
 	}// test
+
 
 	@Autowired
 	private ReviewService reviewService;
@@ -98,13 +102,16 @@ public class ReviewController implements ApplicationContextAware {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
+
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
+		m.addAttribute("search_msg",search_msg);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
 		return "kmboard/review/reviewlist";
 	}
+
 
 	@RequestMapping("deleteReview/{boardnum}")
 	public String deleteReview(@PathVariable Long boardnum) {
@@ -303,6 +310,7 @@ public class ReviewController implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
 		this.context = (WebApplicationContext) applicationContext;
 	}
 
@@ -335,8 +343,10 @@ public class ReviewController implements ApplicationContextAware {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
+
 		return "kmboard/review/myReviewBoardList";
 	}
+
 
 	@RequestMapping("/deleteReviewChk")
 	public String reviewDeletechk(int[] valueArr) {
@@ -344,13 +354,16 @@ public class ReviewController implements ApplicationContextAware {
 		int size = valueArr.length; // 선택된 체크박스의 길이를 변수에 정의
 
 		for (int i = 0; i < size; i++) {
+
 			commentService.deleteComment((long) valueArr[i]);
+
 			reviewService.deleteChk(valueArr[i]);
 		}
 
 		return "redirect:/reviewList";
 
 	}
+
 	
 	//관리자페이지 리뷰관리
 	//관리자 페이지 
