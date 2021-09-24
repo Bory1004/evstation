@@ -247,7 +247,8 @@ a {
 					<tr>
 						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
-						<td><a href="/content/1/${list.boardnum}">${list.boardtitle}</a></td>
+					<c:if test="${list.boardtype == 1 || list.boardtype == 2}"><td><a href="/content/${list.boardtype}/${list.boardnum}">${list.boardtitle}</a></td></c:if>
+					<c:if test="${list.boardtype == 4 }"><td><a href="/qnaDetail/${list.boardnum}">${list.boardtitle}</a></td></c:if>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>

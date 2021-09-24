@@ -29,16 +29,16 @@ import lombok.ToString;
 @ToString
 @NamedNativeQuery(
 		name = "find_alltable",
-		query="select boardnum,boardtitle,boardwriter,boarddate,boardsee,boardrecom from"
+		query="select boardnum,boardtitle,boardwriter,boarddate,boardsee,boardrecom,boardtype from"
 				+ "("
 				+ "   select board_num as boardnum ,board_title as boardtitle ,board_writer as boardwriter,"
-				+ "	  board_date as boarddate ,board_see as boardsee ,board_recom as boardrecom from board02 a where a.board_mem_num =?1"
+				+ "	  board_date as boarddate ,board_see as boardsee ,board_recom as boardrecom,board_type as boardtype from board02 a where a.board_mem_num =?1"
 				+ "   union all"
 				+ "   select board_num as boardnum ,board_title as boardtitle ,board_writer as boardwriter,"
-				+ "   board_date as boarddate ,board_see as boardsee, board_recom as boardrecom from qnaboard b where b.board_mem_num =?1"
+				+ "   board_date as boarddate ,board_see as boardsee, board_recom as boardrecom,board_type as boardtype from qnaboard b where b.board_mem_num =?1"
 				+ "   union all"
 				+ "   select boardnum, boardtitle, boardwriter ,"
-				+ "   boarddate , boardsee  , boardrecom from freeboard c where c.memnum =?1"
+				+ "   boarddate , boardsee  , boardrecom , boardtype from freeboard c where c.memnum =?1"
 				+ ") te "
 				+ "order by boarddate desc ",
 		resultSetMapping = "alltable"
@@ -54,6 +54,7 @@ import lombok.ToString;
 				@ColumnResult(name="boarddate", type = Date.class),
 				@ColumnResult(name="boardsee", type = Long.class),
 				@ColumnResult(name="boardrecom", type = Long.class),
+				@ColumnResult(name="boardtype", type = Long.class)
 			}
 		)
 )
