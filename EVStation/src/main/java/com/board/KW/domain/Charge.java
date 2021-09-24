@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.board.hj.domain.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +15,6 @@ import lombok.ToString;
 @Table(name = "chargelist2")
 @Setter
 @Getter
-@ToString
 public class Charge implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -66,7 +67,11 @@ public class Charge implements Serializable {
 	
 	@Column(name="st_latitude")
 	private String stlatitude;
-
+	
+	@Column(updatable = false, insertable = false, columnDefinition = "number default 0")
+	private Long book;
+	
+	
 	  
 	  @GeneratedValue private Long num; private String title;
 	  

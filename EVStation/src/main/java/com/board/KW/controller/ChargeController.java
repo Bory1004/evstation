@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.board.KW.domain.Book;
 import com.board.KW.domain.Charge;
 import com.board.KW.service.ChargeService;
 import com.board.hj.domain.Member;
 
+@SessionAttributes("member")
 @Controller
 public class ChargeController {
 
@@ -30,7 +34,7 @@ public class ChargeController {
 	
 	// 리스트 + 검색
 	@RequestMapping("/getChargeList")
-	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
+	public String getBoardList(@ModelAttribute("member")Member member, Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
 		@ModelAttribute("charge") Charge charge, String search, @RequestParam(defaultValue = "-1") int searchn) {
 			
 		Page<Charge> pageList = null;
@@ -77,7 +81,6 @@ public class ChargeController {
 		
 		return "/kwboard/getChargeInfo";
 	}
-
 	
 	@RequestMapping("/openMap")
 	public String mapView(Model m) {
@@ -85,12 +88,43 @@ public class ChargeController {
 		m.addAttribute("list",list);
 		return "/kwboard/openMap";
 	}
+	
+	
+	
+	@RequestMapping("/bookmark/{num}/{id}")
+	@ResponseBody
+	public int upRecom(Book book, @PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member) {
+			
+			 int x = 0;
+			m.addAttribute("member", member);
+			int result = chargeService.isRecom(num, id);
+			if(result == 0) {
+				chargeService.insertRecom(num, id);
+			} else {
+				chargeService.del(id, num);	
 
+			}
+			System.out.println("x:" + x);
+			return x;
+		}
+
+	@RequestMapping("/bookmark")
+	public String bookMark(@ModelAttribute("member")Member member,String id,Model m)  {
+				
+		
+		List<Charge> bList = chargeService.bookmark(member.getId());
+		m.addAttribute("blist",bList);
+		System.out.println(bList);
+		            
+		
+		return "/kwboard/bookmark";
+	}
 
 	/*
 	 * @RequestMapping("/main") public String markList(Model m) { List<Charge> list
 	 * = chargeService.openMap(); m.addAttribute("list",list); return "/main"; }
 	 */
-
+	
+	
 
 }

@@ -15,9 +15,12 @@ public interface ChargeService {
 	Charge onlyBoard(Long num);
 	void deleteBoard(Long num);
 	List<Charge> openMap();
+	Page<Charge> bookMark(int pNum);
 	Page<Charge> getChargeList(int pNum, int searchn, String search);
 	
 	int isRecom(Long num, String id);
 	int insertRecom(Long num, String id);
 	void del(String id, Long num);
+	
+	List<Charge> bookmark(String id);
 }

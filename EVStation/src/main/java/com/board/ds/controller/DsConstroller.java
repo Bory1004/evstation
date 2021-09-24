@@ -302,39 +302,33 @@ public class DsConstroller {
 	
 	
 	
-	@RequestMapping("/myAllBoardList/{boardmemnum}")
-	public String myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmemnum){
-		
-		
-				
-	    Page<DsEntity> pageList = null;
-		int pageNum = 5;
-		pageList = dsService.AAllListQnA(pNum, boardmemnum);
-		
-		List<DsEntity> list = pageList.getContent();  
-		m.addAttribute("list", list);
-    
-		
-		
 		/*
+		 * @RequestMapping("/myAllBoardList/{boardmemnum}") public String
+		 * myAllList(Model m, @RequestParam(name = "p", defaultValue = "1") int
+		 * pNum, @PathVariable Long boardmemnum){
+		 * 
+		 * 
+		 * 
+		 * Page<DsEntity> pageList = null; int pageNum = 5; pageList =
+		 * dsService.AAllListQnA(pNum, boardmemnum);
+		 * 
+		 * List<DsEntity> list = pageList.getContent(); m.addAttribute("list", list);
+		 * 
+		 * 
+		 * 
 		 * Page<FreeBoard> pageList1 = null; pageList1 = boardService.myFreeList(pNum,
 		 * boardmemnum); List<FreeBoard> flist = pageList1.getContent();
 		 * m.addAttribute("flist",flist);
-		 */
-		
-		Page<ReviewBoard> pageList2 = null;
-		pageList2 = reviewService.myReviewList(pNum, boardmemnum);
-		List<ReviewBoard> rlist = pageList2.getContent();  
-		m.addAttribute("rlist",rlist);
-    
-		/*
+		 * 
+		 * Page<ReviewBoard> pageList2 = null; pageList2 =
+		 * reviewService.myReviewList(pNum, boardmemnum); List<ReviewBoard> rlist =
+		 * pageList2.getContent(); m.addAttribute("rlist",rlist);
+		 * 
 		 * long total =
 		 * pageList.getTotalElements()+pageList1.getTotalElements()+pageList2.
 		 * getTotalElements(); double totalPageCount = (double) Math.ceil((double)total
 		 * /(double)10);
-		 */
-
-		/*
+		 * 
 		 * m.addAttribute("totalPage", totalPageCount); m.addAttribute("total", total);
 		 * 
 		 * int begin = (pNum - 1) / pageNum * pageNum + 1; int end = begin + pageNum -
@@ -343,10 +337,9 @@ public class DsConstroller {
 		 * m.addAttribute("begin", begin); m.addAttribute("end", end);
 		 * System.out.println(totalPageCount); //2.0 System.out.println(total);//17
 		 * System.out.println(begin);// 1 System.out.println(end);//2
+		 * 
+		 * return "/DsBoard/myAllBoardList"; }
 		 */
-		return "/DsBoard/myAllBoardList";
-	}
-	
 	
 	
 }

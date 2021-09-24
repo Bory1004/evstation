@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
-/*import com.board.ds.domain.DsEntity;*/
+import com.board.ds.domain.DsEntity;
 import com.board.hj.domain.Member;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
