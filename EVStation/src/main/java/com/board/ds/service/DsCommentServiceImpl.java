@@ -2,6 +2,7 @@ package com.board.ds.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,17 @@ public class DsCommentServiceImpl implements DsCommentService {
 	@Override
 	public void withdraw(Long memnum) {
 		DsCoRepo.deleteByMemnum(memnum);
+	}
+	@Override
+	public void saveComment(DsComment dsComment) {
+		DsCoRepo.save(dsComment);
+	}
+	@Override
+	public void saveReply(Long comnum) {
+		DsCoRepo.updategroupnumandcomrestep(comnum);
+	}
+	@Override
+	public Optional<DsComment> getComment(Long comnum) {
+		return DsCoRepo.findById(comnum);
 	}
 }   
