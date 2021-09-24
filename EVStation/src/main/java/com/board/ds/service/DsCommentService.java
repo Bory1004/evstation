@@ -25,7 +25,10 @@ public interface DsCommentService {
 	
 	Optional<DsComment> getComment(Long comnum);
 	
-	int deleteComment(Long comnum, Long comgroupnum);
+	int deleteComment(Long comnum, Long comgroupnum); //댓글삭제
+	
+	void updateComment(Long comnum, String comcontent); //댓글수정
+
 
 
 

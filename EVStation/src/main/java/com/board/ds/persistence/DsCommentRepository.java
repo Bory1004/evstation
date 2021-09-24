@@ -58,5 +58,8 @@ public interface DsCommentRepository extends JpaRepository<DsComment, Long> {
 	@Query("delete from DsComment d where d.comgroupnum = ?1")
 	int deleteByComgroupnum(Long comgroupnum); 
 
-
-}
+	//댓글수정
+	@Transactional
+	@Modifying
+	@Query("UPDATE DsComment d SET d.comcontent = ?2 WHERE d.comnum = ?1")
+	void updateComment(Long comnum, String comcontent);}

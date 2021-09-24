@@ -58,4 +58,9 @@ public class DsCommentServiceImpl implements DsCommentService {
 		}
 		return 1;
 	}
+	@Override
+	public void updateComment(Long comnum, String comcontent) {
+		DsCoRepo.updateComment(comnum, comcontent);
+		
+	}
 }   

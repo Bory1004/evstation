@@ -46,10 +46,14 @@ public class DsCommentController {
 		@RequestMapping(value = "/qnaDetail/deleteQnAComment", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 		@ResponseBody
 		public String deleteComment(Long comnum, Long comgroupnum) {// 댓글삭제
-			// System.out.println(comnum);
-			// System.out.println(comgroupnum);
 			String cnt = dsCoService.deleteComment(comnum, comgroupnum) + "";
 			return cnt;
 		}
-	
+		
+		@RequestMapping(value = "updateQnAComment", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+		@ResponseBody
+		public String updateComment(Long comnum, String comcontent) { // 댓글수정
+			dsCoService.updateComment(comnum, comcontent);
+			return "Success!!";
+		}	
 }
