@@ -75,7 +75,7 @@
 
 #jb-content {
 	width: 700px;
-	padding: 20px;
+	padding: 10px;
 	margin-bottom: 20px;
 	float: right;
 	/* border: 1px solid #bcbcbc; */
@@ -83,7 +83,7 @@
 
 #jb-sidebar {
 	width: 200px;
-	padding: 20px;
+	padding: 10px;
 	margin-bottom: 20px;
 	float: left;
 }
