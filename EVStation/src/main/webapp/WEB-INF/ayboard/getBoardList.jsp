@@ -104,6 +104,35 @@ a {
 #page {
 	text-align: center;
 }
+#alarmpage {
+	position :absolute;
+	border: solid #BDBDBD 1px;
+	border-radius: 20px;
+	width : 230px;
+	height : 300px;
+	left : 1230px;
+	padding : 10px;
+	overflow-y : auto;
+}
+#alarmcount {
+	position : relative;
+	width : 30px;
+	height : 20px;
+	left : 380px;
+	top : 10px; 
+	border-radius: 10px;
+	text-align : center;
+	vertical-align : middle;
+}
+#alarmcount > span {
+	position :relative;
+	color : white;
+	bottom : 3px;
+	left : 1700px;
+	top : 200px;
+	width : 300px;
+	height : 400px;
+}
 </style>
 </head>
 <body>
@@ -117,18 +146,42 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
-													
+					<%-- <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+						width="30" height="30" onclick="ring(${member.memnum})">
+					</div>	 --%>					
 					<c:choose>
 						<c:when test="${member.id eq null}">
-							<div>
+
+							<div style="float:right;">
 								<a class="btn btn-sm btn-outline-success" href="../loginView">로그인</a> 
 								<a class="btn btn-sm btn-outline-success" href="../joinView">회원가입</a>
 							</div>	
 						</c:when>
 						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="../logout">로그아웃</a>
+							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
+							width="30" height="30" onclick="ring(${member.memnum})">
+							</div>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! </br>
+							<div id="btns" style="float: right;">
+										<button class="btn btn-sm btn-outline-success dropdown-toggle"
+											type="button" id="dropdownMenuButton1"
+											data-bs-toggle="dropdown" aria-expanded="false">
+										 마이페이지</button>
+										<ul class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
+											<li><a class="dropdown-item" href="/ay/admin">관리자페이지</a></li>
+											</c:if>
+											
+										</ul>
+									<a class="btn btn-sm btn-outline-success" href="../logout">로그아웃</a>
+								</div>
+							</div>
 						</c:otherwise>						
 					</c:choose>
 				</div>
@@ -163,7 +216,7 @@ a {
 			<table style="text-align: center" class="table table-hover caption-top">				
 				<thead class="table-light">
 					<tr>
-					<c:if test="${member.getId() == 'dkdus'}">  <!-- 관리자만 보이게 -->
+					<c:if test="${member.getId() == 'admin'}">  <!-- 관리자만 보이게 -->
 				    <th><input type="checkbox" name="ChkBxAll"  id="ChkBxAll;"></th>
 					</c:if>	
 					<th scope="col">No.</th>
@@ -176,7 +229,7 @@ a {
 				</thead>
 				<c:forEach items="${bList}" var="board">
 					<tr>
-					<c:if test="${member.getId() == 'dkdus'}">
+					<c:if test="${member.getId() == 'admin'}">
 					    <td><input type="checkbox" name="ChkBxRow"  value="${board.num}"></td>
 					    </c:if>
 						<td>${board.num}</td>
@@ -188,7 +241,7 @@ a {
 					</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${member.getId() == 'dkdus'}">
+			<c:if test="${member.getId() == 'admin'}">
 			<button type="button"  class="btn btn-outline-secondary btn-sm"  onclick="deleteValue();" >선택삭제</button>
 			</c:if>
 			<div id="page">
@@ -219,7 +272,7 @@ a {
 		
 	
 		<div align="right">
-			<c:if test="${member.getId() == 'dkdus'}">
+			<c:if test="${member.getId() == 'admin'}">
 			<a class="btn btn-outline-secondary btn-sm" href="/ay/insertBoard">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
   				<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>

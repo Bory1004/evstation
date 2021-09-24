@@ -175,7 +175,7 @@
 </div><!--  center -->
 
 			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-outline-secondary">QnA문의</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminOnly';">QnA문의</button>
 				<br>
 				<button type="button" class="btn btn-secondary">충전소 관리</button>
 				<br>
@@ -184,6 +184,8 @@
 				<button type="button" class="btn btn-secondary">공지사항 관리</button>
 				<br>
 				<button type="button" class="btn btn-secondary">자유게시판 관리</button>
+				<br>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
 				<br>
 			</div>
 <%@ include file="DsLayout/dsFooter.jsp"%>

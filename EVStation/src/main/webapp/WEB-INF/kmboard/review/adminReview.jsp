@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QnA관리</title>
+<title>리뷰관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -31,7 +33,7 @@
 		});
 	});
 	function deleteValue() {
-		var url = "/deleteChk";
+		var url = "/deleteReviewChk";
 		var valueArr = new Array(); //boardnum 넣을 변수 
 		var valueRef = new Array(); //boardref 넣을 변수 
 
@@ -53,11 +55,10 @@
 				traditional : true,
 				data : {
 					"valueArr" : valueArr,
-					"valueRef" : valueRef
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myQnABoardList/${member.memnum}") // qnaList 페이지로 새로고침
+					location.replace("/adminReview") // qnaList 페이지로 새로고침
 
 				}
 			});
@@ -76,11 +77,14 @@
 	margin-left: 23%;
 	margin-top: 0%;
 }
+#page {
+	text-align: center;
+}
 </style>
 </head>
 <body>
 <div id="center">
-<table style="text-align: center" class="table table-hover caption-top">
+		<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
 						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
@@ -93,18 +97,11 @@
 				</tr>
 			</thead>
 			
-			<c:forEach items="${list}" var="list">
+				<c:forEach items="${rList}" var="list">
 					<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
-						<td><a href="/content/2/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
-								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
-										Re:
-								</c:forEach> --%>
-						 ${list.boardtitle}
-						</a></td>
-
+						<td><a href="/content/2/${list.boardnum}"> ${list.boardtitle}</a></td>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>
@@ -112,14 +109,49 @@
 					</tr>
 				</c:forEach>
 		</table>
+		
 		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>	
-
+			<div id="page">
+				<c:if test="${search == null}">
+					<c:if test="${begin > 2}">
+						<a href="/adminReview?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/adminReview?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/adminReview?p=${end+1}">[다음]</a>
+					</c:if>
+				</c:if>
+				<c:if test="${search != null}">
+					<c:if test="${begin > 2}">
+						<a href="/adminReview?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin}" end="${end}" var="i">
+						<a href="/adminReview?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage}">
+						<a href="/adminReview?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+					</c:if>
+				</c:if>
+			</div><br>
+			<form>
+			<div style="width: 400px;" class="input-group">
+			<select style="width: 130px;" class="form-select" name="searchn">
+				<option value="0">제목</option>
+				<option value="1">내용</option>
+				<option value="2">작성자</option>
+			</select> 
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+			</div>
+			</form>
 
 
 </div><!--  center -->
 
 			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-outline-secondary">QnA문의</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/adminOnly';">QnA문의</button>
 				<br>
 				<button type="button" class="btn btn-secondary">충전소 관리</button>
 				<br>
@@ -129,8 +161,10 @@
 				<br>
 				<button type="button" class="btn btn-secondary">자유게시판 관리</button>
 				<br>
-				<button type="button" class="btn btn-secondary">리뷰게시판 관리</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
 				<br>
 			</div>
+
+<%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
 </body>
 </html>
