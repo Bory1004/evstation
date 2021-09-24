@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@ include file="DsLayout/dsHeaderNormal.jsp"%>
+ <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QnA관리</title>
+<title>리뷰관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -77,6 +77,9 @@
 	margin-left: 23%;
 	margin-top: 0%;
 }
+#page {
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -94,18 +97,11 @@
 				</tr>
 			</thead>
 			
-			<c:forEach items="${list}" var="list">
+			<c:forEach items="${rList}" var="list">
 					<tr>
-							<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardref}"></td>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" ></td>
 						<td>${list.boardnum}</td>
-						<td><a href="/content/2/${list.boardnum}"> 
-						<c:if test="${list.boardrelevel >= 1 }">[답변완료]</c:if> 
-								<%-- <c:forEach begin="1" end="${list.boardrelevel}">
-										Re:
-								</c:forEach> --%>
-						 ${list.boardtitle}
-						</a></td>
-
+						<td><a href="/content/2/${list.boardnum}"> ${list.boardtitle}</a></td>
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
 						<td>${list.boardsee}</td>
@@ -113,14 +109,25 @@
 					</tr>
 				</c:forEach>
 		</table>
+		
 		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>	
-
+			<div id="page">
+					<c:if test="${begin > 2 }">
+						<a href="/adminReview?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin }" end="${end}" var="i">
+						<a href="/adminReview?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage }">
+						<a href="/adminReview?p=${end+1}">[다음]</a>
+					</c:if>
+			</div>
 
 
 </div><!--  center -->
 
 			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-outline-secondary">QnA문의</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/adminOnly';">QnA문의</button>
 				<br>
 				<button type="button" class="btn btn-secondary">충전소 관리</button>
 				<br>
@@ -130,9 +137,9 @@
 				<br>
 				<button type="button" class="btn btn-secondary">자유게시판 관리</button>
 				<br>
-				<button type="button" class="btn btn-secondary">리뷰게시판 관리</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
 				<br>
 			</div>
-<%@ include file="DsLayout/dsFooter.jsp"%>
+<%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
 </body>
 </html>
