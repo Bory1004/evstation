@@ -161,7 +161,7 @@ a {
 			</c:forEach>
 		</tbody>	
 	</table>
-		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
+		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제</button>
 		<div id="page">
 						<c:if test="${begin > 2}">
 							<a href="/bookmark?p=${begin-1}">[이전]</a>

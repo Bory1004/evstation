@@ -174,7 +174,7 @@
 
 </div><!--  center -->
 
-			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
+			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:150px;">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminQnAOnly';">QnA문의</button>
 				<br>
 				<button type="button" class="btn btn-secondary">충전소 관리</button>
