@@ -393,58 +393,6 @@ textarea {
 			})
 		}
 	//--------------------------------------------------- 추천부분
-	
-	//--------------------------------------------------- 알람부분
-		function ring(x){ //알람 창 열고 데이터 가져오는 함수
-		//alert(${memnum})
-		$.ajax({
-			type : "get",
-			url : "/getAlarm",
-			data : {"memnum" : ${member.memnum}},
-			dataType : "text"
-		}).done(function(data){
-			//alert("성공")
-			if($('#alarmpage').html()){
-				$('#alarmpage').remove();
-			}else{
-				$('#login').append("<div id='alarmpage'></div>"	);
-				$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
-			}
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function delAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/delAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			//alert(data)
-			$('#'+alanum).remove();
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function checkAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/checkAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			alert(data)
-			//$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText)
-		})
-	}
 	</script>
 </body>
 </html>

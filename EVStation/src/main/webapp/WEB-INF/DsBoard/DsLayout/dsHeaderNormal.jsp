@@ -139,6 +139,83 @@ a {
 			</div>
 		</header>
 	</div>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+      $(function(){
+         $.ajax({
+            type : "get",
+            url : "/countAlarm",
+            data : { "memnum" : '${member.memnum}'},
+            dataType : "text"
+         }).done(function(data){
+            //alert(data)
+            if(data != ""){
+               $('#alarmcount').css('background','#41FF3A')
+               $('#alarmcount').html('<span>'+data+'</span>');
+            }
+         }).fail(function(e){
+            alert("실패")
+            alert(e.responseText)            
+         })
+      
+      })
+      
+      function ring(x){ //알람 창 열고 데이터 가져오는 함수
+         //alert(${memnum})
+         $.ajax({
+            type : "get",
+            url : "/getAlarm",
+            data : {"memnum" : '${member.memnum}'},
+            dataType : "text"
+         }).done(function(data){
+            //alert("성공")
+            if($('#alarmpage').html()){
+               $('#alarmpage').remove();
+            }else{
+               $('#login').append("<div id='alarmpage'></div>"   );
+               $('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
+            }
+         }).fail(function(e){
+            alert("실패")
+            alert(e.responseText);
+         })
+      }
+      function delAlarm(x){
+         let alanum = x;
+         let memnum = '${member.memnum}'
+         $.ajax({
+            type : "get",
+            url : "/delAlarm",
+            data : {"alanum" : alanum , "memnum" : memnum},
+            dataType : "text"
+         }).done(function(data){
+            //alert(data)
+            $('#'+alanum).remove();
+            $('#alarmcount').html('<span>'+data+'</span>');
+            
+            if (data == "" ){
+               $('#alarmcount').css('background','white')
+            }
+         }).fail(function(e){
+            alert("실패")
+            alert(e.responseText);
+         })
+      }
+      function checkAlarm(x){
+         let alanum = x;
+         $.ajax({
+            type : "get",
+            url : "/checkAlarm",
+            data : {"alanum" : alanum},
+            dataType : "text"
+         }).done(function(data){
+            alert(data)
+            //$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
+         }).fail(function(e){
+            alert("실패")
+            alert(e.responseText)
+         })
+      }
+     </script>
 </body>
 </html>
