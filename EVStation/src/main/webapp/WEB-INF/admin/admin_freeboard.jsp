@@ -67,15 +67,15 @@
 	text-align: center;
 
 }
+
 #jb-container {
-	width: 840px;
+	width: 940px;
 	margin: 0px auto;
-	padding: 20px;
 }
 
 #jb-content {
-	width: 600px;
-	padding: 20px;
+	width: 700px;
+	padding: 10px;
 	margin-bottom: 20px;
 	float: right;
 	/* border: 1px solid #bcbcbc; */
@@ -83,7 +83,7 @@
 
 #jb-sidebar {
 	width: 200px;
-	padding: 20px;
+	padding: 10px;
 	margin-bottom: 20px;
 	float: left;
 }
@@ -163,11 +163,12 @@
 		<div id="jb-sidebar">
 		<br><br>
 			<div class="row g-3">				
-				<div><a style="width: 150px;" class="btn btn-secondary" href="#">Q&A 문의</a></div>
-				<div><a style="width: 150px;" class="btn btn-secondary" href="#">충전소 관리</a></div>
-				<div><a style="width: 150px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
-				<div><a style="width: 150px;" class="btn btn-secondary" href="#">공지사항 관리</a></div>
-				<div><a style="width: 150px;" class="btn btn-outline-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminQnAOnly">Q&A 문의</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="#">충전소 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="#">공지사항 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminReview">리뷰게시판 관리</a></div>
 			</div>
 		</div>
 		
