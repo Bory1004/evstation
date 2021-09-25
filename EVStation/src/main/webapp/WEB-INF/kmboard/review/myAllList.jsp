@@ -55,6 +55,26 @@ a {
 	color: white;
 	bottom: 3px;
 }
+#head{
+		margin-left: 6%;
+	
+}
+#center {
+	float:right;
+	 width: 40%;
+	margin-left: auto;
+	margin-right: 27%;
+}
+#page {
+	text-align: center;
+
+}
+.btn-group-vertical {
+	margin-right: auto;
+	margin-left: 23%;
+	margin-top: auto;
+	
+}
 </style>
 </head>
 <body>
@@ -72,13 +92,11 @@ a {
 				<c:if test="${member.getId() == null}">
 
 					<div class="col-6 pt-2">
-						<a href="/" class="link-secondary"> <img src="/img/logo.png"
+						<a href="/main" class="link-secondary"> <img src="/img/logo.png"
 							width="220" height="100"></a>
 						<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 					</div>
 				</c:if>
-
-
 				<div
 					class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
@@ -100,7 +118,7 @@ a {
 									height="30" onclick="ring(${member.memnum})">
 							</div>
 							<div style="float: right;">
-								<img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! </br>
+								<img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <br>
 								<div id="btns" style="float: right;">
 										<button class="btn btn-sm btn-outline-success dropdown-toggle"
 											type="button" id="dropdownMenuButton1"
@@ -109,7 +127,7 @@ a {
 										<ul class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton1">
 											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
-											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
 											<li><a class="dropdown-item" href="/adminQnAOnly">관리자페이지</a></li>
@@ -135,11 +153,85 @@ a {
 			</div>
 		</header>
 	</div>
-<head>
-<meta charset="UTF-8">
-<title>내가 쓴 글</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<div id="head">
+	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
+		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
+			<button type="button" class="btn btn-outline-secondary"  onclick="location.href='/AllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
+			<button type="button" class="btn btn-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>
+		</div>
+	</div>
+	</div>
+	<div id="center">
+		<table style="text-align: center" class="table table-hover caption-top">
+			<thead class="table-light">
+				<tr>
+						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
+					<th scope="col"><b>No.</b></th>  
+					<th scope="col"><b>제목</b></th>
+					<th scope="col"><b>작성자</b></th>
+					<th scope="col"><b>작성일</b></th>
+					<th scope="col"><b>조회수</b></th>
+					<th scope="col"><b>추천수</b></th>
+				</tr>
+			</thead>
+			<c:if test="${total != 0}">
+				<c:forEach items="${All}" var="list">
+					<tr>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardtype}"></td>
+						<td>${list.boardnum}</td>
+					<c:if test="${list.boardtype == 1 || list.boardtype == 2}"><td><a href="/content/${list.boardtype}/${list.boardnum}">${list.boardtitle}</a></td></c:if>
+					<c:if test="${list.boardtype == 4 }"><td><a href="/qnaDetail/${list.boardnum}">${list.boardtitle}</a></td></c:if>
+						<td>${list.boardwriter}</td>
+						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
+						<td>${list.boardsee}</td>
+						<td>${list.boardrecom}</td>
+					</tr>
+				</c:forEach>
+			</c:if>		
+		</table>
+			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
+			<div id="page">
+					<c:if test="${begin > 2 }">
+						<a href="/AllBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
+					</c:if>
+					<c:forEach begin="${begin }" end="${end}" var="i">
+						<a href="/AllBoardList/${member.memnum}?p=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${end < totalPage }">
+						<a href="/AllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
+					</c:if>
+			</div>
+		
+		</div>
+			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width: 8%;">
+				<button type="button" class="btn btn-secondary" onclick="location.href='/check_mypage'">개인정보수정</button>
+				<br>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/AllBoardList/${member.memnum}'">내가 쓴 글</button>
+				<br>
+				<button type="button" class="btn btn-secondary">즐겨찾기</button>
+				<br>
+				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
+				<br>
+			</div>
+		
+	<footer
+		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"
+		style="height: 100px;">
 
+		<div class="row">
+			<div class="col-12 pt-3">
+				<p>
+					Project built for <a href="#">Portfolio</a> by <a href="#">Team
+						2</a>.
+				</p>
+				<p>Copyright @ 2021 EvStation</p>
+			</div>
+		</div>
+	</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	//체크박스 전체 선택 /해제 
 	$(function() {
@@ -195,115 +287,5 @@ a {
 		}
 	}
 </script>
-<style>
-#head{
-		margin-left: 6%;
-	
-}
-#center {
-	float:right;
-	 width: 40%;
-	margin-left: auto;
-	margin-right: 27%;
-}
-#page {
-	text-align: center;
-
-}
-.btn-group-vertical {
-	margin-right: auto;
-	margin-left: 23%;
-	margin-top: auto;
-	
-}
-</style>
-</head>
-<body>
-<div id="head">
-	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
-		<div class="btn-group btn-group-justified btn-group-md" role="group" align="right" style="width: 40%;">
-			<button type="button" class="btn btn-outline-secondary"  onclick="location.href='/AllBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;전체글&nbsp;&nbsp;&nbsp;</button>
-			<button type="button" class="btn btn-secondary" onclick="location.href='/myReviewBoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;리뷰&nbsp;&nbsp;&nbsp;</button>
-			<button type="button" class="btn btn-secondary" onclick="location.href='/myQnABoardList/${member.memnum}';">&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;</button>
-			<button type="button" class="btn btn-secondary " onclick="location.href='/myFreeBoardList/${member.memnum}';">자유게시판</button>
-		</div>
-	</div>
-</div>
-	<div id="center">
-		
-		
-		<table style="text-align: center" class="table table-hover caption-top">
-			<thead class="table-light">
-				<tr>
-						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
-					<th scope="col"><b>No.</b></th>  
-					<th scope="col"><b>제목</b></th>
-					<th scope="col"><b>작성자</b></th>
-					<th scope="col"><b>작성일</b></th>
-					<th scope="col"><b>조회수</b></th>
-					<th scope="col"><b>추천수</b></th>
-
-				</tr>
-			</thead>
-			<c:if test="${total != 0}">
-				<c:forEach items="${All}" var="list">
-					<tr>
-						<td><input type="checkbox" name="ChkBxRow" value="${list.boardnum}" alt="${list.boardtype}"></td>
-						<td>${list.boardnum}</td>
-					<c:if test="${list.boardtype == 1 || list.boardtype == 2}"><td><a href="/content/${list.boardtype}/${list.boardnum}">${list.boardtitle}</a></td></c:if>
-					<c:if test="${list.boardtype == 4 }"><td><a href="/qnaDetail/${list.boardnum}">${list.boardtitle}</a></td></c:if>
-						<td>${list.boardwriter}</td>
-						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
-						<td>${list.boardsee}</td>
-						<td>${list.boardrecom}</td>
-					</tr>
-				</c:forEach>
-			</c:if>		
-		</table>
-			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제하기</button>
-			<div id="page">
-					<c:if test="${begin > 2 }">
-						<a href="/AllBoardList/${member.memnum}?p=${begin-1}">[이전]</a>
-					</c:if>
-					<c:forEach begin="${begin }" end="${end}" var="i">
-						<a href="/AllBoardList/${member.memnum}?p=${i}">[${i}]</a>
-					</c:forEach>
-					<c:if test="${end < totalPage }">
-						<a href="/AllBoardList/${member.memnum}?p=${end+1}">[다음]</a>
-					</c:if>
-			</div>
-		
-			
-
-</div>
-
-			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width: 8%;">
-				<button type="button" class="btn btn-secondary">개인정보수정</button>
-				<br>
-				<button type="button" class="btn btn-outline-secondary">내가 쓴 글</button>
-				<br>
-				<button type="button" class="btn btn-secondary">즐겨찾기</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
-				<br>
-			</div>
-		
-<footer
-		class="container-fluid my-3 d-flex justify-content-center align-items-center border-top"
-		style="height: 100px;">
-
-		<div class="row">
-			<div class="col-12 pt-3">
-				<p>
-					Project built for <a href="#">Portfolio</a> by <a href="#">Team
-						2</a>.
-				</p>
-				<p>Copyright @ 2021 EvStation</p>
-			</div>
-		</div>
-	</footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 </body>
 </html>

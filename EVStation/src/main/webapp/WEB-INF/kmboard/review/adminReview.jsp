@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,6 +89,7 @@ function deleteValue() {
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>리뷰게시판 관리</h4>

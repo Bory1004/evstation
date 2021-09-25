@@ -314,7 +314,7 @@ a {
 					<div><a style="width: 150px;" class="btn btn-outline-secondary" href="/mypage">개인정보 수정</a></div>
 					<div><a style="width: 150px;" class="btn btn-secondary" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></div>
 					<div><a style="width: 150px;" class="btn btn-secondary" href="#">즐겨찾기</a></div>
-					<div><a style="width: 150px;" class="btn btn-secondary" href="/withdrawForm">회원탈퇴</a></div>					
+					<div><a style="width: 150px;" class="btn btn-secondary" href="#" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</a></div>					
 				</div>
 			</div>
 		</div>

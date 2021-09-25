@@ -278,9 +278,9 @@ a {
 </div>
 
 			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width: 8%;">
-				<button type="button" class="btn btn-secondary">개인정보수정</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/check_mypage'">개인정보수정</button>
 				<br>
-				<button type="button" class="btn btn-outline-secondary">내가 쓴 글</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/AllBoardList/${member.memnum}'">내가 쓴 글</button>
 				<br>
 				<button type="button" class="btn btn-secondary">즐겨찾기</button>
 				<br>

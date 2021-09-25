@@ -72,7 +72,7 @@ textarea {
                      <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
                      width="30" height="30" onclick="ring(${member.memnum})">
                      </div>
-                     <div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!
+                     <div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!<br>
                       			<div id="btns" style="float: right;">
 										<button class="btn btn-sm btn-outline-success dropdown-toggle"
 											type="button" id="dropdownMenuButton1"
@@ -81,7 +81,7 @@ textarea {
 										<ul class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton1">
 											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
-											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
+											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
 											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
 											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
 											<li><a class="dropdown-item" href="/adminQnAOnly">관리자페이지</a></li>
