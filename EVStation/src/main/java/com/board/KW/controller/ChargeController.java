@@ -66,7 +66,7 @@ public class ChargeController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
-		return "/kwboard/getChargeList";
+		return "/board/charge/getChargeList";
 	}
 
 	@RequestMapping("/list/{num}")
@@ -79,7 +79,7 @@ public class ChargeController {
 			m.addAttribute("result", result);
 			}
 		
-		return "/kwboard/getChargeInfo";
+		return "/board/charge/getChargeInfo";
 	}
 	
 	@RequestMapping("/openMap")
@@ -87,7 +87,7 @@ public class ChargeController {
 		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
 
-		return "/kwboard/openMap";
+		return "/main/openMap";
 	}
 	
 	
@@ -138,7 +138,7 @@ public class ChargeController {
 		
 		            
 		
-		return "/kwboard/bookmark";
+		return "/board/charge/bookmark";
 	}
 
 

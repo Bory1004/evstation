@@ -95,7 +95,7 @@ public class MemberController {
 		}
 		List<Charge> list = chargeService.openMap();
 		model.addAttribute("list", list);
-		return "main";
+		return "main/main";
 	}
 
 	// 로그인 페이지로 이동
@@ -132,7 +132,7 @@ public class MemberController {
 				cookie_pw.setPath("/");
 				response.addCookie(cookie_pw);
 			}
-			return "main";
+			return "main/main";
 		}
 
 		// 로그인 실패

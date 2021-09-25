@@ -45,7 +45,7 @@ public class FreeBoardController {
 	//캐러셀
 	@GetMapping("/news")
 	public String newsView() {
-		return "news";
+		return "main/news";
 	}
 	
 	//작성된 모든 게시판 리스트 + 검색
@@ -83,7 +83,7 @@ public class FreeBoardController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
-		return "hjboard/getFreeBoardList";
+		return "/board/free/getFreeBoardList";
 	}
 
 	//게시판 입력 폼으로 이동
@@ -92,7 +92,7 @@ public class FreeBoardController {
 		if (member.getId() == null) {
 			return "redirect:loginView";
 		}
-		return "hjboard/insertFreeBoard";
+		return "/board/free/insertFreeBoard";
 	}
 	
 	//게시판 입력 후 게시판 리스트 출력하는 곳으로 이동
@@ -140,7 +140,7 @@ public class FreeBoardController {
 		int result = recomService.isRecom(boardnum, member.getId());
 		m.addAttribute("result",result);
 
-		return "hjboard/getFreeBoard";
+		return "/board/free/getFreeBoard";
 	} 
 	
 	//추천기능
@@ -172,7 +172,7 @@ public class FreeBoardController {
 		
 		FreeBoard board = boardService.onlyBoard(boardnum);
 		m.addAttribute("board", board);
-		return "hjboard/updateFreeBoard";
+		return "/board/free/updateFreeBoard";
 	}
 	
 	//게시판 수정 후, 게시판 리스트 출력하는 곳으로 이동
@@ -224,7 +224,7 @@ public class FreeBoardController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "hjboard/myFreeBoardList";
+		return "/memeber/mypage/myFreeBoardList";
 	}
 	
     @RequestMapping("/deleteFreeChk")

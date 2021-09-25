@@ -97,7 +97,7 @@ public class DsConstroller {
 		m.addAttribute("searchn", searchn);
 
 		System.out.println(list);
-		return "/DsBoard/qnaList";
+		return "/board/qna/qnaList";
 	}
 
 	@GetMapping("/insertQnA") // 글쓰기 폼으로 이동
@@ -105,7 +105,7 @@ public class DsConstroller {
 		if (member.getId() == null) {
 			return "redirect:/loginView";
 		} else {
-			return "/DsBoard/insertQnA";
+			return "/board/qna/insertQnA";
 		}
 	}
 
@@ -144,7 +144,7 @@ public class DsConstroller {
 			m.addAttribute("result",result);
 				
 			
-			return "/DsBoard/qnaDetail";
+			return "/board/qna/qnaDetail";
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class DsConstroller {
 		m.addAttribute("boardref", boardref);
 
 		System.out.println(boardmemnum);
-		return "/DsBoard/qnaUpdate";
+		return "/board/qna/qnaUpdate";
 	}
 
 	@PostMapping("/updateQnA")
@@ -239,7 +239,7 @@ public class DsConstroller {
 		m.addAttribute("restep", boardrestep);
 		m.addAttribute("relevel", boardrelevel);
 
-		return "/DsBoard/qnaReplyForm";
+		return "/board/qna/qnaReplyForm";
 	}
 
 	@PostMapping("/qnaReply")
@@ -276,13 +276,13 @@ public class DsConstroller {
 
 	@RequestMapping("/pageIntro") // 페이지 소개
 	public String exTemp() {
-		return "/DsBoard/pageIntro";
+		return "/main/pageIntro";
 
 	}
 
 	@RequestMapping("/benefit") // 기대효과
 	public String benfit() {
-		return "/DsBoard/benefit";
+		return "/main/benefit";
 
 	}
 
@@ -320,7 +320,7 @@ public class DsConstroller {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 
-		return "/DsBoard/myQnABoardList";
+		return "/member/mypage/myQnABoardList";
 		}
 	
 	
@@ -369,7 +369,7 @@ public class DsConstroller {
 		System.out.println(begin);//		1
 		System.out.println(end);//2
 
-		return "/DsBoard/myAllBoardList";
+		return "/member/mypage/myAllBoardList";
 	}
 	
 	
@@ -402,7 +402,7 @@ public class DsConstroller {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 		
-		return "/DsBoard/adminQnAOnly";
+		return "/admin/adminQnAOnly";
 		
 	}
 

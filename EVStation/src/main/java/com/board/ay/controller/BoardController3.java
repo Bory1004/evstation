@@ -62,7 +62,7 @@ public class BoardController3 {
 			int result = boardService.isRecom(num, member.getId());
 			m.addAttribute("result", result);
 		}
-		return "/ayboard/getBoard";
+		return "board/notice/getBoard";
 	}
 	@RequestMapping("/ay/getBoardList")
 	public String getBoardList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @ModelAttribute("member")Member member,String search,@RequestParam(defaultValue = "-1")int searchn) {//뷰한테 보낼 때 항상 모델 사용!
@@ -93,12 +93,12 @@ public class BoardController3 {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("member", member);
 		
-		return "/ayboard/getBoardList";
+		return "board/notice/getBoardList";
 	}
 	
 	@GetMapping("/ay/insertBoard")
 	public String insertBoardView() {
-		return "/ayboard/insertBoard";
+		return "board/notice/insertBoard";
 	}
 	
 	@PostMapping("/ay/insertBoard") 
@@ -112,7 +112,7 @@ public class BoardController3 {
 	public String updateForm(@PathVariable Long num, Model m) {
 	Board3 board = boardService.update(num);
 	m.addAttribute("board", board);
-	return "/ayboard/updateForm";
+	return "board/notice/updateForm";
 	}
 	
 	@PostMapping("/ay/update")
@@ -167,7 +167,7 @@ public class BoardController3 {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("member", member);
 		
-		return "/ayboard/admin";
+		return "admin/admin";
 	}
 	
 }

@@ -81,7 +81,7 @@ public class MainController {
 		}
 		List<Charge> list = chargeService.openMap();
 		model.addAttribute("list", list);
-		return "main";
+		return "main/main";
 	}
 	
 	@RequestMapping(value="/getAlarm", method=RequestMethod.GET,produces= "text/plain;charset=UTF-8") //알람내역출력
@@ -91,7 +91,7 @@ public class MainController {
 		m.addAttribute("list",list);
 		//System.out.println(list.size());
 		//return json.toJson(list);
-		return "alarmpage";
+		return "main/alarmpage";
 	}
 	
 	@RequestMapping(value="/countAlarm",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
@@ -169,7 +169,7 @@ public class MainController {
 		System.out.println(All.size());
 		m.addAttribute("All", All);
 		
-		return  "kmboard/review/myAllList";
+		return  "member/mypage/myAllList";
 		}
 
     

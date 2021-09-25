@@ -58,7 +58,7 @@ public class LoginController {
 	//아이디 찾기 페이지로 이동
 	@GetMapping("/findIdView")
 	public String findIdView() {
-		return "findIdPw/findId";
+		return "/member/findIdPw/findId";
 	}
 
 	//아이디 찾기 - 입력한 이름과 이메일이 일치한 정보가 있는지 확인
@@ -96,10 +96,10 @@ public class LoginController {
 		System.out.println(mlist);
 
 		if (mlist.isEmpty()) {
-			return "findIdPw/findId";
+			return "/member/findIdPw/findId";
 		} else {
 			model.addAttribute("mlist", mlist);
-			return "findIdPw/findId2";
+			return "/member/findIdPw/findId2";
 		}
 	}
 
@@ -107,7 +107,7 @@ public class LoginController {
 	@RequestMapping("/findIdPw")
 	public String findIdPw(@RequestParam(name = "findId", required = false) String findId, Model model) {
 		model.addAttribute("id", findId);
-		return "findIdPw/findId3";
+		return "/member/findIdPw/findId3";
 	}
 
 	//비밀번호 변경
@@ -121,7 +121,7 @@ public class LoginController {
 	//바로 비밀번호 찾기 페이지로 이동
 	@GetMapping("/findPwView")
 	public String findPwView() {
-		return "findIdPw/findPw";
+		return "member/findIdPw/findPw";
 	}
 
 	//비밀번호 찾기
@@ -139,13 +139,13 @@ public class LoginController {
 		if (findMember != null) {
 			System.out.println(findMember);
 			model.addAttribute("id", id);
-			return "findIdPw/findId3";
+			return "member/findIdPw/findId3";
 		}
 
 		//찾기 실패
 		else {
 			model.addAttribute("msg", "회원정보를 다시 확인해주세요.");
-			return "findIdPw/findPw2";
+			return "member/findIdPw/findPw2";
 		}
 	}
 }

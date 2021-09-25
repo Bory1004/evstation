@@ -107,7 +107,7 @@ public class ReviewController implements ApplicationContextAware {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
-		return "kmboard/review/reviewlist";
+		return "board/review/reviewlist";
 	}
 
 	@RequestMapping("deleteReview/{boardnum}")
@@ -148,7 +148,7 @@ public class ReviewController implements ApplicationContextAware {
 		m.addAttribute("result", result);
 		int recomCnt = rerecomService.getRecom(num);
 		m.addAttribute("recomCnt", recomCnt);
-		return "kmboard/review/getreview";
+		return "board/review/getreview";
 	}
 
 	@RequestMapping("/updateReRecom/{num}/{id}")
@@ -178,7 +178,7 @@ public class ReviewController implements ApplicationContextAware {
 		if (stnum == -1) {
 			return "redirect:/reviewList";
 		}
-		return "kmboard/review/reviewwrite";
+		return "board/review/reviewwrite";
 	}
 
 	@PostMapping("/reviewwrite")
@@ -341,7 +341,7 @@ public class ReviewController implements ApplicationContextAware {
 		m.addAttribute("end", end);
 
 
-		return "kmboard/review/myReviewBoardList";
+		return "member/mypage/myReviewBoardList";
 	}
 
 
@@ -401,6 +401,6 @@ public class ReviewController implements ApplicationContextAware {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("stnum", stnum);
 		// System.out.println("test");
-		return "kmboard/review/adminReview";
+		return "admin/adminReview";
 	}
 }
