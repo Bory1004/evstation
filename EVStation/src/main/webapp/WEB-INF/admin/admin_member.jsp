@@ -94,7 +94,7 @@
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>사용자 관리</h4>
-			<a href="/admin_member"><small class="text-muted">사용자 전체 목록 ></small></a>
+			<a href="/admin_member"><small class="text-muted">사용자 관리 전체 목록 ></small></a>
 			<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>

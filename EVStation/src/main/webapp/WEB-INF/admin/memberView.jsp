@@ -45,7 +45,7 @@
 <div id="jb-container">
 	<div id="jb-content">
 		<h4>사용자 관리</h4>
-		<a href="/admin_member"><small class="text-muted">사용자 전체 목록 ></small></a>
+		<a href="/admin_member"><small class="text-muted">사용자 관리 전체 목록 ></small></a>
 		<div align="center">
 			<div id="preview" class="box">								
 				<img id="profile_image" class="profile" src="${member.memphoto}">																			

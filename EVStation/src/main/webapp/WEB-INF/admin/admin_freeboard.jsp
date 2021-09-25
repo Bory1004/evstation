@@ -93,7 +93,7 @@
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>자유게시판 관리</h4>
-			<a href="/admin_freeboard"><small class="text-muted">자유 게시판 전체 목록 ></small></a>
+			<a href="/admin_freeboard"><small class="text-muted">자유 게시판 관리 전체 목록 ></small></a>
 			<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
