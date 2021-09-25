@@ -22,7 +22,7 @@ public class ChargeServiceImpl implements ChargeService{
 	
 	@Override
 	public Page<Charge> getChargeList(int pNum){
-		Pageable page = PageRequest.of(pNum-1, 10);
+		Pageable page = PageRequest.of(pNum-1, 10); 
 		return boardRepo.findByOrderByNumDesc(page);
 	}
 	@Override
@@ -52,16 +52,12 @@ public class ChargeServiceImpl implements ChargeService{
 		return boardRepo.findAll();
 	}
 	
-	@Override
-	public Page<Charge> bookMark(int pNum){
+	@Override  
+	public Page<Charge> bookMark(int pNum, String id){
 		Pageable page = PageRequest.of(pNum-1, 10);
-		return boardRepo.findByOrderByNumDesc(page);
+		return boardRepo.findByOrderByNumDesc(id,page);
 	}
 	
-	@Override
-	public List<Charge> bookmark(String id) {
-		return boardRepo.bookmark(id);
-	}
 	
 	
 	@Override
@@ -90,6 +86,11 @@ public class ChargeServiceImpl implements ChargeService{
 	@Override public void del(String id, Long num) { 
 		  boardRepo.del(id, num);
 	  }
+	@Override
+	public void deleteBookmark(Long stnum) {
+		boardRepo.deleteBookmark(stnum);
+		
+	}
 
 	
 	

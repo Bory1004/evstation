@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.board.KW.domain.Charge;
 
@@ -37,10 +35,14 @@ public interface ChargeRepository extends JpaRepository<Charge, Long>{
 	@Query("DELETE FROM Book WHERE id=?1 AND num=?2") 
 	void del(String id, Long num);
 
-	@Modifying
+	@Transactional
 	@Query(value="SELECT * FROM CHARGELIST2 c WHERE c.ST_NUM IN (SELECT b.num FROM BOOKMARK b WHERE b.id =?1)",nativeQuery=true)
-	List<Charge> bookmark(String id);
+	Page<Charge> findByOrderByNumDesc(String id, Pageable page);
 	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM BOOKMARK WHERE NUM = ?1" ,nativeQuery=true)
+	void deleteBookmark(Long stnum);
 
 	
 }

@@ -114,9 +114,9 @@ public class ChargeController {
 	public String bookMark(@ModelAttribute("member")Member member,String id,Model m, @RequestParam(name = "p", defaultValue = "1") int pNum )  {
 
 		Page<Charge> pageList = null;
-		pageList = chargeService.getChargeList(pNum);
+		pageList = chargeService.bookMark(pNum, member.getId());
 		
-		List<Charge> bList = chargeService.bookmark(member.getId());
+		List<Charge> bList = pageList.getContent();
 		m.addAttribute("blist", bList);
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
@@ -136,10 +136,21 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		
-		            
-		
 		return "/kwboard/bookmark";
 	}
 
+	@RequestMapping("/deleteBookmarkChk")
+	public String deleteBookmarkChk(Long[] arrStnum) {
+		
+		int size = arrStnum.length;
+		
+		for(int i=0; i < size; i++) {
+			
+			chargeService.deleteBookmark(arrStnum[i]);
+		 System.out.println(arrStnum[i]);
+		}
+		return "/kwboard/bookmark";
+		
+	}
 
 }

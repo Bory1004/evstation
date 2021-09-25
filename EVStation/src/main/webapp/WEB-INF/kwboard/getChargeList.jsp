@@ -96,7 +96,8 @@ a {
 				<tr>
 					<td style="width: 8%">${charge.stnum}</td>
 					<td style="width: 30%"><a href="/list/${charge.stnum}">${charge.stname}</a></td>
-					<td style="width: 50%">${charge.staddress1}</td>
+					<c:if test="${charge.staddress1!=null}"><td style="width: 50%">${charge.staddress1}</td></c:if>
+					<c:if test="${charge.staddress1==null}"><td style="width: 50%">${charge.staddress2}</td></c:if>
 					<td style="width: 12%">${charge.stclosedday}</td>
 				</tr>	
 			</c:forEach>

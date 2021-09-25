@@ -61,7 +61,7 @@
 				},
 				success : function(adata) {
 					alert("삭제성공");
-					location.replace("/myQnABoardList/${member.memnum}") // qnaList 페이지로 새로고침
+					location.replace("/myQnABoardList/${member.memnum}") //지정 페이지로 새로고침
 
 				}
 			});

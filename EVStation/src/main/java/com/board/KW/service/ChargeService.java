@@ -21,6 +21,7 @@ public interface ChargeService {
 	int insertRecom(Long num, String id);
 	void del(String id, Long num);
 	
-	Page<Charge> bookMark(int pNum);
-	List<Charge> bookmark(String id);
+	Page<Charge> bookMark(int pNum,String id);
+	
+	void deleteBookmark(Long stnum);
 }
