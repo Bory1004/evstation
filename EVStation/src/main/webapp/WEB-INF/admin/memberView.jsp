@@ -48,23 +48,23 @@
 		<a href="/admin_member"><small class="text-muted">사용자 관리 전체 목록 ></small></a>
 		<div align="center">
 			<div id="preview" class="box">								
-				<img id="profile_image" class="profile" src="${member.memphoto}">																			
+				<img id="profile_image" class="profile" src="${list.memphoto}">																			
 			</div>
 		</div>
 		<table style="text-align: center" class="table table-hover">
-			<tr><td>아이디</td><td>${member.id}</td></tr>
-			<tr><td>이름</td><td>${member.name}</td></tr>
-			<tr><td>이메일</td><td>${member.mememail}</td></tr>
-			<tr><td>휴대전화</td><td>${member.memphone}</td></tr>
-			<tr><td>주소</td><td>${member.memaddress} ${member.memaddressdetail}</td></tr>
-			<tr><td>생년월일</td><td>${member.membirth}</td></tr>
-			<tr><td>차종</td><td>${member.memcar}</td></tr>
-			<tr><td>충전타입</td><td>${member.memcharge}</td></tr>
-			<tr><td>가입일</td><td><fmt:formatDate value="${member.memdate}" pattern="yyyy-MM-dd" /></td></tr>
+			<tr><td>아이디</td><td>${list.id}</td></tr>
+			<tr><td>이름</td><td>${list.name}</td></tr>
+			<tr><td>이메일</td><td>${list.mememail}</td></tr>
+			<tr><td>휴대전화</td><td>${list.memphone}</td></tr>
+			<tr><td>주소</td><td>${list.memaddress} ${list.memaddressdetail}</td></tr>
+			<tr><td>생년월일</td><td>${list.membirth}</td></tr>
+			<tr><td>차종</td><td>${list.memcar}</td></tr>
+			<tr><td>충전타입</td><td>${list.memcharge}</td></tr>
+			<tr><td>가입일</td><td><fmt:formatDate value="${list.memdate}" pattern="yyyy-MM-dd" /></td></tr>
 		</table>
-		<c:if test="${member.id != 'admin'}">
+		<c:if test="${list.id != 'admin'}">
 			<div align="right">
-				<a class="btn btn-outline-secondary" href="/admin_member_deleteOne/${member.memnum}" onclick='return confirm("정말 탈퇴시키겠습니까?");'>탈퇴</a>
+				<a class="btn btn-outline-secondary" href="/admin_member_deleteOne/${list.memnum}" onclick='return confirm("정말 탈퇴시키겠습니까?");'>탈퇴</a>
 			</div>
 		</c:if>
 	</div>

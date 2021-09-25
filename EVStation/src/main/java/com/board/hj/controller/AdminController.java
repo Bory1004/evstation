@@ -51,7 +51,7 @@ public class AdminController {
 	@Autowired
 	private NoticeCommentService noticecommentService;
 	
-	@ModelAttribute("member")
+	@ModelAttribute("admin")
 	public Member getMember() {
 		return new Member();
 	}
@@ -181,7 +181,7 @@ public class AdminController {
 	@RequestMapping("/admin_member_view/{memnum}")
 	public String admin_member_view(@PathVariable Long memnum, Model m) {
 		Member member = memberService.getMemberOne(memnum);
-		m.addAttribute("member", member);
+		m.addAttribute("list", member);
 		
 		return "admin/memberView";
 	}
