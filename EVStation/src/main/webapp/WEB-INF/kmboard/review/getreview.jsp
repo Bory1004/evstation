@@ -80,10 +80,12 @@ textarea {
 										 마이페이지</button>
 										<ul class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" href="#">개인정보수정</a></li>
+											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
 											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
 											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
-											<li><a class="dropdown-item" href="#">비밀번호 변경</a></li>
+											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
+											<li><a class="dropdown-item" href="/adminQnAOnly">관리자페이지</a></li>
+											</c:if>
 										</ul>
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
 								</div>
@@ -97,12 +99,12 @@ textarea {
 				<nav
 					class="nav d-flex justify-content-center border-top border-bottom">
 
-					<a class="p-2  link-success" href="pageIntro">페이지 소개</a> <a
+					<a class="p-2  link-success" href="/pageIntro">페이지 소개</a> <a
 						class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
-						class="p-2 link-success" href="benefit">기대효과</a> <a
+						class="p-2 link-success" href="/benefit">기대효과</a> <a
 						class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> <a
-						class="p-2 link-success" href="#">공지사항</a> <a
-						class="p-2 link-success" href="qnaList">Q&A</a>
+						class="p-2 link-success" href="/ay/getBoardList">공지사항</a> <a
+						class="p-2 link-success" href="/qnaList">Q&A</a>
 				</nav>
 			</div>
 		</header>
