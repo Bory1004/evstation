@@ -26,6 +26,88 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 <script>
 
 if (navigator.geolocation) { //GPS 허용 승인하면
+	navigator.geolocation.getCurrentPosition((position) => {
+		  getLocation(position.coords.latitude, position.coords.longitude);
+	});
+} else {
+	alert('GPS를 지원하지 않습니다');
+}
+let latitude = null;
+let longitude = null;
+let map = null;
+
+function getLocation(x, y){
+	latitude = x;
+	longitude = y;
+	console.log(latitude+","+longitude);
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	mapOption = { 
+		center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+		level: 3 // 지도의 확대 레벨
+	};
+	map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다	
+	
+	var positions = [
+
+		 <c:forEach items="${list}" var="list">
+	    {
+	    	number: '${list.stnum}',
+	        title: '${list.stname}', 
+	        latlng: new kakao.maps.LatLng(${list.stlongitude},${list.stlatitude})
+	    },
+
+	    </c:forEach> 
+
+	];
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	    
+	for (var i = 0; i < positions.length; i ++) {
+		
+		  var marker = new kakao.maps.Marker({ 
+			  map: map, // 마커를 표시할 지도
+		      position: positions[i].latlng
+
+		    });
+		  
+		marker.setMap(map);
+		  
+		var iwContent = positions[i].title;
+		
+		var num = positions[i].number;
+		
+	    var iwRemoveable = true;
+	    
+	    // 마커에 표시할 인포윈도우를 생성합니다 
+	    var infowindow = new kakao.maps.InfoWindow({
+	    	position: positions[i].latlng, 
+	        content : '<a href="http://localhost:8088/list/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
+	    	removable : iwRemoveable
+	    });
+
+		// 마커 클릭이벤트
+	    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+	    
+		// 인포윈도우 생성
+	    function makeOverListener(map, marker, infowindow) {
+		return function() {
+	 	   infowindow.open(map, marker);
+			};
+		} 
+
+		//인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+			       infowindow.close();
+		   		};
+			} 
+	    
+	}  
+}
+
+/* var map;
+if (navigator.geolocation) { //GPS 허용 승인하면
 	navigator.geolocation.getCurrentPosition(function(position) {
 		let latitude = position.coords.latitude;
 		let longitude = position.coords.longitude;
@@ -35,7 +117,8 @@ if (navigator.geolocation) { //GPS 허용 승인하면
 			center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
 			level: 3 // 지도의 확대 레벨
 		};
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
 		
 		}, function(error) { //GPS 허용을 거부하면 서울 시청 출력
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -43,7 +126,7 @@ if (navigator.geolocation) { //GPS 허용 승인하면
 			center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
 			level: 3 // 지도의 확대 레벨
 			};
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		//console.error(error);
 		}, {
 			enableHighAccuracy: false, //배터리를 더 소모해서 더 정확한 위치를 찾음
@@ -53,66 +136,10 @@ if (navigator.geolocation) { //GPS 허용 승인하면
 } else {
 	alert('GPS를 지원하지 않습니다');
 }
+console.log(map); */
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
-var positions = [
 
-	 <c:forEach items="${list}" var="list">
-    {
-    	number: '${list.stnum}',
-        title: '${list.stname}', 
-        latlng: new kakao.maps.LatLng(${list.stlongitude},${list.stlatitude})
-    },
-
-    </c:forEach> 
-
-];
-
-
-// 마커 이미지의 이미지 주소입니다
-var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    
-for (var i = 0; i < positions.length; i ++) {
-	
-	  var marker = new kakao.maps.Marker({ 
-		  map: map, // 마커를 표시할 지도
-	      position: positions[i].latlng
-
-	    });
-	  
-	marker.setMap(map);
-	  
-	var iwContent = positions[i].title;
-	
-	var num = positions[i].number;
-	
-    var iwRemoveable = true;
-    
-    // 마커에 표시할 인포윈도우를 생성합니다 
-    var infowindow = new kakao.maps.InfoWindow({
-    	position: positions[i].latlng, 
-        content : '<a href="http://localhost:8088/list/'+num +'" style="text-decoration:none; color:black;" target="_blank">'+iwContent +'</a>',   
-    	removable : iwRemoveable
-    });
-
-	// 마커 클릭이벤트
-    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
-    
-	// 인포윈도우 생성
-    function makeOverListener(map, marker, infowindow) {
-	return function() {
- 	   infowindow.open(map, marker);
-		};
-	} 
-
-	//인포윈도우를 닫는 클로저를 만드는 함수입니다 
-	function makeOutListener(infowindow) {
-	    return function() {
-		       infowindow.close();
-	   		};
-		} 
-    
-}  
     
     
 </script>

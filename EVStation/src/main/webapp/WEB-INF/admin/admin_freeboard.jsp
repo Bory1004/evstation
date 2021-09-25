@@ -93,7 +93,7 @@
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>자유게시판 관리</h4>
-			<a href="/admin_freeboard"><small class="text-muted">자유 게시판 전체 목록 ></small></a>
+			<a href="/admin_freeboard"><small class="text-muted">자유 게시판 관리 전체 목록 ></small></a>
 			<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
@@ -166,7 +166,7 @@
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminQnAOnly">Q&A 문의</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="#">충전소 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
-				<div><a style="width: 180px;" class="btn btn-secondary" href="#">공지사항 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/ay/admin">공지사항 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminReview">리뷰게시판 관리</a></div>
 			</div>

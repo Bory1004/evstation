@@ -94,7 +94,7 @@
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>사용자 관리</h4>
-			<a href="/admin_member"><small class="text-muted">사용자 전체 목록 ></small></a>
+			<a href="/admin_member"><small class="text-muted">사용자 관리 전체 목록 ></small></a>
 			<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
@@ -108,14 +108,16 @@
 			</thead>
 			
 			<c:forEach items="${list}" var="list">
-				<tr>
-					<td><input type="checkbox" name="ChkBxRow" value="${list.memnum}" ></td>
-					<td>${list.memnum}</td>
-					<td><a href="/admin_member_view/${list.memnum}" >${list.id}</a></td>
-					<td>${list.name}</td>
-					<td><fmt:formatDate value="${list.memdate}" pattern="yyyy-MM-dd" /></td>
-					<td>${list.memphone}</td>			
-				</tr>					
+				<c:if test="${list.id != 'admin'}">
+					<tr>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.memnum}" ></td>
+						<td>${list.memnum}</td>
+						<td><a href="/admin_member_view/${list.memnum}" >${list.id}</a></td>
+						<td>${list.name}</td>
+						<td><fmt:formatDate value="${list.memdate}" pattern="yyyy-MM-dd" /></td>
+						<td>${list.memphone}</td>			
+					</tr>
+				</c:if>				
 			</c:forEach>
 		</table>
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">탈퇴</button>
