@@ -108,14 +108,16 @@
 			</thead>
 			
 			<c:forEach items="${list}" var="list">
-				<tr>
-					<td><input type="checkbox" name="ChkBxRow" value="${list.memnum}" ></td>
-					<td>${list.memnum}</td>
-					<td><a href="/admin_member_view/${list.memnum}" >${list.id}</a></td>
-					<td>${list.name}</td>
-					<td><fmt:formatDate value="${list.memdate}" pattern="yyyy-MM-dd" /></td>
-					<td>${list.memphone}</td>			
-				</tr>					
+				<c:if test="${list.id != 'admin'}">
+					<tr>
+						<td><input type="checkbox" name="ChkBxRow" value="${list.memnum}" ></td>
+						<td>${list.memnum}</td>
+						<td><a href="/admin_member_view/${list.memnum}" >${list.id}</a></td>
+						<td>${list.name}</td>
+						<td><fmt:formatDate value="${list.memdate}" pattern="yyyy-MM-dd" /></td>
+						<td>${list.memphone}</td>			
+					</tr>
+				</c:if>				
 			</c:forEach>
 		</table>
 			<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">탈퇴</button>
