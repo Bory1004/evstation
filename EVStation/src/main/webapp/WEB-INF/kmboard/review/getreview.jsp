@@ -6,11 +6,6 @@
 <html>
 <head>
 <title>리뷰 상세보기</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 @media ( min-width : 768px) {
 	.container {
@@ -48,67 +43,8 @@ textarea {
 </style>
 </head>
 <body>
-
-	<div class="container">
-      <header class="py-3">
-         <div class="row justify-content-center">
-            <div class="col-6 pt-2">
-               <a href="/main" class="link-secondary"> 
-               <img src="/img/logo.png" width="220" height="100"></a>
-               <!--  <a class="link-secondary" href="#">Subscribe</a> -->
-            </div>
-
-            <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
-               <!-- justify-content 자식요소 정렬  -->
-                                       
-               <c:choose>
-                  <c:when test="${member.id eq null}">
-                     <div style="float:right;">
-                        <a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
-                        <a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
-                     </div>   
-                  </c:when>
-                  <c:otherwise>
-                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
-                     width="30" height="30" onclick="ring(${member.memnum})">
-                     </div>
-                     <div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!!
-                      			<div id="btns" style="float: right;">
-										<button class="btn btn-sm btn-outline-success dropdown-toggle"
-											type="button" id="dropdownMenuButton1"
-											data-bs-toggle="dropdown" aria-expanded="false">
-										 마이페이지</button>
-										<ul class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" href="#">개인정보수정</a></li>
-											<li><a class="dropdown-item" href="/myQnABoardList/${member.memnum}">내가 쓴 글</a></li>
-											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
-											<li><a class="dropdown-item" href="#">비밀번호 변경</a></li>
-										</ul>
-									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
-								</div>
-                   </div>
-                  </c:otherwise>                  
-               </c:choose>
-            </div>
-         </div>
-
-			<div class="menubar py-1 mb-2">
-				<nav
-					class="nav d-flex justify-content-center border-top border-bottom">
-
-					<a class="p-2  link-success" href="pageIntro">페이지 소개</a> <a
-						class="p-2 link-success" href="/reviewList">충전소 현황</a> <a
-						class="p-2 link-success" href="benefit">기대효과</a> <a
-						class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> <a
-						class="p-2 link-success" href="#">공지사항</a> <a
-						class="p-2 link-success" href="qnaList">Q&A</a>
-				</nav>
-			</div>
-		</header>
-	</div>
-
-
+<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+	
 	<main>
 		<div class="container input-group d-flex justify-content-center">
 			<div id="center">
@@ -457,58 +393,6 @@ textarea {
 			})
 		}
 	//--------------------------------------------------- 추천부분
-	
-	//--------------------------------------------------- 알람부분
-		function ring(x){ //알람 창 열고 데이터 가져오는 함수
-		//alert(${memnum})
-		$.ajax({
-			type : "get",
-			url : "/getAlarm",
-			data : {"memnum" : ${member.memnum}},
-			dataType : "text"
-		}).done(function(data){
-			//alert("성공")
-			if($('#alarmpage').html()){
-				$('#alarmpage').remove();
-			}else{
-				$('#login').append("<div id='alarmpage'></div>"	);
-				$('#alarmpage').html(data) //alarmpage에 따로만든 jsp파일넣기
-			}
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function delAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/delAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			//alert(data)
-			$('#'+alanum).remove();
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText);
-		})
-	}
-	function checkAlarm(x){
-		let alanum = x;
-		$.ajax({
-			type : "get",
-			url : "/checkAlarm",
-			data : {"alanum" : alanum},
-			dataType : "text"
-		}).done(function(data){
-			alert(data)
-			//$('#'+alanum).children().eq(1).children().eq(0).css("color","red");
-		}).fail(function(e){
-			alert("실패")
-			alert(e.responseText)
-		})
-	}
 	</script>
 </body>
 </html>
