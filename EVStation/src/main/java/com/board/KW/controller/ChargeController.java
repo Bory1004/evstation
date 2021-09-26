@@ -150,7 +150,93 @@ public class ChargeController {
 		 System.out.println(arrStnum[i]);
 		}
 		return "/kwboard/bookmark";
+	}
+	
+	
+	@RequestMapping("/admin_charge")
+	public String adminCharge(@ModelAttribute("member")Member member, Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
+			@ModelAttribute("charge") Charge charge, String search, @RequestParam(defaultValue = "-1") int searchn) {
+		
+		Page<Charge> pageList = null;
+		if(search != null) {
+			pageList = chargeService.getChargeList(pNum, searchn, search);
+		} else {
+			pageList = chargeService.getChargeList(pNum);
+		}
+		
+		List<Charge> bList = pageList.getContent();// 보여질 글
+		
+		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+		long total = pageList.getTotalElements();
+		m.addAttribute("list", bList);
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+		
+		int pageNum = 5;
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
+
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		
+		
+		return "/admin/admin_charge";
 		
 	}
+	@RequestMapping("/deleteAdminChargeChk")
+	public String deleteAdminChargeChk(Long[] arrStnum) {
+		
+		int size = arrStnum.length;
+		
+		for(int i=0; i < size; i++) {
+			
+			chargeService.deleteAdmin(arrStnum[i]);
+		}
+		return  "/admin/admin_charge";
+	}
+	
+	@RequestMapping("/deleteCharge/{stnum}")
+	public String deleteCharge(@PathVariable Long stnum) {
+		chargeService.deleteCharge(stnum);
+		return "redirect:/getChargeList";
+	}
+	
+	@RequestMapping("/updateCharge/{stnum}/{stname}")
+	public String updateCharge(@PathVariable Long stnum,@PathVariable String stname, Model m) {
+		m.addAttribute(stname);
+		m.addAttribute(stnum);
+		return "/kwboard/updateCharge";
+		
+	}
+	@PostMapping("/updateChargeComplete")
+	public String updateChargeComplete(Charge charge){
+		charge.setStnum(charge.getStnum());
+		charge.setStname(charge.getStname());
 
+		chargeService.updateCharge(charge);
+		return "redirect:/getChargeList";
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

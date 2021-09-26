@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.board.KW.domain.Charge;
 import com.board.KW.persistence.ChargeRepository;
-import com.board.hj.domain.FreeBoard;
 
 
 
@@ -90,6 +89,19 @@ public class ChargeServiceImpl implements ChargeService{
 	public void deleteBookmark(Long stnum) {
 		boardRepo.deleteBookmark(stnum);
 		
+	}
+	@Override
+	public void deleteAdmin(Long stnum) {
+		boardRepo.deleteAdminChargeChk(stnum);
+		
+	}
+	@Override
+	public void deleteCharge(Long stnum) {
+		boardRepo.deleteById(stnum);
+	}
+	@Override
+	public void updateCharge(Charge charge) {
+		boardRepo.save(charge);
 	}
 
 	

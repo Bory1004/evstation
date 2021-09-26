@@ -1,6 +1,5 @@
 package com.board.KW.persistence;
 
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -43,6 +42,11 @@ public interface ChargeRepository extends JpaRepository<Charge, Long>{
 	@Modifying
 	@Query(value="DELETE FROM BOOKMARK WHERE NUM = ?1" ,nativeQuery=true)
 	void deleteBookmark(Long stnum);
+	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM Charge c WHERE c.stnum = ?1")
+	void deleteAdminChargeChk(Long stnum);
 
 	
 }

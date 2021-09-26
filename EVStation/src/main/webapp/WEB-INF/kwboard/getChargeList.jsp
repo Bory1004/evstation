@@ -136,8 +136,8 @@ a {
 			<form name="search-form">
 				<div style="width: 400px;  text-align:center;" class="input-group">
 				<select style="width: 130px;" class="form-select" name="searchn">
-					<option value="0">제목</option>
-					<option value="1">내용</option>
+					<option value="0">이름</option>
+					<option value="1">주소</option>
 				</select> 
 					<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
 					<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
