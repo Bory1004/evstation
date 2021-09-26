@@ -77,7 +77,8 @@ public class FreeBoardController {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
+		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
@@ -109,6 +110,8 @@ public class FreeBoardController {
 	@RequestMapping("/content/1/{boardnum}")
 	public String getBoard(@ModelAttribute("member") Member member, @RequestParam(name = "p", defaultValue = "1") int pNum, 
 			@PathVariable Long boardnum, Model m) {
+			
+			
 		m.addAttribute("member", member);
 		
 		//게시판
@@ -117,25 +120,36 @@ public class FreeBoardController {
 		
 		//댓글
 		Page<FreeBoardComment> pageList = null;
+		int pageNum = 2;
+		
+		if(pNum == 0) {
+			int count = boardService.getCommentCount(boardnum);
+			if(count > 0) {
+				
+			}
+		}
 		pageList = commentService.getComment(pNum, boardnum); //해당 게시판 번호의 댓글 1페이지 출력
+		
 		List<FreeBoardComment> cList = pageList.getContent();// 보여질 글
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+		System.out.println(totalPageCount);
 		long total = pageList.getTotalElements(); //전제 글 수		
 
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		
-		int pageNum = 2;
 		int begin = (pNum - 1) / pageNum * pageNum + 1;
 		int end = begin + pageNum - 1;
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
 		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
+		
 		//추천 
 		int result = recomService.isRecom(boardnum, member.getId());
 		m.addAttribute("result",result);

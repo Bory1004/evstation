@@ -20,6 +20,13 @@ public interface FreeCommentRepository extends JpaRepository<FreeBoardComment, L
 	//해당 게시물의 댓글
 	Page<FreeBoardComment> findByBoardnumOrderByComnumAsc(Pageable page, Long boardnum);
 	
+	/*
+	 * @Transactional
+	 * 
+	 * @Query("Select count(*) from FeeBoardComment d from d.boardnum = ?1") int
+	 * totalCount(Long boardnum);
+	 */
+	
 	//Page<FreeBoardComment> findByBoardnumOrderByComnumAsc(Pageable page, Long boardnum);
 	
 	List<FreeBoardComment> findByBoardnumOrderByComnumAsc(Long boardnum);

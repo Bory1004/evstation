@@ -85,7 +85,8 @@ public class AdminController {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
+		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
@@ -135,7 +136,8 @@ public class AdminController {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
+		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
