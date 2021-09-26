@@ -74,8 +74,8 @@ a {
 	</div>
 
 <body>
-	<div style="text-align:center;">
-	<h1>게시글 목록</h1>
+	<div id="center">
+	<h1>충전소 목록</h1>
 	<div id="search_msg"><h4>${search_msg}</h4></div>
 		
 	<c:if test="${total == 0}">검색 결과가 없습니다.</c:if>	
@@ -129,10 +129,10 @@ a {
 					</c:if>
 				</c:if>
 			</div>
+			</br>
 		</c:if>
 
-	
-		<div style="text-align:center;">
+			
 			<form name="search-form">
 				<div style="width: 400px;  text-align:center;" class="input-group">
 				<select style="width: 130px;" class="form-select" name="searchn">
@@ -143,7 +143,7 @@ a {
 					<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 				</div>
 			</form>
-		</div>
+	</div>
 			
 <!-- <div style="text-align:center" >
 	<form name="search-form" autocomplete="off">
@@ -156,7 +156,6 @@ a {
 		<input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색"></input>
 	</form>
 	</div> -->
-	</div>
 
 
 

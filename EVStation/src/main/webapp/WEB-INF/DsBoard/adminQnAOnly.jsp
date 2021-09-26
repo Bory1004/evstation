@@ -159,6 +159,7 @@
 				</c:if>
 
 			</div><!-- page -->
+			</br>
 		</c:if>
 			
 			<form>

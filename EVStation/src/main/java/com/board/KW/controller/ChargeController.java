@@ -66,7 +66,7 @@ public class ChargeController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 
-		return "/kwboard/getChargeList";
+		return "/board/charge/getChargeList";
 	}
 
 	@RequestMapping("/list/{num}")
@@ -79,7 +79,7 @@ public class ChargeController {
 			m.addAttribute("result", result);
 			}
 		
-		return "/kwboard/getChargeInfo";
+		return "/board/charge/getChargeInfo";
 	}
 	
 	@RequestMapping("/openMap")
@@ -136,7 +136,7 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		
-		return "/kwboard/bookmark";
+		return "/board/charge/bookmark";
 	}
 
 	@RequestMapping("/deleteBookmarkChk")
@@ -149,7 +149,7 @@ public class ChargeController {
 			chargeService.deleteBookmark(arrStnum[i]);
 		 System.out.println(arrStnum[i]);
 		}
-		return "/kwboard/bookmark";
+		return "/board/charge/bookmark";
 	}
 	
 	
@@ -206,18 +206,22 @@ public class ChargeController {
 		return "redirect:/getChargeList";
 	}
 	
-	@RequestMapping("/updateCharge/{stnum}/{stname}")
-	public String updateCharge(@PathVariable Long stnum,@PathVariable String stname, Model m) {
+	@RequestMapping("/updateCharge/{stnum}/{stname}/{stlongitude}/{stlatitude}")
+	public String updateCharge(@PathVariable Long stnum,@PathVariable String stname,@PathVariable String stlongitude,@PathVariable String stlatitude,Model m) {
 		m.addAttribute(stname);
 		m.addAttribute(stnum);
-		return "/kwboard/updateCharge";
+		m.addAttribute(stlatitude);
+		m.addAttribute(stlongitude);
+		return "/board/charge/updateCharge";
 		
 	}
 	@PostMapping("/updateChargeComplete")
 	public String updateChargeComplete(Charge charge){
 		charge.setStnum(charge.getStnum());
 		charge.setStname(charge.getStname());
-
+		charge.setStlatitude(charge.getStlatitude());
+		charge.setStlongitude(charge.getStlongitude());
+		
 		chargeService.updateCharge(charge);
 		return "redirect:/getChargeList";
 		

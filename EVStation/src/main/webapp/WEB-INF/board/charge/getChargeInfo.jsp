@@ -114,7 +114,7 @@ a {
 </table>
 <c:if test="${member.getId()=='admin' }"> 
 	<a href="/deleteCharge/${charge.stnum}"><button type="button" class="btn btn-outline-secondary btn-sm">삭제</button></a>
-	<a href="/updateCharge/${charge.stnum}/${charge.stname}"><button type="button" class="btn btn-outline-secondary btn-sm">수정</button></a>
+	<a href="/updateCharge/${charge.stnum}/${charge.stname}/${charge.stlongitude}/${charge.stlatitude}"><button type="button" class="btn btn-outline-secondary btn-sm">수정</button></a>
 </c:if>	 	
 	 	</div>
 		<div class="col-5 col-md-5" id="map" style="width:200; height:300;">" "</div>
