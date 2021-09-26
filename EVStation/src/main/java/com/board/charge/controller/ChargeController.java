@@ -111,18 +111,23 @@ public class ChargeController {
 		}
 
 	@RequestMapping("/bookmark")
-	public String bookMark(@ModelAttribute("member")Member member,String id,Model m, @RequestParam(name = "p", defaultValue = "1") int pNum )  {
+	public String bookMark(@ModelAttribute("member")Member member, Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
+			@ModelAttribute("charge") Charge charge, String search, @RequestParam(defaultValue = "-1") int searchn) {
 
 		Page<Charge> pageList = null;
-		pageList = chargeService.getChargeList(pNum);
+		if(search != null) {
+			pageList = chargeService.getChargeList(pNum, searchn, search);
+		} else {
+			pageList = chargeService.getChargeList(pNum);
+		}
 		
 		List<Charge> bList = chargeService.bookmark(member.getId());
-		m.addAttribute("blist", bList);
+		
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements();
 		
-		
+		m.addAttribute("blist", bList);
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		

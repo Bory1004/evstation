@@ -96,7 +96,11 @@ a {
 				<tr>
 					<td style="width: 8%">${charge.stnum}</td>
 					<td style="width: 30%"><a href="/list/${charge.stnum}">${charge.stname}</a></td>
-					<td style="width: 50%">${charge.staddress1}</td>
+					<td style="width: 50%"> <c:if test = "${charge.staddress1 == null}"> 
+											${charge.staddress2} </c:if>
+											<c:if test = "${charge.staddress1 != null}"> 
+											${charge.staddress1} </c:if>
+											</td>
 					<td style="width: 12%">${charge.stclosedday}</td>
 				</tr>	
 			</c:forEach>
@@ -131,18 +135,17 @@ a {
 		</c:if>
 
 	
-		<div style="text-align:center;">
-			<form name="search-form">
-				<div style="width: 400px;  text-align:center;" class="input-group">
-				<select style="width: 130px;" class="form-select" name="searchn">
-					<option value="0">제목</option>
-					<option value="1">내용</option>
-				</select> 
-					<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
-					<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
-				</div>
-			</form>
+		<form>
+		<div style="width: 400px;" class="input-group">
+			<select style="width: 130px;" class="form-select" name="searchn">
+				<option value="0">제목</option>
+				<option value="1">내용</option>
+				
+			</select> 
+			<input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 		</div>
+		</form>
 			
 <!-- <div style="text-align:center" >
 	<form name="search-form" autocomplete="off">
@@ -167,6 +170,8 @@ a {
 			</div>
 		</div>
 	</footer>
+
+
 
 </body>
 </html>
