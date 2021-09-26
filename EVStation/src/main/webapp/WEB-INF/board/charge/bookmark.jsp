@@ -127,7 +127,7 @@
 	
 	
 	
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
+<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	
 	
 </body>

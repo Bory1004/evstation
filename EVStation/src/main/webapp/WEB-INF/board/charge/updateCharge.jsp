@@ -85,6 +85,6 @@ var marker = new kakao.maps.Marker({
 
 marker.setMap(map);
 </script>
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
+<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>
