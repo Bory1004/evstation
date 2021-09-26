@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -7,13 +6,10 @@
 <html>   
 <head>
     <meta charset="utf-8">
-    <title>마커 표시</title>
-
-    
+    <title>마커 표시</title>   
 </head>
 <body>
 <div id="map" style="width:90%;height:700px;"></div>
-
 
 <script>
 window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.daum&&window.daum.maps?window.kakao.maps=window.daum.maps:(window.daum=window.daum||{},window.daum.maps=window.kakao.maps),function(){function a(){if(E.length){t(I[E.shift()],a).start()}else e()}function t(a,t){var e=document.createElement("script");return e.charset="utf-8",e.onload=t,e.onreadystatechange=function(){/loaded|complete/.test(this.readyState)&&t()},{start:function(){e.src=a||"",
@@ -24,29 +20,33 @@ window.kakao=window.kakao||{},window.kakao.maps=window.kakao.maps||{},window.dau
 </script>
  
 <script>
-
 if (navigator.geolocation) { //GPS 허용 승인하면
-	navigator.geolocation.getCurrentPosition((position) => {
-		  getLocation(position.coords.latitude, position.coords.longitude);
-	});
+	navigator.geolocation.getCurrentPosition(function(position) {
+		getLocation(position.coords.latitude, position.coords.longitude);
+		
+		}, function(error) { //GPS 허용을 거부하면 서울 시청 출력
+			getLocation(37.566658, 126.978368);
+		}, {
+			enableHighAccuracy: false, //배터리를 더 소모해서 더 정확한 위치를 찾음
+			maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
+			timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
+		});
 } else {
 	alert('GPS를 지원하지 않습니다');
 }
-let latitude = null;
-let longitude = null;
-let map = null;
 
 function getLocation(x, y){
-	latitude = x;
-	longitude = y;
-	console.log(latitude+","+longitude);
+	let latitude = x;
+	let longitude = y;
+	//console.log(latitude+","+longitude);
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
 		center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
 		level: 3 // 지도의 확대 레벨
 	};
-	map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다	
 	
+	// 마커를 표시할 위치와 title 객체 배열입니다 
 	var positions = [
 
 		 <c:forEach items="${list}" var="list">
@@ -57,7 +57,6 @@ function getLocation(x, y){
 	    },
 
 	    </c:forEach> 
-
 	];
 
 	// 마커 이미지의 이미지 주소입니다
@@ -100,48 +99,10 @@ function getLocation(x, y){
 		function makeOutListener(infowindow) {
 		    return function() {
 			       infowindow.close();
-		   		};
-			} 
-	    
+		   	};
+		}	    
 	}  
 }
-
-/* var map;
-if (navigator.geolocation) { //GPS 허용 승인하면
-	navigator.geolocation.getCurrentPosition(function(position) {
-		let latitude = position.coords.latitude;
-		let longitude = position.coords.longitude;
-		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-		mapOption = { 
-			center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
-		};
-		map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		
-		
-		}, function(error) { //GPS 허용을 거부하면 서울 시청 출력
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-		    mapOption = { 
-			center: new kakao.maps.LatLng(37.566658, 126.978368), // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
-			};
-			map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		//console.error(error);
-		}, {
-			enableHighAccuracy: false, //배터리를 더 소모해서 더 정확한 위치를 찾음
-			maximumAge: 0, //한 번 찾은 위치 정보를 해당 초만큼 캐싱
-			timeout: Infinity //주어진 초 안에 찾지 못하면 에러 발생
-		});
-} else {
-	alert('GPS를 지원하지 않습니다');
-}
-console.log(map); */
-
-// 마커를 표시할 위치와 title 객체 배열입니다 
-
-    
-    
 </script>
 </body>
 </html>

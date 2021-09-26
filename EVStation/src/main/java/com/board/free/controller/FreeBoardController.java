@@ -77,7 +77,8 @@ public class FreeBoardController {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
+		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
@@ -133,6 +134,7 @@ public class FreeBoardController {
 			end = totalPageCount;
 		}
 		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		m.addAttribute("clist", cList);
@@ -158,11 +160,7 @@ public class FreeBoardController {
 		}
 		return freeBoard.getBoardrecom();
 	}
-	
-	
-	
-	
-	
+		
 	//게시판 수정 요청 받아서 수정
 	@GetMapping("/updateFreeBoard/{boardnum}")
 	public String updateform(@ModelAttribute("member") Member member, @PathVariable Long boardnum, Model m) {
@@ -193,16 +191,13 @@ public class FreeBoardController {
 	}
 	
 	
-	
 	//내가 쓴글 // 대순이씀
     @RequestMapping("/myFreeBoardList/{boardmennum}")
 	public String myList(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, @PathVariable Long boardmennum){
 	
 		Page<FreeBoard> pageList = null;
 		int pageNum = 5;
-		
-	
-	
+			
 		pageList = boardService.myFreeList(pNum, boardmennum);
 		
 		List<FreeBoard> list = pageList.getContent();  
@@ -220,7 +215,8 @@ public class FreeBoardController {
 		if (end > totalPageCount) {
 			end = totalPageCount;
 		}
-
+		
+		m.addAttribute("pNum", pNum);
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 

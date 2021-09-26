@@ -124,24 +124,35 @@
 			<div id="page">
 				<c:if test="${search == null}">
 					<c:if test="${begin > 2 }">
-						<a href="/admin_freeboard?p=${begin-1}">[이전]</a>
+						<a href="/admin_freeboard?p=${begin-1}"><span class="badge bg-light text-dark">이전</span></a>
 					</c:if>
 					<c:forEach begin="${begin}" end="${end}" var="i">
-						<a href="/admin_freeboard?p=${i}">[${i}]</a>
+						<c:if test="${pNum == i}">
+							<a href="/admin_freeboard?p=${i}"><span class="badge bg-secondary">${i}</span></a>
+						</c:if>
+						<c:if test="${pNum != i}">
+							<a href="/admin_freeboard?p=${i}">><span class="badge bg-light text-dark">${i}</span></a>
+						</c:if>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/admin_freeboard?p=${end+1}">[다음]</a>
+						<a href="/admin_freeboard?p=${end+1}"><span class="badge bg-light text-dark">다음</span></a>
 					</c:if>
 				</c:if>
 				<c:if test="${search != null}">
 					<c:if test="${begin > 2}">
-						<a href="/admin_freeboard?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+						<a href="/admin_freeboard?p=${begin-1}&search=${search}&searchn=${searchn}"><span class="badge bg-light text-dark">이전</span></a>
 					</c:if>
 					<c:forEach begin="${begin}" end="${end}" var="i">
-						<a href="/admin_freeboard?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+					
+						<c:if test="${pNum == i}">
+							<a href="/admin_freeboard?p=${i}&search=${search}&searchn=${searchn}"><span class="badge bg-secondary">${i}</span></a>
+						</c:if>
+						<c:if test="${pNum != i}">
+							<a href="/admin_freeboard?p=${i}&search=${search}&searchn=${searchn}"><span class="badge bg-light text-dark">${i}</span></a>
+						</c:if>
 					</c:forEach>
 					<c:if test="${end < totalPage}">
-						<a href="/admin_freeboard?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+						<a href="/admin_freeboard?p=${end+1}&search=${search}&searchn=${searchn}"><span class="badge bg-light text-dark">다음</span></a>
 					</c:if>
 				</c:if>
 			</div>
@@ -173,6 +184,6 @@
 		</div>
 		
 	</div>	
-		<%@ include file="WEB-INF/layout/Footer.jsp"%>
+		<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>
