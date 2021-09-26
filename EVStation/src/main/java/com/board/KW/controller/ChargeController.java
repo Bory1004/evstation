@@ -224,9 +224,18 @@ public class ChargeController {
 		
 		chargeService.updateCharge(charge);
 		return "redirect:/getChargeList";
-		
 	}
 	
+	@GetMapping("/insertCharge")
+	public String insertCharge() {
+		return "/board/charge/insertCharge";
+	}
+	@PostMapping("/insertChargeComplete")
+	public String insertChargeComplete(Charge charge) {
+		chargeService.updateCharge(charge);
+		return "redirect:/admin_charge";
+		
+	}
 }
 
 
