@@ -21,6 +21,16 @@ public interface ChargeService {
 	int insertRecom(Long num, String id);
 	void del(String id, Long num);
 	
-	Page<Charge> bookMark(int pNum);
-	List<Charge> bookmark(String id);
+	Page<Charge> bookMark(int pNum,String id);
+	
+	// 즐겨찾기 체크박스 삭제
+	void deleteBookmark(Long stnum);
+	
+	//관리자 충전소관리 체크박스 삭제
+	void deleteAdmin(Long stnum);
+	
+	//충전소 상세내용에서 삭제
+	void deleteCharge(Long stnum);
+	//충전소 수정
+	void updateCharge(Charge charge);
 }

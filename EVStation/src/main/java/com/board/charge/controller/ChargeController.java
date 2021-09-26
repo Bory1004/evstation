@@ -87,7 +87,7 @@ public class ChargeController {
 		List<Charge> list = chargeService.openMap();
 		m.addAttribute("list",list);
 
-		return "/main/openMap";
+		return "/kwboard/openMap";
 	}
 	
 	
@@ -111,23 +111,18 @@ public class ChargeController {
 		}
 
 	@RequestMapping("/bookmark")
-	public String bookMark(@ModelAttribute("member")Member member, Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
-			@ModelAttribute("charge") Charge charge, String search, @RequestParam(defaultValue = "-1") int searchn) {
+	public String bookMark(@ModelAttribute("member")Member member,String id,Model m, @RequestParam(name = "p", defaultValue = "1") int pNum )  {
 
 		Page<Charge> pageList = null;
-		if(search != null) {
-			pageList = chargeService.getChargeList(pNum, searchn, search);
-		} else {
-			pageList = chargeService.getChargeList(pNum);
-		}
+		pageList = chargeService.bookMark(pNum, member.getId());
 		
-		List<Charge> bList = chargeService.bookmark(member.getId());
-		
+		List<Charge> bList = pageList.getContent();
+		m.addAttribute("blist", bList);
 		
 		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
 		long total = pageList.getTotalElements();
 		
-		m.addAttribute("blist", bList);
+		
 		m.addAttribute("totalPage", totalPageCount);
 		m.addAttribute("total", total);
 		
@@ -141,10 +136,95 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		
-		            
-		
 		return "/board/charge/bookmark";
 	}
 
+	@RequestMapping("/deleteBookmarkChk")
+	public String deleteBookmarkChk(Long[] arrStnum) {
+		
+		int size = arrStnum.length;
+		
+		for(int i=0; i < size; i++) {
+			
+			chargeService.deleteBookmark(arrStnum[i]);
+		 System.out.println(arrStnum[i]);
+		}
+		return "/board/charge/bookmark";
+	}
+	
+	
+	@RequestMapping("/admin_charge")
+	public String adminCharge(@ModelAttribute("member")Member member, Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, 
+			@ModelAttribute("charge") Charge charge, String search, @RequestParam(defaultValue = "-1") int searchn) {
+		
+		Page<Charge> pageList = null;
+		if(search != null) {
+			pageList = chargeService.getChargeList(pNum, searchn, search);
+		} else {
+			pageList = chargeService.getChargeList(pNum);
+		}
+		
+		List<Charge> bList = pageList.getContent();// 보여질 글
+		
+		int totalPageCount = pageList.getTotalPages();// 전체 페이지 수
+		long total = pageList.getTotalElements();
+		m.addAttribute("list", bList);
+		m.addAttribute("totalPage", totalPageCount);
+		m.addAttribute("total", total);
+		
+		int pageNum = 5;
+		int begin = (pNum - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum - 1;
+		if (end > totalPageCount) {
+			end = totalPageCount;
+		}
 
+		m.addAttribute("begin", begin);
+		m.addAttribute("end", end);
+		m.addAttribute("search", search);
+		m.addAttribute("searchn", searchn);
+		
+		
+		return "/admin/admin_charge";
+		
+	}
+	@RequestMapping("/deleteAdminChargeChk")
+	public String deleteAdminChargeChk(Long[] arrStnum) {
+		
+		int size = arrStnum.length;
+		
+		for(int i=0; i < size; i++) {
+			
+			chargeService.deleteAdmin(arrStnum[i]);
+		}
+		return  "/admin/admin_charge";
+	}
+	
+	@RequestMapping("/deleteCharge/{stnum}")
+	public String deleteCharge(@PathVariable Long stnum) {
+		chargeService.deleteCharge(stnum);
+		return "redirect:/getChargeList";
+	}
+	
+	@RequestMapping("/updateCharge/{stnum}/{stname}/{stlongitude}/{stlatitude}")
+	public String updateCharge(@PathVariable Long stnum,@PathVariable String stname,@PathVariable String stlongitude,@PathVariable String stlatitude,Model m) {
+		m.addAttribute(stname);
+		m.addAttribute(stnum);
+		m.addAttribute(stlatitude);
+		m.addAttribute(stlongitude);
+		return "/board/charge/updateCharge";
+		
+	}
+	@PostMapping("/updateChargeComplete")
+	public String updateChargeComplete(Charge charge){
+		charge.setStnum(charge.getStnum());
+		charge.setStname(charge.getStname());
+		charge.setStlatitude(charge.getStlatitude());
+		charge.setStlongitude(charge.getStlongitude());
+		
+		chargeService.updateCharge(charge);
+		return "redirect:/getChargeList";
+		
+	}
+	
 }

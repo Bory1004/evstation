@@ -37,10 +37,19 @@ public interface ChargeRepository extends JpaRepository<Charge, Long>{
 	@Query("DELETE FROM Book WHERE id=?1 AND num=?2") 
 	void del(String id, Long num);
 
-	@Modifying
+	@Transactional
 	@Query(value="SELECT * FROM CHARGELIST2 c WHERE c.ST_NUM IN (SELECT b.num FROM BOOKMARK b WHERE b.id =?1)",nativeQuery=true)
-	List<Charge> bookmark(String id);
+	Page<Charge> findByOrderByNumDesc(String id, Pageable page);
 	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM BOOKMARK WHERE NUM = ?1" ,nativeQuery=true)
+	void deleteBookmark(Long stnum);
+	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM Charge c WHERE c.stnum = ?1")
+	void deleteAdminChargeChk(Long stnum);
 
 	
 }
