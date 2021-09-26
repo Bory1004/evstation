@@ -77,13 +77,18 @@ a {
 						
 				<div id="page">
 					<c:if test="${begin > 2}">
-						<a href="/content/1/${board.boardnum}?p=${begin-1}">[이전]</a>
+						<a href="/content/1/${board.boardnum}?p=${begin-1}"><span class="badge bg-light text-dark">이전</span></a>
 					</c:if>
 					<c:forEach begin="${begin}" end="${end}" var="i">
-						<a href="/content/1/${board.boardnum}?p=${i}">[${i}]</a>
+						<c:if test="${pNum == i}">
+							<a href="/content/1/${board.boardnum}?p=${i}"><span class="badge bg-secondary">${i}</span></a>
+						</c:if>
+						<c:if test="${pNum != i}">
+							<a href="/content/1/${board.boardnum}?p=${i}"><span class="badge bg-light text-dark">${i}</span></a>
+						</c:if>
 					</c:forEach>
 					<c:if test="${end < totalPage}">
-						<a href="/content/1/${board.boardnum}?p=${end+1}">[다음]</a>
+						<a href="/content/1/${board.boardnum}?p=${end+1}"><span class="badge bg-light text-dark">다음</span></a>
 					</c:if>
 				</div>				
 			</div>	
