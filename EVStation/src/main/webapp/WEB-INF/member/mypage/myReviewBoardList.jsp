@@ -73,7 +73,7 @@ a {
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >

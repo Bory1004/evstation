@@ -155,7 +155,7 @@ a {
          </table><br>
       </div>
       </main>
-      <%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
+      <%@ include file="/WEB-INF/layout/Footer.jsp"%>
       </body>
                      
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

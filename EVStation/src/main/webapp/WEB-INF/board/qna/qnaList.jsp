@@ -209,6 +209,6 @@ a {
 			</div>
 		</form>
 	</div>
-	<%@ include file="DsLayout/dsFooter.jsp"%>
+	<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

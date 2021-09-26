@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="DsLayout/dsHeaderNormal.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,6 +184,6 @@
 
 
 
-		<%@ include file="DsLayout/dsFooter.jsp"%>
+		<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

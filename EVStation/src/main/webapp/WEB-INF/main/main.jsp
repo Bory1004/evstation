@@ -195,7 +195,7 @@ a {
    </footer>
 
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <jsp:include page="/WEB-INF/kwboard/openMap.jsp" />
+   <jsp:include page="/WEB-INF/main/openMap.jsp" />
    
 <!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b85cb3c2a7f14edb22d60f2c53b0e10"></script>
    <script>

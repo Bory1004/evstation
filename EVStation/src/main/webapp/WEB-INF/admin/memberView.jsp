@@ -82,6 +82,6 @@
 		</div>
 		
 	</div>
-		<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
+		<%@ include file="WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

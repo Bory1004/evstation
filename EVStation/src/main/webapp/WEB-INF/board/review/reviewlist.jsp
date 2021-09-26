@@ -32,7 +32,7 @@ a {
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+	<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 
 	<main>
 	<!-- <div id="group-area" class="">

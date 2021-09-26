@@ -159,7 +159,7 @@ textarea {
 	</div>
 	<!-- id: center -->
 </div>
-	<%@ include file="DsLayout/dsFooter.jsp"%>
+	<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

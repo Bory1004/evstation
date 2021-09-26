@@ -45,7 +45,7 @@ a {
 			</table>
 		</form>
 	</div>
-	<%@ include file="DsLayout/dsFooter.jsp"%>
+	<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/naver-smarteditor2/demo/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript">

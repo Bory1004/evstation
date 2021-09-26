@@ -89,7 +89,7 @@ function deleteValue() {
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+<%@ include file="WEB-INF/layout/HeaderNormal.jsp"%>
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>리뷰게시판 관리</h4>
@@ -173,6 +173,6 @@ function deleteValue() {
 		</div>
 		
 	</div>	
-		<%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
+		<%@ include file="WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

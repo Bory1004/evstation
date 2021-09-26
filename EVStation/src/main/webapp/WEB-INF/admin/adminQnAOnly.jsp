@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- <%@ include file="DsLayout/dsHeaderNormal.jsp"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ include file="WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -188,6 +189,6 @@
 				<button type="button" class="btn btn-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
 				<br>
 			</div>
-<%@ include file="DsLayout/dsFooter.jsp"%>
+<%@ include file="WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

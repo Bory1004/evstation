@@ -169,7 +169,7 @@ a {
 							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
 							width="30" height="30" onclick="ring(${member.memnum})">
 							</div>
-							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! </br>
+							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <br>
 							<div id="btns" style="float: right;">
 										<button class="btn btn-sm btn-outline-success dropdown-toggle"
 											type="button" id="dropdownMenuButton1"
@@ -313,7 +313,7 @@ a {
 				<br>
 			</div>
 	
-<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
+<%@ include file="WEB-INF/layout/Footer.jsp"%>
 	
 </body>
 </html>

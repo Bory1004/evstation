@@ -19,10 +19,10 @@
 </style>
 </head>
 <body>
-<%@ include file="DsLayout/dsHeaderBenefit.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderBenefit.jsp"%>
 <div id="ph">
 <img  src="images/benefit.png" width="550" >
 </div>
-<%@ include file="DsLayout/dsFooter.jsp"%>
+<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

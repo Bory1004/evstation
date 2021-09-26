@@ -76,6 +76,6 @@ h2 { text-align: center; }
 
 				</div>
 			
-<%@ include file="DsLayout/dsFooter.jsp"%>
+<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	</body>
 </html>

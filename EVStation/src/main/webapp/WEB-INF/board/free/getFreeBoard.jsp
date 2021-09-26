@@ -182,7 +182,7 @@ a {
 		</div>
 	</main>
 	
-	<%@ include file="../DsBoard/DsLayout/dsFooter.jsp"%>
+	<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	
 </body>
 

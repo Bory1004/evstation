@@ -43,7 +43,7 @@ textarea {
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 	
 	<main>
 		<div class="container input-group d-flex justify-content-center">
