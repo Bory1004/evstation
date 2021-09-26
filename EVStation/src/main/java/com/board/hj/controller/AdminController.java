@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.board.KW.service.ChargeService;
 import com.board.ay.service.NoticeCommentService;
-import com.board.ds.service.DsCommentService;
-import com.board.ds.service.DsService;
+import com.board.charge.service.ChargeService;
 import com.board.hj.domain.FreeBoard;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
@@ -24,6 +22,8 @@ import com.board.hj.service.MemberService;
 import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
 import com.board.km.service.ReviewService;
+import com.board.qna.service.QnACommentService;
+import com.board.qna.service.QnABoardService;
 
 @SessionAttributes("member")
 @Controller
@@ -45,9 +45,9 @@ public class AdminController {
 	@Autowired
 	private FreeCommentService freecommentService;
 	@Autowired
-	private DsService dsService;
+	private QnABoardService dsService;
 	@Autowired
-	private DsCommentService dscommentService;
+	private QnACommentService dscommentService;
 	@Autowired
 	private NoticeCommentService noticecommentService;
 	

@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.board.KW.domain.Charge;
-import com.board.KW.service.ChargeService;
-import com.board.ds.service.DsService;
+import com.board.charge.domain.Charge;
+import com.board.charge.service.ChargeService;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
 import com.board.hj.service.MemberService;
@@ -36,6 +35,7 @@ import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
 
 import com.board.km.service.ReviewService;
+import com.board.qna.service.QnABoardService;
 import com.google.gson.Gson;
 
 @Controller
@@ -50,7 +50,7 @@ public class MainController {
 	@Autowired
 	private FreeBoardService boardService;
 	@Autowired
-	private DsService dsService;
+	private QnABoardService dsService;
 	@Autowired
 	private MemberService memberService;
 	@Autowired

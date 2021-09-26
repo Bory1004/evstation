@@ -21,11 +21,11 @@ import javax.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.board.ay.domain.NoticeComment;
-import com.board.ds.domain.DsComment;
-import com.board.ds.domain.DsEntity;
 import com.board.km.domain.Alarm;
 import com.board.km.domain.BoardComment;
 import com.board.km.domain.ReviewBoard;
+import com.board.qna.domain.QnABoardComment;
+import com.board.qna.domain.QnABoard;
 
 import lombok.Getter;
 import lombok.Setter;

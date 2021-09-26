@@ -26,11 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.board.KW.domain.Charge;
-import com.board.KW.service.ChargeService;
 import com.board.ay.service.NoticeCommentService;
-import com.board.ds.service.DsCommentService;
-import com.board.ds.service.DsService;
+import com.board.charge.domain.Charge;
+import com.board.charge.service.ChargeService;
 import com.board.hj.domain.Member;
 import com.board.hj.service.FreeBoardService;
 import com.board.hj.service.FreeCommentService;
@@ -38,6 +36,8 @@ import com.board.hj.service.MemberService;
 import com.board.km.service.AlarmService;
 import com.board.km.service.CommentService;
 import com.board.km.service.ReviewService;
+import com.board.qna.service.QnACommentService;
+import com.board.qna.service.QnABoardService;
 
 @SessionAttributes("member")
 @Controller
@@ -59,9 +59,9 @@ public class MemberController {
 	@Autowired
 	private FreeCommentService freecommentService;
 	@Autowired
-	private DsService dsService;
+	private QnABoardService dsService;
 	@Autowired
-	private DsCommentService dscommentService;
+	private QnACommentService dscommentService;
 	@Autowired
 	private NoticeCommentService noticecommentService;
 

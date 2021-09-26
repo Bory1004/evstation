@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,7 +147,7 @@
  </form>
  
  
-  <%@ include file="/WEB-INF/DsBoard/DsLayout/dsFooter.jsp"%>
+  <%@ include file="/WEB-INF/layout/Footer.jsp"%>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 	$("#charge").submit(function(){
