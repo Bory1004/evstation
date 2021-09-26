@@ -55,10 +55,9 @@ a {
 					<c:forEach items="${clist}" var="comment">
 						<div id="comment${comment.comnum}">
 							<img style = "border-radius:70%;" src="${comment.member.memphoto}" width="40px" height="auto"><strong>${member.id}</strong>
-						
 							<c:if test="${comment.commennum eq member.memnum}">												
-								<a href="#modify_comment" onclick="modify_comment(${comment.comnum})">수정</a>								
-								<a href="#delete_comment" onclick="delete_comment(${comment.comnum})">삭제</a>						
+								<a class="badge bg-light text-dark" href="#modify_comment" onclick="modify_comment(${comment.comnum})">수정</a>								
+								<a class="badge bg-light text-dark" href="#delete_comment" onclick="delete_comment(${comment.comnum})">삭제</a>						
 							</c:if>
 						</div>
 											

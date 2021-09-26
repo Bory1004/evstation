@@ -45,7 +45,14 @@ a {
 					<c:forEach items="${blist}" var="board">
 						<tr>
 							<td>${board.boardnum}</td>
-							<td><a href="/content/1/${board.boardnum}">${board.boardtitle}</a></td>
+							<td>
+								<c:if test="${member.id == null}">
+									<a href="/loginView">${board.boardtitle}</a>
+								</c:if>
+								<c:if test="${member.id != null}">
+									<a href="/content/1/${board.boardnum}">${board.boardtitle}</a>
+								</c:if>
+							</td>								
 							<td>${board.member.id}</td>
 							<td><fmt:formatDate value="${board.boarddate}" pattern="MM.dd"/></td>
 							<td>${board.boardsee}</td>

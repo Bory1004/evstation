@@ -110,6 +110,7 @@ public class FreeBoardController {
 	@RequestMapping("/content/1/{boardnum}")
 	public String getBoard(@ModelAttribute("member") Member member, @RequestParam(name = "p", defaultValue = "1") int pNum, 
 			@PathVariable Long boardnum, Model m) {
+		
 		m.addAttribute("member", member);
 		
 		//게시판
