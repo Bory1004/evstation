@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ include file="/WEB-INF/layout/HeaderCharge.jsp"%> --%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>충전소목록</title>
+<title>충전소상세</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -30,49 +31,87 @@ a {
 #page {
 	text-align: center;
 }
+#alarmpage {
+   position :absolute;
+   border: solid #BDBDBD 1px;
+   border-radius: 20px;
+   width : 230px;
+   height : 300px;
+   left : 1200px;
+   padding : 10px;
+   overflow-y : auto;
+}
+#alarmcount {
+   position : relative;
+   width : 30px;
+   height : 20px;
+   left : 380px;
+   top : 10px;   
+   border-radius: 10px;
+   text-align : center;
+   vertical-align : middle;
+}
+#alarmcount > span {
+   position :relative;
+   color : white;
+   bottom : 3px;
+}
 </style>
 </head>
 <body>
 
-	<div class="container">
-		<header class="py-3">
-			<div class="row justify-content-center">
-				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> 
-					<img src="/img/logo.png" width="220" height="100"></a>
-					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
-				</div>
+   <div class="container">
+      <header class="py-3">
+         <div class="row justify-content-center">
+            <div class="col-6 pt-2">
+               <a href="/main" class="link-secondary"> 
+               <img src="/img/logo.png" width="220" height="100"></a>
+               <!--  <a class="link-secondary" href="#">Subscribe</a> -->
+            </div>
 
-				<div class="col-6 d-flex justify-content-end align-items-center">
-					<!-- justify-content 자식요소 정렬  -->
-													
-					<c:choose>
-						<c:when test="${member.id eq null}">
-							<div>
-								<a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
-								<a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
-							</div>	
-						</c:when>
-						<c:otherwise>
-							${member.id}님 환영합니다!! <a class="btn btn-sm btn-outline-success" href="logout">로그아웃</a>
-						</c:otherwise>						
-					</c:choose>
-				</div>
-			</div>
+            <div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+               <!-- justify-content 자식요소 정렬  -->
+                                       
+               <c:choose>
+                  <c:when test="${member.id eq null}">
+                     <div style="float:right;">
+                        <a class="btn btn-sm btn-outline-success" href="/loginView">로그인</a> 
+                        <a class="btn btn-sm btn-outline-success" href="/joinView">회원가입</a>
+                     </div>   
+                  </c:when>
+                  <c:otherwise>
+                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png" width="30" height="30" onclick="ring(${member.memnum})">
+                     </div>
+						<div style="float: right;">						
+							<img id="main_profile" style = "border-radius:70%;" src="${member.memphoto}" width="40px" height="auto">${member.name}(${member.id})님 환영합니다!!							
+								<div class="dropdown">
+									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
+										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
+										<li><a class="dropdown-item" href="/myBookmark">즐겨찾기</a></li>
+									</ul>
+									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
+								</div>
+							</div>
+						</c:otherwise>                  
+               </c:choose>
+            </div>
+         </div>
+        
 
-			<div class="menubar py-1 mb-2">
-				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="#">페이지 소개</a> 
-					<a class="p-2 bg-success text-white" href="/getChargeList">충전소 현황</a> 
-					<a class="p-2 link-success" href="#">기대효과</a> 
-					<a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
-					<a class="p-2 link-success" href="#">공지사항</a> 
-					<a class="p-2 link-success" href="#">Q&A</a>
-				</nav>
-			</div>
-		</header>
-	</div>
-
+	    <div class="menubar py-1 mb-2">
+            <nav class="nav d-flex justify-content-center border-top border-bottom">
+               <a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
+               <a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
+               <a class="p-2 link-success" href="/benefit">기대효과</a> 
+               <a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
+               <a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
+               <a class="p-2 link-success" href="/qnaList">Q&A</a>
+            </nav>
+         </div>
+      </header>
+   </div>
 
 <body>
 <div class="container">
@@ -153,7 +192,7 @@ marker.setMap(map);
 <div style="text-align:center;">
 	<a href="/getChargeList"><button type="button" class="btn btn-primary">충전소 목록</button></a>
 	<a href="/reviewList?stnum=${charge.stnum}"><button type="button" class="btn btn-primary">리뷰 보기</button></a>
-	<a href="/reviewwrite?stnum=${charge.stnum }"><button type="button" class="btn btn-primary">리뷰 쓰기</button></a>
+	<a href="/reviewwrite?stnum=${charge.stnum}"><button type="button" class="btn btn-primary">리뷰 쓰기</button></a>
 </div>
 
 
@@ -167,7 +206,7 @@ marker.setMap(map);
 								let num = ${charge.stnum};
 								let id =  "${member.id}";
 									console.log(id);
-								let url = "/bookmark/" + num + "/" + id;
+								let url = "/myBookmark/" + num + "/" + id;
 								
 								$.ajax({
 											url : url
