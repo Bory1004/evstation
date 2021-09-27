@@ -28,7 +28,7 @@ a {
    border-radius: 20px;
    width : 230px;
    height : 300px;
-   left : 1200px;
+   left : 1300px;
    padding : 10px;
    overflow-y : auto;
 }

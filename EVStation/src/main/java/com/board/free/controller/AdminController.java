@@ -92,7 +92,7 @@ public class AdminController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 		
-		return "admin/admin_freeboard";
+		return "admin/adminFreeboard";
 	}
 	
 	// 자유게시판 삭제
@@ -143,7 +143,7 @@ public class AdminController {
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
 				
-		return "admin/admin_member";
+		return "admin/adminMember";
 	}
 	
 	@RequestMapping("/admin_member_deleteAll")

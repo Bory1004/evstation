@@ -39,7 +39,7 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoard, Long>{
 	
 	@Transactional
 	@Modifying
-	@Query(value="INSERT INTO NoticeRecom(temp, num, id) VALUES(recom_seq.nextval, :num, :id)", nativeQuery=true)
+	@Query(value="INSERT INTO Notice_Recom(temp, num, id) VALUES(recom_seq.nextval, :num, :id)", nativeQuery=true)
 	int insertRecom(Long num,String id);
 	
 	//추천한 적 있다면 추천수 내림

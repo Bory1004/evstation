@@ -92,7 +92,7 @@ public class ChargeController {
 	
 	
 	
-	@RequestMapping("/bookmark/{num}/{id}")
+	@RequestMapping("/myBookmark/{num}/{id}")
 	@ResponseBody
 	public int upRecom(Book book, @PathVariable Long num, @PathVariable String id, Model m,@ModelAttribute("member")Member member)
 	{
@@ -110,7 +110,8 @@ public class ChargeController {
 			return x;
 		}
 
-	@RequestMapping("/bookmark")
+	//즐겨찾기
+	@RequestMapping("/myBookmark")
 	public String bookMark(@ModelAttribute("member")Member member,String id,Model m, @RequestParam(name = "p", defaultValue = "1") int pNum )  {
 
 		Page<Charge> pageList = null;
@@ -136,7 +137,7 @@ public class ChargeController {
 		m.addAttribute("begin", begin);
 		m.addAttribute("end", end);
 		
-		return "/board/charge/bookmark";
+		return "/member/mypage/myBookmark";
 	}
 
 	@RequestMapping("/deleteBookmarkChk")
@@ -149,7 +150,7 @@ public class ChargeController {
 			chargeService.deleteBookmark(arrStnum[i]);
 		 System.out.println(arrStnum[i]);
 		}
-		return "/board/charge/bookmark";
+		return "/member/mypage/myBookmark";
 	}
 	
 	
@@ -185,7 +186,7 @@ public class ChargeController {
 		m.addAttribute("searchn", searchn);
 		
 		
-		return "/admin/admin_charge";
+		return "/admin/adminCharge";
 		
 	}
 	@RequestMapping("/deleteAdminChargeChk")
@@ -197,7 +198,7 @@ public class ChargeController {
 			
 			chargeService.deleteAdmin(arrStnum[i]);
 		}
-		return  "/admin/admin_charge";
+		return  "/admin/adminCharge";
 	}
 	
 	@RequestMapping("/deleteCharge/{stnum}")
@@ -224,6 +225,17 @@ public class ChargeController {
 		
 		chargeService.updateCharge(charge);
 		return "redirect:/getChargeList";
+		
+	}
+	
+	@GetMapping("/insertCharge")
+	public String insertCharge() {
+		return "/board/charge/insertCharge";
+	}
+	@PostMapping("/insertChargeComplete")
+	public String insertChargeComplete(Charge charge) {
+		chargeService.updateCharge(charge);
+		return "redirect:/admin_charge";
 		
 	}
 	

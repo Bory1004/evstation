@@ -103,9 +103,9 @@ a {
             <nav class="nav d-flex justify-content-center border-top border-bottom">
                <a class="p-2  link-success" href="/pageIntro">페이지 소개</a> 
                <a class="p-2 link-success" href="/getChargeList">충전소 현황</a> 
-               <a class="p-2 bg-success text-white" href="/benefit">기대효과</a> 
+               <a class="p-2 link-success" href="/benefit">기대효과</a> 
                <a class="p-2 link-success" href="/getFreeBoardList">자유게시판</a> 
-               <a class="p-2 link-success" href="/ay/getBoardList">공지사항</a> 
+               <a class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> 
                <a class="p-2 link-success" href="/qnaList">Q&A</a>
             </nav>
          </div>

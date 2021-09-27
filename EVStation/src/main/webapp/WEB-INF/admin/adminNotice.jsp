@@ -301,15 +301,17 @@ a {
 	</div><!-- center -->
 	
 	<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-secondary">QnA문의</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/adminQnAOnly';">QnA문의</button>
 				<br>
-				<button type="button" class="btn btn-secondary">충전소 관리</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_charge';">충전소 관리</button>
 				<br>
-				<button type="button" class="btn btn-secondary">사용자 관리</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_member';">사용자 관리</button>
 				<br>
-				<button type="button" class="btn btn-outline-secondary">공지사항 관리</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/admin';">공지사항 관리</button>
 				<br>
-				<button type="button" class="btn btn-secondary">자유게시판 관리</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_freeboard';">자유게시판 관리</button>
+				<br>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_review';">리뷰게시판 관리</button>
 				<br>
 			</div>
 	
