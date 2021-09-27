@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,6 +89,7 @@ a {
 </head>
 
 <body>
+<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
 	<div id="center">
 		<h4>QnA 게시판</h4>
 		<a href="/qnaList"><small class="text-muted">QnA 게시판 전체 목록 ></small></a>
