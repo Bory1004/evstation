@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	//체크박스 전체 선택 /해제 
@@ -74,7 +74,7 @@
 }
 
 #jb-content {
-	width: 700px;
+	width: 740px;
 	padding: 10px;
 	margin-bottom: 20px;
 	float: right;
@@ -90,6 +90,8 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>자유게시판 관리</h4>
@@ -99,7 +101,7 @@
 				<tr>
 					<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
 					<th scope="col"><b>No.</b></th>  
-					<th style="width: 150px;" scope="col"><b>제목</b></th>
+					<th style="width: 250px;" scope="col"><b>제목</b></th>
 					<th scope="col"><b>작성자</b></th>
 					<th scope="col"><b>작성일</b></th>
 					<th scope="col"><b>조회수</b></th>
@@ -179,7 +181,7 @@
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/ay/admin">공지사항 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
-				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminReview">리뷰게시판 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_review">리뷰게시판 관리</a></div>
 			</div>
 		</div>
 		

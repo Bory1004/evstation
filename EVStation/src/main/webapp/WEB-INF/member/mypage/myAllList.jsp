@@ -1,56 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <style>
-@media ( min-width : 768px) {
-	.container {
-		width: 750px
-	}
-}
-
-@media ( min-width : 992px) {
-	.container {
-		width: 940px
-	}
-}
-
-a {
-	text-decoration-line: none;
-}
-
-#alarmpage {
-	position: absolute;
-	border: solid #BDBDBD 1px;
-	border-radius: 20px;
-	width: 230px;
-	height: 300px;
-	left: 1230px;
-	padding: 10px;
-	overflow-y: auto;
-}
-
-#alarmcount {
-	position: absolute;
-	width: 30px;
-	height: 20px;
-	left: 1200px;
-	top: 45px;
-	border-radius: 10px;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#alarmcount>span {
-	position: relative;
-	color: white;
-	bottom: 3px;
-}
 #head{
 		margin-left: 6%;
 	
@@ -133,7 +92,7 @@ a {
 				<br>
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/AllBoardList/${member.memnum}'">내가 쓴 글</button>
 				<br>
-				<button type="button" class="btn btn-secondary">즐겨찾기</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/myBookmark'">즐겨찾기</button>
 				<br>
 				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
 				<br>

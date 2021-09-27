@@ -371,16 +371,16 @@ public class ReviewController implements ApplicationContextAware {
 
 		Page<ReviewBoard> pageList = null;
 		if (search != null) { // 검색값이 있을때
-			pageList = reviewService.getReviewBoardList(pNum, stnum, searchn, search);
+			pageList = reviewService.getReviewBoardList(pNum,searchn, search);
 			String search_msg = "\"" + search + "\" 검색결과";
 			m.addAttribute("search_msg", search_msg);
 		} else {
-			pageList = reviewService.getReviewBoardList(pNum, stnum); // 페이지번호와 충전소번호
+			pageList = reviewService.getReviewBoardList(pNum); // 페이지번호와 충전소번호	
 		}
 
 		List<ReviewBoard> rList = pageList.getContent();
 		m.addAttribute("rList", rList);
-
+		System.out.println(rList);
 		// 여기서부터 페이징 부분
 		int totalPageCount = pageList.getTotalPages();
 		long total = pageList.getTotalElements(); // 글의 총개수

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 //체크박스 전체 선택 /해제 
@@ -54,7 +55,7 @@ function deleteValue() {
 			},
 			success : function(adata) {
 				alert("삭제성공");
-				location.replace("/adminReview") // qnaList 페이지로 새로고침
+				location.replace("/admin_review") // qnaList 페이지로 새로고침
 
 			}
 		});
@@ -73,7 +74,7 @@ function deleteValue() {
 }
 
 #jb-content {
-	width: 700px;
+	width: 740px;
 	padding: 10px;
 	margin-bottom: 20px;
 	float: right;
@@ -90,16 +91,17 @@ function deleteValue() {
 </head>
 <body>
 <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>리뷰게시판 관리</h4>
-			<a href="/adminReview"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
+			<a href="/admin_review"><small class="text-muted">리뷰 게시판 전체 목록 ></small></a>
 			<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
 				<tr>
 					<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
 					<th scope="col"><b>No.</b></th>  
-					<th style="width: 150px;" scope="col"><b>제목</b></th>
+					<th style="width: 250px;" scope="col"><b>제목</b></th>
 					<th scope="col"><b>작성자</b></th>
 					<th scope="col"><b>작성일</b></th>
 					<th scope="col"><b>조회수</b></th>
@@ -124,24 +126,24 @@ function deleteValue() {
 			<div id="page">
 				<c:if test="${search == null}">
 					<c:if test="${begin > 2 }">
-						<a href="/adminReview?p=${begin-1}">[이전]</a>
+						<a href="/admin_review?p=${begin-1}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin}" end="${end}" var="i">
-						<a href="/adminReview?p=${i}">[${i}]</a>
+						<a href="/admin_review?p=${i}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/adminReview?p=${end+1}">[다음]</a>
+						<a href="/admin_review?p=${end+1}">[다음]</a>
 					</c:if>
 				</c:if>
 				<c:if test="${search != null}">
 					<c:if test="${begin > 2}">
-						<a href="/adminReview?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
+						<a href="/admin_review?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin}" end="${end}" var="i">
-						<a href="/adminReview?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
+						<a href="/admin_review?p=${i}&search=${search}&searchn=${searchn}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage}">
-						<a href="/adminReview?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
+						<a href="/admin_review?p=${end+1}&search=${search}&searchn=${searchn}">[다음]</a>
 					</c:if>
 				</c:if>
 			</div>
@@ -168,7 +170,7 @@ function deleteValue() {
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="ay/admin">공지사항 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
-				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/adminReview">리뷰게시판 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/admin_review">리뷰게시판 관리</a></div>
 			</div>
 		</div>
 		

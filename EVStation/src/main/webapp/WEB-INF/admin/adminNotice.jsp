@@ -5,11 +5,10 @@
 <html>
 <head>
 <title>관리자페이지</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-<script src= "http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script type="text/javascript">
 		//체크박스 전체 선택 /해제 
 	$(function(){
@@ -82,135 +81,42 @@
 
 
 <style>
-@media ( min-width : 768px) {
-	.container {
-		width: 750px
-	}
-}
-
-@media ( min-width : 992px) {
-	.container {
-		width: 940px
-	}
-}
-#center {
-	float:right;
-	 width: 50%;
-	margin-left: auto;
-	margin-right: 20%;
-}
-.btn-group-vertical {
-	margin-right: auto;
-	margin-left: 15%;
-	margin-top: 5%;
-}
-a {
-	text-decoration-line: none;
-}
 #page {
 	text-align: center;
+
 }
-#alarmpage {
-	position :absolute;
-	border: solid #BDBDBD 1px;
-	border-radius: 20px;
-	width : 230px;
-	height : 300px;
-	left : 1230px;
-	padding : 10px;
-	overflow-y : auto;
+
+#jb-container {
+	width: 940px;
+	margin: 0px auto;
 }
-#alarmcount {
-	position : relative;
-	width : 30px;
-	height : 20px;
-	left : 380px;
-	top : 10px; 
-	border-radius: 10px;
-	text-align : center;
-	vertical-align : middle;
+
+#jb-content {
+	width: 740px;
+	padding: 10px;
+	margin-bottom: 20px;
+	float: right;
+	/* border: 1px solid #bcbcbc; */
 }
-#alarmcount > span {
-	position :relative;
-	color : white;
-	bottom : 3px;
-	left : 1700px;
-	top : 200px;
-	width : 300px;
-	height : 400px;
+
+#jb-sidebar {
+	width: 200px;
+	padding: 10px;
+	margin-bottom: 20px;
+	float: left;
 }
 </style>
 </head>
 <body>
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 
-	<div class="container">
-		<header class="py-3">
-			<div class="row justify-content-center">
-				<div class="col-6 pt-2">
-					<a href="/main" class="link-secondary"> 
-					<img src="/img/logo.png" width="220" height="100"></a>
-					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
-				</div>
-
-				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
-					<!-- justify-content 자식요소 정렬  -->
-					<%-- <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
-						width="30" height="30" onclick="ring(${member.memnum})">
-					</div>	 --%>					
-					<c:choose>
-						<c:when test="${member.id eq null}">
-
-							<div style="float:right;">
-								<a class="btn btn-sm btn-outline-success" href="../loginView">로그인</a> 
-								<a class="btn btn-sm btn-outline-success" href="../joinView">회원가입</a>
-							</div>	
-						</c:when>
-						<c:otherwise>
-							<div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png"
-							width="30" height="30" onclick="ring(${member.memnum})">
-							</div>
-							<div style="float:right;"><img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! <br>
-							<div id="btns" style="float: right;">
-										<button class="btn btn-sm btn-outline-success dropdown-toggle"
-											type="button" id="dropdownMenuButton1"
-											data-bs-toggle="dropdown" aria-expanded="false">
-										 마이페이지</button>
-										<ul class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" href="/check_mypage">개인정보수정</a></li>
-											<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
-											<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
-											<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
-											<li><a class="dropdown-item" href="/ay/admin">관리자페이지</a></li>
-											</c:if>
-											
-										</ul>
-									<a class="btn btn-sm btn-outline-success" href="../logout">로그아웃</a>
-								</div>
-							</div>
-						</c:otherwise>						
-					</c:choose>
-				</div>
-			</div>
-
-			<div class="menubar py-1 mb-2">
-				<nav class="nav d-flex justify-content-center border-top border-bottom">
-					<a class="p-2  link-success" href="../pageIntro">페이지 소개</a> 
-					<a class="p-2 link-success" href="#">충전소 현황</a> 
-					<a class="p-2 link-success" href="../benefit">기대효과</a> 
-					<a class="p-2 link-success" href="../getFreeBoardList">자유게시판</a> 
-					<a class="p-2 bg-success text-white" href="/ay/getBoardList">공지사항</a> 
-					<a class="p-2 link-success" href="../qnaList">Q&A</a>
-				</nav>
-			</div>
-		</header>
-	</div>
 	
 	
 	<!-- <div id="group-area" class="">
 		아이디
 	</div> -->
-	<div id="center">
+<div id="jb-container">
+	<div id="jb-content">
 		<h4>공지사항</h4>
 		<a href="/ay/getBoardList"><small class="text-muted">공지사항 전체 목록 ></small></a>
 		
@@ -226,7 +132,7 @@ a {
 				    <th><input type="checkbox" name="ChkBxAll"  id="ChkBxAll;"></th>
 					</c:if>	
 					<th scope="col">No.</th>
-					<th style="width: 300px;" scope="col">제목</th>
+					<th style="width: 250px;" scope="col">제목</th>
 					<th scope="col">작성자</th>
 					<th scope="col">등록일</th>
 					<th scope="col">추천수</th>
@@ -298,23 +204,20 @@ a {
 			<input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 		</div>
 		</form>
-	</div><!-- center -->
+	</div>
 	
-	<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-secondary" onclick="location.href='/adminQnAOnly';">QnA문의</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_charge';">충전소 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_member';">사용자 관리</button>
-				<br>
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/admin';">공지사항 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_freeboard';">자유게시판 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_review';">리뷰게시판 관리</button>
-				<br>
+		<div id="jb-sidebar">
+		<br><br>
+			<div class="row g-3">				
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminQnAOnly">Q&A 문의</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_charge">충전소 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/ay/admin">공지사항 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_review">리뷰게시판 관리</a></div>
 			</div>
-	
+		</div>
+</div>	
 <%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	
 </body>

@@ -1,55 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
-@media ( min-width : 768px) {
-	.container {
-		width: 750px
-	}
-}
-
-@media ( min-width : 992px) {
-	.container {
-		width: 940px
-	}
-}
-
-a {
-	text-decoration-line: none;
-}
-
-#alarmpage {
-	position: absolute;
-	border: solid #BDBDBD 1px;
-	border-radius: 20px;
-	width: 230px;
-	height: 300px;
-	left: 1230px;
-	padding: 10px;
-	overflow-y: auto;
-}
-
-#alarmcount {
-	position: absolute;
-	width: 30px;
-	height: 20px;
-	left: 1200px;
-	top: 45px;
-	border-radius: 10px;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#alarmcount>span {
-	position: relative;
-	color: white;
-	bottom: 3px;
-}
 #head{
 		margin-left: 6%;
 	
@@ -73,7 +32,7 @@ a {
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 
 <div id="head">
 	<div class="py-4 mb-4 ml-4" style="margin: 100 auto" align="center" >
@@ -92,7 +51,7 @@ a {
 				<tr>
 						<th><input type="checkbox" name="ChkBxAll" id="ChkBxAll;"></th>
 					<th scope="col"><b>No.</b></th>  
-					<th scope="col"><b>제목</b></th>
+					<th  style="width: 250px;" scope="col"><b>제목</b></th>
 					<th scope="col"><b>작성자</b></th>
 					<th scope="col"><b>작성일</b></th>
 					<th scope="col"><b>조회수</b></th>

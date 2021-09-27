@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>QnA관리</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -71,24 +70,37 @@
 	}
 </script>
 <style>
-#center {
-	float:right;
-	 width: 40%;
-	margin-left: auto;
-	margin-right: 25%;
-}
-.btn-group-vertical {
-	margin-right: auto;
-	margin-left: 23%;
-	margin-top: 0%;
-}
 #page {
 	text-align: center;
+
+}
+
+#jb-container {
+	width: 940px;
+	margin: 0px auto;
+}
+
+#jb-content {
+	width: 740px;
+	padding: 10px;
+	margin-bottom: 20px;
+	float: right;
+	/* border: 1px solid #bcbcbc; */
+}
+
+#jb-sidebar {
+	width: 200px;
+	padding: 10px;
+	margin-bottom: 20px;
+	float: left;
 }
 </style>
 </head>
 <body>
-<div id="center">
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+
+<div id="jb-container">
+	<div id="jb-content">
 <h4>QnA 게시판</h4>
 		<a href="/adminQnAOnly"><small class="text-muted">QnA 게시판 전체 목록 ></small></a>
 <c:if test="${total == 0}">검색 결과가 없습니다.</c:if>
@@ -138,13 +150,13 @@
 <div id="page">
 				<c:if test="${search == null }">
 					<c:if test="${begin > 2 }">
-						<a href="/qnaList?p=${begin-1}">[이전]</a>
+						<a href="/adminQnAOnly?p=${begin-1}">[이전]</a>
 					</c:if>
 					<c:forEach begin="${begin }" end="${end}" var="i">
-						<a href="/qnaList?p=${i}">[${i}]</a>
+						<a href="/adminQnAOnly?p=${i}">[${i}]</a>
 					</c:forEach>
 					<c:if test="${end < totalPage }">
-						<a href="/qnaList?p=${end+1}">[다음]</a>
+						<a href="/adminQnAOnly?p=${end+1}">[다음]</a>
 					</c:if>
 				</c:if>
 				<c:if test="${search != null }">
@@ -168,27 +180,25 @@
 					<option value="0">제목</option>
 					<option value="1">내용</option>
 					<option value="2">작성자</option>
-				</select> <input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" /> <input style="width: 70px;" type="submit" class="btn-success" value="검색" />
+				</select>
+				 <input style="width: 200px;" type="text" class="form-control" name="search" size="15" maxlength="50" />
+				 <input style="width: 70px;" type="submit" class="btn-success" value="검색" />
 			</div>
 		</form>
+	</div>
 
-
-</div><!--  center -->
-
-			<div class="btn-group-vertical btn-group-md" role="group" aria-label="Basic example" style="width:11%;">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/adminQnAOnly';">QnA문의</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_charge';">충전소 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_member';">사용자 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/ay/admin';">공지사항 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_freeboard';">자유게시판 관리</button>
-				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_review';">리뷰게시판 관리</button>
-				<br>
+			<div id="jb-sidebar">
+		<br><br>
+			<div class="row g-3">				
+				<div><a style="width: 180px;" class="btn btn-outline-secondary" href="/adminQnAOnly">Q&A 문의</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_charge">충전소 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/ay/admin">공지사항 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_review">리뷰게시판 관리</a></div>
 			</div>
+		</div>
+</div>			
 <%@ include file="/WEB-INF/layout/Footer.jsp"%>
 </body>
 </html>

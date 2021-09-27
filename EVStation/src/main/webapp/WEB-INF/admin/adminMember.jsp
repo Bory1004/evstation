@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	//체크박스 전체 선택 /해제 
@@ -75,7 +75,7 @@
 }
 
 #jb-content {
-	width: 700px;
+	width: 740px;
 	padding: 10px;
 	margin-bottom: 20px;
 	float: right;
@@ -91,6 +91,8 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+
 <div id="jb-container">
 	<div id="jb-content">
 			<h4>사용자 관리</h4>

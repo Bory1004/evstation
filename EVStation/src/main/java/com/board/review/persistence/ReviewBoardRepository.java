@@ -28,6 +28,12 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long> 
 
 	ReviewBoard findByBoardnum(Long num);
 	
+	//관리자 페이지 stnum 상관없이 다 불러오기 위해서
+	Page<ReviewBoard>findByOrderByBoardnumDesc(Pageable page);
+	Page<ReviewBoard>findByBoardtitleContainingIgnoreCase(String boardtitle, Pageable page);
+	Page<ReviewBoard>findByBoardcontentContainingIgnoreCase(String boardcontent, Pageable page);
+	Page<ReviewBoard>findByBoardwriterContainingIgnoreCase(String boardwriter, Pageable page);
+	
 	@Transactional
 	@Modifying
 	@Query("UPDATE ReviewBoard b SET b.boardsee = b.boardsee+1 WHERE b.boardnum=:boardnum")

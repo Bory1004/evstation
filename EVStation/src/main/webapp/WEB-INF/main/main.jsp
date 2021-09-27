@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -38,7 +39,7 @@ a {
    border-radius: 20px;
    width : 230px;
    height : 300px;
-   left : 1300px;
+   left : 98%;
    padding : 10px;
    overflow-y : auto;
    
@@ -83,11 +84,12 @@ a {
                      </div>   
                   </c:when>
                   <c:otherwise>
-                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div><img style="cursor:pointer;"src="/img/alarm1.png" width="30" height="30" onclick="ring(${member.memnum})">
-                     </div>
+                     <div id="login" style="text-align:right;margin-bottom:10px;"><div id="alarmcount"></div>
+                     <img style="cursor:pointer;"src="/img/alarm1.png" width="30" height="30" onclick="ring(${member.memnum})">
+						  </div>
 						<div style="float: right;">						
-							<img id="main_profile" style = "border-radius:70%;" src="${member.memphoto}" width="40px" height="auto">${member.name}(${member.id})님 환영합니다!!							
-								<div class="dropdown">
+							<img id="main_profile" style = "border-radius:70%;" src="${member.memphoto}" width="40px" height="auto">${member.name}(${member.id})님 환영합니다!!	<br/>						
+								<div id="btns" style="float: right;">
 									<a class="btn btn-sm btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
@@ -100,6 +102,7 @@ a {
 									<a class="btn btn-sm btn-outline-success" href="/logout">로그아웃</a>
 								</div>
 							</div>
+						
 						</c:otherwise>                  
                </c:choose>
             </div>

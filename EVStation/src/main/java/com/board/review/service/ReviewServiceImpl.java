@@ -42,6 +42,28 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return list;
 	}
+	@Override
+	public Page<ReviewBoard> getReviewBoardList(int pNum) {
+		Pageable page = PageRequest.of(pNum-1, 10); // 불러올페이지, 페이지크기
+		return reviewRepo.findByOrderByBoardnumDesc(page);
+	}
+
+	@Override
+	public Page<ReviewBoard> getReviewBoardList(int pNum, int searchn, String search) {
+		Pageable page = PageRequest.of(pNum-1,10);
+		Page<ReviewBoard> list = null;
+		if(searchn == 0) {
+			list = reviewRepo.findByBoardtitleContainingIgnoreCase(search, page);
+		}else if(searchn == 1) {
+			list = reviewRepo.findByBoardcontentContainingIgnoreCase(search, page);
+		}else if(searchn == 2) {
+			list = reviewRepo.findByBoardwriterContainingIgnoreCase(search, page);
+		}
+		return list;
+	}
+
+
+	
 
 	@Override
 	public ReviewBoard getReview(Long num) {
@@ -90,6 +112,8 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewRepo.updateRecom(recomCnt,num);
 		
 	}
+
+
 
 
 	

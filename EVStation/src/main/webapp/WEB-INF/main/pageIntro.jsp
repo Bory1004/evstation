@@ -1,29 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/layout/HeaderPage.jsp"%>
+
 <!DOCTYPE HTML>
 
 <html>
 	<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-	#page{
-	margin : auto;
-	width : 70%;
-    height: 60%;
+#page{
+	margin: auto;
+	width : 50%;
+    height: 45%;
 		display:flex;
-		background-color :  #e9e9e9;
+		background-color :#e9e9e9;
 	}
-	.imgBox{
-	width : 55%;
-	background: center / cover no-repeat url("images/evst1.jpg");
-	}
-.content{
-  position: relative;
-}
 #txt{
 	padding-top : 10px;
 }
 #textBox{
-	width : 45%;
+	width : 40%;
 	margin: 50px;
 }
 h2 { text-align: center; }
@@ -32,6 +26,7 @@ h2 { text-align: center; }
 </style>
 	</head>
 	<body>
+	<%@ include file="/WEB-INF/layout/HeaderPage.jsp"%>
 
 		<!-- One -->
 								<h2 class="text-muted"><b>전기차충전소 소개</b></h2><br>

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
- <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 
 <title> 즐겨찾기</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	//체크박스 전체 선택 /해제 
@@ -72,6 +72,8 @@
 </head>
 
 <body>
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
+
 <div id="center">
 	<table style="text-align: center" class="table table-hover caption-top">
 			<thead class="table-light">
@@ -117,7 +119,7 @@
 				<br>
 				<button type="button" class="btn btn-secondary">내가 쓴 글</button>
 				<br>
-				<button type="button" class="btn btn-outline-secondary">즐겨찾기</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/myBookmark'">즐겨찾기</button>
 				<br>
 				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
 				<br>

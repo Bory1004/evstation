@@ -13,6 +13,11 @@ public interface ReviewService {
 	Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum, int searchn, String search);
 
 	Page<ReviewBoard> getReviewBoardList(int pNum,Long stnum);
+	
+	Page<ReviewBoard> getReviewBoardList(int pNum);
+	
+	Page<ReviewBoard> getReviewBoardList(int pNum, int searchn, String search);
+
 
 	ReviewBoard getReview(Long num);
 
