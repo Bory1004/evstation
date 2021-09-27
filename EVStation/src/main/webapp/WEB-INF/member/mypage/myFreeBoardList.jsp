@@ -248,7 +248,7 @@ a {
 
 						<td>${list.boardnum}</td>
 
-						<td><a href="/content/${list.boardnum}">${list.boardtitle}</a></td>
+						<td><a href="/content/1/${list.boardnum}">${list.boardtitle}</a></td>
 
 						<td>${list.boardwriter}</td>
 						<td><fmt:formatDate value="${list.boarddate}" pattern="MM.dd" /></td>
