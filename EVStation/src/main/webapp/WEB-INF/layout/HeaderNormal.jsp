@@ -100,7 +100,7 @@ a {
 									height="30" onclick="ring(${member.memnum})">
 							</div>
 							<div style="float: right;">
-								<img src="${member.memphoto}" width="45" height="30">${member.name}(${member.id})님 환영합니다!! </br>
+								<img style="border-radius: 70%;" src="${member.memphoto}" width="45" height="auto">${member.name}(${member.id})님 환영합니다!! </br>
 								<div id="btns" style="float: right;">
 										<button class="btn btn-sm btn-outline-success dropdown-toggle"
 											type="button" id="dropdownMenuButton1"

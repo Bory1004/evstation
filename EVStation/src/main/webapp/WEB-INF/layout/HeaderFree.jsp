@@ -60,8 +60,7 @@ a {
 					<!--  <a class="link-secondary" href="#">Subscribe</a> -->
 				</div>
 
-				<div
-					class="col-6 d-flex-column-reverse justify-content-end align-items-center">
+				<div class="col-6 d-flex-column-reverse justify-content-end align-items-center">
 					<!-- justify-content 자식요소 정렬  -->
 
 					<c:choose>
