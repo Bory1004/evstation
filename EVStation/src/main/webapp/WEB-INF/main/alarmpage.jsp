@@ -9,8 +9,8 @@
 		<c:if test="${alarm.alatype == 2 }"> <!-- 리뷰댓글관련 알람  -->
 		<div id="${alarm.alanum}">
 			<span style="float: left;"><a  href="#getProfile" onclick="getProfile(${alarm.member.memnum})">${alarm.member.name}(${alarm.member.id})</a></span><br> <span
-				style="float: left;">님이 <c:if test="${alarm.alacheck == 0 }"><a href="content/2/${alarm.boardnum}" onclick="checkAlarm(${alarm.alanum})">답글</a>을 달았습니다.</c:if>
-										 <c:if test="${alarm.alacheck == 1}"><a href="content/2/${alarm.boardnum}" onclick="checkAlarm(${alarm.alanum}" style="color:#808080;">답글</a>을 달았습니다.</c:if>
+				style="float: left;">님이 <c:if test="${alarm.alacheck == 0 }"><a href="/content/2/${alarm.boardnum}" onclick="checkAlarm(${alarm.alanum})">답글</a>을 달았습니다.</c:if>
+										 <c:if test="${alarm.alacheck == 1}"><a href="/content/2/${alarm.boardnum}" onclick="checkAlarm(${alarm.alanum}" style="color:#808080;">답글</a>을 달았습니다.</c:if>
 				<img style="cursor:pointer;"src="/img/xbutton.png" onclick="delAlarm(${alarm.alanum})" width="10" height="10"></span> <br>
 		</div>
 		</c:if>
