@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
- <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
