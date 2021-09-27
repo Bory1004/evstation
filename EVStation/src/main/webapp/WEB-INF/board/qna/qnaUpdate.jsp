@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +21,8 @@ a {
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
+<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
+
 	<div id="center">
 		<h4>QnA 게시판 수정하기</h4>
 		<br>

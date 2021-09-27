@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <style>
@@ -26,6 +25,8 @@ a {
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
+
 <div id="center">
 	<h4>QnA 게시판 답변달기</h4>
 		<br>
