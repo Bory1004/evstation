@@ -161,7 +161,7 @@
 				<br>
 				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_freeboard';">자유게시판 관리</button>
 				<br>
-				<button type="button" class="btn btn-secondary" onclick="location.href='/adminReview';">리뷰게시판 관리</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/admin_review';">리뷰게시판 관리</button>
 				<br>
 			</div>
 <%@ include file="/WEB-INF/layout/Footer.jsp"%>

@@ -164,7 +164,7 @@ function deleteValue() {
 		<br><br>
 			<div class="row g-3">				
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/adminQnAOnly">Q&A 문의</a></div>
-				<div><a style="width: 180px;" class="btn btn-secondary" href="#">충전소 관리</a></div>
+				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_charge">충전소 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_member">사용자 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="ay/admin">공지사항 관리</a></div>
 				<div><a style="width: 180px;" class="btn btn-secondary" href="/admin_freeboard">자유게시판 관리</a></div>	

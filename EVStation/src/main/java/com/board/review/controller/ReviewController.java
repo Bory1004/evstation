@@ -364,7 +364,7 @@ public class ReviewController implements ApplicationContextAware {
 	
 	//관리자페이지 리뷰관리
 	//관리자 페이지 
-	@RequestMapping("/adminReview")
+	@RequestMapping("/admin_review")
 	public String adminReview(Model m, @RequestParam(name = "p", defaultValue = "1") int pNum, String search,
 			@RequestParam(defaultValue = "-1") int searchn,
 			@RequestParam(name = "stnum", defaultValue = "1") Long stnum) {

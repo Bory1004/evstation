@@ -186,7 +186,7 @@ public class ChargeController {
 		m.addAttribute("searchn", searchn);
 		
 		
-		return "/admin/admin_charge";
+		return "/admin/adminCharge";
 		
 	}
 	@RequestMapping("/deleteAdminChargeChk")
@@ -198,7 +198,7 @@ public class ChargeController {
 			
 			chargeService.deleteAdmin(arrStnum[i]);
 		}
-		return  "/admin/admin_charge";
+		return  "/admin/adminCharge";
 	}
 	
 	@RequestMapping("/deleteCharge/{stnum}")

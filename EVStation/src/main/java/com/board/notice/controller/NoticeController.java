@@ -166,7 +166,7 @@ public class NoticeController {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("member", member);
 		
-		return "admin/admin";
+		return "admin/adminNotice";
 	}
 	
 }
