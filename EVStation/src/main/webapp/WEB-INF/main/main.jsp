@@ -91,7 +91,7 @@ a {
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<li><a class="dropdown-item" href="/check_mypage">개인정보 수정</a></li>
 										<li><a class="dropdown-item" href="/AllBoardList/${member.memnum}">내가 쓴 글</a></li>
-										<li><a class="dropdown-item" href="#">즐겨찾기</a></li>
+										<li><a class="dropdown-item" href="/myBookmark">즐겨찾기</a></li>
 										<c:if test="${member.getId() == 'admin'}"> <!-- 관리자 전용 페이지 -->
 										<li><a class="dropdown-item" href="/adminQnAOnly">관리자페이지</a></li>
 										</c:if>
@@ -119,20 +119,28 @@ a {
 
    <main>
       <div class="container">
+          <form name="search-form" action="/getChargeList">
+      
          <div class="row">
              <div class="col">
                   <div class="">
                      <div class="w-100 input-group">
-                        <span class="input-group-text"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-                     </span>
-                     <input type="text" class="form-control" id="search1" placeholder="충전소명을 입력하세요">
+                    
+				<div style="width: 750px; margin:auto; text-align:center;" class="input-group">
+				<select class="form-select" name="searchn">
+					<option value="0" style="text-align:center">이름</option>
+					<option value="1" style="text-align:center">주소</option>
+				</select> 
+					<input style="width: 200px;" type="text" class="form-control" name="search" size="10" maxlength="50" />
+					<input style="width: 70px;" type="submit" class="btn-success" value="검색"/>
+					</div>
+                     
+			</div>
                   </div>
                   <div id="map" class="m-3" style="width: 800px; height: 400px;"></div>
                   </div>
                 </div>
+                </form>
              
               <div id="ad" class="">
                  <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
@@ -182,6 +190,7 @@ a {
                 </div>
                </div>             
            </div>
+ 
       </div>      
    </main>
 

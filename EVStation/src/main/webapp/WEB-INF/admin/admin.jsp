@@ -313,7 +313,7 @@ a {
 				<br>
 			</div>
 	
-<%@ include file="WEB-INF/layout/Footer.jsp"%>
+<%@ include file="/WEB-INF/layout/Footer.jsp"%>
 	
 </body>
 </html>

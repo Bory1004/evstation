@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="DsLayout/dsHeaderQnA.jsp"%>
+<%@ include file="/WEB-INF/layout/HeaderQnA.jsp"%>
 <!DOCTYPE html>
 <html>
 <style>

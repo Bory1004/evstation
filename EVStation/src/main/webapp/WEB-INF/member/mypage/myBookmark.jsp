@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
- <%@ include file="/WEB-INF/DsBoard/DsLayout/dsHeaderNormal.jsp"%>
+ <%@ include file="/WEB-INF/layout/HeaderNormal.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,13 +101,13 @@
 		<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteValue();">삭제</button>
 		<div id="page">
 						<c:if test="${begin > 2}">
-							<a href="/bookmark?p=${begin-1}">[이전]</a>
+							<a href="/myBookmark?p=${begin-1}">[이전]</a>
 						</c:if>
 						<c:forEach begin="${begin}" end="${end}" var="i">
-							<a href="/bookmark?p=${i}">[${i}]</a>
+							<a href="/myBookmark?p=${i}">[${i}]</a>
 						</c:forEach>
 						<c:if test="${end < totalPage}">
-							<a href="/bookmark?p=${end+1}">[다음]</a>
+							<a href="/myBookmark?p=${end+1}">[다음]</a>
 						</c:if>
 		</div>
 </div>		
