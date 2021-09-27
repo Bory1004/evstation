@@ -227,32 +227,6 @@ a {
 		replyDiv.style.display = "none";
 		return false;
 	}
-  
-	//추천 부분	
-	$(function() {
-	$("#h").click(function() {
-		let num = ${board.boardnum};
-		let id = "${member.id}";
-        console.log(id);
-		let url = "/updateFreeRecom/" + num + "/" + id;
-				$.ajax({
-					url : url
-				})	
-				.done(
-					function(data) {
-					if (document.getElementById("h").getAttribute('src') == '/img/empty.png') {
-						document.getElementById("h").src = "/img/full.png";
-							} else {
-							document.getElementById("h").src = "/img/empty.png";//.src는 속성값 변경
-						}
-						$("#recom_free").html(data);//매개변수가 있으니까 변경된 값 가져옴
-						}).fail(
-							function(jqXHR, textStatus,errorThrown) {
-							console.log("error");
-					}); 
-				
-		})
-	})
-		
+ 		
 </script>
 </html>
