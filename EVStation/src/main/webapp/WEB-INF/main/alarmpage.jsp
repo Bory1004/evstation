@@ -17,7 +17,7 @@
 		
 		<c:if test="${alarm.alatype == 1}"> <!-- 메일관련 알람 -->
 		<div id="${alarm.alanum}">
-			<span style="float: left;">${id}</span><br> <span
+			<span style="float: left;">${alarm.member.name}</span><br> <span
 				style="float: left;">님에게 메일이 도착했습니다.</span> <br>
 		</div>
 		</c:if>

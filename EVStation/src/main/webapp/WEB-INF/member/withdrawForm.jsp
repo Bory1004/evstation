@@ -19,7 +19,6 @@
 }
 </style>
 <body>
-${member}
 <div id="drawform">
 <img src="/img/logo.png" width="140" height="100"><br><br>
 <h2>회원 탈퇴</h2><br>
