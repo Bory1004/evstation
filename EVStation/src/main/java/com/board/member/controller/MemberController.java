@@ -109,9 +109,9 @@ public class MemberController {
 	public String login(@ModelAttribute("member") Member member, Model model,
 			@RequestParam(name = "cookie", required = false, defaultValue = "0") int cookie,
 			HttpServletResponse response, HttpSession session) {
-		
+
 		Member findMember = memberService.getMember(member);
-		
+
 		// 로그인 성공
 		if (findMember != null && findMember.getMempw().equals(member.getMempw())) {
 			model.addAttribute("member", findMember);
@@ -188,25 +188,25 @@ public class MemberController {
 
 	// 프로필 변경
 	@PostMapping("/update_photo")
-	public String update_photo(@ModelAttribute("member") Member member, @RequestParam("file_photo") MultipartFile file, HttpServletRequest request)
-			throws Exception {
+	public String update_photo(@ModelAttribute("member") Member member, @RequestParam("file_photo") MultipartFile file,
+			HttpServletRequest request) throws Exception {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(file.getSize());
-		
+
 		String uploadPath = request.getSession().getServletContext().getRealPath("/").concat("resources/profile");
 		System.out.println(uploadPath);
-		
+
 		String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
 
 		if (file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
 			// 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
 			String[] file_fullname = file.getOriginalFilename().split("\\.");
-			fileName = member.getId()+"."+file_fullname[1];
+			fileName = member.getId() + "." + file_fullname[1];
 			File file_photo = new File(uploadPath, fileName);
 			file.transferTo(file_photo);
-			
+
 			// 원본 파일 경로 + 파일명 저장
-			member.setMemphoto(request.getContextPath()+"/resources/profile/"+fileName);
+			member.setMemphoto(request.getContextPath() + "/resources/profile/" + fileName);
 			memberService.saveMember(member);
 		} else { // 첨부된 파일이 없으면
 			fileName = "/profile/basic.png";
@@ -219,7 +219,8 @@ public class MemberController {
 
 		return "redirect:mypage";
 	}
-	//회원탈퇴 
+
+	// 회원탈퇴
 	@RequestMapping("/withdrawForm")
 	public String withdrawForm() {
 		return "member/withdrawForm";
@@ -237,9 +238,9 @@ public class MemberController {
 		dsService.withdraw(memnum);
 		dscommentService.withdraw(memnum);
 		noticecommentService.withdraw(memnum);
-
+		
 		memberService.delAccount(memnum);
-
+		
 		return "success!";
 	}
 
