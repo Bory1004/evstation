@@ -28,7 +28,9 @@ import com.board.qna.service.QnARecomService;
 import com.board.qna.service.QnABoardService;
 import com.board.qna.service.QnAEmailService;
 import com.board.review.domain.ReviewBoardComment;
+import com.board.review.domain.Alarm;
 import com.board.review.domain.ReviewBoard;
+import com.board.review.service.AlarmService;
 import com.board.review.service.ReviewService;
 import com.google.gson.Gson;
 
@@ -62,6 +64,8 @@ public class QnAConstroller {
 	@Autowired
 	private QnARecomService dsRecomService;
 	
+	@Autowired
+	private AlarmService alarmService;
 	
 
 	@RequestMapping("/qnaList") // 리스트에 페이징 처리, 검색 처리
@@ -95,7 +99,7 @@ public class QnAConstroller {
 		m.addAttribute("end", end);
 		m.addAttribute("search", search);
 		m.addAttribute("searchn", searchn);
-
+        
 		System.out.println(list);
 		return "/board/qna/qnaList";
 	}
@@ -230,15 +234,15 @@ public class QnAConstroller {
 		return "redirect:/qnaList";
 	}
 
-	@RequestMapping("/qnaReplyForm/{boardnum}/{boardref}/{boardrestep}/{boardrelevel}")
+	@RequestMapping("/qnaReplyForm/{boardnum}/{boardref}/{boardrestep}/{boardrelevel}/{boardmemnum}")
 	public String writeReply(@PathVariable Long boardnum, @PathVariable Long boardref, @PathVariable Long boardrestep,
-			@PathVariable Long boardrelevel, Model m) {
+			@PathVariable Long boardrelevel,@PathVariable Long boardmemnum , Model m) {
 
 		m.addAttribute("boardnum", boardnum);
 		m.addAttribute("ref", boardref);
 		m.addAttribute("restep", boardrestep);
 		m.addAttribute("relevel", boardrelevel);
-
+		m.addAttribute("boardmemnum", boardmemnum);
 		return "/board/qna/qnaReplyForm";
 	}
 
@@ -268,7 +272,15 @@ public class QnAConstroller {
 		dsEmail.setContent(content);
 
 		emailService.sendMail(dsEmail);
-
+//--------------------------------알람
+		Alarm alarm = null;
+		alarm = new Alarm();
+		alarm.setAlatype((long) 1);   
+		alarm.setAlacheck((long) 0);
+		alarm.setFrommemnum((long)21);
+		alarm.setBoardnum(dsEntity.getBoardnum());
+		alarm.setMemnum(dsEntity.getBoardmemnum());
+		alarmService.saveAlarm(alarm);
 
 		return "redirect:/adminQnAOnly";
 

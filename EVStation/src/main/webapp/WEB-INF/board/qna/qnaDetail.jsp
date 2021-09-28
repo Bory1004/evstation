@@ -72,7 +72,7 @@ textarea {
 		<div align="right">
 			<c:if test="${member.getId() == 'admin'}">
 				<!--  관리자 id : admin  .. 관리자만이 답변 달수 있도록 -->
-				<button type="button" class="btn btn-primary" onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}/${detail.boardrelevel }';">답글달기</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='/qnaReplyForm/${detail.boardnum}/${detail.boardref}/${detail.boardrestep}/${detail.boardrelevel }/${detail.boardmemnum}';">답글달기</button>
 			</c:if>
 		</div>
 		<img src="${detail.member.memphoto}" width="45" height="30"> <a href="">${detail.member.id}님의 게시글 더보기 ></a>

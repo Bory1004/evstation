@@ -34,6 +34,8 @@ a {
 		<input type="hidden" name="boardref" value="${boardref }"> 
 		<input type="hidden" name="boardrestep" value="${boardrestep }"> 
 		<input type="hidden" name="boardrelevel" value="${boardrelevel }">
+		<input type="hidden" name="boardmemnum" value="${boardmemnum}">
+		
 		<table class="table table-borderless border">
 				<tr>
 					<td><a href="/qnaList"><small style="color: green">QnA 게시판 ></small></a></td>
