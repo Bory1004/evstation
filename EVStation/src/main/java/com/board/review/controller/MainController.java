@@ -152,7 +152,7 @@ public class MainController {
 		
 		if (pNum != totalPageCount) {
 
-			if(totalPageCount == 0) { return "kmboard/review/myAllList";};
+			if(totalPageCount == 0) { return "member/mypage/myAllList";};
 
 			for (int i = 10*(pNum-1); i< 10*pNum ;i++) {
 					All.add(list.get(i));

@@ -99,7 +99,7 @@
 				<br>
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/AllBoardList/${member.memnum}'">내가 쓴 글</button>
 				<br>
-				<button type="button" class="btn btn-secondary">즐겨찾기</button>
+				<button type="button" class="btn btn-secondary" onclick="location.href='/myBookmark'">즐겨찾기</button>
 				<br>
 				<button type="button" class="btn btn-secondary" onclick="window.open('http://localhost:8088/withdrawForm','new','scrollbars=no,width=430,height=400,top=100,left=100')">회원탈퇴</button>
 				<br>
