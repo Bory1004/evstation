@@ -247,7 +247,7 @@ public class QnAConstroller {
 	}
 
 	@PostMapping("/qnaReply")
-	public String saveReply(QnABoard dsEntity, QnAEmail dsEmail, @ModelAttribute("member") Member member)
+	public String saveReply(QnABoard dsEntity, QnAEmail dsEmail, @ModelAttribute("member") Member member, Long boardmemnum)
 			throws Exception {
 		dsService.saveReply(dsEntity.getBoardref(), dsEntity.getBoardrestep(), dsEntity.getBoardrelevel());
 		dsEntity.setBoardrestep(dsEntity.getBoardrestep() + 1); // 답변 달릴 때 + 1
@@ -277,9 +277,9 @@ public class QnAConstroller {
 		alarm = new Alarm();
 		alarm.setAlatype((long) 1);   
 		alarm.setAlacheck((long) 0);
-		alarm.setFrommemnum((long)21);
+		alarm.setFrommemnum(dsEntity.getBoardmemnum());
 		alarm.setBoardnum(dsEntity.getBoardnum());
-		alarm.setMemnum(dsEntity.getBoardmemnum());
+		alarm.setMemnum(boardmemnum);
 		alarmService.saveAlarm(alarm);
 
 		return "redirect:/adminQnAOnly";
