@@ -132,6 +132,8 @@ public class MemberController {
 				cookie_pw.setPath("/");
 				response.addCookie(cookie_pw);
 			}
+			List<Charge> list = chargeService.openMap();
+			model.addAttribute("list", list);
 			return "main/main";
 		}
 
