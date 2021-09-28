@@ -231,15 +231,16 @@ public class MemberController {
 	@RequestMapping("/withdraw/{memnum}")
 	@ResponseBody
 	public String withdraw(@PathVariable Long memnum) {
-
+		commentService.withdraw(memnum);
 		reviewService.withdraw(memnum);
 		alarmService.withdraw(memnum);
-		commentService.withdraw(memnum);
-		freeboardService.withdraw(memnum);
 		freecommentService.withdraw(memnum);
-		dsService.withdraw(memnum);
+		freeboardService.withdraw(memnum);
 		dscommentService.withdraw(memnum);
 		noticecommentService.withdraw(memnum);
+		dsService.withdraw(memnum);
+		
+		
 		
 		memberService.delAccount(memnum);
 		
