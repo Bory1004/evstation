@@ -6,20 +6,7 @@
 <head>
 <title>충전소목록</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-@media ( min-width : 768px) {
-	.container {
-		width: 750px
-	}
-}
-
-@media ( min-width : 992px) {
-	.container {
-		width: 940px
-	}
-}
 #center {
 	width: 800px;
 	margin-left: auto;
@@ -30,31 +17,6 @@ a {
 }
 #page {
 	text-align: center;
-}
-#alarmpage {
-   position :absolute;
-   border: solid #BDBDBD 1px;
-   border-radius: 20px;
-   width : 230px;
-   height : 300px;
-   left : 1200px;
-   padding : 10px;
-   overflow-y : auto;
-}
-#alarmcount {
-   position : relative;
-   width : 30px;
-   height : 20px;
-   left : 380px;
-   top : 10px;   
-   border-radius: 10px;
-   text-align : center;
-   vertical-align : middle;
-}
-#alarmcount > span {
-   position :relative;
-   color : white;
-   bottom : 3px;
 }
 </style>
 </head>
