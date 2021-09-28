@@ -6,8 +6,6 @@
 <html>
 <head>
 <title>충전소상세</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 @media ( min-width : 768px) {
 	.container {
