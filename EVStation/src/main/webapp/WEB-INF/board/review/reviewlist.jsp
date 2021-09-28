@@ -6,6 +6,8 @@
 <html>
 <head>
 <title>충전소현황</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <style>
 @media ( min-width : 768px) {
 	.container {
